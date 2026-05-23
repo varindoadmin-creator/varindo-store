@@ -22,10 +22,15 @@ export function Footer() {
 
         <div>
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-300">Contact</p>
-          <div className="mt-4 grid gap-3 text-sm leading-7 text-stone-400">
+          <div className="mt-4 grid gap-1 text-sm leading-7 text-stone-400">
             <p>Phone: 0812 8888 5224 / 0812 1001 5224</p>
             <p>Email: contact@varindo.co.id</p>
           </div>
+        </div>
+      </div>
+      <div className="border-t border-white/10">
+        <div className="section-shell py-5 text-xs font-medium text-stone-500">
+          Copyright © {new Date().getFullYear()} CV. VARINDO FORMA HUTAMA.
         </div>
       </div>
     </footer>

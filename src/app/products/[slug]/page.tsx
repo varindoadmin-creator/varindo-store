@@ -60,9 +60,6 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
             <p className="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-stone-500">Tax included</p>
           </div>
 
-          <p className="mt-5 max-w-2xl text-base leading-8 text-stone-600">
-            {product.description || 'Product description will be updated soon.'}
-          </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a href={enquiryUrl} target="_blank" rel="noreferrer" className="dark-button">

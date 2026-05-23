@@ -6,6 +6,76 @@ import { fetchZohoLamitakProducts } from './zoho';
 
 export type CollectionGroup = 'woods' | 'patterns' | 'solids';
 
+const NEW_COLLECTION_CODE_PREFIXES = ['TSP', 'TSW', 'ATP', 'ATS', 'CATP', 'CATS'];
+
+const BEST_SELLER_PRODUCT_CODES = [
+  'WY 4256X',
+  'DXO 5338D',
+  'WY 1275D',
+  'WY 1244D',
+  'WY 4263X',
+  'WY 5281D',
+  'WY 1245D',
+  'WG 5255D',
+  'WY 5217D',
+  'DXP 1390MD',
+  'DXO 4323X',
+  'WYA 4249K',
+  'WY 4257X',
+  'WY 5214D',
+  'DXO 5339D',
+  'WY 1288D',
+  'WY 4269X',
+  'WY 5242D',
+  'DXP 1380XM',
+  'WY 4222X',
+  'DXO 1341DC',
+  'DXO 5337D',
+  'DXP 11390MD',
+  'WY 5243D',
+  'DXP 1391MD',
+  'DXP 1387BS',
+  'WY 4219X',
+  'WY 1257D',
+  'WY 5259D',
+  'WYA 5286MT',
+  'WY 4218X',
+  'WY 4254X',
+  'MTA 9310XL',
+  'WY 4223X',
+  'SCT 1150VU',
+  'WY 4252X',
+  'WY 14269X',
+  'WY 4272X',
+  'DXO 1337D',
+  'WY 1272D',
+  'SCA 1103D',
+  'SCM 1103XM',
+  'WY 1286D',
+  'WY 4264X',
+  'DXP 1386BS',
+  'SCX 1171D',
+  'SCA 5128D',
+  'SCT 1108LU',
+  'WG 5256D',
+  // Alternate OCR / legacy-code spellings from the uploaded best-seller image.
+  'DXO 1323X',
+  'WY 4257D',
+  'SCX 1150D',
+  'SCA 1108D'
+];
+
+export function isBestSellerProduct(product: Product) {
+  const normalizedCode = normalizeCode(product.code);
+  return BEST_SELLER_PRODUCT_CODES.some((code) => normalizedCode === normalizeCode(code));
+}
+
+
+export function isNewCollectionProduct(product: Product) {
+  const normalizedCode = normalizeCode(product.code);
+  return NEW_COLLECTION_CODE_PREFIXES.some((prefix) => normalizedCode.startsWith(normalizeCode(prefix)));
+}
+
 function enrichProduct(product: Product): Product {
   return {
     ...product,
@@ -80,12 +150,22 @@ export function searchProducts(products: Product[], query: string) {
 
 export async function getNewCollectionProducts() {
   const products = await getAllProducts();
+  const codedNewCollections = products.filter(isNewCollectionProduct);
+  if (codedNewCollections.length > 0) return codedNewCollections;
+
   const tagged = products.filter((product) => product.badges?.includes('NEW'));
   return tagged.length > 0 ? tagged : products.slice(0, 4);
 }
 
 export async function getBestSellerProducts() {
   const products = await getAllProducts();
+  const productMap = new Map(products.map((product) => [normalizeCode(product.code), product]));
+  const rankedBestSellers = BEST_SELLER_PRODUCT_CODES.map((code) => productMap.get(normalizeCode(code))).filter(
+    Boolean
+  ) as Product[];
+
+  if (rankedBestSellers.length > 0) return rankedBestSellers;
+
   const tagged = products.filter((product) => product.badges?.includes('BESTSELLER'));
   return tagged.length > 0 ? tagged : products.slice(0, 4);
 }

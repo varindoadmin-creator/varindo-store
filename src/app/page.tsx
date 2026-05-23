@@ -30,27 +30,27 @@ export default async function HomePage() {
 
   return (
     <div>
-      <section className="relative isolate overflow-hidden bg-stone-100 text-stone-950">
+      <section className="relative isolate overflow-hidden bg-stone-950 text-white">
         <div
           className="absolute inset-0 -z-10 bg-cover bg-center"
-          style={{ backgroundImage: "url('/banner.webp')" }}
+          style={{ backgroundImage: "url('/portfolio.webp')" }}
         />
-        <div className="absolute inset-0 -z-10 bg-white/62" />
-        <div className="absolute inset-y-0 left-0 -z-10 w-[58%] bg-gradient-to-r from-white/90 via-white/72 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-white/55 to-transparent" />
+        <div className="absolute inset-0 -z-10 bg-stone-950/42" />
+        <div className="absolute inset-y-0 left-0 -z-10 w-[64%] bg-gradient-to-r from-black/80 via-black/55 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-black/55 to-transparent" />
 
         <div className="section-shell grid min-h-[calc(100vh-74px)] items-center gap-12 py-16 sm:py-20 lg:grid-cols-[1.03fr_0.97fr] lg:py-24">
           <div>
-            <p className="eyebrow text-amber-700">Welcome</p>
-            <h1 className="mt-5 max-w-4xl text-4xl font-black tracking-[-0.045em] text-stone-950 sm:text-6xl lg:text-7xl">
+            <p className="eyebrow text-amber-300">Welcome</p>
+            <h1 className="mt-5 max-w-4xl text-4xl font-black tracking-[-0.045em] text-white sm:text-6xl lg:text-7xl">
               Varindo | Built on Trust. Driven by Service.
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-stone-700 sm:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-8 text-stone-100 sm:text-lg">
               Varindo supports contractors, interior businesses, and projects across Indonesia with reliable laminate supply and responsive service. As an authorized dealer, we provide trusted products, responsive support, and dependable service.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/products" className="dark-button">
+              <Link href="/products" className="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-bold text-stone-950 shadow-sm transition hover:-translate-y-0.5 hover:bg-stone-100">
                 Browse Collection
               </Link>
             </div>
@@ -129,7 +129,7 @@ export default async function HomePage() {
             </div>
             <div
               className="relative min-h-[320px] bg-cover bg-center lg:min-h-full"
-              style={{ backgroundImage: "url('/portfolio.webp')" }}
+              style={{ backgroundImage: "url('/banner.webp')" }}
               aria-label="Lamitak portfolio"
             >
               <div className="absolute inset-0 bg-gradient-to-l from-black/5 via-transparent to-black/15" />

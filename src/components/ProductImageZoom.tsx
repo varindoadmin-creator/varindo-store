@@ -53,10 +53,9 @@ export function ProductImageZoom({ src, alt }: { src: string; alt: string }) {
             <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem] bg-stone-100">
               <Image src={src} alt={alt} fill sizes="100vw" className="object-contain" />
             </div>
-            <div className="flex flex-wrap items-center justify-between gap-3 px-2 py-3 text-sm text-stone-600">
-              <p>Open the image in a new tab to save it if needed.</p>
-              <a href={src} target="_blank" rel="noreferrer" className="font-bold text-stone-950 hover:underline">
-                Open / save image
+            <div className="flex flex-wrap items-center justify-end gap-3 px-2 py-3 text-sm text-stone-600">
+              <a href={src} download target="_blank" rel="noreferrer" className="font-bold text-stone-950 hover:underline">
+                Download
               </a>
             </div>
           </div>
