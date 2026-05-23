@@ -3,6 +3,8 @@ import { Suspense } from 'react';
 import { ProductExplorer } from '@/components/ProductExplorer';
 import { getAllProducts, getFilterOptions } from '@/lib/products';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 export const revalidate = 600;
 
 export const metadata: Metadata = {

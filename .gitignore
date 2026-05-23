@@ -1,30 +1,9 @@
-# dependencies
-node_modules/
-
-# Next.js
-.next/
-out/
-
-# production
-build/
-
-# environment variables
+node_modules
+.next
+out
 .env
 .env.local
-.env*.local
-
-# logs
+.DS_Store
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-
-# macOS
-.DS_Store
-
-# local / generated files
-venv/
-downloaded_images/
-*.csv
-*.py
-tsconfig.tsbuildinfo

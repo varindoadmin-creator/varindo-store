@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { ProductExplorer } from '@/components/ProductExplorer';
 import { CollectionGroup, getProductsByCollectionGroup } from '@/lib/products';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 export const revalidate = 600;
 
 const groups: Record<CollectionGroup, { title: string; subtitle: string; description: string }> = {
@@ -24,9 +26,6 @@ const groups: Record<CollectionGroup, { title: string; subtitle: string; descrip
   }
 };
 
-export function generateStaticParams() {
-  return Object.keys(groups).map((group) => ({ group }));
-}
 
 export function generateMetadata({ params }: { params: { group: string } }): Metadata {
   const group = params.group as CollectionGroup;

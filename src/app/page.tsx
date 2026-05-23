@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { ProductGrid } from '@/components/ProductGrid';
 import { getBestSellerProducts, getNewCollectionProducts } from '@/lib/products';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 export const revalidate = 600;
 
 const collectionCards = [

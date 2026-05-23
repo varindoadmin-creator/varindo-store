@@ -6,12 +6,10 @@ import { buildProductEnquiryMessage, buildWhatsAppUrl } from '@/lib/whatsapp';
 import { formatIDR } from '@/lib/utils';
 import { getAllProducts, getProductBySlug } from '@/lib/products';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 export const revalidate = 600;
 
-export async function generateStaticParams() {
-  const products = await getAllProducts();
-  return products.map((product) => ({ slug: product.slug }));
-}
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const product = await getProductBySlug(params.slug);
