@@ -14,6 +14,9 @@ export function Footer() {
         <div>
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-300">Catalog</p>
           <div className="mt-4 grid gap-3 text-sm text-stone-400">
+            <Link href="/collections/new-collections" className="hover:text-white">New Collections</Link>
+            <Link href="/collections/best-sellers" className="hover:text-white">Best Sellers</Link>
+            <Link href="/collections/promo-items" className="hover:text-white">Promo Items</Link>
             <Link href="/collections/woods" className="hover:text-white">Woods</Link>
             <Link href="/collections/patterns" className="hover:text-white">Patterns</Link>
             <Link href="/collections/solids" className="hover:text-white">Solids</Link>

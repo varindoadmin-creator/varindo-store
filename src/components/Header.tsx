@@ -11,6 +11,9 @@ const navItems = [
 ];
 
 const collectionItems = [
+  { href: '/collections/new-collections', label: 'NEW COLLECTIONS' },
+  { href: '/collections/best-sellers', label: 'BEST SELLERS' },
+  { href: '/collections/promo-items', label: 'PROMO ITEMS' },
   { href: '/collections/woods', label: 'WOODS' },
   { href: '/collections/patterns', label: 'PATTERNS' },
   { href: '/collections/solids', label: 'SOLIDS' }
@@ -127,7 +130,7 @@ export function Header() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {collectionItems.map((item) => (
                 <Link
                   key={item.href}

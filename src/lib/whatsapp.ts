@@ -12,15 +12,21 @@ export function buildWhatsAppUrl(message: string) {
 }
 
 export function buildProductEnquiryMessage(product: Product) {
-  return [
+  const lines = [
     'Halo Admin Varindo, saya tertarik dengan produk berikut:',
     '',
     `Produk: ${product.name}`,
     `Kode: ${product.code}`,
-    `Harga: ${formatIDR(product.price)} (Termasuk PPN)`,
-    '',
-    'Terima kasih.'
-  ].join('\n');
+    `Harga: ${formatIDR(product.price)} (Termasuk PPN)`
+  ];
+
+  if (product.isPromoItem && typeof product.promoPrice === 'number') {
+    lines.push(`Promo: ${formatIDR(product.promoPrice)} (Termasuk PPN)`);
+  }
+
+  lines.push('', 'Terima kasih.');
+
+  return lines.join('\n');
 }
 
 export function buildSampleRequestMessage(product?: Product) {

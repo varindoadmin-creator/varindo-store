@@ -106,3 +106,8 @@ Confirm the Zoho item names, rates, and custom fields are correct before going p
 Zoho Books is the source of truth for public catalog items, item names, active status, and prices. The Lamitak product database is used only to enrich Zoho items with display attributes such as design, size, thickness, finish, category, and collection. It must not be used as the source list of items.
 
 Zoho Books item rates are maintained excluding PPN. The website displays prices including PPN using `NEXT_PUBLIC_PPN_RATE=0.11`.
+
+
+## Promo Items Collection
+
+The `/collections/promo-items` page is generated automatically from Zoho Books items where `stockOnHand >= ZOHO_PROMO_MIN_STOCK_ON_HAND` (default: 10). Zoho Books remains the source of items, prices, and stock data.

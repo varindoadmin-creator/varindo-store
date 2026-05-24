@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { ProductExplorer } from '@/components/ProductExplorer';
-import { getAllProducts, getFilterOptions } from '@/lib/products';
+import { getFilterOptions, getPublicProducts } from '@/lib/products';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProductsPage() {
-  const products = await getAllProducts();
+  const products = await getPublicProducts();
   const filterOptions = await getFilterOptions();
 
   return (

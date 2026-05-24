@@ -23,6 +23,11 @@ type ZohoItem = {
   name?: string;
   sku?: string;
   rate?: number | string;
+  stock_on_hand?: number | string | null;
+  stock?: number | string | null;
+  available_stock?: number | string | null;
+  actual_available_stock?: number | string | null;
+  available_for_sale_stock?: number | string | null;
   status?: string;
   description?: string;
   unit?: string;
@@ -147,6 +152,40 @@ function inferColorFamily(item: ZohoItem) {
   return getCustomFieldValue(item, ['color family', 'colour family', 'warna', 'color']) || undefined;
 }
 
+
+function toNumber(value: unknown) {
+  if (value === undefined || value === null || value === '') return null;
+  const parsed = Number(String(value).replace(/[^0-9.-]/g, ''));
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function inferStockOnHand(item: ZohoItem) {
+  const stockFromKnownFields = [
+    item.stock_on_hand,
+    item.available_stock,
+    item.actual_available_stock,
+    item.available_for_sale_stock,
+    item.stock
+  ]
+    .map(toNumber)
+    .find((value) => typeof value === 'number');
+
+  if (typeof stockFromKnownFields === 'number') return stockFromKnownFields;
+
+  const customStock = getCustomFieldValue(item, [
+    'stock on hand',
+    'stock_on_hand',
+    'available stock',
+    'available_stock',
+    'qty available',
+    'quantity available',
+    'stok',
+    'stock'
+  ]);
+
+  return toNumber(customStock);
+}
+
 function isExcludedCatalogItem(item: ZohoItem) {
   const fields = JSON.stringify(item.custom_fields || []).toLowerCase();
   const text = `${item.name || ''} ${item.sku || ''} ${item.description || ''} ${fields}`.toLowerCase();
@@ -208,6 +247,8 @@ function mapZohoItemToProduct(item: ZohoItem): Product {
     price: websitePriceIncludingTax,
     priceExcludingTax: typeof zohoRateExcludingTax === 'number' && Number.isFinite(zohoRateExcludingTax) ? zohoRateExcludingTax : null,
     taxIncluded: true,
+    stockOnHand: inferStockOnHand(item),
+    unit: item.unit,
     currency: 'IDR',
     active: item.status ? item.status.toLowerCase() === 'active' : true,
     imageUrl: getLamitakImageUrl(code),
@@ -235,7 +276,7 @@ async function fetchZohoItemsPage(accessToken: string, page: number) {
     headers: {
       Authorization: `Zoho-oauthtoken ${accessToken}`
     },
-    next: { revalidate: 600 }
+    next: { revalidate: Math.max(60, Math.floor(CACHE_TTL_MS / 1000)) }
   });
 
   if (!response.ok) {

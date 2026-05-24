@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import { getAllProducts } from '@/lib/products';
+import { getPublicProducts } from '@/lib/products';
 
 export const revalidate = 600;
 
 export async function GET() {
-  const products = await getAllProducts();
+  const products = await getPublicProducts();
 
   return NextResponse.json({
     success: true,

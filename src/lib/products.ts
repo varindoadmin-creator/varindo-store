@@ -4,9 +4,10 @@ import { getLamitakImageUrl } from './cloudinary';
 import { normalizeCode, slugify, uniq } from './utils';
 import { fetchZohoLamitakProducts } from './zoho';
 
-export type CollectionGroup = 'woods' | 'patterns' | 'solids';
+export type CollectionGroup = 'new-collections' | 'best-sellers' | 'promo-items' | 'woods' | 'patterns' | 'solids';
 
 const NEW_COLLECTION_CODE_PREFIXES = ['TSP', 'TSW', 'ATP', 'ATS', 'CATP', 'CATS'];
+const PROMO_MIN_STOCK_ON_HAND = Number(process.env.ZOHO_PROMO_MIN_STOCK_ON_HAND || 10);
 
 const BEST_SELLER_PRODUCT_CODES = [
   'WY 4256X',
@@ -76,12 +77,43 @@ export function isNewCollectionProduct(product: Product) {
   return NEW_COLLECTION_CODE_PREFIXES.some((prefix) => normalizedCode.startsWith(normalizeCode(prefix)));
 }
 
+
+export function isPromoItemProduct(product: Product) {
+  const stockOnHand = typeof product.stockOnHand === 'number' ? product.stockOnHand : null;
+  return stockOnHand !== null && stockOnHand >= PROMO_MIN_STOCK_ON_HAND;
+}
+
+function calculatePromoPrice(price?: number | null) {
+  if (typeof price !== 'number') return null;
+  return Math.round(price * 0.98);
+}
+
 function enrichProduct(product: Product): Product {
+  const isPromoItem = isPromoItemProduct(product);
+  const badges = new Set(product.badges || []);
+
+  if (isPromoItem) {
+    badges.add('PROMO');
+  }
+
   return {
     ...product,
     slug: product.slug || slugify(`${product.code} ${product.name}`),
-    imageUrl: product.imageUrl || getLamitakImageUrl(product.code)
+    imageUrl: product.imageUrl || getLamitakImageUrl(product.code),
+    isPromoItem,
+    promoPrice: isPromoItem ? calculatePromoPrice(product.price) : product.promoPrice || null,
+    badges: Array.from(badges)
   };
+}
+
+
+function toPublicProduct(product: Product): Product {
+  const { stockOnHand: _stockOnHand, unit: _unit, ...publicProduct } = product;
+  return publicProduct;
+}
+
+function toPublicProducts(products: Product[]) {
+  return products.map(toPublicProduct);
 }
 
 async function getSourceProducts() {
@@ -102,15 +134,22 @@ export async function getAllProducts() {
   return products.filter((product) => product.active).map(enrichProduct);
 }
 
+
+export async function getPublicProducts() {
+  return toPublicProducts(await getAllProducts());
+}
+
 export async function getProductBySlug(slug: string) {
   const products = await getAllProducts();
-  return products.find((product) => product.slug === slug);
+  const product = products.find((product) => product.slug === slug);
+  return product ? toPublicProduct(product) : undefined;
 }
 
 export async function getProductByCode(code: string) {
   const products = await getAllProducts();
   const normalized = normalizeCode(code);
-  return products.find((product) => normalizeCode(product.code) === normalized);
+  const product = products.find((product) => normalizeCode(product.code) === normalized);
+  return product ? toPublicProduct(product) : undefined;
 }
 
 export async function getFilterOptions() {
@@ -148,13 +187,28 @@ export function searchProducts(products: Product[], query: string) {
   });
 }
 
+
+function sortPromoItems(products: Product[]) {
+  return [...products].sort((a, b) => {
+    const stockDifference = (b.stockOnHand || 0) - (a.stockOnHand || 0);
+    if (stockDifference !== 0) return stockDifference;
+    return a.name.localeCompare(b.name);
+  });
+}
+
 export async function getNewCollectionProducts() {
   const products = await getAllProducts();
   const codedNewCollections = products.filter(isNewCollectionProduct);
-  if (codedNewCollections.length > 0) return codedNewCollections;
+  if (codedNewCollections.length > 0) return toPublicProducts(codedNewCollections);
 
   const tagged = products.filter((product) => product.badges?.includes('NEW'));
-  return tagged.length > 0 ? tagged : products.slice(0, 4);
+  return toPublicProducts(tagged.length > 0 ? tagged : products.slice(0, 4));
+}
+
+
+export async function getPromoItemProducts() {
+  const products = await getAllProducts();
+  return toPublicProducts(sortPromoItems(products.filter(isPromoItemProduct)));
 }
 
 export async function getBestSellerProducts() {
@@ -164,28 +218,40 @@ export async function getBestSellerProducts() {
     Boolean
   ) as Product[];
 
-  if (rankedBestSellers.length > 0) return rankedBestSellers;
+  if (rankedBestSellers.length > 0) return toPublicProducts(rankedBestSellers);
 
   const tagged = products.filter((product) => product.badges?.includes('BESTSELLER'));
-  return tagged.length > 0 ? tagged : products.slice(0, 4);
+  return toPublicProducts(tagged.length > 0 ? tagged : products.slice(0, 4));
 }
 
 export async function getProductsByCollectionGroup(group: CollectionGroup) {
+  if (group === 'new-collections') {
+    return getNewCollectionProducts();
+  }
+
+  if (group === 'best-sellers') {
+    return getBestSellerProducts();
+  }
+
+  if (group === 'promo-items') {
+    return getPromoItemProducts();
+  }
+
   const products = await getAllProducts();
 
   if (group === 'woods') {
-    return products.filter((product) => product.category?.toLowerCase() === 'woods');
+    return toPublicProducts(products.filter((product) => product.category?.toLowerCase() === 'woods'));
   }
 
   if (group === 'patterns') {
-    return products.filter((product) => {
+    return toPublicProducts(products.filter((product) => {
       const category = product.category?.toLowerCase() || '';
       return category === 'patterns' || category === 'saville' || category.includes('protak');
-    });
+    }));
   }
 
-  return products.filter((product) => {
+  return toPublicProducts(products.filter((product) => {
     const category = product.category?.toLowerCase() || '';
     return category === 'solids' || category === 'solids+' || category === 'solid core';
-  });
+  }));
 }

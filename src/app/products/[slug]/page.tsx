@@ -56,8 +56,18 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
           <p className="eyebrow">{product.brand}</p>
           <h1 className="mt-3 text-3xl font-black tracking-[-0.04em] text-stone-950 sm:text-5xl">{product.name}</h1>
           <div className="mt-5">
-            <p className="text-3xl font-black text-stone-950">{formatIDR(product.price)}</p>
-            <p className="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-stone-500">Tax included</p>
+            {product.isPromoItem && typeof product.promoPrice === 'number' ? (
+              <>
+                <p className="text-sm font-bold text-stone-400 line-through">{formatIDR(product.price)}</p>
+                <p className="text-3xl font-black text-stone-950">{formatIDR(product.promoPrice)}</p>
+                <p className="mt-2 inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-amber-900">
+                  Promo 2% Off
+                </p>
+              </>
+            ) : (
+              <p className="text-3xl font-black text-stone-950">{formatIDR(product.price)}</p>
+            )}
+            <p className="mt-2 text-xs font-bold uppercase tracking-[0.16em] text-stone-500">Tax Included | Free Shipping (Jawa and Bali)</p>
           </div>
 
 

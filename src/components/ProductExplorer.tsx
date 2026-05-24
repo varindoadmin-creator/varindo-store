@@ -82,6 +82,9 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
         <div className="flex gap-2 overflow-x-auto pb-1">
           {[
             ['All', '/products'],
+            ['New Collections', '/collections/new-collections'],
+            ['Best Sellers', '/collections/best-sellers'],
+            ['Promo Items', '/collections/promo-items'],
             ['Woods', '/collections/woods'],
             ['Patterns', '/collections/patterns'],
             ['Solids', '/collections/solids']

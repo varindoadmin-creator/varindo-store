@@ -9,6 +9,21 @@ export const fetchCache = 'force-no-store';
 export const revalidate = 600;
 
 const groups: Record<CollectionGroup, { title: string; subtitle: string; description: string }> = {
+  'new-collections': {
+    title: 'New Collections',
+    subtitle: 'Fresh Lamitak designs and latest surface selections',
+    description: 'Browse newly introduced Lamitak designs selected from the latest product code families.'
+  },
+  'best-sellers': {
+    title: 'Best Sellers',
+    subtitle: 'Popular Lamitak designs trusted for interior projects',
+    description: 'Explore frequently selected Lamitak designs for cabinetry, furniture, wall panels, and commercial interiors.'
+  },
+  'promo-items': {
+    title: 'Promo Items',
+    subtitle: 'Selected Lamitak items available for promotional focus',
+    description: 'This collection is automatically generated from active Lamitak items in Zoho Books with Stock on Hand of at least 10 sheets. Promo terms, stock availability, and delivery timeline remain subject to final confirmation by Admin Varindo.'
+  },
   woods: {
     title: 'Woods',
     subtitle: 'Warm woodgrain laminates for refined interiors',

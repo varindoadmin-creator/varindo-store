@@ -21,6 +21,11 @@ const collectionCards = [
     title: 'Solids',
     href: '/collections/solids',
     description: 'Clean solid, stone, and slate-inspired finishes for modern, minimalist spaces.'
+  },
+  {
+    title: 'Promo Items',
+    href: '/collections/promo-items',
+    description: 'Selected items automatically highlighted from Zoho stock levels.'
   }
 ];
 
@@ -65,7 +70,7 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-3">
+              <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {collectionCards.map((card) => (
                   <Link key={card.href} href={card.href} className="rounded-2xl border border-stone-200 bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-sm">
                     <p className="text-sm font-black text-stone-950">{card.title}</p>
@@ -86,7 +91,7 @@ export default async function HomePage() {
               Discover fresh Lamitak designs, modern textures, and refined finishes for contemporary interior projects.
             </p>
           </div>
-          <Link href="/products" className="text-sm font-black text-stone-950 hover:underline">View All</Link>
+          <Link href="/collections/new-collections" className="text-sm font-black text-stone-950 hover:underline">View All</Link>
         </div>
         <ProductGrid products={newCollectionProducts} />
       </section>
@@ -101,7 +106,7 @@ export default async function HomePage() {
                 Explore popular Lamitak designs trusted for versatile styles and wide interior applications.
               </p>
             </div>
-            <Link href="/products" className="text-sm font-black text-stone-950 hover:underline">View All</Link>
+            <Link href="/collections/best-sellers" className="text-sm font-black text-stone-950 hover:underline">View All</Link>
           </div>
           <ProductGrid products={bestSellerProducts} />
         </div>

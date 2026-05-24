@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ContactForm } from '@/components/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Contact Varindo',
@@ -56,42 +57,7 @@ export default function ContactPage() {
             Leave your contact information and our team will follow up with you.
           </p>
 
-          <form className="mt-7 grid gap-5">
-            <div>
-              <label htmlFor="name" className="text-sm font-bold text-stone-800">Name</label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Your name"
-                className="mt-2 w-full rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-stone-950"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="phone" className="text-sm font-bold text-stone-800">Phone</label>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                placeholder="Your phone number"
-                className="mt-2 w-full rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-stone-950"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="email" className="text-sm font-bold text-stone-800">Email</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="your@email.com"
-                className="mt-2 w-full rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-stone-950"
-              />
-            </div>
-
-            <button type="submit" className="dark-button w-full justify-center">Submit</button>
-          </form>
+          <ContactForm />
         </div>
       </div>
     </div>
