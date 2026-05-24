@@ -79,7 +79,7 @@ export default async function CollectionPage({ params }: { params: { group: stri
         <p className="mt-3 max-w-3xl text-sm leading-7 text-stone-600 sm:text-base">{page.description}</p>
       </div>
 
-      <ProductExplorer products={products} filterOptions={filterOptions} showCollectionTabs={false} />
+      <ProductExplorer products={products} filterOptions={filterOptions} showCollectionTabs={false} showPromoPricing={group === 'promo-items'} />
     </div>
   );
 }

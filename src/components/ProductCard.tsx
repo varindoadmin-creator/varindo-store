@@ -3,7 +3,7 @@ import type { Product } from '@/types/product';
 import { formatIDR } from '@/lib/utils';
 import { ProductImage } from './ProductImage';
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product, showPromoPricing = false }: { product: Product; showPromoPricing?: boolean }) {
   return (
     <article className="group overflow-hidden rounded-[1.65rem] border border-stone-200/80 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-card">
       <Link href={`/products/${product.slug}`} className="block" aria-label={`View ${product.name}`}>
@@ -19,7 +19,7 @@ export function ProductCard({ product }: { product: Product }) {
           {product.name}
         </Link>
         <div className="mt-3">
-          {product.isPromoItem && typeof product.promoPrice === 'number' ? (
+          {showPromoPricing && product.isPromoItem && typeof product.promoPrice === 'number' ? (
             <>
               <p className="text-xs font-bold text-stone-400 line-through">{formatIDR(product.price)}</p>
               <p className="text-sm font-extrabold text-stone-950 sm:text-base">{formatIDR(product.promoPrice)}</p>

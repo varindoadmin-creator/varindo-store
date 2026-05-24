@@ -92,10 +92,6 @@ function enrichProduct(product: Product): Product {
   const isPromoItem = isPromoItemProduct(product);
   const badges = new Set(product.badges || []);
 
-  if (isPromoItem) {
-    badges.add('PROMO');
-  }
-
   return {
     ...product,
     slug: product.slug || slugify(`${product.code} ${product.name}`),

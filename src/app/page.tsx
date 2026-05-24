@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ProductGrid } from '@/components/ProductGrid';
-import { getBestSellerProducts, getNewCollectionProducts } from '@/lib/products';
+import { getBestSellerProducts, getNewCollectionProducts, getPromoItemProducts } from '@/lib/products';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
@@ -32,6 +32,7 @@ const collectionCards = [
 export default async function HomePage() {
   const newCollectionProducts = (await getNewCollectionProducts()).slice(0, 4);
   const bestSellerProducts = (await getBestSellerProducts()).slice(0, 4);
+  const promoProducts = (await getPromoItemProducts()).slice(0, 4);
 
   return (
     <div>
@@ -110,6 +111,22 @@ export default async function HomePage() {
           </div>
           <ProductGrid products={bestSellerProducts} />
         </div>
+      </section>
+
+
+
+      <section className="section-shell py-14 sm:py-20">
+        <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <p className="eyebrow">Featured Product</p>
+            <h2 className="mt-2 text-3xl font-black tracking-[-0.035em] text-stone-950 sm:text-4xl">Promo Items</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-stone-600 sm:text-base">
+              Selected Lamitak items available with special promotional pricing. Availability and final order confirmation remain subject to Admin Varindo.
+            </p>
+          </div>
+          <Link href="/collections/promo-items" className="text-sm font-black text-stone-950 hover:underline">View All</Link>
+        </div>
+        <ProductGrid products={promoProducts} showPromoPricing />
       </section>
 
       <section className="section-shell py-14 sm:py-20">

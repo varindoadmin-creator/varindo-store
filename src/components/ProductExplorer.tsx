@@ -25,9 +25,10 @@ type ProductExplorerProps = {
   products: Product[];
   filterOptions: FilterOptions;
   showCollectionTabs?: boolean;
+  showPromoPricing?: boolean;
 };
 
-export function ProductExplorer({ products, filterOptions, showCollectionTabs = true }: ProductExplorerProps) {
+export function ProductExplorer({ products, filterOptions, showCollectionTabs = true, showPromoPricing = false }: ProductExplorerProps) {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('search') || '');
   const [collection, setCollection] = useState('');
@@ -48,7 +49,8 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
   const filteredProducts = useMemo(() => {
     let result = searchProducts(products, query);
 
-    if (collection) result = result.filter((product) => product.collection === collection);
+    if (collection === '__promo-items') result = result.filter((product) => product.isPromoItem);
+    else if (collection) result = result.filter((product) => product.collection === collection);
     if (category) result = result.filter((product) => product.category === category);
     if (finish) result = result.filter((product) => product.finish === finish);
     if (size) result = result.filter((product) => product.size === size);
@@ -112,6 +114,7 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
             <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-stone-500">Collection</span>
             <select value={collection} onChange={(event) => setCollection(event.target.value)} className="h-12 w-full rounded-2xl border border-stone-200 bg-white px-4 text-sm font-medium outline-none transition focus:border-stone-950 focus:ring-4 focus:ring-stone-950/5">
               <option value="">All collections</option>
+              <option value="__promo-items">Promo Items</option>
               {filterOptions.collections.map((item) => <option key={item} value={item}>{optionLabel(item)}</option>)}
             </select>
           </label>
@@ -154,7 +157,7 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
         </div>
       </div>
 
-      <ProductGrid products={paginatedProducts} />
+      <ProductGrid products={paginatedProducts} showPromoPricing={showPromoPricing || collection === '__promo-items'} />
 
       {filteredProducts.length > PRODUCTS_PER_PAGE && (
         <div className="flex flex-wrap items-center justify-center gap-2 pt-2">

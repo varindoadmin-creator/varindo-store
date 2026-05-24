@@ -1,7 +1,7 @@
 import type { Product } from '@/types/product';
 import { ProductCard } from './ProductCard';
 
-export function ProductGrid({ products }: { products: Product[] }) {
+export function ProductGrid({ products, showPromoPricing = false }: { products: Product[]; showPromoPricing?: boolean }) {
   if (products.length === 0) {
     return (
       <div className="rounded-[1.75rem] border border-dashed border-stone-300 bg-white/80 p-10 text-center shadow-sm">
@@ -14,7 +14,7 @@ export function ProductGrid({ products }: { products: Product[] }) {
   return (
     <div className="grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6">
       {products.map((product) => (
-        <ProductCard key={product.slug} product={product} />
+        <ProductCard key={product.slug} product={product} showPromoPricing={showPromoPricing} />
       ))}
     </div>
   );
