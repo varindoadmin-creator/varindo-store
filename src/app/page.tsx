@@ -62,13 +62,26 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="soft-card overflow-hidden !border-white/10 !bg-white/10 p-4 shadow-luxury">
+          <div className="soft-card relative z-10 overflow-hidden !border-white/10 !bg-white/10 p-4 shadow-luxury">
             <div className="rounded-[1.5rem] bg-white p-5 text-stone-950 sm:p-6">
               <div className="rounded-[1.25rem] bg-stone-50 p-4">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber-700">Search Products</p>
-                <div className="mt-4 rounded-full border border-stone-200 bg-white px-5 py-4 text-sm font-medium text-stone-400">
-                  Try “DXO 5338D”, “Walnut”, “Stoffa”, or “Grey”
-                </div>
+                <form action="/products" className="relative z-20 mt-4 flex rounded-full border border-stone-200 bg-white shadow-sm">
+                  <input
+                    type="search"
+                    name="search"
+                    aria-label="Search products"
+                    placeholder="Try “DXO 5338D”, “Walnut”, “Stoffa”, or “Grey”"
+                    className="min-w-0 flex-1 rounded-l-full bg-transparent px-5 py-4 text-sm font-medium text-stone-950 outline-none placeholder:text-stone-400"
+                  />
+                  <button
+                    type="submit"
+                    aria-label="Search"
+                    className="m-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-black text-white transition hover:bg-stone-800"
+                  >
+                    →
+                  </button>
+                </form>
               </div>
 
               <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
