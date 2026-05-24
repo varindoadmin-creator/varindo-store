@@ -8,7 +8,7 @@ export function ProductCard({ product, showPromoPricing = false }: { product: Pr
     <article className="group overflow-hidden rounded-[1.65rem] border border-stone-200/80 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-card">
       <Link href={`/products/${product.slug}`} className="block" aria-label={`View ${product.name}`}>
         <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-stone-100 to-stone-50">
-          <ProductImage src={product.imageUrl || ''} alt={product.name} />
+          <ProductImage src={product.imageUrl || ''} imageUrls={product.imageUrlCandidates || []} alt={product.name} />
         </div>
       </Link>
       <div className="p-4 sm:p-5">

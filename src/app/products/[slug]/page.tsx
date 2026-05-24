@@ -50,7 +50,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
       </Link>
 
       <div className="mt-8 grid gap-10 lg:grid-cols-[0.98fr_1.02fr] lg:items-start">
-        <ProductImageZoom src={product.imageUrl || ''} alt={product.name} />
+        <ProductImageZoom src={product.imageUrl || ''} imageUrls={product.imageUrlCandidates || []} alt={product.name} />
 
         <div>
           <p className="eyebrow">{product.brand}</p>

@@ -1,6 +1,6 @@
 import { lamitakProducts } from '@/data/lamitak-products';
 import type { Product } from '@/types/product';
-import { getLamitakImageUrl } from './cloudinary';
+import { getLamitakImageUrl, getLamitakImageUrlCandidates } from './cloudinary';
 import { normalizeCode, slugify, uniq } from './utils';
 import { fetchZohoLamitakProducts } from './zoho';
 
@@ -91,11 +91,15 @@ function calculatePromoPrice(price?: number | null) {
 function enrichProduct(product: Product): Product {
   const isPromoItem = isPromoItemProduct(product);
   const badges = new Set(product.badges || []);
+  const imageUrlCandidates = product.imageUrlCandidates?.length
+    ? product.imageUrlCandidates
+    : getLamitakImageUrlCandidates(product.code);
 
   return {
     ...product,
     slug: product.slug || slugify(`${product.code} ${product.name}`),
-    imageUrl: product.imageUrl || getLamitakImageUrl(product.code),
+    imageUrl: product.imageUrl || imageUrlCandidates[0] || getLamitakImageUrl(product.code),
+    imageUrlCandidates,
     isPromoItem,
     promoPrice: isPromoItem ? calculatePromoPrice(product.price) : product.promoPrice || null,
     badges: Array.from(badges)
