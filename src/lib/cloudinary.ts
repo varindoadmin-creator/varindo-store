@@ -24,9 +24,6 @@ function getDesignNumber(code: string) {
 
   const number = match[0];
 
-  // Many Lamitak 4x10 / related variants add a leading "1" before the
-  // same 4-digit design family. Example: 11104 should share image logic
-  // with 1104.
   if (number.length === 5 && number.startsWith('1')) {
     return {
       raw: number,
@@ -51,56 +48,84 @@ function getSuffix(code: string) {
   return match?.[1] || '';
 }
 
+function getSharedFamilyPriority(prefix: string, base4: string, suffix: string) {
+  const prefixUpper = prefix.toUpperCase();
+  const suffixLower = suffix.toLowerCase();
+
+  // These code families often share the same visual with the base 4-digit design.
+  // Example: SCA 1104D, SCA 11104D, ATS 1104M, ATS 11104M, TSP 1104NC, TSW 11104.
+  // We prioritize the most common existing image patterns before trying exact missing files.
+  if (['ATS', 'ATP', 'TSP', 'TSW', 'CATS', 'CATP', 'TSA'].includes(prefixUpper)) {
+    return [
+      `sca-${base4}d`,
+      `sca-1${base4}d`,
+      `sct-${base4}`,
+      `sct-1${base4}`,
+      `scm-${base4}`,
+      `scm-1${base4}`,
+      `scx-${base4}`,
+      `scx-1${base4}`,
+      `tsp-${base4}nc`,
+      `tsp-1${base4}nc`,
+      `ats-${base4}m`,
+      `ats-1${base4}m`,
+      `atp-${base4}m`,
+      `atp-1${base4}m`,
+      `tsw-${base4}${suffixLower}`,
+      `tsw-1${base4}${suffixLower}`,
+      `tsa-${base4}${suffixLower}`,
+      `tsa-1${base4}${suffixLower}`
+    ];
+  }
+
+  // For SCA/SCT/SCM/SCX, keep exact item first, but still add cross-family fallbacks.
+  return [
+    `sca-${base4}d`,
+    `sca-1${base4}d`,
+    `sct-${base4}`,
+    `sct-1${base4}`,
+    `scm-${base4}`,
+    `scm-1${base4}`,
+    `scx-${base4}`,
+    `scx-1${base4}`
+  ];
+}
+
 export function getLamitakImageUrlCandidates(code: string) {
-  const normalized = normalizeCloudinaryProductCode(code);
+  const exact = normalizeCloudinaryProductCode(code);
   const design = getDesignNumber(code);
   const prefix = getPrefix(code);
   const suffix = getSuffix(code);
 
-  const candidates = [normalized];
-
-  if (design && prefix) {
-    const prefixLower = prefix.toLowerCase();
-    const base4 = design.base4.toLowerCase();
-    const raw = design.raw.toLowerCase();
-    const suffixLower = suffix.toLowerCase();
-
-    // Same-prefix family variants.
-    candidates.push(`${prefixLower}-${raw}${suffixLower}`);
-    candidates.push(`${prefixLower}-${base4}${suffixLower}`);
-    candidates.push(`${prefixLower}-1${base4}${suffixLower}`);
-    candidates.push(`${prefixLower}-${raw}`);
-    candidates.push(`${prefixLower}-${base4}`);
-    candidates.push(`${prefixLower}-1${base4}`);
-
-    // Shared-image family variants across common Lamitak code families.
-    // Example: SCA 1104D / SCA 11104D / TSA 1104 / TSW 11104 can reuse
-    // the same 1104 design-family image when exact image files are missing.
-    candidates.push(`sca-${base4}d`);
-    candidates.push(`sca-1${base4}d`);
-    candidates.push(`tsa-${base4}`);
-    candidates.push(`tsa-1${base4}`);
-    candidates.push(`tsw-${base4}`);
-    candidates.push(`tsw-1${base4}`);
-
-    // Other common categories where the 4-digit design family may share visuals.
-    candidates.push(`sct-${base4}`);
-    candidates.push(`sct-1${base4}`);
-    candidates.push(`scm-${base4}`);
-    candidates.push(`scm-1${base4}`);
-    candidates.push(`scx-${base4}`);
-    candidates.push(`scx-1${base4}`);
-    candidates.push(`tsp-${base4}`);
-    candidates.push(`tsp-1${base4}`);
-    candidates.push(`ats-${base4}`);
-    candidates.push(`ats-1${base4}`);
-    candidates.push(`atp-${base4}`);
-    candidates.push(`atp-1${base4}`);
-    candidates.push(`cats-${base4}`);
-    candidates.push(`cats-1${base4}`);
-    candidates.push(`catp-${base4}`);
-    candidates.push(`catp-1${base4}`);
+  if (!design || !prefix) {
+    return [imageUrlFromNormalizedCode(exact)];
   }
+
+  const prefixLower = prefix.toLowerCase();
+  const base4 = design.base4.toLowerCase();
+  const raw = design.raw.toLowerCase();
+  const suffixLower = suffix.toLowerCase();
+
+  const exactFamilyCandidates = [
+    exact,
+    `${prefixLower}-${raw}${suffixLower}`,
+    `${prefixLower}-${base4}${suffixLower}`,
+    `${prefixLower}-1${base4}${suffixLower}`,
+    `${prefixLower}-${raw}`,
+    `${prefixLower}-${base4}`,
+    `${prefixLower}-1${base4}`
+  ];
+
+  const sharedFamilyCandidates = getSharedFamilyPriority(prefix, base4, suffix);
+
+  // For newer/pattern/promo families that often do not have their own image file yet,
+  // try shared 4-digit family images first. This helps ATS/TSP/TSW/etc. reuse SCA/SCT images.
+  const prefixUpper = prefix.toUpperCase();
+  const sharedFirst = ['ATS', 'ATP', 'TSP', 'TSW', 'CATS', 'CATP', 'TSA'].includes(prefixUpper);
+
+  const candidates = sharedFirst
+    ? [...sharedFamilyCandidates, ...exactFamilyCandidates]
+    : [...exactFamilyCandidates, ...sharedFamilyCandidates];
 
   return uniq(candidates).map(imageUrlFromNormalizedCode);
 }
