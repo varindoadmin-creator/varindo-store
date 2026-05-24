@@ -22,7 +22,7 @@ const groups: Record<CollectionGroup, { title: string; subtitle: string; descrip
   'promo-items': {
     title: 'Promo Items',
     subtitle: 'Selected Lamitak items available for promotional focus',
-    description: 'This collection is automatically generated from active Lamitak items in Zoho Books with Stock on Hand of at least 10 sheets. Promo terms, stock availability, and delivery timeline remain subject to final confirmation by Admin Varindo.'
+    description: 'Selected Lamitak items are now available with special promotional pricing. Grab them fast while stocks are available.'
   },
   woods: {
     title: 'Woods',

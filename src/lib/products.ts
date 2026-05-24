@@ -85,7 +85,7 @@ export function isPromoItemProduct(product: Product) {
 
 function calculatePromoPrice(price?: number | null) {
   if (typeof price !== 'number') return null;
-  return Math.round(price * 0.98);
+  return Math.round(price * 0.95);
 }
 
 function enrichProduct(product: Product): Product {

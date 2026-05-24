@@ -121,7 +121,7 @@ export default async function HomePage() {
             <p className="eyebrow">Featured Product</p>
             <h2 className="mt-2 text-3xl font-black tracking-[-0.035em] text-stone-950 sm:text-4xl">Promo Items</h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-stone-600 sm:text-base">
-              Selected Lamitak items available with special promotional pricing. Availability and final order confirmation remain subject to Admin Varindo.
+              Selected Lamitak items are now available with special promotional pricing. Grab them fast while stocks are available.
             </p>
           </div>
           <Link href="/collections/promo-items" className="text-sm font-black text-stone-950 hover:underline">View All</Link>

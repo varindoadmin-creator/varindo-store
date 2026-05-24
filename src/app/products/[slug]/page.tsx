@@ -61,7 +61,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
                 <p className="text-sm font-bold text-stone-400 line-through">{formatIDR(product.price)}</p>
                 <p className="text-3xl font-black text-stone-950">{formatIDR(product.promoPrice)}</p>
                 <p className="mt-2 inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-amber-900">
-                  Promo 2% Off
+                  Promo 5% Off
                 </p>
               </>
             ) : (

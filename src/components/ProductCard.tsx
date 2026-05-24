@@ -24,7 +24,7 @@ export function ProductCard({ product, showPromoPricing = false }: { product: Pr
               <p className="text-xs font-bold text-stone-400 line-through">{formatIDR(product.price)}</p>
               <p className="text-sm font-extrabold text-stone-950 sm:text-base">{formatIDR(product.promoPrice)}</p>
               <p className="mt-1 inline-flex rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-amber-900">
-                Promo 2% Off
+                Promo 5% Off
               </p>
             </>
           ) : (
