@@ -17,26 +17,6 @@ function uniq(values: string[]) {
   return Array.from(new Set(values.filter(Boolean)));
 }
 
-function getDesignNumber(code: string) {
-  const normalized = code.toUpperCase().trim();
-  const match = normalized.match(/\b\d{4,5}\b/);
-  if (!match) return null;
-
-  const number = match[0];
-
-  if (number.length === 5 && number.startsWith('1')) {
-    return {
-      raw: number,
-      base4: number.slice(1)
-    };
-  }
-
-  return {
-    raw: number,
-    base4: number
-  };
-}
-
 function getPrefix(code: string) {
   const match = code.toUpperCase().trim().match(/^([A-Z]+)/);
   return match?.[1] || '';
@@ -48,65 +28,84 @@ function getSuffix(code: string) {
   return match?.[1] || '';
 }
 
-function getSharedFamilyPriority(prefix: string, base4: string, suffix: string) {
-  const prefixUpper = prefix.toUpperCase();
-  const suffixLower = suffix.toLowerCase();
+function getDesignNumber(code: string) {
+  const normalized = code.toUpperCase().trim();
+  const match = normalized.match(/\b\d{4,5}\b/);
+  if (!match) return null;
 
-  // These code families often share the same visual with the base 4-digit design.
-  // Example: SCA 1104D, SCA 11104D, ATS 1104M, ATS 11104M, TSP 1104NC, TSW 11104.
-  // We prioritize the most common existing image patterns before trying exact missing files.
-  if (['ATS', 'ATP', 'TSP', 'TSW', 'CATS', 'CATP', 'TSA'].includes(prefixUpper)) {
-    return [
-      `sca-${base4}d`,
-      `sca-1${base4}d`,
-      `sct-${base4}`,
-      `sct-1${base4}`,
-      `scm-${base4}`,
-      `scm-1${base4}`,
-      `scx-${base4}`,
-      `scx-1${base4}`,
-      `tsp-${base4}nc`,
-      `tsp-1${base4}nc`,
-      `ats-${base4}m`,
-      `ats-1${base4}m`,
-      `atp-${base4}m`,
-      `atp-1${base4}m`,
-      `tsw-${base4}${suffixLower}`,
-      `tsw-1${base4}${suffixLower}`,
-      `tsa-${base4}${suffixLower}`,
-      `tsa-1${base4}${suffixLower}`
-    ];
-  }
+  const raw = match[0];
+  const base4 = raw.length === 5 && raw.startsWith('1') ? raw.slice(1) : raw;
 
-  // For SCA/SCT/SCM/SCX, keep exact item first, but still add cross-family fallbacks.
+  return {
+    raw,
+    base4
+  };
+}
+
+function numericFamilyCandidates(base4: string) {
   return [
+    // Master / commonly uploaded image patterns.
+    `dxp-${base4}xm`,
+    `dxp-1${base4}xm`,
+    `dxp-${base4}g`,
+    `dxp-1${base4}g`,
+    `dxo-${base4}d`,
+    `dxo-1${base4}d`,
+
+    // Solid / plain design families.
     `sca-${base4}d`,
     `sca-1${base4}d`,
     `sct-${base4}`,
     `sct-1${base4}`,
-    `scm-${base4}`,
-    `scm-1${base4}`,
-    `scx-${base4}`,
-    `scx-1${base4}`
+    `scm-${base4}xm`,
+    `scm-1${base4}xm`,
+    `scx-${base4}d`,
+    `scx-1${base4}d`,
+
+    // New collection / pattern families.
+    `atp-${base4}m`,
+    `atp-1${base4}m`,
+    `ats-${base4}m`,
+    `ats-1${base4}m`,
+    `catp-${base4}m`,
+    `catp-1${base4}m`,
+    `cats-${base4}m`,
+    `cats-1${base4}m`,
+    `tsp-${base4}nc`,
+    `tsp-1${base4}nc`,
+    `tsw-${base4}ac`,
+    `tsw-1${base4}ac`,
+    `tsa-${base4}`,
+    `tsa-1${base4}`,
+
+    // Wood / miscellaneous families.
+    `wy-${base4}d`,
+    `wy-1${base4}d`,
+    `wya-${base4}k`,
+    `wya-1${base4}k`,
+    `wg-${base4}d`,
+    `wg-1${base4}d`,
+    `mta-${base4}xl`,
+    `mta-1${base4}xl`
   ];
 }
 
 export function getLamitakImageUrlCandidates(code: string) {
   const exact = normalizeCloudinaryProductCode(code);
-  const design = getDesignNumber(code);
   const prefix = getPrefix(code);
   const suffix = getSuffix(code);
+  const design = getDesignNumber(code);
 
   if (!design || !prefix) {
     return [imageUrlFromNormalizedCode(exact)];
   }
 
   const prefixLower = prefix.toLowerCase();
-  const base4 = design.base4.toLowerCase();
-  const raw = design.raw.toLowerCase();
   const suffixLower = suffix.toLowerCase();
+  const raw = design.raw.toLowerCase();
+  const base4 = design.base4.toLowerCase();
 
-  const exactFamilyCandidates = [
+  const exactItemCandidates = [
     exact,
     `${prefixLower}-${raw}${suffixLower}`,
     `${prefixLower}-${base4}${suffixLower}`,
@@ -116,18 +115,12 @@ export function getLamitakImageUrlCandidates(code: string) {
     `${prefixLower}-1${base4}`
   ];
 
-  const sharedFamilyCandidates = getSharedFamilyPriority(prefix, base4, suffix);
+  const familyCandidates = numericFamilyCandidates(base4);
 
-  // For newer/pattern/promo families that often do not have their own image file yet,
-  // try shared 4-digit family images first. This helps ATS/TSP/TSW/etc. reuse SCA/SCT images.
-  const prefixUpper = prefix.toUpperCase();
-  const sharedFirst = ['ATS', 'ATP', 'TSP', 'TSW', 'CATS', 'CATP', 'TSA'].includes(prefixUpper);
-
-  const candidates = sharedFirst
-    ? [...sharedFamilyCandidates, ...exactFamilyCandidates]
-    : [...exactFamilyCandidates, ...sharedFamilyCandidates];
-
-  return uniq(candidates).map(imageUrlFromNormalizedCode);
+  // Prefer the numeric family first, because the same visual image may exist
+  // under a different prefix/suffix than the Zoho item code.
+  // Example: ATP 11358M should find DXP 1358XM if that is the uploaded image.
+  return uniq([...familyCandidates, ...exactItemCandidates]).map(imageUrlFromNormalizedCode);
 }
 
 export function getLamitakImageUrl(code: string) {

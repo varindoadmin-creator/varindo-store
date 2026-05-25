@@ -1,13 +1,14 @@
-# Lamitak Image Candidate Logic
+# Lamitak Image Matching Logic
 
-V41 prioritizes shared 4-digit design-family images for item families where exact files are often missing.
+V43 image matching uses the numeric design code as the main image family key.
 
 Example:
-- SCA 1104D
-- SCA 11104D
-- ATS 1104M
-- ATS 11104M
-- TSP 1104NC
-- TSW 11104
+- DXP 1358XM
+- ATP 11358M
+- ATP 1358M
+- CATP 1358M
+- DXP 1358G
 
-These share the base design number 1104. For these related product families, the website now tries the shared family image first before falling back to exact product-code image URLs.
+These all share the base number `1358`, so the website tries shared 1358 Cloudinary image filenames across common prefixes and suffixes before showing the fallback placeholder.
+
+This is useful when Cloudinary has one master image for a design family but Zoho Books contains many related item-code variants.
