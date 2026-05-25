@@ -1,14 +1,15 @@
 # Lamitak Image Matching Logic
 
-V44 image matching uses the numeric design code as the main image family key and prioritizes DXP ####G before DXP ####XM.
+V45 supports both Cloudinary image patterns:
 
-Example:
-- DXP 1358G
-- DXP 1358XM
-- ATP 11358M
-- ATP 1358M
-- CATP 1358M
+New root-level pattern:
+- `https://res.cloudinary.com/varindo/image/upload/v1779705153/wya-15291mt.webp`
+- `https://res.cloudinary.com/varindo/image/upload/v1779705153/code.webp`
 
-These all share the base number `1358`, so the website tries shared 1358 Cloudinary image filenames across common prefixes and suffixes.
+Old folder pattern:
+- `https://res.cloudinary.com/varindo/image/upload/v1778402032/lamitak/lamitak-code.jpg`
 
-Since the available image for this family is often saved as `lamitak-dxp-1358g.jpg`, that pattern is now tried before `lamitak-dxp-1358xm.jpg`.
+Image matching still uses the numeric design code as the main family key.
+
+Important:
+If Cloudinary appends random suffixes such as `_bxdgxv` to the public ID, the website cannot guess that random suffix automatically. For best results, upload files with `unique_filename=false`, or provide/export a mapping file from product code to Cloudinary URL.

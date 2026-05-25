@@ -1,3 +1,6 @@
+const OLD_CLOUDINARY_VERSION = 'v1778402032';
+const NEW_CLOUDINARY_VERSION = 'v1779705153';
+
 export function normalizeCloudinaryProductCode(code: string) {
   return code
     .toLowerCase()
@@ -9,8 +12,22 @@ export function normalizeCloudinaryProductCode(code: string) {
     .replace(/(^-|-$)+/g, '');
 }
 
-function imageUrlFromNormalizedCode(normalizedCode: string) {
-  return `https://res.cloudinary.com/varindo/image/upload/v1778402032/lamitak/lamitak-${normalizedCode}.jpg`;
+function imageUrlsFromNormalizedCode(normalizedCode: string) {
+  return [
+    // New Cloudinary root-level pattern.
+    // Example:
+    // https://res.cloudinary.com/varindo/image/upload/v1779705153/wya-15291mt.webp
+    `https://res.cloudinary.com/varindo/image/upload/${NEW_CLOUDINARY_VERSION}/${normalizedCode}.webp`,
+    `https://res.cloudinary.com/varindo/image/upload/${NEW_CLOUDINARY_VERSION}/${normalizedCode}.jpg`,
+
+    // New pattern if uploaded to the lamitak folder without adding "lamitak-" to filename.
+    `https://res.cloudinary.com/varindo/image/upload/${NEW_CLOUDINARY_VERSION}/lamitak/${normalizedCode}.webp`,
+    `https://res.cloudinary.com/varindo/image/upload/${NEW_CLOUDINARY_VERSION}/lamitak/${normalizedCode}.jpg`,
+
+    // Old website pattern.
+    `https://res.cloudinary.com/varindo/image/upload/${OLD_CLOUDINARY_VERSION}/lamitak/lamitak-${normalizedCode}.jpg`,
+    `https://res.cloudinary.com/varindo/image/upload/${OLD_CLOUDINARY_VERSION}/lamitak/lamitak-${normalizedCode}.webp`
+  ];
 }
 
 function uniq(values: string[]) {
@@ -36,23 +53,18 @@ function getDesignNumber(code: string) {
   const raw = match[0];
   const base4 = raw.length === 5 && raw.startsWith('1') ? raw.slice(1) : raw;
 
-  return {
-    raw,
-    base4
-  };
+  return { raw, base4 };
 }
 
 function numericFamilyCandidates(base4: string) {
   return [
-    // Master / commonly uploaded image patterns.
-    `dxp-${base4}xm`,
-    `dxp-1${base4}xm`,
     `dxp-${base4}g`,
     `dxp-1${base4}g`,
+    `dxp-${base4}xm`,
+    `dxp-1${base4}xm`,
     `dxo-${base4}d`,
     `dxo-1${base4}d`,
 
-    // Solid / plain design families.
     `sca-${base4}d`,
     `sca-1${base4}d`,
     `sct-${base4}`,
@@ -62,7 +74,6 @@ function numericFamilyCandidates(base4: string) {
     `scx-${base4}d`,
     `scx-1${base4}d`,
 
-    // New collection / pattern families.
     `atp-${base4}m`,
     `atp-1${base4}m`,
     `ats-${base4}m`,
@@ -78,9 +89,10 @@ function numericFamilyCandidates(base4: string) {
     `tsa-${base4}`,
     `tsa-1${base4}`,
 
-    // Wood / miscellaneous families.
     `wy-${base4}d`,
     `wy-1${base4}d`,
+    `wya-${base4}mt`,
+    `wya-1${base4}mt`,
     `wya-${base4}k`,
     `wya-1${base4}k`,
     `wg-${base4}d`,
@@ -97,7 +109,7 @@ export function getLamitakImageUrlCandidates(code: string) {
   const design = getDesignNumber(code);
 
   if (!design || !prefix) {
-    return [imageUrlFromNormalizedCode(exact)];
+    return imageUrlsFromNormalizedCode(exact);
   }
 
   const prefixLower = prefix.toLowerCase();
@@ -116,11 +128,9 @@ export function getLamitakImageUrlCandidates(code: string) {
   ];
 
   const familyCandidates = numericFamilyCandidates(base4);
+  const normalizedCandidates = uniq([...familyCandidates, ...exactItemCandidates]);
 
-  // Prefer the numeric family first, because the same visual image may exist
-  // under a different prefix/suffix than the Zoho item code.
-  // Example: ATP 11358M should find DXP 1358XM if that is the uploaded image.
-  return uniq([...familyCandidates, ...exactItemCandidates]).map(imageUrlFromNormalizedCode);
+  return normalizedCandidates.flatMap(imageUrlsFromNormalizedCode);
 }
 
 export function getLamitakImageUrl(code: string) {
