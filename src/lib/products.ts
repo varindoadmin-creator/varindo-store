@@ -1,6 +1,7 @@
 import { lamitakProducts } from '@/data/lamitak-products';
 import type { Product } from '@/types/product';
 import { getLamitakImageUrl, getLamitakImageUrlCandidates } from './cloudinary';
+import { getBase4NumbersFromProductCode, getCloudinaryNumberImageMap } from './cloudinaryResources';
 import { normalizeCode, slugify, uniq } from './utils';
 import { fetchZohoLamitakProducts } from './zoho';
 
@@ -88,18 +89,27 @@ function calculatePromoPrice(price?: number | null) {
   return Math.round(price * 0.95);
 }
 
-function enrichProduct(product: Product): Product {
+function enrichProduct(product: Product, cloudinaryNumberImageMap?: Map<string, string>): Product {
   const isPromoItem = isPromoItemProduct(product);
   const badges = new Set(product.badges || []);
   const imageUrlCandidates = product.imageUrlCandidates?.length
     ? product.imageUrlCandidates
     : getLamitakImageUrlCandidates(product.code);
 
+  const matchingNumbers = getBase4NumbersFromProductCode(product.code);
+  const cloudinaryMatchedImageUrl = matchingNumbers
+    .map((number) => cloudinaryNumberImageMap?.get(number))
+    .find(Boolean);
+
+  const finalImageCandidates = cloudinaryMatchedImageUrl
+    ? [cloudinaryMatchedImageUrl, ...imageUrlCandidates]
+    : imageUrlCandidates;
+
   return {
     ...product,
     slug: product.slug || slugify(`${product.code} ${product.name}`),
-    imageUrl: product.imageUrl || imageUrlCandidates[0] || getLamitakImageUrl(product.code),
-    imageUrlCandidates,
+    imageUrl: product.imageUrl || finalImageCandidates[0] || getLamitakImageUrl(product.code),
+    imageUrlCandidates: finalImageCandidates,
     isPromoItem,
     promoPrice: isPromoItem ? calculatePromoPrice(product.price) : product.promoPrice || null,
     badges: Array.from(badges)
@@ -131,7 +141,11 @@ async function getSourceProducts() {
 
 export async function getAllProducts() {
   const products = await getSourceProducts();
-  return products.filter((product) => product.active).map(enrichProduct);
+  const cloudinaryNumberImageMap = await getCloudinaryNumberImageMap();
+
+  return products
+    .filter((product) => product.active)
+    .map((product) => enrichProduct(product, cloudinaryNumberImageMap));
 }
 
 
