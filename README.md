@@ -111,3 +111,8 @@ Zoho Books item rates are maintained excluding PPN. The website displays prices 
 ## Promo Items Collection
 
 The `/collections/promo-items` page is generated automatically from Zoho Books items where `stockOnHand >= ZOHO_PROMO_MIN_STOCK_ON_HAND` (default: 10). Zoho Books remains the source of items, prices, and stock data.
+
+
+## Typography
+
+This version uses Manrope as the primary website font for a modern, premium interior-product catalog feel.

@@ -59,3 +59,12 @@ img {
     @apply inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-bold text-stone-950 transition hover:-translate-y-0.5 hover:border-stone-950;
   }
 }
+
+
+:root {
+  --font-manrope: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
