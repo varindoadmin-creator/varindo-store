@@ -1,5 +1,4 @@
-const OLD_CLOUDINARY_VERSION = 'v1778402032';
-const NEW_CLOUDINARY_VERSION = 'v1779705153';
+const PRODUCT_IMAGES_FOLDER = 'product-images';
 
 export function normalizeCloudinaryProductCode(code: string) {
   return code
@@ -12,125 +11,51 @@ export function normalizeCloudinaryProductCode(code: string) {
     .replace(/(^-|-$)+/g, '');
 }
 
-function imageUrlsFromNormalizedCode(normalizedCode: string) {
-  return [
-    // New Cloudinary root-level pattern.
-    // Example:
-    // https://res.cloudinary.com/varindo/image/upload/v1779705153/wya-15291mt.webp
-    `https://res.cloudinary.com/varindo/image/upload/${NEW_CLOUDINARY_VERSION}/${normalizedCode}.webp`,
-    `https://res.cloudinary.com/varindo/image/upload/${NEW_CLOUDINARY_VERSION}/${normalizedCode}.jpg`,
-
-    // New pattern if uploaded to the lamitak folder without adding "lamitak-" to filename.
-    `https://res.cloudinary.com/varindo/image/upload/${NEW_CLOUDINARY_VERSION}/lamitak/${normalizedCode}.webp`,
-    `https://res.cloudinary.com/varindo/image/upload/${NEW_CLOUDINARY_VERSION}/lamitak/${normalizedCode}.jpg`,
-
-    // Old website pattern.
-    `https://res.cloudinary.com/varindo/image/upload/${OLD_CLOUDINARY_VERSION}/lamitak/lamitak-${normalizedCode}.jpg`,
-    `https://res.cloudinary.com/varindo/image/upload/${OLD_CLOUDINARY_VERSION}/lamitak/lamitak-${normalizedCode}.webp`
-  ];
-}
-
 function uniq(values: string[]) {
   return Array.from(new Set(values.filter(Boolean)));
 }
 
-function getPrefix(code: string) {
-  const match = code.toUpperCase().trim().match(/^([A-Z]+)/);
-  return match?.[1] || '';
+function productImageUrl(numberCode: string, extension: 'webp' | 'jpg' | 'png') {
+  return `https://res.cloudinary.com/varindo/image/upload/${PRODUCT_IMAGES_FOLDER}/${numberCode}.${extension}`;
 }
 
-function getSuffix(code: string) {
-  const normalized = code.toUpperCase().trim();
-  const match = normalized.match(/\d{4,5}([A-Z]+)$/);
-  return match?.[1] || '';
+function legacyImageUrl(normalizedCode: string, extension: 'webp' | 'jpg') {
+  return `https://res.cloudinary.com/varindo/image/upload/v1778402032/lamitak/lamitak-${normalizedCode}.${extension}`;
 }
 
-function getDesignNumber(code: string) {
-  const normalized = code.toUpperCase().trim();
-  const match = normalized.match(/\b\d{4,5}\b/);
-  if (!match) return null;
+export function getNumberKeysFromProductCode(code: string) {
+  const matches = code.toLowerCase().match(/\d{4,5}/g) || [];
+  const keys: string[] = [];
 
-  const raw = match[0];
-  const base4 = raw.length === 5 && raw.startsWith('1') ? raw.slice(1) : raw;
+  for (const value of matches) {
+    keys.push(value);
 
-  return { raw, base4 };
-}
+    // 5-digit variants often share images with the last 4 digits.
+    // Example: 11358 -> 1358, 15291 -> 5291.
+    if (value.length === 5 && value.startsWith('1')) {
+      keys.push(value.slice(1));
+    }
+  }
 
-function numericFamilyCandidates(base4: string) {
-  return [
-    `dxp-${base4}g`,
-    `dxp-1${base4}g`,
-    `dxp-${base4}xm`,
-    `dxp-1${base4}xm`,
-    `dxo-${base4}d`,
-    `dxo-1${base4}d`,
-
-    `sca-${base4}d`,
-    `sca-1${base4}d`,
-    `sct-${base4}`,
-    `sct-1${base4}`,
-    `scm-${base4}xm`,
-    `scm-1${base4}xm`,
-    `scx-${base4}d`,
-    `scx-1${base4}d`,
-
-    `atp-${base4}m`,
-    `atp-1${base4}m`,
-    `ats-${base4}m`,
-    `ats-1${base4}m`,
-    `catp-${base4}m`,
-    `catp-1${base4}m`,
-    `cats-${base4}m`,
-    `cats-1${base4}m`,
-    `tsp-${base4}nc`,
-    `tsp-1${base4}nc`,
-    `tsw-${base4}ac`,
-    `tsw-1${base4}ac`,
-    `tsa-${base4}`,
-    `tsa-1${base4}`,
-
-    `wy-${base4}d`,
-    `wy-1${base4}d`,
-    `wya-${base4}mt`,
-    `wya-1${base4}mt`,
-    `wya-${base4}k`,
-    `wya-1${base4}k`,
-    `wg-${base4}d`,
-    `wg-1${base4}d`,
-    `mta-${base4}xl`,
-    `mta-1${base4}xl`
-  ];
+  return uniq(keys);
 }
 
 export function getLamitakImageUrlCandidates(code: string) {
-  const exact = normalizeCloudinaryProductCode(code);
-  const prefix = getPrefix(code);
-  const suffix = getSuffix(code);
-  const design = getDesignNumber(code);
+  const normalized = normalizeCloudinaryProductCode(code);
+  const numberKeys = getNumberKeysFromProductCode(code);
 
-  if (!design || !prefix) {
-    return imageUrlsFromNormalizedCode(exact);
-  }
+  const productImageCandidates = numberKeys.flatMap((numberCode) => [
+    productImageUrl(numberCode, 'webp'),
+    productImageUrl(numberCode, 'jpg'),
+    productImageUrl(numberCode, 'png')
+  ]);
 
-  const prefixLower = prefix.toLowerCase();
-  const suffixLower = suffix.toLowerCase();
-  const raw = design.raw.toLowerCase();
-  const base4 = design.base4.toLowerCase();
-
-  const exactItemCandidates = [
-    exact,
-    `${prefixLower}-${raw}${suffixLower}`,
-    `${prefixLower}-${base4}${suffixLower}`,
-    `${prefixLower}-1${base4}${suffixLower}`,
-    `${prefixLower}-${raw}`,
-    `${prefixLower}-${base4}`,
-    `${prefixLower}-1${base4}`
+  const legacyCandidates = [
+    legacyImageUrl(normalized, 'webp'),
+    legacyImageUrl(normalized, 'jpg')
   ];
 
-  const familyCandidates = numericFamilyCandidates(base4);
-  const normalizedCandidates = uniq([...familyCandidates, ...exactItemCandidates]);
-
-  return normalizedCandidates.flatMap(imageUrlsFromNormalizedCode);
+  return uniq([...productImageCandidates, ...legacyCandidates]);
 }
 
 export function getLamitakImageUrl(code: string) {
