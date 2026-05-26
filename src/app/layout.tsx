@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={manrope.variable}>
-      <body className="min-h-screen font-sans antialiased" className={manrope.className}>
+      <body className={`${manrope.className} min-h-screen font-sans antialiased`}>
         <Header />
         <main>{children}</main>
         <Footer />
