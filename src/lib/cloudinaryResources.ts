@@ -3,6 +3,9 @@ type CloudinarySearchResource = {
   secure_url?: string;
   format?: string;
   created_at?: string;
+  bytes?: number;
+  width?: number;
+  height?: number;
 };
 
 type CloudinarySearchResponse = {
@@ -14,7 +17,7 @@ type CloudinarySearchResponse = {
 };
 
 const CLOUDINARY_CACHE_TTL_MS = Number(process.env.CLOUDINARY_IMAGE_CACHE_TTL_MS || 86400000);
-const CLOUDINARY_MAX_PAGES = Number(process.env.CLOUDINARY_IMAGE_MAX_PAGES || 10);
+const CLOUDINARY_MAX_PAGES = Number(process.env.CLOUDINARY_IMAGE_MAX_PAGES || 20);
 const CLOUDINARY_MAX_RESULTS = Number(process.env.CLOUDINARY_IMAGE_MAX_RESULTS || 500);
 const CLOUDINARY_SEARCH_PREFIX = process.env.CLOUDINARY_IMAGE_SEARCH_PREFIX || '';
 
@@ -38,50 +41,51 @@ function getCloudinaryAuthHeader() {
   };
 }
 
-function getBase4NumbersFromText(text: string) {
+export function getNumberKeysFromText(text: string) {
   const matches = text.toLowerCase().match(/\d{4,5}/g) || [];
+  const keys: string[] = [];
 
-  const numbers = matches.map((value) => {
+  for (const value of matches) {
+    keys.push(value);
+
     if (value.length === 5 && value.startsWith('1')) {
-      return value.slice(1);
+      keys.push(value.slice(1));
     }
+  }
 
-    return value;
-  });
-
-  return Array.from(new Set(numbers));
+  return Array.from(new Set(keys));
 }
 
 function scorePublicId(publicId: string) {
   const id = publicId.toLowerCase();
 
-  // Prefer root uploaded / direct master images and more common master codes.
-  if (id.includes('dxp-') && id.includes('g')) return 100;
-  if (id.includes('dxp-') && id.includes('xm')) return 95;
-  if (id.includes('dxo-')) return 90;
-  if (id.includes('wya-') && id.includes('mt')) return 88;
-  if (id.includes('sca-')) return 85;
-  if (id.includes('sct-')) return 80;
-  if (id.includes('wy-')) return 75;
-  if (id.includes('atp-') || id.includes('ats-') || id.includes('catp-') || id.includes('cats-')) return 70;
+  if (/^[a-z]{2,5}-\d{4,5}[a-z]{0,4}(_|$)/.test(id)) return 120;
+  if (id.includes('wy-')) return 115;
+  if (id.includes('wya-')) return 114;
+  if (id.includes('dxp-') && id.includes('g')) return 112;
+  if (id.includes('dxp-') && id.includes('xm')) return 110;
+  if (id.includes('dxo-')) return 108;
+  if (id.includes('sca-')) return 106;
+  if (id.includes('sct-')) return 104;
+  if (id.includes('atp-') || id.includes('ats-') || id.includes('catp-') || id.includes('cats-')) return 100;
 
   return 50;
 }
 
 function shouldReplaceExisting(existingUrl: string, candidate: CloudinarySearchResource) {
+  const candidateScore = scorePublicId(candidate.public_id || '');
+
   const existingPublicId = existingUrl
     .replace(/^https?:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\//, '')
     .replace(/^v\d+\//, '')
     .replace(/\.[a-z0-9]+$/i, '');
 
   const existingScore = scorePublicId(existingPublicId);
-  const candidateScore = scorePublicId(candidate.public_id || '');
 
   if (candidateScore !== existingScore) {
     return candidateScore > existingScore;
   }
 
-  // If score is the same, prefer newest upload when Cloudinary gives the created_at value.
   return true;
 }
 
@@ -134,13 +138,13 @@ export async function getCloudinaryNumberImageMap() {
       for (const resource of resources) {
         if (!resource.public_id || !resource.secure_url) continue;
 
-        const numbers = getBase4NumbersFromText(resource.public_id);
+        const numberKeys = getNumberKeysFromText(resource.public_id);
 
-        for (const number of numbers) {
-          const existing = map.get(number);
+        for (const key of numberKeys) {
+          const existing = map.get(key);
 
           if (!existing || shouldReplaceExisting(existing, resource)) {
-            map.set(number, resource.secure_url);
+            map.set(key, resource.secure_url);
           }
         }
       }
@@ -155,6 +159,8 @@ export async function getCloudinaryNumberImageMap() {
     cachedImageMap = map;
     cachedAt = now;
 
+    console.log(`Cloudinary numeric image map loaded: ${map.size} number keys`);
+
     return map;
   } catch (error) {
     console.error('Cloudinary image map failed:', error);
@@ -162,6 +168,6 @@ export async function getCloudinaryNumberImageMap() {
   }
 }
 
-export function getBase4NumbersFromProductCode(code: string) {
-  return getBase4NumbersFromText(code);
+export function getNumberKeysFromProductCode(code: string) {
+  return getNumberKeysFromText(code);
 }

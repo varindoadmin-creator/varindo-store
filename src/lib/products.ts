@@ -1,7 +1,7 @@
 import { lamitakProducts } from '@/data/lamitak-products';
 import type { Product } from '@/types/product';
 import { getLamitakImageUrl, getLamitakImageUrlCandidates } from './cloudinary';
-import { getBase4NumbersFromProductCode, getCloudinaryNumberImageMap } from './cloudinaryResources';
+import { getCloudinaryNumberImageMap, getNumberKeysFromProductCode } from './cloudinaryResources';
 import { normalizeCode, slugify, uniq } from './utils';
 import { fetchZohoLamitakProducts } from './zoho';
 
@@ -96,7 +96,7 @@ function enrichProduct(product: Product, cloudinaryNumberImageMap?: Map<string, 
     ? product.imageUrlCandidates
     : getLamitakImageUrlCandidates(product.code);
 
-  const matchingNumbers = getBase4NumbersFromProductCode(product.code);
+  const matchingNumbers = getNumberKeysFromProductCode(product.code);
   const cloudinaryMatchedImageUrl = matchingNumbers
     .map((number) => cloudinaryNumberImageMap?.get(number))
     .find(Boolean);
