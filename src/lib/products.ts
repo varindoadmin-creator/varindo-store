@@ -89,7 +89,7 @@ function calculatePromoPrice(price?: number | null) {
   return Math.round(price * 0.95);
 }
 
-function enrichProduct(product: Product, cloudinaryNumberImageMap?: Map<string, string>): Product {
+function enrichProduct(product: Product, cloudinaryNumberImageMap?: Map<string, string[]>): Product {
   const isPromoItem = isPromoItemProduct(product);
   const badges = new Set(product.badges || []);
   const imageUrlCandidates = product.imageUrlCandidates?.length
@@ -97,12 +97,10 @@ function enrichProduct(product: Product, cloudinaryNumberImageMap?: Map<string, 
     : getLamitakImageUrlCandidates(product.code);
 
   const matchingNumbers = getNumberKeysFromProductCode(product.code);
-  const cloudinaryMatchedImageUrl = matchingNumbers
-    .map((number) => cloudinaryNumberImageMap?.get(number))
-    .find(Boolean);
+  const cloudinaryMatchedImageUrls = matchingNumbers.flatMap((number) => cloudinaryNumberImageMap?.get(number) || []);
 
-  const finalImageCandidates = cloudinaryMatchedImageUrl
-    ? [cloudinaryMatchedImageUrl, ...imageUrlCandidates]
+  const finalImageCandidates = cloudinaryMatchedImageUrls.length > 0
+    ? Array.from(new Set([...cloudinaryMatchedImageUrls, ...imageUrlCandidates]))
     : imageUrlCandidates;
 
   return {
