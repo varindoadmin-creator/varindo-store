@@ -4,8 +4,7 @@ import { notFound } from 'next/navigation';
 import { ProductImageZoom } from '@/components/ProductImageZoom';
 import { buildProductEnquiryMessage, buildWhatsAppUrl } from '@/lib/whatsapp';
 import { formatIDR } from '@/lib/utils';
-import { getAllProducts, getProductBySlug, getRelatedProducts } from '@/lib/products';
-import { ProductGrid } from '@/components/ProductGrid';
+import { getAllProducts, getProductBySlug } from '@/lib/products';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
@@ -23,9 +22,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
   const product = await getProductBySlug(params.slug);
   if (!product) notFound();
-
-  
-  const relatedProducts = await getRelatedProducts(product, 4);
 const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
 
   const specs = [
@@ -142,23 +138,6 @@ const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
           </div>
         </div>
       </div>
-
-{relatedProducts.length > 0 ? (
-  <section className="border-t border-stone-200 bg-[#f8f6f1] py-14 sm:py-20">
-    <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
-      <div className="mb-8 max-w-3xl">
-        <p className="eyebrow">Related Products</p>
-        <h2 className="mt-2 font-sans text-3xl font-black tracking-[-0.035em] text-stone-950 sm:text-4xl">
-          Similar materials you may like
-        </h2>
-        <p className="mt-3 text-sm leading-7 text-stone-600 sm:text-base">
-          Selected based on similar collection, finish, size, and product code family.
-        </p>
-      </div>
-      <ProductGrid products={relatedProducts} />
-    </div>
-  </section>
-) : null}
 </div>
   );
 }

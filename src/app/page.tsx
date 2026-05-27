@@ -148,7 +148,7 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-varindo-line border border-varindo-line">
             {[
-              { href: '/collections/new-collections', label: 'New\nCollections' },
+              { href: '/collections/new-collections', label: 'New\nArrivals' },
               { href: '/collections/best-sellers', label: 'Best\nSellers' },
               { href: '/collections/promo-items', label: 'Promo\nItems' },
               { href: '/collections/woods', label: 'Woods' },
@@ -170,7 +170,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ─── NEW COLLECTIONS ──────────────────────────────────────── */}
+      {/* ─── NEW ARRIVALS ──────────────────────────────────────── */}
       <section className="border-b border-varindo-line">
         <div className="shell py-14 sm:py-20">
           <div className="flex items-end justify-between mb-10">

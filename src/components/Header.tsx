@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { FormEvent, useState, useEffect } from 'react';
 
 const collectionItems = [
-  { href: '/collections/new-collections', label: 'New Arrivals' },
+  { href: '/collections/new-COLLECTIONS', label: 'New Arrivals' },
   { href: '/collections/best-sellers', label: 'Best Sellers' },
   { href: '/collections/promo-items', label: 'Promo Items' },
   { href: '/collections/woods', label: 'Woods' },
@@ -110,10 +110,10 @@ export function Header() {
             <nav className="hidden lg:flex items-center gap-8 text-[11px] font-semibold tracking-[0.16em] uppercase text-varindo-700">
               <Link href="/" className="hover:text-varindo-ink transition-colors">Home</Link>
 
-              {/* Collections mega dropdown */}
+              {/* COLLECTIONS mega dropdown */}
               <div className="group relative py-6">
                 <button className="flex items-center hover:text-varindo-ink transition-colors cursor-pointer">
-                  Collections <ChevronIcon />
+                  COLLECTIONS <ChevronIcon />
                 </button>
                 {/* Dropdown panel */}
                 <div className="invisible absolute left-1/2 top-full -translate-x-1/2 w-52 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 z-[100]">
@@ -199,9 +199,9 @@ export function Header() {
 
             <div className="rule" />
 
-            {/* Collection grid */}
+            {/* COLLECTIONS grid */}
             <div className="shell py-4">
-              <p className="label mb-3">Collections</p>
+              <p className="label mb-3">COLLECTIONS</p>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {collectionItems.map((item) => (
                   <Link

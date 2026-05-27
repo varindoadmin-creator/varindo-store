@@ -1,5 +1,32 @@
 'use client';
 
+const CATEGORY_OPTIONS = [
+  'Patterns',
+  'Protak',
+  'Protak Core',
+  'Saville',
+  'Solid Core',
+  'Solids',
+  'Solids+',
+  'Woods',
+  'Bookmatched'
+];
+
+const SIZE_OPTIONS = [
+  { label: "4'x8' / 1220 x 2440mm", values: ["4'x8'", "4’x8’", "4’X8’", "4'X8'", "4x8", "4X8", "4'x8' / 1220 x 2440 mm", "4'X8' / 1220 x 2440 mm", "1220 x 2440 mm", "1220 x 2440mm"] },
+  { label: "4'x10' / 1220 x 3050mm", values: ["4'x10'", "4’x10’", "4’X10’", "4'X10'", "4x10", "4X10", "4'x10' / 1220 x 3050 mm", "4'X10' / 1220 x 3050 mm", "1220 x 3050 mm", "1220 x 3050mm"] }
+];
+
+function matchesSizeOption(productSize: string | undefined, selectedSize: string) {
+  if (!selectedSize) return true;
+
+  const option = SIZE_OPTIONS.find((item) => item.label === selectedSize);
+  if (!option) return productSize === selectedSize;
+
+  const normalizedProductSize = (productSize || '').toLowerCase().replace(/\s+/g, '');
+  return option.values.some((value) => normalizedProductSize === value.toLowerCase().replace(/\s+/g, ''));
+}
+
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -98,9 +125,8 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('search') || '');
   const [collection, setCollection] = useState('');
-  const [category, setCategory] = useState('');
-  const [finish, setFinish] = useState('');
-  const [size, setSize] = useState('');
+  
+  const [category, setCategory] = useState('');const [size, setSize] = useState('');
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -108,17 +134,16 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
     setPage(1);
   }, [searchParams]);
 
-  useEffect(() => { setPage(1); }, [query, collection, category, finish, size]);
+  useEffect(() => { setPage(1); }, [query, collection, category, size]);
 
   const filteredProducts = useMemo(() => {
     let result = searchProducts(products, query);
     if (collection === '__promo-items') result = result.filter((p) => p.isPromoItem);
     else if (collection) result = result.filter((p) => p.collection === collection);
     if (category) result = result.filter((p) => p.category === category);
-    if (finish) result = result.filter((p) => p.finish === finish);
-    if (size) result = result.filter((p) => p.size === size);
+if (size) result = result.filter((p) => matchesSizeOption(p.size, size));
     return result;
-  }, [products, query, collection, category, finish, size]);
+  }, [products, query, collection, category, size]);
 
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE));
   const safePage = Math.min(page, totalPages);
@@ -126,14 +151,13 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
   const endIndex = startIndex + PRODUCTS_PER_PAGE;
   const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
 
-  const hasActiveFilters = query || collection || category || finish || size;
+  const hasActiveFilters = query || collection || category || size;
 
   const clearFilters = () => {
     setQuery('');
     setCollection('');
     setCategory('');
-    setFinish('');
-    setSize('');
+            setSize('');
     setPage(1);
   };
 
@@ -181,7 +205,7 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
         </div>
 
         {/* Filter inputs */}
-        <div className="p-5 grid gap-4 lg:grid-cols-[1.8fr_1fr_1fr_1fr_1fr]">
+        <div className="p-5 grid gap-4 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           {/* Search input */}
           <label className="block">
             <span className="label text-varindo-600 mb-2 block">Search</span>
@@ -189,7 +213,7 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Code, design, finish, colour…"
+                placeholder="Code, design, colour…"
                 className="field pr-9"
               />
               <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-varindo-400">
@@ -208,18 +232,9 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
             ))}
           </SelectWrapper>
 
-          <SelectWrapper label="Finish" value={finish} onChange={setFinish}>
-            <option value="">All finishes</option>
-            {uniqueSorted(filterOptions.finishes).filter(isValidFinish).map((item) => (
-              <option key={item} value={item}>{item}</option>
-            ))}
-          </SelectWrapper>
-
           <SelectWrapper label="Category" value={category} onChange={setCategory}>
             <option value="">All categories</option>
-            {filterOptions.categories.map((item) => (
-              <option key={item} value={item}>{item}</option>
-            ))}
+            {CATEGORY_OPTIONS.map((item) => <option key={item} value={item}>{item}</option>)}
           </SelectWrapper>
 
           <SelectWrapper label="Size" value={size} onChange={setSize}>
