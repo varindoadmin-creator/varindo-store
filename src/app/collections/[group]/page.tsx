@@ -9,11 +9,16 @@ export const fetchCache = 'force-no-store';
 export const revalidate = 600;
 
 const groups: Record<CollectionGroup, { title: string; subtitle: string; description: string; accent?: string }> = {
-  'new-collections': {
+  'new-arrivals', 'new-collections': {
     title: 'New Arrivals',
     subtitle: 'Fresh Lamitak designs and latest surface selections',
     description: 'Browse newly introduced Lamitak designs selected from the latest product code families.',
     accent: 'New'
+  },
+  'new-arrivals': {
+    title: 'New Arrivals',
+    subtitle: 'Latest Lamitak surfaces added to the catalogue',
+    description: 'Explore recently added Lamitak designs and product options.'
   },
   'best-sellers': {
     title: 'Best Sellers',

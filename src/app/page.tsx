@@ -148,7 +148,7 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-varindo-line border border-varindo-line">
             {[
-              { href: '/collections/new-collections', label: 'New\nArrivals' },
+              { href: '/collections/new-arrivals', label: 'New\nArrivals' },
               { href: '/collections/best-sellers', label: 'Best\nSellers' },
               { href: '/collections/promo-items', label: 'Promo\nItems' },
               { href: '/collections/woods', label: 'Woods' },
@@ -183,7 +183,7 @@ export default async function HomePage() {
                 Fresh Lamitak designs — modern textures and refined finishes for contemporary interior projects.
               </p>
             </div>
-            <Link href="/collections/new-collections" className="hidden sm:block text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors shrink-0 ml-6">
+            <Link href="/collections/new-arrivals" className="hidden sm:block text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors shrink-0 ml-6">
               View All →
             </Link>
           </div>
@@ -191,7 +191,7 @@ export default async function HomePage() {
           <ProductGrid products={newCollectionProducts} />
 
           <div className="mt-6 sm:hidden">
-            <Link href="/collections/new-collections" className="btn-ghost w-full justify-center">
+            <Link href="/collections/new-arrivals" className="btn-ghost w-full justify-center">
               View All →
             </Link>
           </div>

@@ -35,7 +35,7 @@ export function Footer() {
           <p className="label text-varindo-500 mb-5">Catalog</p>
           <ul className="space-y-3">
             {[
-              { href: '/collections/new-collections', label: 'New Arrivals' },
+              { href: '/collections/new-arrivals', label: 'New Arrivals' },
               { href: '/collections/best-sellers', label: 'Best Sellers' },
               { href: '/collections/promo-items', label: 'Promo Items' },
               { href: '/collections/woods', label: 'Woods' },

@@ -29,6 +29,7 @@ const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
     ['Brand', product.brand],
     ['Design', product.design],
     ['Collection', product.collection],
+    ['Sub Collection', product.category],
     ['Size', product.size],
     ['Thickness', product.thickness],
     ['Colour Family', product.colorFamily]

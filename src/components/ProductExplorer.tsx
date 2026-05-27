@@ -85,7 +85,7 @@ function SelectWrapper({
 
 const collectionTabs = [
   { label: 'All Products', href: '/products' },
-  { label: 'New Arrivals', href: '/collections/new-collections' },
+  { label: 'New Arrivals', href: '/collections/new-arrivals' },
   { label: 'Best Sellers', href: '/collections/best-sellers' },
   { label: 'Promo', href: '/collections/promo-items' },
   { label: 'Woods', href: '/collections/woods' },
