@@ -10,10 +10,9 @@ import { ProductGrid } from '@/components/ProductGrid';
 export const revalidate = 600;
 
 const quickSearch = [
-  { label: 'Woods',        href: '/collections/woods' },
-  { label: 'Patterns',     href: '/collections/patterns' },
-  { label: 'Solids',       href: '/collections/solids' },
-  { label: 'New Arrivals', href: '/collections/new-arrivals' }
+  { label: 'Woods',    href: '/collections/woods' },
+  { label: 'Patterns', href: '/collections/patterns' },
+  { label: 'Solids',   href: '/collections/solids' }
 ];
 
 const materialLibrary = [
@@ -31,11 +30,6 @@ const materialLibrary = [
     title: 'Solids',
     href: '/collections/solids',
     description: 'Clean solid colours, Solid Core, Protak, and Protak Core options for versatile applications.'
-  },
-  {
-    title: 'New Arrivals',
-    href: '/collections/new-arrivals',
-    description: 'Recently added Lamitak designs and product options from the latest product code families.'
   }
 ];
 
@@ -90,14 +84,6 @@ export default async function HomePage() {
               <Link href="/products" className="btn-ghost-white">
                 Browse Products
               </Link>
-              <a
-                href="https://wa.me/6281288885224"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-white/10 border border-white/20 text-white px-6 py-3 text-[11px] font-semibold tracking-[0.18em] uppercase hover:bg-white/20 transition-all"
-              >
-                Chat with Us
-              </a>
             </div>
           </div>
 
@@ -106,7 +92,7 @@ export default async function HomePage() {
             <div className="bg-white border border-varindo-line p-6 sm:p-8 shadow-luxury">
               <div className="mb-6">
                 <p className="label text-varindo-gold mb-1">Quick Search</p>
-                <p className="font-display text-2xl font-light text-varindo-ink">Find by material category</p>
+                <p className="font-display text-2xl font-light text-varindo-ink">Search Products</p>
               </div>
 
               <form action="/products" className="relative mb-5">
@@ -155,7 +141,7 @@ export default async function HomePage() {
         {/* Bottom strip */}
         <div className="absolute bottom-0 left-0 right-0 border-t border-white/10">
           <div className="shell py-4 flex items-center gap-8 overflow-x-auto">
-            {['HPL Laminates', 'Authorized Dealer', 'Free Shipping · Java & Bali', 'Professional Supply'].map((item) => (
+            {['Authorized Dealer', 'Free Shipping · Java & Bali'].map((item) => (
               <span key={item} className="text-[10px] tracking-[0.2em] uppercase text-white/40 shrink-0">{item}</span>
             ))}
           </div>
@@ -177,7 +163,7 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-varindo-line border border-varindo-line">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-px bg-varindo-line border border-varindo-line">
             {materialLibrary.map((item) => (
               <Link
                 key={item.href}
@@ -203,7 +189,7 @@ export default async function HomePage() {
               <div>
                 <p className="label mb-3">New Arrivals</p>
                 <h2 className="display text-varindo-ink text-4xl sm:text-5xl">
-                  Recently Added
+                  New Arrivals
                 </h2>
                 <p className="mt-3 text-[13px] leading-7 text-varindo-500 max-w-lg">
                   Fresh Lamitak designs — modern textures and refined finishes for contemporary interior projects.

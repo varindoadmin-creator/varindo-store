@@ -65,8 +65,7 @@ export function Header() {
       {/* Announcement bar */}
       <div className="bg-varindo-ink text-white text-center py-2 px-4">
         <p className="text-[10px] tracking-[0.22em] uppercase font-medium text-varindo-200">
-          Authorized Lamitak Dealer&nbsp;·&nbsp;Indonesia&nbsp;·&nbsp;
-          <a href="https://wa.me/6281288885224" className="underline underline-offset-2 hover:text-white transition">WhatsApp us</a>
+          Authorized Lamitak Dealer&nbsp;·&nbsp;Indonesia
         </p>
       </div>
 
