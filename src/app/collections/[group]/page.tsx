@@ -9,46 +9,44 @@ export const fetchCache = 'force-no-store';
 export const revalidate = 600;
 
 const groups: Record<CollectionGroup, { title: string; subtitle: string; description: string; accent?: string }> = {
-  'new-arrivals', 'new-collections': {
+  'new-arrivals': {
     title: 'New Arrivals',
     subtitle: 'Fresh Lamitak designs and latest surface selections',
     description: 'Browse newly introduced Lamitak designs selected from the latest product code families.',
-    accent: 'New'
+    accent: 'varindo'
   },
-  'new-arrivals': {
+  'new-collections': {
     title: 'New Arrivals',
-    subtitle: 'Latest Lamitak surfaces added to the catalogue',
-    description: 'Explore recently added Lamitak designs and product options.'
+    subtitle: 'Fresh Lamitak designs and latest surface selections',
+    description: 'Browse newly introduced Lamitak designs selected from the latest product code families.',
+    accent: 'varindo'
   },
   'best-sellers': {
     title: 'Best Sellers',
-    subtitle: 'Popular Lamitak designs trusted for interior projects',
-    description: 'Explore frequently selected Lamitak designs for cabinetry, furniture, wall panels, and commercial interiors.',
-    accent: 'Popular'
+    subtitle: 'Popular Lamitak choices for interior projects',
+    description: 'Explore frequently selected Lamitak surfaces for residential, retail, and commercial interiors.',
+    accent: 'varindo'
   },
   'promo-items': {
     title: 'Promo Items',
-    subtitle: 'Selected Lamitak items at special pricing',
-    description: 'Selected Lamitak items are now available with special promotional pricing. Grab them fast while stocks are available.',
-    accent: 'Special Price'
+    subtitle: 'Selected Lamitak products with promotional pricing',
+    description: 'Browse selected promotional items while availability lasts.',
+    accent: 'varindo'
   },
   woods: {
     title: 'Woods',
     subtitle: 'Warm woodgrain laminates for refined interiors',
-    description: 'Browse Lamitak wood-inspired surfaces for cabinetry, wardrobes, wall panels, and furniture applications.',
-    accent: 'Natural'
+    description: 'Explore Lamitak wood designs for cabinetry, wall panels, furniture, and interior detailing.'
   },
   patterns: {
     title: 'Patterns',
-    subtitle: 'Decorative surfaces with texture and character',
-    description: 'Explore textile-inspired and decorative Lamitak patterns for residential, commercial, and feature applications.',
-    accent: 'Textured'
+    subtitle: 'Decorative patterns, Saville, and Bookmatched designs',
+    description: 'Browse expressive Lamitak designs for feature walls, furniture, counters, and project highlights.'
   },
   solids: {
     title: 'Solids',
-    subtitle: 'Clean modern finishes for minimalist projects',
-    description: 'Browse solid, stone, and slate-inspired Lamitak finishes for contemporary interior surfaces.',
-    accent: 'Minimal'
+    subtitle: 'Clean solid surfaces for modern spaces',
+    description: 'Explore solid colours, solid core, Protak, and Protak Core options for versatile interior applications.'
   }
 };
 
