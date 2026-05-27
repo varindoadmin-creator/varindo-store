@@ -10,14 +10,9 @@ export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
 export const revalidate = 600;
 
-
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const product = await getProductBySlug(params.slug);
-
-  if (!product) {
-    return { title: 'Product Not Found' };
-  }
-
+  if (!product) return { title: 'Product Not Found' };
   return {
     title: product.name,
     description: product.description || `View ${product.name} in the Varindo Lamitak catalog.`
@@ -26,7 +21,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
   const product = await getProductBySlug(params.slug);
-
   if (!product) notFound();
 
   const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
@@ -40,57 +34,110 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
     ['Finish', product.finish],
     ['Size', product.size],
     ['Thickness', product.thickness],
-    ['Color Family', product.colorFamily]
+    ['Colour Family', product.colorFamily]
   ].filter(([, value]) => Boolean(value));
 
   return (
-    <div className="section-shell py-10 sm:py-14">
-      <Link href="/products" className="text-sm font-bold text-stone-500 transition hover:text-stone-950">
-        ← Back to products
-      </Link>
+    <div>
+      {/* Breadcrumb */}
+      <div className="border-b border-varindo-line bg-varindo-50">
+        <div className="shell py-4 flex items-center gap-2 text-[11px] tracking-[0.12em] uppercase">
+          <Link href="/products" className="text-varindo-500 hover:text-varindo-ink transition-colors">
+            Catalog
+          </Link>
+          <span className="text-varindo-300">·</span>
+          <span className="text-varindo-ink font-medium truncate max-w-xs">{product.name}</span>
+        </div>
+      </div>
 
-      <div className="mt-8 grid gap-10 lg:grid-cols-[0.98fr_1.02fr] lg:items-start">
-        <ProductImageZoom src={product.imageUrl || ''} imageUrls={product.imageUrlCandidates || []} alt={product.name} />
+      {/* Main content */}
+      <div className="shell py-10 sm:py-14">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:items-start">
 
-        <div>
-          <p className="eyebrow">{product.brand}</p>
-          <h1 className="mt-3 text-3xl font-black tracking-[-0.04em] text-stone-950 sm:text-5xl">{product.name}</h1>
-          <div className="mt-5">
-            {product.isPromoItem && typeof product.promoPrice === 'number' ? (
-              <>
-                <p className="text-sm font-bold text-stone-400 line-through">{formatIDR(product.price)}</p>
-                <p className="text-3xl font-black text-stone-950">{formatIDR(product.promoPrice)}</p>
-                <p className="mt-2 inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-amber-900">
-                  Promo 5% Off
-                </p>
-              </>
-            ) : (
-              <p className="text-3xl font-black text-stone-950">{formatIDR(product.price)}</p>
-            )}
-            <p className="mt-2 text-xs font-bold uppercase tracking-[0.16em] text-stone-500">Tax Included | Free Shipping (Jawa and Bali)</p>
+          {/* Image */}
+          <div>
+            <ProductImageZoom
+              src={product.imageUrl || ''}
+              imageUrls={product.imageUrlCandidates || []}
+              alt={product.name}
+            />
+            {/* Colour disclaimer */}
+            <div className="mt-4 border border-varindo-line/60 bg-varindo-50 px-5 py-4">
+              <p className="text-[11px] leading-6 text-varindo-500">
+                <span className="font-medium text-varindo-700">Note:</span> Actual colours may vary from digital display. We recommend viewing a physical sample prior to specification.
+              </p>
+            </div>
           </div>
 
+          {/* Details */}
+          <div>
+            {/* Brand / label */}
+            <p className="label text-varindo-gold mb-3">{product.brand || 'Lamitak'}</p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a href={enquiryUrl} target="_blank" rel="noreferrer" className="dark-button">
-              Chat with Us
-            </a>
-          </div>
+            {/* Name */}
+            <h1 className="display text-varindo-ink text-4xl sm:text-5xl mb-6">
+              {product.name}
+            </h1>
 
-          <div className="mt-10 soft-card p-6">
-            <h2 className="text-lg font-black text-stone-950">Product details</h2>
-            <dl className="mt-5 grid gap-4 sm:grid-cols-2">
-              {specs.map(([label, value]) => (
-                <div key={label} className="rounded-2xl bg-stone-50 p-4">
-                  <dt className="text-xs font-bold uppercase tracking-[0.16em] text-stone-500">{label}</dt>
-                  <dd className="mt-1 text-sm font-bold text-stone-950">{value}</dd>
+            {/* Price */}
+            <div className="border-t border-b border-varindo-line py-5 mb-7">
+              {product.isPromoItem && typeof product.promoPrice === 'number' ? (
+                <div>
+                  <div className="flex items-baseline gap-3 mb-1">
+                    <span className="font-display text-3xl font-light text-varindo-ink">{formatIDR(product.promoPrice)}</span>
+                    <span className="text-[13px] text-varindo-400 line-through">{formatIDR(product.price)}</span>
+                  </div>
+                  <div className="flex items-center gap-3 mt-2">
+                    <span className="bg-varindo-gold text-white text-[9px] font-semibold tracking-[0.2em] uppercase px-3 py-1">
+                      Promo 5% Off
+                    </span>
+                  </div>
                 </div>
-              ))}
-            </dl>
-          </div>
+              ) : (
+                <span className="font-display text-3xl font-light text-varindo-ink">{formatIDR(product.price)}</span>
+              )}
+              <p className="mt-2 text-[11px] tracking-[0.14em] uppercase text-varindo-400">
+                Tax included · Free shipping (Java &amp; Bali)
+              </p>
+            </div>
 
-          <div className="mt-6 rounded-[1.5rem] border border-amber-200 bg-amber-50 p-5 text-sm leading-7 text-amber-950">
-            Note: Actual colours may vary from the colours displayed digitally on your screen. Prior to specification, we recommend to view a physical sample.
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-10">
+              <a
+                href={enquiryUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-ink"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.19 1.6 6L0 24l6.19-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22c-1.85 0-3.66-.5-5.23-1.43l-.37-.22-3.87 1.02 1.03-3.77-.24-.38A9.93 9.93 0 0 1 2 12C2 6.49 6.49 2 12 2s10 4.49 10 10-4.49 10-10 10z"/>
+                </svg>
+                Enquire via WhatsApp
+              </a>
+              <Link href="/products" className="btn-ghost">
+                ← Back to Catalog
+              </Link>
+            </div>
+
+            {/* Spec table */}
+            <div className="border border-varindo-line">
+              <div className="border-b border-varindo-line px-5 py-3.5 bg-varindo-50">
+                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-700">Product Specifications</p>
+              </div>
+              <dl>
+                {specs.map(([label, value], i) => (
+                  <div
+                    key={label}
+                    className={`flex items-start gap-4 px-5 py-3.5 ${
+                      i !== specs.length - 1 ? 'border-b border-varindo-line/60' : ''
+                    }`}
+                  >
+                    <dt className="text-[11px] tracking-[0.14em] uppercase text-varindo-400 w-28 shrink-0 pt-px">{label}</dt>
+                    <dd className="text-[13px] font-medium text-varindo-ink">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
         </div>
       </div>

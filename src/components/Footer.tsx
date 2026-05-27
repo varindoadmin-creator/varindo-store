@@ -2,38 +2,99 @@ import Link from 'next/link';
 
 export function Footer() {
   return (
-    <footer className="border-t border-stone-200/80 bg-stone-950 text-white">
-      <div className="section-shell grid gap-10 py-12 sm:py-14 md:grid-cols-[1.25fr_0.55fr_0.85fr]">
+    <footer className="bg-varindo-ink text-varindo-200">
+
+      {/* Main footer grid */}
+      <div className="shell pt-14 pb-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+
+        {/* Brand column */}
         <div>
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-300">Varindo</p>
-          <p className="mt-4 max-w-xl text-sm leading-7 text-stone-300">
-            Varindo is an authorized dealer of Lamitak High Pressure Laminates (HPL) in Indonesia. We are committed to delivering a transparent, professional, and dependable purchasing experience for all our customers.
+          <img
+            src="/varindo-logo-transparent.png"
+            alt="Varindo"
+            style={{ width: '80px', filter: 'brightness(0) invert(1)' }}
+            className="h-auto object-contain opacity-80 mb-6"
+          />
+          <p className="text-[13px] leading-7 text-varindo-400 max-w-xs">
+            Authorized dealer of Lamitak High Pressure Laminates in Indonesia. Professional supply for interior designers, architects, and contractors.
           </p>
-        </div>
-
-        <div>
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-300">Catalog</p>
-          <div className="mt-4 grid gap-3 text-sm text-stone-400">
-            <Link href="/collections/new-collections" className="hover:text-white">New Collections</Link>
-            <Link href="/collections/best-sellers" className="hover:text-white">Best Sellers</Link>
-            <Link href="/collections/promo-items" className="hover:text-white">Promo Items</Link>
-            <Link href="/collections/woods" className="hover:text-white">Woods</Link>
-            <Link href="/collections/patterns" className="hover:text-white">Patterns</Link>
-            <Link href="/collections/solids" className="hover:text-white">Solids</Link>
+          <div className="mt-6 flex gap-4">
+            <a
+              href="https://wa.me/6281288885224"
+              target="_blank"
+              rel="noreferrer"
+              className="btn-ghost-white text-[10px] py-2.5 px-5"
+            >
+              WhatsApp
+            </a>
           </div>
         </div>
 
+        {/* Catalog */}
         <div>
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-stone-300">Contact</p>
-          <div className="mt-4 grid gap-1 text-sm leading-7 text-stone-400">
-            <p>Phone: 0812 8888 5224 / 0812 1001 5224</p>
-            <p>Email: contact@varindo.co.id</p>
-          </div>
+          <p className="label text-varindo-500 mb-5">Catalog</p>
+          <ul className="space-y-3">
+            {[
+              { href: '/collections/new-collections', label: 'New Collections' },
+              { href: '/collections/best-sellers', label: 'Best Sellers' },
+              { href: '/collections/promo-items', label: 'Promo Items' },
+              { href: '/collections/woods', label: 'Woods' },
+              { href: '/collections/patterns', label: 'Patterns' },
+              { href: '/collections/solids', label: 'Solids' }
+            ].map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="text-[13px] text-varindo-400 hover:text-white transition-colors">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Company */}
+        <div>
+          <p className="label text-varindo-500 mb-5">Company</p>
+          <ul className="space-y-3">
+            {[
+              { href: '/about', label: 'About Varindo' },
+              { href: '/contact', label: 'Contact' },
+              { href: '/request-catalog', label: 'Request Catalog' },
+              { href: '/request-sample', label: 'Request Sample' }
+            ].map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="text-[13px] text-varindo-400 hover:text-white transition-colors">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Contact */}
+        <div>
+          <p className="label text-varindo-500 mb-5">Contact</p>
+          <address className="not-italic space-y-3">
+            <p className="text-[13px] text-varindo-400">
+              <span className="block text-varindo-500 text-[10px] tracking-[0.16em] uppercase mb-1">Phone</span>
+              0812 8888 5224<br />0812 1001 5224
+            </p>
+            <p className="text-[13px] text-varindo-400">
+              <span className="block text-varindo-500 text-[10px] tracking-[0.16em] uppercase mb-1">Email</span>
+              contact@varindo.co.id
+            </p>
+          </address>
         </div>
       </div>
-      <div className="border-t border-white/10">
-        <div className="section-shell py-5 text-xs font-medium text-stone-500">
-          Copyright © {new Date().getFullYear()} CV. VARINDO FORMA HUTAMA.
+
+      {/* Bottom bar */}
+      <div className="border-t border-white/[0.07]">
+        <div className="shell py-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <p className="text-[11px] text-varindo-600">
+            © {new Date().getFullYear()} CV. Varindo Forma Hutama. All rights reserved.
+          </p>
+          <p className="text-[11px] text-varindo-700">
+            Authorized Lamitak Dealer · Indonesia
+          </p>
         </div>
       </div>
     </footer>

@@ -9,10 +9,6 @@ import { ProductGrid } from './ProductGrid';
 
 const PRODUCTS_PER_PAGE = 24;
 
-function optionLabel(value: string) {
-  return value || 'All';
-}
-
 type FilterOptions = {
   collections: string[];
   categories: string[];
@@ -28,6 +24,76 @@ type ProductExplorerProps = {
   showPromoPricing?: boolean;
 };
 
+function cleanFilterValue(value?: string | null) {
+  return (value || '').trim();
+}
+
+function isValidFinish(value?: string | null) {
+  const finish = cleanFilterValue(value);
+  const normalized = finish.toLowerCase();
+  if (!finish) return false;
+  if (['-', 'n/a', 'na', 'null', 'undefined', 'surface'].includes(normalized)) return false;
+  if (normalized.includes('promo')) return false;
+  return true;
+}
+
+function isValidCollection(value?: string | null) {
+  const collection = cleanFilterValue(value);
+  const normalized = collection.toLowerCase();
+  if (!collection) return false;
+  if (['-', 'n/a', 'na', 'null', 'undefined'].includes(normalized)) return false;
+  if (normalized.includes('promo')) return false;
+  if (normalized === 'promo items') return false;
+  return true;
+}
+
+function uniqueSorted(values: Array<string | null | undefined>) {
+  return Array.from(new Set(values.map(cleanFilterValue).filter(Boolean))).sort((a, b) => a.localeCompare(b));
+}
+
+function SelectWrapper({
+  label,
+  value,
+  onChange,
+  children
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="block">
+      <span className="label text-varindo-600 mb-2 block">{label}</span>
+      <div className="relative">
+        <select
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="field-select w-full"
+        >
+          {children}
+        </select>
+        {/* chevron */}
+        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-varindo-400">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </div>
+    </label>
+  );
+}
+
+const collectionTabs = [
+  { label: 'All Products', href: '/products' },
+  { label: 'New', href: '/collections/new-collections' },
+  { label: 'Best Sellers', href: '/collections/best-sellers' },
+  { label: 'Promo', href: '/collections/promo-items' },
+  { label: 'Woods', href: '/collections/woods' },
+  { label: 'Patterns', href: '/collections/patterns' },
+  { label: 'Solids', href: '/collections/solids' }
+];
+
 export function ProductExplorer({ products, filterOptions, showCollectionTabs = true, showPromoPricing = false }: ProductExplorerProps) {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('search') || '');
@@ -42,19 +108,15 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
     setPage(1);
   }, [searchParams]);
 
-  useEffect(() => {
-    setPage(1);
-  }, [query, collection, category, finish, size]);
+  useEffect(() => { setPage(1); }, [query, collection, category, finish, size]);
 
   const filteredProducts = useMemo(() => {
     let result = searchProducts(products, query);
-
-    if (collection === '__promo-items') result = result.filter((product) => product.isPromoItem);
-    else if (collection) result = result.filter((product) => product.collection === collection);
-    if (category) result = result.filter((product) => product.category === category);
-    if (finish) result = result.filter((product) => product.finish === finish);
-    if (size) result = result.filter((product) => product.size === size);
-
+    if (collection === '__promo-items') result = result.filter((p) => p.isPromoItem);
+    else if (collection) result = result.filter((p) => p.collection === collection);
+    if (category) result = result.filter((p) => p.category === category);
+    if (finish) result = result.filter((p) => p.finish === finish);
+    if (size) result = result.filter((p) => p.size === size);
     return result;
   }, [products, query, collection, category, finish, size]);
 
@@ -63,6 +125,8 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
   const startIndex = (safePage - 1) * PRODUCTS_PER_PAGE;
   const endIndex = startIndex + PRODUCTS_PER_PAGE;
   const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+
+  const hasActiveFilters = query || collection || category || finish || size;
 
   const clearFilters = () => {
     setQuery('');
@@ -79,116 +143,143 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-0">
+      {/* Collection tabs */}
       {showCollectionTabs && (
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          {[
-            ['All', '/products'],
-            ['New Collections', '/collections/new-collections'],
-            ['Best Sellers', '/collections/best-sellers'],
-            ['Promo Items', '/collections/promo-items'],
-            ['Woods', '/collections/woods'],
-            ['Patterns', '/collections/patterns'],
-            ['Solids', '/collections/solids']
-          ].map(([label, href]) => (
-            <Link key={href} href={href} className="shrink-0 rounded-full border border-stone-200 bg-white px-5 py-2.5 text-xs font-black uppercase tracking-[0.14em] text-stone-700 transition hover:border-stone-950 hover:text-stone-950">
+        <div className="flex gap-0 overflow-x-auto border-b border-varindo-line mb-8 scrollbar-none">
+          {collectionTabs.map(({ label, href }) => (
+            <Link
+              key={href}
+              href={href}
+              className="shrink-0 px-5 py-3 text-[10px] font-semibold tracking-[0.18em] uppercase text-varindo-600 border-b-2 border-transparent hover:text-varindo-ink hover:border-varindo-ink transition-all duration-150 whitespace-nowrap"
+            >
               {label}
             </Link>
           ))}
         </div>
       )}
 
-      <div className="soft-card p-4 sm:p-5">
-        <div className="grid gap-4 lg:grid-cols-[1.55fr_1fr_1fr_1fr_1fr]">
-          <label className="block">
-            <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-stone-500">Search</span>
-            <input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search products"
-              className="h-12 w-full rounded-2xl border border-stone-200 bg-white px-4 text-sm font-medium outline-none transition placeholder:text-stone-400 focus:border-stone-950 focus:ring-4 focus:ring-stone-950/5"
-            />
-          </label>
-
-          <label className="block">
-            <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-stone-500">Collection</span>
-            <select value={collection} onChange={(event) => setCollection(event.target.value)} className="h-12 w-full rounded-2xl border border-stone-200 bg-white px-4 text-sm font-medium outline-none transition focus:border-stone-950 focus:ring-4 focus:ring-stone-950/5">
-              <option value="">All collections</option>
-              <option value="__promo-items">Promo Items</option>
-              {filterOptions.collections.map((item) => <option key={item} value={item}>{optionLabel(item)}</option>)}
-            </select>
-          </label>
-
-          <label className="block">
-            <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-stone-500">Finish</span>
-            <select value={finish} onChange={(event) => setFinish(event.target.value)} className="h-12 w-full rounded-2xl border border-stone-200 bg-white px-4 text-sm font-medium outline-none transition focus:border-stone-950 focus:ring-4 focus:ring-stone-950/5">
-              <option value="">All finishes</option>
-              {filterOptions.finishes.map((item) => <option key={item} value={item}>{optionLabel(item)}</option>)}
-            </select>
-          </label>
-
-          <label className="block">
-            <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-stone-500">Category</span>
-            <select value={category} onChange={(event) => setCategory(event.target.value)} className="h-12 w-full rounded-2xl border border-stone-200 bg-white px-4 text-sm font-medium outline-none transition focus:border-stone-950 focus:ring-4 focus:ring-stone-950/5">
-              <option value="">All categories</option>
-              {filterOptions.categories.map((item) => <option key={item} value={item}>{optionLabel(item)}</option>)}
-            </select>
-          </label>
-
-          <label className="block">
-            <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-stone-500">Size</span>
-            <select value={size} onChange={(event) => setSize(event.target.value)} className="h-12 w-full rounded-2xl border border-stone-200 bg-white px-4 text-sm font-medium outline-none transition focus:border-stone-950 focus:ring-4 focus:ring-stone-950/5">
-              <option value="">All sizes</option>
-              {filterOptions.sizes.map((item) => <option key={item} value={item}>{optionLabel(item)}</option>)}
-            </select>
-          </label>
+      {/* Filter bar */}
+      <div className="border border-varindo-line bg-white mb-8">
+        {/* Filter header */}
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-varindo-line">
+          <div className="flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-varindo-500">
+              <path d="M1 3h12M3 7h8M5 11h4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+            </svg>
+            <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-varindo-700">Filter &amp; Search</p>
+          </div>
+          {hasActiveFilters && (
+            <button
+              type="button"
+              onClick={clearFilters}
+              className="text-[10px] tracking-[0.14em] uppercase text-varindo-gold hover:text-varindo-ink transition-colors font-medium"
+            >
+              Clear all
+            </button>
+          )}
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-stone-500">
-          <p>
-            <span className="font-bold text-stone-950">{filteredProducts.length}</span> product{filteredProducts.length === 1 ? '' : 's'} found
+        {/* Filter inputs */}
+        <div className="p-5 grid gap-4 lg:grid-cols-[1.8fr_1fr_1fr_1fr_1fr]">
+          {/* Search input */}
+          <label className="block">
+            <span className="label text-varindo-600 mb-2 block">Search</span>
+            <div className="relative">
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Code, design, finish, colour…"
+                className="field pr-9"
+              />
+              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-varindo-400">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                  <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M10.5 10.5L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </span>
+            </div>
+          </label>
+
+          <SelectWrapper label="Collection" value={collection} onChange={setCollection}>
+            <option value="">All collections</option>
+            {uniqueSorted(filterOptions.collections).filter(isValidCollection).map((item) => (
+              <option key={item} value={item}>{item}</option>
+            ))}
+          </SelectWrapper>
+
+          <SelectWrapper label="Finish" value={finish} onChange={setFinish}>
+            <option value="">All finishes</option>
+            {uniqueSorted(filterOptions.finishes).filter(isValidFinish).map((item) => (
+              <option key={item} value={item}>{item}</option>
+            ))}
+          </SelectWrapper>
+
+          <SelectWrapper label="Category" value={category} onChange={setCategory}>
+            <option value="">All categories</option>
+            {filterOptions.categories.map((item) => (
+              <option key={item} value={item}>{item}</option>
+            ))}
+          </SelectWrapper>
+
+          <SelectWrapper label="Size" value={size} onChange={setSize}>
+            <option value="">All sizes</option>
+            {filterOptions.sizes.map((item) => (
+              <option key={item} value={item}>{item}</option>
+            ))}
+          </SelectWrapper>
+        </div>
+
+        {/* Results count */}
+        <div className="border-t border-varindo-line/60 px-5 py-3 flex items-center justify-between bg-varindo-50/50">
+          <p className="text-[12px] text-varindo-500">
+            <span className="font-semibold text-varindo-ink">{filteredProducts.length.toLocaleString()}</span>
+            {' '}product{filteredProducts.length !== 1 ? 's' : ''}
             {filteredProducts.length > 0 && (
-              <span> · Showing <span className="font-bold text-stone-950">{startIndex + 1}-{Math.min(endIndex, filteredProducts.length)}</span></span>
+              <span className="text-varindo-400">
+                {' '}· Showing {startIndex + 1}–{Math.min(endIndex, filteredProducts.length)}
+              </span>
             )}
           </p>
-          <button type="button" onClick={clearFilters} className="font-bold text-stone-950 hover:underline">
-            Clear filters
-          </button>
+          {hasActiveFilters && (
+            <p className="text-[11px] text-varindo-gold font-medium">Filters active</p>
+          )}
         </div>
       </div>
 
+      {/* Product grid */}
       <ProductGrid products={paginatedProducts} showPromoPricing={showPromoPricing || collection === '__promo-items'} />
 
+      {/* Pagination */}
       {filteredProducts.length > PRODUCTS_PER_PAGE && (
-        <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-1 pt-2">
           <button
             type="button"
             onClick={() => goToPage(safePage - 1)}
             disabled={safePage === 1}
-            className="rounded-full border border-stone-200 bg-white px-5 py-3 text-xs font-black uppercase tracking-[0.14em] text-stone-700 transition hover:border-stone-950 disabled:cursor-not-allowed disabled:opacity-40"
+            className="border border-varindo-line bg-white px-5 py-2.5 text-[11px] font-medium tracking-[0.14em] uppercase text-varindo-700 hover:border-varindo-ink hover:text-varindo-ink transition-all disabled:cursor-not-allowed disabled:opacity-30"
           >
-            Previous
+            ← Prev
           </button>
 
-          {Array.from({ length: totalPages }, (_, index) => index + 1)
-            .filter((pageNumber) => pageNumber === 1 || pageNumber === totalPages || Math.abs(pageNumber - safePage) <= 2)
-            .map((pageNumber, index, visiblePages) => {
-              const previousPage = visiblePages[index - 1];
-              const showGap = previousPage && pageNumber - previousPage > 1;
-
+          {Array.from({ length: totalPages }, (_, i) => i + 1)
+            .filter((n) => n === 1 || n === totalPages || Math.abs(n - safePage) <= 2)
+            .map((n, i, arr) => {
+              const prev = arr[i - 1];
+              const gap = prev && n - prev > 1;
               return (
-                <span key={pageNumber} className="flex items-center gap-2">
-                  {showGap && <span className="px-1 text-sm font-bold text-stone-400">…</span>}
+                <span key={n} className="flex items-center gap-1">
+                  {gap && <span className="px-1 text-varindo-400 text-sm">·</span>}
                   <button
                     type="button"
-                    onClick={() => goToPage(pageNumber)}
-                    className={`h-11 min-w-11 rounded-full border px-4 text-sm font-black transition ${
-                      pageNumber === safePage
-                        ? 'border-stone-950 bg-stone-950 text-white'
-                        : 'border-stone-200 bg-white text-stone-700 hover:border-stone-950'
+                    onClick={() => goToPage(n)}
+                    className={`h-10 min-w-10 px-3.5 text-[12px] font-medium border transition-all ${
+                      n === safePage
+                        ? 'border-varindo-ink bg-varindo-ink text-white'
+                        : 'border-varindo-line bg-white text-varindo-700 hover:border-varindo-ink hover:text-varindo-ink'
                     }`}
                   >
-                    {pageNumber}
+                    {n}
                   </button>
                 </span>
               );
@@ -198,9 +289,9 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
             type="button"
             onClick={() => goToPage(safePage + 1)}
             disabled={safePage === totalPages}
-            className="rounded-full border border-stone-200 bg-white px-5 py-3 text-xs font-black uppercase tracking-[0.14em] text-stone-700 transition hover:border-stone-950 disabled:cursor-not-allowed disabled:opacity-40"
+            className="border border-varindo-line bg-white px-5 py-2.5 text-[11px] font-medium tracking-[0.14em] uppercase text-varindo-700 hover:border-varindo-ink hover:text-varindo-ink transition-all disabled:cursor-not-allowed disabled:opacity-30"
           >
-            Next
+            Next →
           </button>
         </div>
       )}

@@ -17,17 +17,32 @@ export default async function ProductsPage() {
   const filterOptions = await getFilterOptions();
 
   return (
-    <div className="section-shell py-10 sm:py-14">
-      <div className="mb-8 rounded-[2rem] bg-stone-950 p-6 text-white shadow-luxury sm:p-10">
-        <p className="eyebrow text-amber-300">Lamitak Catalog</p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-black tracking-[-0.045em] text-white sm:text-6xl">Browse collections</h1>
-        <p className="mt-5 max-w-3xl text-sm leading-7 text-stone-300 sm:text-base">
-          Search by product code, design name, collection, finish, color family, or size.
-        </p>
+    <div>
+      {/* Page header */}
+      <div className="bg-varindo-ink text-white border-b border-varindo-ink">
+        <div className="shell py-12 sm:py-16">
+          <p className="label text-varindo-400 mb-4">Lamitak HPL</p>
+          <h1 className="display text-white text-5xl sm:text-6xl lg:text-7xl mb-4">
+            Product Catalog
+          </h1>
+          <p className="text-[14px] leading-7 text-varindo-400 max-w-xl">
+            Search by product code, design name, collection, finish, or colour family.
+          </p>
+        </div>
       </div>
-      <Suspense fallback={<div className="soft-card p-6 text-sm font-medium text-stone-500">Loading catalog...</div>}>
-        <ProductExplorer products={products} filterOptions={filterOptions} />
-      </Suspense>
+
+      {/* Explorer */}
+      <div className="shell py-10 sm:py-12">
+        <Suspense
+          fallback={
+            <div className="border border-varindo-line bg-white py-12 px-6 text-center">
+              <p className="label text-varindo-500">Loading catalog…</p>
+            </div>
+          }
+        >
+          <ProductExplorer products={products} filterOptions={filterOptions} />
+        </Suspense>
+      </div>
     </div>
   );
 }

@@ -8,46 +8,49 @@ export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
 export const revalidate = 600;
 
-const groups: Record<CollectionGroup, { title: string; subtitle: string; description: string }> = {
+const groups: Record<CollectionGroup, { title: string; subtitle: string; description: string; accent?: string }> = {
   'new-collections': {
     title: 'New Collections',
     subtitle: 'Fresh Lamitak designs and latest surface selections',
-    description: 'Browse newly introduced Lamitak designs selected from the latest product code families.'
+    description: 'Browse newly introduced Lamitak designs selected from the latest product code families.',
+    accent: 'New'
   },
   'best-sellers': {
     title: 'Best Sellers',
     subtitle: 'Popular Lamitak designs trusted for interior projects',
-    description: 'Explore frequently selected Lamitak designs for cabinetry, furniture, wall panels, and commercial interiors.'
+    description: 'Explore frequently selected Lamitak designs for cabinetry, furniture, wall panels, and commercial interiors.',
+    accent: 'Popular'
   },
   'promo-items': {
     title: 'Promo Items',
-    subtitle: 'Selected Lamitak items available for promotional focus',
-    description: 'Selected Lamitak items are now available with special promotional pricing. Grab them fast while stocks are available.'
+    subtitle: 'Selected Lamitak items at special pricing',
+    description: 'Selected Lamitak items are now available with special promotional pricing. Grab them fast while stocks are available.',
+    accent: 'Special Price'
   },
   woods: {
     title: 'Woods',
     subtitle: 'Warm woodgrain laminates for refined interiors',
-    description: 'Browse Lamitak wood-inspired surfaces for cabinetry, wardrobes, wall panels, and furniture applications.'
+    description: 'Browse Lamitak wood-inspired surfaces for cabinetry, wardrobes, wall panels, and furniture applications.',
+    accent: 'Natural'
   },
   patterns: {
     title: 'Patterns',
     subtitle: 'Decorative surfaces with texture and character',
-    description: 'Explore textile-inspired and decorative Lamitak patterns for residential, commercial, and feature applications.'
+    description: 'Explore textile-inspired and decorative Lamitak patterns for residential, commercial, and feature applications.',
+    accent: 'Textured'
   },
   solids: {
     title: 'Solids',
     subtitle: 'Clean modern finishes for minimalist projects',
-    description: 'Browse solid, stone, and slate-inspired Lamitak finishes for contemporary interior surfaces.'
+    description: 'Browse solid, stone, and slate-inspired Lamitak finishes for contemporary interior surfaces.',
+    accent: 'Minimal'
   }
 };
-
 
 export function generateMetadata({ params }: { params: { group: string } }): Metadata {
   const group = params.group as CollectionGroup;
   const page = groups[group];
-
   if (!page) return { title: 'Collection Not Found' };
-
   return {
     title: `${page.title} Collection`,
     description: page.description
@@ -57,29 +60,77 @@ export function generateMetadata({ params }: { params: { group: string } }): Met
 export default async function CollectionPage({ params }: { params: { group: string } }) {
   const group = params.group as CollectionGroup;
   const page = groups[group];
-
   if (!page) notFound();
 
   const products = await getProductsByCollectionGroup(group);
   const filterOptions = {
-    collections: Array.from(new Set(products.map((product) => product.collection).filter(Boolean) as string[])).sort(),
-    categories: Array.from(new Set(products.map((product) => product.category).filter(Boolean) as string[])).sort(),
-    finishes: Array.from(new Set(products.map((product) => product.finish).filter(Boolean) as string[])).sort(),
-    sizes: Array.from(new Set(products.map((product) => product.size).filter(Boolean) as string[])).sort(),
-    colorFamilies: Array.from(new Set(products.map((product) => product.colorFamily).filter(Boolean) as string[])).sort()
+    collections: Array.from(new Set(products.map((p) => p.collection).filter(Boolean) as string[])).sort(),
+    categories: Array.from(new Set(products.map((p) => p.category).filter(Boolean) as string[])).sort(),
+    finishes: Array.from(new Set(products.map((p) => p.finish).filter(Boolean) as string[])).sort(),
+    sizes: Array.from(new Set(products.map((p) => p.size).filter(Boolean) as string[])).sort(),
+    colorFamilies: Array.from(new Set(products.map((p) => p.colorFamily).filter(Boolean) as string[])).sort()
   };
 
   return (
-    <div className="section-shell py-10 sm:py-14">
-      <div className="mb-8 rounded-[2rem] bg-white p-6 shadow-card sm:p-10">
-        <Link href="/products" className="text-sm font-bold text-stone-500 hover:text-stone-950">← All products</Link>
-        <p className="eyebrow mt-8">Collections</p>
-        <h1 className="mt-3 text-4xl font-black tracking-[-0.045em] text-stone-950 sm:text-6xl">{page.title}</h1>
-        <p className="mt-4 max-w-2xl text-lg font-semibold text-stone-700">{page.subtitle}</p>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-stone-600 sm:text-base">{page.description}</p>
+    <div>
+      {/* Collection header */}
+      <div className="bg-varindo-ink text-white">
+        <div className="shell py-12 sm:py-16">
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-[11px] tracking-[0.12em] uppercase mb-8">
+            <Link href="/products" className="text-varindo-500 hover:text-varindo-300 transition-colors">
+              Catalog
+            </Link>
+            <span className="text-varindo-600">·</span>
+            <span className="text-varindo-400">{page.title}</span>
+          </div>
+
+          <div className="flex items-start justify-between gap-6 flex-wrap">
+            <div>
+              {page.accent && <p className="label text-varindo-400 mb-4">{page.accent}</p>}
+              <h1 className="display text-white text-5xl sm:text-6xl lg:text-7xl mb-4">
+                {page.title}
+              </h1>
+              <p className="text-[14px] leading-7 text-varindo-400 max-w-xl">{page.description}</p>
+            </div>
+
+            {/* Stats */}
+            <div className="border border-varindo-700 bg-varindo-800/40 px-6 py-4 text-center shrink-0">
+              <p className="font-display text-4xl font-light text-white">{products.length}</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-varindo-500 mt-1">Products</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <ProductExplorer products={products} filterOptions={filterOptions} showCollectionTabs={false} showPromoPricing={group === 'promo-items'} />
+      {/* Collection tabs bar */}
+      <div className="border-b border-varindo-line bg-white overflow-x-auto">
+        <div className="shell flex gap-0">
+          {(Object.keys(groups) as CollectionGroup[]).map((g) => (
+            <Link
+              key={g}
+              href={`/collections/${g}`}
+              className={`shrink-0 px-5 py-3.5 text-[10px] font-semibold tracking-[0.18em] uppercase transition-all border-b-2 ${
+                g === group
+                  ? 'border-varindo-ink text-varindo-ink'
+                  : 'border-transparent text-varindo-500 hover:text-varindo-ink hover:border-varindo-300'
+              }`}
+            >
+              {groups[g].title}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Explorer */}
+      <div className="shell py-10 sm:py-12">
+        <ProductExplorer
+          products={products}
+          filterOptions={filterOptions}
+          showCollectionTabs={false}
+          showPromoPricing={group === 'promo-items'}
+        />
+      </div>
     </div>
   );
 }

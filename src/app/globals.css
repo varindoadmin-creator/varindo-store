@@ -2,69 +2,144 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Design tokens ─────────────────────────────────────────── */
 :root {
   color-scheme: light;
-  --varindo-ink: #181411;
-  --varindo-muted: #70675f;
-  --varindo-cream: #f8f4ee;
-  --varindo-paper: #fffaf3;
-  --varindo-line: #e8ded2;
-  --varindo-gold: #b88746;
+
+  /* Core palette */
+  --c-paper:    #faf8f5;
+  --c-warm:     #ede8e1;
+  --c-line:     #e4ddd4;
+  --c-sand:     #d4c9b8;
+  --c-ink:      #1a1714;
+  --c-ink-60:   rgba(26, 23, 20, 0.60);
+  --c-ink-30:   rgba(26, 23, 20, 0.30);
+  --c-gold:     #a8763e;
+  --c-gold-lt:  #f0e8dc;
+  --c-white:    #ffffff;
+
+  /* Typography */
+  --font-display: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-body:    var(--font-dm-sans), 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+
+  /* Spacing rhythm */
+  --space-section: clamp(3.5rem, 6vw, 6rem);
 }
 
-* {
-  box-sizing: border-box;
-}
+/* ─── Reset & base ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at top left, rgba(184, 135, 70, 0.10), transparent 34rem),
-    linear-gradient(180deg, #fffaf3 0%, #f8f4ee 48%, #ffffff 100%);
-  color: var(--varindo-ink);
+  background-color: var(--c-paper);
+  color: var(--c-ink);
+  font-family: var(--font-body);
 }
 
 ::selection {
-  background: var(--varindo-ink);
+  background: var(--c-ink);
   color: white;
 }
 
-img {
-  -webkit-user-drag: none;
-}
+img { -webkit-user-drag: none; }
 
+/* ─── Scrollbar (webkit) ────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--c-warm); }
+::-webkit-scrollbar-thumb { background: var(--c-sand); border-radius: 3px; }
+
+/* ─── Utility layer ─────────────────────────────────────────── */
 @layer components {
-  .section-shell {
-    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+
+  /* Layout shell */
+  .shell {
+    @apply mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-12;
   }
 
-  .eyebrow {
-    @apply text-xs font-bold uppercase tracking-[0.22em] text-amber-700;
+  /* Eyebrow label — the architectural small-caps identifier */
+  .label {
+    font-family: var(--font-body);
+    @apply text-[10px] font-semibold uppercase tracking-[0.28em] text-varindo-gold;
   }
 
-  .soft-card {
-    @apply rounded-[1.75rem] border border-stone-200/80 bg-white/85 shadow-card backdrop-blur;
+  /* Display headline — uses Cormorant */
+  .display {
+    font-family: var(--font-display);
+    @apply font-light tracking-[-0.02em] leading-[1.05];
   }
 
-  .dark-button {
-    @apply inline-flex items-center justify-center rounded-full bg-stone-950 px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-stone-800;
+  /* Divider line — architectural rule */
+  .rule {
+    @apply border-t border-varindo-line;
   }
 
-  .light-button {
-    @apply inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-bold text-stone-950 transition hover:-translate-y-0.5 hover:border-stone-950;
+  /* Primary CTA — ink fill */
+  .btn-ink {
+    @apply inline-flex items-center justify-center gap-2
+           bg-varindo-ink text-white
+           px-6 py-3 text-[11px] font-semibold tracking-[0.18em] uppercase
+           transition-all duration-200
+           hover:bg-varindo-800;
+  }
+
+  /* Secondary CTA — ghost */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           border border-varindo-ink text-varindo-ink
+           px-6 py-3 text-[11px] font-semibold tracking-[0.18em] uppercase
+           transition-all duration-200
+           hover:bg-varindo-ink hover:text-white;
+  }
+
+  /* White ghost */
+  .btn-ghost-white {
+    @apply inline-flex items-center justify-center gap-2
+           border border-white/60 text-white
+           px-6 py-3 text-[11px] font-semibold tracking-[0.18em] uppercase
+           transition-all duration-200
+           hover:bg-white hover:text-varindo-ink;
+  }
+
+  /* Subtle product card */
+  .surface-card {
+    @apply bg-white border border-varindo-line transition-all duration-300;
+  }
+
+  /* Form control */
+  .field {
+    @apply h-11 w-full border border-varindo-line bg-white px-4
+           text-sm text-varindo-ink outline-none
+           transition-all duration-150
+           placeholder:text-varindo-400
+           focus:border-varindo-ink focus:ring-0;
+  }
+
+  .field-select {
+    @apply field appearance-none bg-white pr-9;
   }
 }
 
-
-:root {
-  --font-manrope: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+/* ─── Animations ────────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-body {
-  font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
+
+.animate-fade-up   { animation: fade-up  0.55s ease both; }
+.animate-fade-in   { animation: fade-in  0.4s  ease both; }
+.delay-100 { animation-delay: 0.10s; }
+.delay-200 { animation-delay: 0.20s; }
+.delay-300 { animation-delay: 0.30s; }
+.delay-400 { animation-delay: 0.40s; }
