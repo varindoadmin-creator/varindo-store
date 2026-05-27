@@ -66,7 +66,16 @@ const BEST_SELLER_PRODUCT_CODES = [
   'SCA 1108D'
 ];
 
-export function isBestSellerProduct(product: Product) {
+export function isBookmatchedCode(product: Product) {
+  const text = [product.code, product.name, product.category, product.collection, product.design, product.description]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  return /\bart\s*\d+/i.test(text) || text.includes('bookmatched');
+}
+
+function isBestSellerProduct(product: Product) {
   const normalizedCode = normalizeCode(product.code);
   return BEST_SELLER_PRODUCT_CODES.some((code) => normalizedCode === normalizeCode(code));
 }

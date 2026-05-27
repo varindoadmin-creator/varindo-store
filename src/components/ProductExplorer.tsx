@@ -1,19 +1,9 @@
 'use client';
 
 const SIZE_OPTIONS = [
-  { label: "4'x8' / 1220 x 2440mm", values: ["4'x8'", "4'X8'", "4x8", "4X8", "4 feet x 8 feet", "1220 x 2440 mm", "1220 x 2440mm", "1220x2440mm"] },
-  { label: "4'x10' / 1220 x 3050mm", values: ["4'x10'", "4'X10'", "4x10", "4X10", "4 feet x 10 feet", "1220 x 3050 mm", "1220 x 3050mm", "1220x3050mm"] }
+  { label: "4'x8' / 1220 x 2440mm", tokens: ["4x8", "4'X8", "4'x8", "1220x2440"] },
+  { label: "4'x10' / 1220 x 3050mm", tokens: ["4x10", "4'X10", "4'x10", "1220x3050"] }
 ];
-
-function matchesSizeOption(productSize: string | undefined, selectedSize: string) {
-  if (!selectedSize) return true;
-
-  const option = SIZE_OPTIONS.find((item) => item.label === selectedSize);
-  if (!option) return productSize === selectedSize;
-
-  const normalizedProductSize = (productSize || '').toLowerCase().replace(/\s+/g, '');
-  return option.values.some((value) => normalizedProductSize === value.toLowerCase().replace(/\s+/g, ''));
-}
 
 const CATEGORY_OPTIONS = [
   'Patterns',
@@ -26,6 +16,64 @@ const CATEGORY_OPTIONS = [
   'Woods',
   'Bookmatched'
 ];
+
+function normalizeFilterText(value?: string | null) {
+  return (value || '')
+    .toLowerCase()
+    .replace(/[’′`]/g, "'")
+    .replace(/[×]/g, 'x')
+    .replace(/\s+/g, '')
+    .replace(/mm/g, '');
+}
+
+function getProductSearchText(product: Product) {
+  return [
+    product.code,
+    product.name,
+    product.design,
+    product.description,
+    product.collection,
+    product.category,
+    product.size,
+    product.colorFamily
+  ]
+    .filter(Boolean)
+    .join(' ');
+}
+
+function matchesSizeOption(product: Product, selectedSize: string) {
+  if (!selectedSize) return true;
+
+  const option = SIZE_OPTIONS.find((item) => item.label === selectedSize);
+  if (!option) return product.size === selectedSize;
+
+  const compactText = normalizeFilterText(getProductSearchText(product));
+
+  if (selectedSize.includes("4'x8")) {
+    return compactText.includes("4'x8") || compactText.includes("4x8") || compactText.includes("1220x2440");
+  }
+
+  if (selectedSize.includes("4'x10")) {
+    return compactText.includes("4'x10") || compactText.includes("4x10") || compactText.includes("1220x3050");
+  }
+
+  return option.tokens.some((token) => compactText.includes(normalizeFilterText(token)));
+}
+
+function matchesCategoryOption(product: Product, selectedCategory: string) {
+  if (!selectedCategory) return true;
+
+  const rawText = getProductSearchText(product);
+  const lowerText = rawText.toLowerCase();
+  const compactText = normalizeFilterText(rawText);
+  const selected = selectedCategory.toLowerCase();
+
+  if (selected === 'bookmatched') {
+    return /\bart\s*\d+/i.test(rawText) || compactText.startsWith('art') || lowerText.includes('bookmatched');
+  }
+
+  return lowerText.includes(selected);
+}
 
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
@@ -140,8 +188,8 @@ export function ProductExplorer({ products, filterOptions, showCollectionTabs = 
     let result = searchProducts(products, query);
     if (collection === '__promo-items') result = result.filter((p) => p.isPromoItem);
     else if (collection) result = result.filter((p) => p.collection === collection);
-    if (category) result = result.filter((p) => p.category === category);
-if (size) result = result.filter((p) => matchesSizeOption(p.size, size));
+    if (category) result = result.filter((p) => matchesCategoryOption(p, category));
+if (size) result = result.filter((p) => matchesSizeOption(p, size));
     return result;
   }, [products, query, collection, category, size]);
 
@@ -234,12 +282,16 @@ if (size) result = result.filter((p) => matchesSizeOption(p.size, size));
 
           <SelectWrapper label="Category" value={category} onChange={setCategory}>
             <option value="">All categories</option>
-            {CATEGORY_OPTIONS.map((item) => <option key={item} value={item}>{item}</option>)}
+            {CATEGORY_OPTIONS.map((item) => (
+              <option key={item} value={item}>{item}</option>
+            ))}
           </SelectWrapper>
 
           <SelectWrapper label="Size" value={size} onChange={setSize}>
             <option value="">All sizes</option>
-            {SIZE_OPTIONS.map((item) => <option key={item.label} value={item.label}>{item.label}</option>)}
+            {SIZE_OPTIONS.map((item) => (
+              <option key={item.label} value={item.label}>{item.label}</option>
+            ))}
           </SelectWrapper>
         </div>
 
