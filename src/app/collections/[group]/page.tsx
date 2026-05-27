@@ -10,7 +10,7 @@ export const revalidate = 600;
 
 const groups: Record<CollectionGroup, { title: string; subtitle: string; description: string; accent?: string }> = {
   'new-collections': {
-    title: 'New Collections',
+    title: 'New Arrivals',
     subtitle: 'Fresh Lamitak designs and latest surface selections',
     description: 'Browse newly introduced Lamitak designs selected from the latest product code families.',
     accent: 'New'

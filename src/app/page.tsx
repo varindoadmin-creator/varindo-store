@@ -66,14 +66,6 @@ export default async function HomePage() {
               <Link href="/products" className="btn-ghost-white">
                 Explore Catalog
               </Link>
-              <a
-                href="https://wa.me/6281288885224"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-white/10 border border-white/20 text-white px-6 py-3 text-[11px] font-semibold tracking-[0.18em] uppercase hover:bg-white/20 transition-all"
-              >
-                Chat with Us
-              </a>
             </div>
           </div>
 
@@ -84,7 +76,7 @@ export default async function HomePage() {
               <div className="flex items-start justify-between mb-6">
                 <div>
                   <p className="label text-varindo-gold mb-1">Quick Search</p>
-                  <p className="font-display text-2xl font-light text-varindo-ink">Find your material</p>
+                  <p className="font-display text-2xl font-light text-varindo-ink">Search Product</p>
                 </div>
                 <div className="w-px h-10 bg-varindo-line mx-2 self-start mt-1" />
               </div>
@@ -185,7 +177,7 @@ export default async function HomePage() {
             <div>
               <p className="label mb-3">Featured</p>
               <h2 className="display text-varindo-ink text-4xl sm:text-5xl">
-                New Collections
+                New Arrivals
               </h2>
               <p className="mt-3 text-[13px] leading-7 text-varindo-500 max-w-lg">
                 Fresh Lamitak designs — modern textures and refined finishes for contemporary interior projects.

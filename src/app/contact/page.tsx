@@ -87,7 +87,7 @@ export default function ContactPage() {
               rel="noopener noreferrer"
               className="btn-ink w-full justify-center mb-3"
             >
-              Chat with Us → 0812 8888 5224
+              Chat → 0812 8888 5224
             </a>
             <a
               href="https://wa.me/6281210015224"

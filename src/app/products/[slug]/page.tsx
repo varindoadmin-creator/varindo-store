@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation';
 import { ProductImageZoom } from '@/components/ProductImageZoom';
 import { buildProductEnquiryMessage, buildWhatsAppUrl } from '@/lib/whatsapp';
 import { formatIDR } from '@/lib/utils';
-import { getAllProducts, getProductBySlug } from '@/lib/products';
+import { getAllProducts, getProductBySlug, getRelatedProducts } from '@/lib/products';
+import { ProductGrid } from '@/components/ProductGrid';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
@@ -23,15 +24,15 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
   const product = await getProductBySlug(params.slug);
   if (!product) notFound();
 
-  const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
+  
+  const relatedProducts = await getRelatedProducts(product, 4);
+const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
 
   const specs = [
     ['Code', product.code],
     ['Brand', product.brand],
     ['Design', product.design],
-    ['Category', product.category],
     ['Collection', product.collection],
-    ['Finish', product.finish],
     ['Size', product.size],
     ['Thickness', product.thickness],
     ['Colour Family', product.colorFamily]
@@ -97,7 +98,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
                 <span className="font-display text-3xl font-light text-varindo-ink">{formatIDR(product.price)}</span>
               )}
               <p className="mt-2 text-[11px] tracking-[0.14em] uppercase text-varindo-400">
-                Tax included · Free shipping (Java &amp; Bali)
+                INCL. TAX · FREE SHIPPING (JAVA & BALI) · Free shipping (Java &amp; Bali)
               </p>
             </div>
 
@@ -141,6 +142,24 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
           </div>
         </div>
       </div>
+    
+
+{relatedProducts.length > 0 ? (
+  <section className="section-shell py-14 sm:py-20">
+    <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      <div>
+        <p className="eyebrow">Related Products</p>
+        <h2 className="mt-2 text-3xl font-black tracking-[-0.035em] text-stone-950 sm:text-4xl">
+          Similar materials you may like
+        </h2>
+        <p className="mt-3 max-w-2xl text-sm leading-7 text-stone-600 sm:text-base">
+          Selected based on similar collection, category, finish, size, and product code family.
+        </p>
+      </div>
     </div>
+    <ProductGrid products={relatedProducts} />
+  </section>
+) : null}
+</div>
   );
 }

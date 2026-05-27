@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { FormEvent, useState, useEffect } from 'react';
 
 const collectionItems = [
-  { href: '/collections/new-collections', label: 'New Collections' },
+  { href: '/collections/new-collections', label: 'New Arrivals' },
   { href: '/collections/best-sellers', label: 'Best Sellers' },
   { href: '/collections/promo-items', label: 'Promo Items' },
   { href: '/collections/woods', label: 'Woods' },
@@ -81,7 +81,6 @@ export function Header() {
       <div className="bg-varindo-ink text-white text-center py-2 px-4">
         <p className="text-[10px] tracking-[0.22em] uppercase font-medium text-varindo-200">
           Authorized Lamitak Dealer&nbsp;·&nbsp;Indonesia&nbsp;·&nbsp;
-          <a href="https://wa.me/6281288885224" className="underline underline-offset-2 hover:text-white transition">WhatsApp us</a>
         </p>
       </div>
 
@@ -150,14 +149,6 @@ export function Header() {
 
             {/* CTA */}
             <div className="hidden sm:flex shrink-0 items-center gap-3">
-              <a
-                href="https://wa.me/6281288885224"
-                target="_blank"
-                rel="noreferrer"
-                className="btn-ink text-[10px] py-2.5 px-5"
-              >
-                Chat with Us
-              </a>
             </div>
 
             {/* Mobile hamburger */}
@@ -226,15 +217,6 @@ export function Header() {
             </div>
 
             <div className="shell pb-5 pt-2">
-              <a
-                href="https://wa.me/6281288885224"
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => setIsOpen(false)}
-                className="btn-ink w-full justify-center"
-              >
-                Chat with Us
-              </a>
             </div>
           </div>
         )}

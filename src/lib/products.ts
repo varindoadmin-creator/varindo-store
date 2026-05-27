@@ -255,3 +255,35 @@ export async function getProductsByCollectionGroup(group: CollectionGroup) {
     return category === 'solids' || category === 'solids+' || category === 'solid core';
   }));
 }
+
+
+
+export async function getRelatedProducts(currentProduct: Product, limit = 4) {
+  const products = await getAllProducts();
+  const currentCode = normalizeCode(currentProduct.code);
+
+  return products
+    .filter((product) => normalizeCode(product.code) !== currentCode)
+    .map((product) => {
+      let score = 0;
+
+      if (product.collection && product.collection === currentProduct.collection) score += 5;
+      if (product.category && product.category === currentProduct.category) score += 4;
+      if (product.finish && product.finish === currentProduct.finish) score += 3;
+      if (product.size && product.size === currentProduct.size) score += 2;
+      if (product.colorFamily && product.colorFamily === currentProduct.colorFamily) score += 1;
+
+      const currentPrefix = (currentProduct.code || '').replace(/\s+/g, ' ').trim().split(' ')[0];
+      const productPrefix = (product.code || '').replace(/\s+/g, ' ').trim().split(' ')[0];
+
+      if (currentPrefix && productPrefix && currentPrefix === productPrefix) score += 3;
+
+      return { product, score };
+    })
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return a.product.name.localeCompare(b.product.name);
+    })
+    .slice(0, limit)
+    .map((entry) => entry.product);
+}
