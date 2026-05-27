@@ -19,14 +19,6 @@ export function Footer() {
             Authorized dealer of Lamitak High Pressure Laminates in Indonesia. Professional supply for interior designers, architects, and contractors.
           </p>
           <div className="mt-6 flex gap-4">
-            <a
-              href="https://wa.me/6281288885224"
-              target="_blank"
-              rel="noreferrer"
-              className="btn-ghost-white text-[10px] py-2.5 px-5"
-            >
-              WhatsApp
-            </a>
           </div>
         </div>
 
@@ -56,7 +48,7 @@ export function Footer() {
           <p className="label text-varindo-500 mb-5">Company</p>
           <ul className="space-y-3">
             {[
-              { href: '/about', label: 'About Varindo' },
+              { href: '/about', label: 'About' },
               { href: '/contact', label: 'Contact' },
               { href: '/request-catalog', label: 'Request Catalog' },
               { href: '/request-sample', label: 'Request Sample' }

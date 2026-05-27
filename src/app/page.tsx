@@ -22,11 +22,6 @@ const materialCategories = [
     href: '/collections/solids',
     description: 'Stone, slate & clean solid finishes'
   },
-  {
-    title: 'Promo Items',
-    href: '/collections/promo-items',
-    description: 'Selected products at special pricing'
-  }
 ];
 
 export default async function HomePage() {
@@ -227,7 +222,7 @@ export default async function HomePage() {
             <div>
               <p className="label mb-3">Special Pricing</p>
               <h2 className="display text-varindo-ink text-4xl sm:text-5xl">
-                Promo Items
+                
               </h2>
               <p className="mt-3 text-[13px] leading-7 text-varindo-500 max-w-lg">
                 Selected Lamitak items with special promotional pricing — available while stocks last.
