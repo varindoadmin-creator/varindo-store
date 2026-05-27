@@ -28,7 +28,6 @@ const values = [
 export default function AboutPage() {
   return (
     <div>
-      {/* Page header */}
       <div className="bg-varindo-ink text-white border-b border-varindo-800">
         <div className="shell py-14 sm:py-20">
           <p className="label text-varindo-400 mb-4">Company</p>
@@ -40,7 +39,6 @@ export default function AboutPage() {
 
       <div className="shell py-12 sm:py-16 max-w-5xl">
 
-        {/* Mission statement */}
         <section className="border border-varindo-line bg-white mb-8">
           <div className="grid lg:grid-cols-[0.4fr_0.6fr]">
             <div className="border-b lg:border-b-0 lg:border-r border-varindo-line bg-varindo-50 px-8 py-10 flex flex-col justify-center">
@@ -63,7 +61,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Vision */}
         <section className="border border-varindo-line bg-varindo-ink text-white mb-8 px-8 py-10">
           <p className="label text-varindo-400 mb-4">Vision</p>
           <h2 className="display text-white text-3xl sm:text-4xl mb-5">
@@ -79,7 +76,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Values */}
         <section>
           <p className="label text-varindo-gold mb-6">Our Values</p>
           <div className="grid gap-px bg-varindo-line border border-varindo-line sm:grid-cols-2">

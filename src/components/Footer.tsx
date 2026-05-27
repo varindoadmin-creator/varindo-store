@@ -4,10 +4,9 @@ export function Footer() {
   return (
     <footer className="bg-varindo-ink text-varindo-200">
 
-      {/* Main footer grid */}
       <div className="shell pt-14 pb-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
 
-        {/* Brand column */}
+        {/* Brand */}
         <div>
           <img
             src="/varindo-logo-transparent.png"
@@ -18,7 +17,7 @@ export function Footer() {
           <p className="text-[13px] leading-7 text-varindo-400 max-w-xs">
             Authorized dealer of Lamitak High Pressure Laminates in Indonesia. Professional supply for interior designers, architects, and contractors.
           </p>
-          <div className="mt-6 flex gap-4">
+          <div className="mt-6">
             <a
               href="https://wa.me/6281288885224"
               target="_blank"
@@ -37,10 +36,10 @@ export function Footer() {
             {[
               { href: '/collections/new-arrivals', label: 'New Arrivals' },
               { href: '/collections/best-sellers', label: 'Best Sellers' },
-              { href: '/collections/promo-items', label: 'Promo Items' },
-              { href: '/collections/woods', label: 'Woods' },
-              { href: '/collections/patterns', label: 'Patterns' },
-              { href: '/collections/solids', label: 'Solids' }
+              { href: '/collections/promo-items',  label: 'Promo Items' },
+              { href: '/collections/woods',        label: 'Woods' },
+              { href: '/collections/patterns',     label: 'Patterns' },
+              { href: '/collections/solids',       label: 'Solids' }
             ].map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="text-[13px] text-varindo-400 hover:text-white transition-colors">
@@ -56,10 +55,10 @@ export function Footer() {
           <p className="label text-varindo-500 mb-5">Company</p>
           <ul className="space-y-3">
             {[
-              { href: '/about', label: 'About Varindo' },
-              { href: '/contact', label: 'Contact' },
+              { href: '/about',           label: 'About Varindo' },
+              { href: '/contact',         label: 'Contact' },
               { href: '/request-catalog', label: 'Request Catalog' },
-              { href: '/request-sample', label: 'Request Sample' }
+              { href: '/request-sample',  label: 'Request Sample' }
             ].map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="text-[13px] text-varindo-400 hover:text-white transition-colors">
@@ -86,7 +85,6 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
       <div className="border-t border-white/[0.07]">
         <div className="shell py-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
           <p className="text-[11px] text-varindo-600">

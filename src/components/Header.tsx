@@ -5,12 +5,12 @@ import { useRouter, usePathname } from 'next/navigation';
 import { FormEvent, useState, useEffect } from 'react';
 
 const collectionItems = [
-  { href: '/collections/new-COLLECTIONS', label: 'New Arrivals' },
+  { href: '/collections/new-arrivals', label: 'New Arrivals' },
   { href: '/collections/best-sellers', label: 'Best Sellers' },
-  { href: '/collections/promo-items', label: 'Promo Items' },
-  { href: '/collections/woods', label: 'Woods' },
-  { href: '/collections/patterns', label: 'Patterns' },
-  { href: '/collections/solids', label: 'Solids' }
+  { href: '/collections/promo-items',  label: 'Promo Items' },
+  { href: '/collections/woods',        label: 'Woods' },
+  { href: '/collections/patterns',     label: 'Patterns' },
+  { href: '/collections/solids',       label: 'Solids' }
 ];
 
 function HeaderSearch({ onSearch }: { onSearch?: () => void }) {
@@ -28,7 +28,7 @@ function HeaderSearch({ onSearch }: { onSearch?: () => void }) {
     <form onSubmit={handleSubmit} className="relative w-full">
       <input
         value={search}
-        onChange={(event) => setSearch(event.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
         placeholder="Search by code, design, finish…"
         aria-label="Search products"
         className="h-10 w-full border border-varindo-line bg-varindo-50 px-4 pr-12 text-[13px] text-varindo-ink outline-none transition-all duration-150 placeholder:text-varindo-400 focus:border-varindo-ink focus:bg-white"
@@ -38,26 +38,12 @@ function HeaderSearch({ onSearch }: { onSearch?: () => void }) {
         aria-label="Submit search"
         className="absolute right-0 top-0 flex h-10 w-11 items-center justify-center bg-varindo-ink text-white transition hover:bg-varindo-800"
       >
-        <SearchIcon />
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" strokeWidth="1.5" />
+          <path d="M10.5 10.5L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
       </button>
     </form>
-  );
-}
-
-function SearchIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M10.5 10.5L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function ChevronIcon() {
-  return (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" className="ml-1 inline-block translate-y-[-1px]">
-      <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
   );
 }
 
@@ -72,7 +58,6 @@ export function Header() {
     return () => window.removeEventListener('scroll', handler);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => { setIsOpen(false); }, [pathname]);
 
   return (
@@ -81,6 +66,7 @@ export function Header() {
       <div className="bg-varindo-ink text-white text-center py-2 px-4">
         <p className="text-[10px] tracking-[0.22em] uppercase font-medium text-varindo-200">
           Authorized Lamitak Dealer&nbsp;·&nbsp;Indonesia&nbsp;·&nbsp;
+          <a href="https://wa.me/6281288885224" className="underline underline-offset-2 hover:text-white transition">WhatsApp us</a>
         </p>
       </div>
 
@@ -89,10 +75,8 @@ export function Header() {
           scrolled ? 'shadow-[0_1px_0_rgba(26,23,20,0.10)]' : 'shadow-none'
         }`}
       >
-        {/* Top rule */}
         <div className="rule" />
 
-        {/* Main nav row */}
         <div className="shell">
           <div className="flex h-[68px] items-center justify-between gap-6">
 
@@ -110,12 +94,13 @@ export function Header() {
             <nav className="hidden lg:flex items-center gap-8 text-[11px] font-semibold tracking-[0.16em] uppercase text-varindo-700">
               <Link href="/" className="hover:text-varindo-ink transition-colors">Home</Link>
 
-              {/* COLLECTIONS mega dropdown */}
               <div className="group relative py-6">
-                <button className="flex items-center hover:text-varindo-ink transition-colors cursor-pointer">
-                  COLLECTIONS <ChevronIcon />
+                <button className="flex items-center gap-1 hover:text-varindo-ink transition-colors cursor-pointer">
+                  Collections
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" className="translate-y-px">
+                    <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </button>
-                {/* Dropdown panel */}
                 <div className="invisible absolute left-1/2 top-full -translate-x-1/2 w-52 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 z-[100]">
                   <div className="mt-2 border border-varindo-line bg-white shadow-luxury py-1">
                     {collectionItems.map((item) => (
@@ -138,20 +123,28 @@ export function Header() {
                 </div>
               </div>
 
-              <Link href="/about" className="hover:text-varindo-ink transition-colors">About</Link>
+              <Link href="/about"   className="hover:text-varindo-ink transition-colors">About</Link>
               <Link href="/contact" className="hover:text-varindo-ink transition-colors">Contact</Link>
             </nav>
 
-            {/* Search — desktop */}
+            {/* Search */}
             <div className="hidden lg:block min-w-0 flex-1 max-w-xs xl:max-w-sm">
               <HeaderSearch />
             </div>
 
             {/* CTA */}
             <div className="hidden sm:flex shrink-0 items-center gap-3">
+              <a
+                href="https://wa.me/6281288885224"
+                target="_blank"
+                rel="noreferrer"
+                className="btn-ink text-[10px] py-2.5 px-5"
+              >
+                Chat with Us
+              </a>
             </div>
 
-            {/* Mobile hamburger */}
+            {/* Hamburger */}
             <button
               type="button"
               aria-label="Toggle menu"
@@ -171,20 +164,16 @@ export function Header() {
         {/* Mobile menu */}
         {isOpen && (
           <div className="lg:hidden bg-varindo-paper border-b border-varindo-line animate-fade-in">
-            {/* Mobile search */}
             <div className="shell py-4">
               <HeaderSearch onSearch={() => setIsOpen(false)} />
             </div>
-
             <div className="rule" />
-
-            {/* Nav links */}
-            <nav className="shell py-4 space-y-0">
+            <nav className="shell py-4">
               {[
-                { href: '/', label: 'Home' },
+                { href: '/',         label: 'Home' },
                 { href: '/products', label: 'All Products' },
-                { href: '/about', label: 'About' },
-                { href: '/contact', label: 'Contact' }
+                { href: '/about',    label: 'About' },
+                { href: '/contact',  label: 'Contact' }
               ].map((item) => (
                 <Link
                   key={item.href}
@@ -196,12 +185,9 @@ export function Header() {
                 </Link>
               ))}
             </nav>
-
             <div className="rule" />
-
-            {/* COLLECTIONS grid */}
             <div className="shell py-4">
-              <p className="label mb-3">COLLECTIONS</p>
+              <p className="label mb-3">Collections</p>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {collectionItems.map((item) => (
                   <Link
@@ -215,8 +201,16 @@ export function Header() {
                 ))}
               </div>
             </div>
-
             <div className="shell pb-5 pt-2">
+              <a
+                href="https://wa.me/6281288885224"
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => setIsOpen(false)}
+                className="btn-ink w-full justify-center"
+              >
+                Chat with Us
+              </a>
             </div>
           </div>
         )}
