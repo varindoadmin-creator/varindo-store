@@ -1,20 +1,8 @@
 'use client';
 
-const CATEGORY_OPTIONS = [
-  'Patterns',
-  'Protak',
-  'Protak Core',
-  'Saville',
-  'Solid Core',
-  'Solids',
-  'Solids+',
-  'Woods',
-  'Bookmatched'
-];
-
 const SIZE_OPTIONS = [
-  { label: "4'x8' / 1220 x 2440mm", values: ["4'x8'", "4’x8’", "4’X8’", "4'X8'", "4x8", "4X8", "4'x8' / 1220 x 2440 mm", "4'X8' / 1220 x 2440 mm", "1220 x 2440 mm", "1220 x 2440mm"] },
-  { label: "4'x10' / 1220 x 3050mm", values: ["4'x10'", "4’x10’", "4’X10’", "4'X10'", "4x10", "4X10", "4'x10' / 1220 x 3050 mm", "4'X10' / 1220 x 3050 mm", "1220 x 3050 mm", "1220 x 3050mm"] }
+  { label: "4'x8' / 1220 x 2440mm", values: ["4'x8'", "4'X8'", "4x8", "4X8", "4 feet x 8 feet", "1220 x 2440 mm", "1220 x 2440mm", "1220x2440mm"] },
+  { label: "4'x10' / 1220 x 3050mm", values: ["4'x10'", "4'X10'", "4x10", "4X10", "4 feet x 10 feet", "1220 x 3050 mm", "1220 x 3050mm", "1220x3050mm"] }
 ];
 
 function matchesSizeOption(productSize: string | undefined, selectedSize: string) {
@@ -26,6 +14,18 @@ function matchesSizeOption(productSize: string | undefined, selectedSize: string
   const normalizedProductSize = (productSize || '').toLowerCase().replace(/\s+/g, '');
   return option.values.some((value) => normalizedProductSize === value.toLowerCase().replace(/\s+/g, ''));
 }
+
+const CATEGORY_OPTIONS = [
+  'Patterns',
+  'Protak',
+  'Protak Core',
+  'Saville',
+  'Solid Core',
+  'Solids',
+  'Solids+',
+  'Woods',
+  'Bookmatched'
+];
 
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
@@ -239,9 +239,7 @@ if (size) result = result.filter((p) => matchesSizeOption(p.size, size));
 
           <SelectWrapper label="Size" value={size} onChange={setSize}>
             <option value="">All sizes</option>
-            {filterOptions.sizes.map((item) => (
-              <option key={item} value={item}>{item}</option>
-            ))}
+            {SIZE_OPTIONS.map((item) => <option key={item.label} value={item.label}>{item.label}</option>)}
           </SelectWrapper>
         </div>
 
