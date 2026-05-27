@@ -142,22 +142,21 @@ const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
           </div>
         </div>
       </div>
-    
 
 {relatedProducts.length > 0 ? (
-  <section className="section-shell py-14 sm:py-20">
-    <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-      <div>
+  <section className="border-t border-stone-200 bg-[#f8f6f1] py-14 sm:py-20">
+    <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+      <div className="mb-8 max-w-3xl">
         <p className="eyebrow">Related Products</p>
-        <h2 className="mt-2 text-3xl font-black tracking-[-0.035em] text-stone-950 sm:text-4xl">
+        <h2 className="mt-2 font-sans text-3xl font-black tracking-[-0.035em] text-stone-950 sm:text-4xl">
           Similar materials you may like
         </h2>
-        <p className="mt-3 max-w-2xl text-sm leading-7 text-stone-600 sm:text-base">
-          Selected based on similar collection, category, finish, size, and product code family.
+        <p className="mt-3 text-sm leading-7 text-stone-600 sm:text-base">
+          Selected based on similar collection, finish, size, and product code family.
         </p>
       </div>
+      <ProductGrid products={relatedProducts} />
     </div>
-    <ProductGrid products={relatedProducts} />
   </section>
 ) : null}
 </div>

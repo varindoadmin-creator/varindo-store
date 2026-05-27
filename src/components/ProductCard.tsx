@@ -5,7 +5,7 @@ import { ProductImage } from './ProductImage';
 
 export function ProductCard({ product, showPromoPricing = false }: { product: Product; showPromoPricing?: boolean }) {
   return (
-    <article className="group bg-white border border-varindo-line transition-all duration-300 hover:border-varindo-400 hover:shadow-card-hover">
+    <article className="group font-sans bg-white border border-varindo-line transition-all duration-300 hover:border-varindo-400 hover:shadow-card-hover">
       {/* Image area — square swatch feel */}
       <Link href={`/products/${product.slug}`} aria-label={`View ${product.name}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-varindo-50">
