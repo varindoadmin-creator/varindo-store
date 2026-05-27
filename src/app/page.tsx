@@ -73,8 +73,6 @@ export default async function HomePage() {
                   <p className="label text-varindo-gold mb-1">Quick Search</p>
                   <p className="font-display text-2xl font-light text-varindo-ink">Search Product</p>
                 </div>
-                <div className="w-px h-10 bg-varindo-line mx-2 self-start mt-1" />
-              </div>
 
               {/* Search form */}
               <form action="/products" className="relative mb-5">
@@ -119,7 +117,7 @@ export default async function HomePage() {
         {/* Bottom info strip */}
         <div className="absolute bottom-0 left-0 right-0 border-t border-white/10">
           <div className="shell py-4 flex items-center gap-8 overflow-x-auto">
-            {['HPL Laminates', 'Authorized Dealer', 'Free Shipping · Java & Bali', 'Professional Supply'].map((item) => (
+            {['', 'Authorized Dealer', 'Free Shipping · Java & Bali', ''].map((item) => (
               <span key={item} className="text-[10px] tracking-[0.2em] uppercase text-white/40 shrink-0">{item}</span>
             ))}
           </div>
@@ -268,8 +266,6 @@ export default async function HomePage() {
             style={{ backgroundImage: "url('/banner.webp')" }}
             aria-label="Lamitak portfolio"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-varindo-ink/20 to-transparent" />
-          </div>
         </div>
       </section>
 
@@ -290,7 +286,7 @@ export default async function HomePage() {
             <div className="grid sm:grid-cols-2 gap-px bg-varindo-line border border-varindo-line">
               {[
                 { title: 'Authorized Dealer', body: 'Direct authorized distribution of Lamitak HPL in Indonesia — genuine products guaranteed.' },
-                { title: 'Professional Supply', body: 'Structured processes from quotation to delivery for contractors, designers, and project owners.' },
+                { title: '', body: 'Structured processes from quotation to delivery for contractors, designers, and project owners.' },
                 { title: 'Responsive Service', body: 'Quick replies via WhatsApp for product enquiries, stock checks, and purchase coordination.' },
                 { title: 'Transparent Pricing', body: 'Clear, consistent pricing with no hidden costs. Tax-inclusive pricing visible on every product.' }
               ].map((item) => (

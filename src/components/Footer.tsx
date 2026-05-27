@@ -50,8 +50,6 @@ export function Footer() {
             {[
               { href: '/about', label: 'About' },
               { href: '/contact', label: 'Contact' },
-              { href: '/request-catalog', label: 'Request Catalog' },
-              { href: '/request-sample', label: 'Request Sample' }
             ].map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="text-[13px] text-varindo-400 hover:text-white transition-colors">

@@ -148,8 +148,6 @@ export function Header() {
             </div>
 
             {/* CTA */}
-            <div className="hidden sm:flex shrink-0 items-center gap-3">
-            </div>
 
             {/* Mobile hamburger */}
             <button
@@ -214,9 +212,6 @@ export function Header() {
                   </Link>
                 ))}
               </div>
-            </div>
-
-            <div className="shell pb-5 pt-2">
             </div>
           </div>
         )}
