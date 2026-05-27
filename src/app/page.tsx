@@ -1,306 +1,211 @@
 import Link from 'next/link';
+import {
+  getBestSellerProducts,
+  getNewCollectionProducts,
+  getPromoItemProducts,
+  getPublicProducts
+} from '@/lib/products';
 import { ProductGrid } from '@/components/ProductGrid';
-import { getBestSellerProducts, getNewCollectionProducts, getPromoItemProducts } from '@/lib/products';
 
-export const dynamic = 'force-dynamic';
-export const fetchCache = 'force-no-store';
 export const revalidate = 600;
 
-const materialCategories = [
+const quickSearch = [
+  { label: 'Woods', href: '/collections/woods' },
+  { label: 'Patterns', href: '/collections/patterns' },
+  { label: 'Solids', href: '/collections/solids' },
+  { label: 'New Arrivals', href: '/collections/new-arrivals' }
+];
+
+const materialLibrary = [
   {
     title: 'Woods',
     href: '/collections/woods',
-    description: 'Woodgrain surfaces for cabinetry, wardrobes & wall panels'
+    description: 'Warm woodgrain laminates for cabinetry, walls, furniture, and refined interior details.'
   },
   {
     title: 'Patterns',
     href: '/collections/patterns',
-    description: 'Textile-inspired & decorative laminates'
+    description: 'Decorative patterns, Saville, and Bookmatched designs for feature surfaces and statement areas.'
   },
   {
     title: 'Solids',
     href: '/collections/solids',
-    description: 'Stone, slate & clean solid finishes'
+    description: 'Clean solid colours, Solid Core, Protak, and Protak Core options for versatile applications.'
   },
+  {
+    title: 'New Arrivals',
+    href: '/collections/new-arrivals',
+    description: 'Recently added Lamitak designs and product options from the latest product code families.'
+  }
+];
+
+const whyShop = [
+  {
+    title: 'Structured Product Search',
+    description: 'Find products by code, design name, collection, sub collection, size, and thickness.'
+  },
+  {
+    title: 'Clear Pricing',
+    description: 'Browse product pricing clearly with tax included for easier comparison and planning.'
+  },
+  {
+    title: 'Project Support',
+    description: 'Contact our team for product enquiries, order details, availability checks, and delivery guidance.'
+  }
 ];
 
 export default async function HomePage() {
-  const newCollectionProducts = (await getNewCollectionProducts()).slice(0, 4);
-  const bestSellerProducts = (await getBestSellerProducts()).slice(0, 4);
+  const allProducts = await getPublicProducts();
+  const newProducts = (await getNewCollectionProducts()).slice(0, 8);
+  const bestSellers = (await getBestSellerProducts()).slice(0, 8);
   const promoProducts = (await getPromoItemProducts()).slice(0, 4);
 
   return (
-    <div>
+    <main className="bg-[#f8f6f1] text-varindo-ink">
+      <section className="relative isolate overflow-hidden bg-varindo-ink">
+        <div className="absolute inset-0 opacity-[0.08]">
+          <div className="h-full w-full bg-[linear-gradient(90deg,rgba(255,255,255,.18)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,.18)_1px,transparent_1px)] bg-[size:48px_48px]" />
+        </div>
 
-      {/* ─── HERO ─────────────────────────────────────────────────── */}
-      <section className="relative isolate overflow-hidden bg-varindo-ink min-h-[calc(100vh-100px)] flex items-center">
-        {/* Background image */}
-        <div
-          className="absolute inset-0 -z-10 bg-cover bg-center"
-          style={{ backgroundImage: "url('/portfolio.webp')" }}
-        />
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 -z-10 bg-varindo-ink/55" />
-        <div className="absolute inset-y-0 left-0 -z-10 w-3/4 bg-gradient-to-r from-varindo-ink/75 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-varindo-ink/60 to-transparent" />
-
-        <div className="shell w-full grid lg:grid-cols-2 gap-12 py-20 lg:py-28 items-center">
-
-          {/* Left — headline */}
-          <div className="animate-fade-up">
-            <p className="label text-varindo-300 mb-5">Authorized Lamitak Dealer</p>
-            <h1 className="display text-white text-5xl sm:text-6xl lg:text-7xl xl:text-8xl mb-6 leading-[1.0]">
-              Surface Materials<br />
-              <em className="text-varindo-300 not-italic">Curated for</em><br />
-              Professionals
+        <div className="relative mx-auto grid min-h-[calc(100vh-120px)] max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
+          <div>
+            <p className="eyebrow text-varindo-gold">Varindo × Lamitak</p>
+            <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[0.92] tracking-[-0.07em] text-white sm:text-7xl lg:text-8xl">
+              Your trusted Lamitak partner.
             </h1>
-            <p className="text-[14px] leading-7 text-white/65 max-w-md mb-8">
-              Browse Lamitak HPL surfaces — from woodgrain finishes to solid laminates — for your interior projects across Indonesia.
+            <p className="mt-7 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">
+              Browse Lamitak HPL products by code, design name, collection, sub collection, size, thickness, and price through Varindo’s online catalogue.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/products" className="btn-ghost-white">
-                Explore Catalog
+
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link href="/products" className="btn-primary">
+                Browse Products
+              </Link>
+              <Link href="/about" className="btn-ghost border-white/25 text-white hover:bg-white hover:text-varindo-ink">
+                About
               </Link>
             </div>
           </div>
 
-          {/* Right — search card */}
-          <div className="animate-fade-up delay-200">
-            <div className="bg-white border border-varindo-line p-6 sm:p-8 shadow-luxury">
-              {/* Header */}
-              <div className="flex items-start justify-between mb-6">
-                <div>
-                  <p className="label text-varindo-gold mb-1">Quick Search</p>
-                  <p className="font-display text-2xl font-light text-varindo-ink">Search Product</p>
-                </div>
-
-              {/* Search form */}
-              <form action="/products" className="relative mb-5">
-                <input
-                  type="search"
-                  name="search"
-                  aria-label="Search products"
-                  placeholder='Try "DXO 5338D", "Walnut", or "Grey Marble"'
-                  className="field pr-12"
-                />
-                <button
-                  type="submit"
-                  aria-label="Search"
-                  className="absolute right-0 top-0 h-11 w-11 bg-varindo-ink flex items-center justify-center text-white hover:bg-varindo-800 transition-colors"
-                >
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                    <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" strokeWidth="1.5" />
-                    <path d="M10.5 10.5L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                </button>
-              </form>
-
-              {/* Collection quick links */}
-              <div className="grid grid-cols-2 gap-px bg-varindo-line border border-varindo-line">
-                {materialCategories.map((cat) => (
-                  <Link
-                    key={cat.href}
-                    href={cat.href}
-                    className="bg-white p-4 hover:bg-varindo-50 transition-colors group"
-                  >
-                    <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-varindo-ink group-hover:text-varindo-gold transition-colors">
-                      {cat.title}
-                    </p>
-                    <p className="text-[11px] text-varindo-400 mt-1 leading-relaxed">{cat.description}</p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom info strip */}
-        <div className="absolute bottom-0 left-0 right-0 border-t border-white/10">
-          <div className="shell py-4 flex items-center gap-8 overflow-x-auto">
-            {['', 'Authorized Dealer', 'Free Shipping · Java & Bali', ''].map((item) => (
-              <span key={item} className="text-[10px] tracking-[0.2em] uppercase text-white/40 shrink-0">{item}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── COLLECTIONS OVERVIEW ─────────────────────────────────── */}
-      <section className="border-b border-varindo-line">
-        <div className="shell py-14 sm:py-20">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p className="label mb-3">Collections</p>
-              <h2 className="display text-varindo-ink text-4xl sm:text-5xl">
-                Material Library
-              </h2>
-            </div>
-            <Link href="/products" className="hidden sm:block text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors">
-              All Products →
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-varindo-line border border-varindo-line">
-            {[
-              { href: '/collections/new-arrivals', label: 'New\nArrivals' },
-              { href: '/collections/best-sellers', label: 'Best\nSellers' },
-              { href: '/collections/promo-items', label: 'Promo\nItems' },
-              { href: '/collections/woods', label: 'Woods' },
-              { href: '/collections/patterns', label: 'Patterns' },
-              { href: '/collections/solids', label: 'Solids' }
-            ].map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="bg-white hover:bg-varindo-50 transition-colors py-6 px-4 text-center group"
-              >
-                <div className="w-8 h-[1.5px] bg-varindo-line group-hover:bg-varindo-gold transition-colors mx-auto mb-4" />
-                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-600 group-hover:text-varindo-ink transition-colors whitespace-pre-line leading-5">
-                  {label}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── NEW ARRIVALS ──────────────────────────────────────── */}
-      <section className="border-b border-varindo-line">
-        <div className="shell py-14 sm:py-20">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p className="label mb-3">Featured</p>
-              <h2 className="display text-varindo-ink text-4xl sm:text-5xl">
-                New Arrivals
-              </h2>
-              <p className="mt-3 text-[13px] leading-7 text-varindo-500 max-w-lg">
-                Fresh Lamitak designs — modern textures and refined finishes for contemporary interior projects.
-              </p>
-            </div>
-            <Link href="/collections/new-arrivals" className="hidden sm:block text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors shrink-0 ml-6">
-              View All →
-            </Link>
-          </div>
-
-          <ProductGrid products={newCollectionProducts} />
-
-          <div className="mt-6 sm:hidden">
-            <Link href="/collections/new-arrivals" className="btn-ghost w-full justify-center">
-              View All →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── BEST SELLERS ─────────────────────────────────────────── */}
-      <section className="border-b border-varindo-line bg-varindo-50">
-        <div className="shell py-14 sm:py-20">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p className="label mb-3">Popular</p>
-              <h2 className="display text-varindo-ink text-4xl sm:text-5xl">
-                Best Sellers
-              </h2>
-              <p className="mt-3 text-[13px] leading-7 text-varindo-500 max-w-lg">
-                Frequently specified Lamitak designs trusted for diverse interior applications.
-              </p>
-            </div>
-            <Link href="/collections/best-sellers" className="hidden sm:block text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors shrink-0 ml-6">
-              View All →
-            </Link>
-          </div>
-
-          <ProductGrid products={bestSellerProducts} />
-        </div>
-      </section>
-
-      {/* ─── PROMO ────────────────────────────────────────────────── */}
-      <section className="border-b border-varindo-line">
-        <div className="shell py-14 sm:py-20">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p className="label mb-3">Special Pricing</p>
-              <h2 className="display text-varindo-ink text-4xl sm:text-5xl">
-                
-              </h2>
-              <p className="mt-3 text-[13px] leading-7 text-varindo-500 max-w-lg">
-                Selected Lamitak items with special promotional pricing — available while stocks last.
-              </p>
-            </div>
-            <Link href="/collections/promo-items" className="hidden sm:block text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors shrink-0 ml-6">
-              View All →
-            </Link>
-          </div>
-
-          <ProductGrid products={promoProducts} showPromoPricing />
-        </div>
-      </section>
-
-      {/* ─── DIGITAL PORTFOLIO CTA ────────────────────────────────── */}
-      <section>
-        <div className="grid lg:grid-cols-2 min-h-[420px]">
-          {/* Text */}
-          <div className="bg-varindo-ink text-white flex flex-col justify-center px-8 py-14 sm:px-12 sm:py-16 lg:px-16">
-            <p className="label text-varindo-400 mb-5">Digital Portfolio</p>
-            <h2 className="display text-white text-4xl sm:text-5xl mb-6">
-              Lamitak Portfolio<br />
-              <em className="text-varindo-300 not-italic">2026 / 2027</em>
+          <div className="border border-white/10 bg-white/[0.06] p-6 shadow-2xl backdrop-blur">
+            <p className="eyebrow text-varindo-gold">Search Product</p>
+            <h2 className="mt-4 text-3xl font-black tracking-[-0.045em] text-white sm:text-4xl">
+              Find by material category.
             </h2>
-            <p className="text-[14px] leading-7 text-varindo-400 max-w-sm mb-8">
-              Explore the complete Lamitak design portfolio — textures, finishes, and surface families for every interior project.
+            <p className="mt-4 text-sm leading-7 text-white/65">
+              Start with the main material groups or go directly to the full product catalogue.
             </p>
-            <div className="flex gap-4">
-              <a
-                href="https://online.flippingbook.com/view/842367758/4-5/"
-                target="_blank"
-                rel="noreferrer"
-                className="btn-ghost-white"
-              >
-                View Portfolio
-              </a>
-            </div>
-          </div>
 
-          {/* Image */}
-          <div
-            className="relative min-h-[280px] bg-cover bg-center"
-            style={{ backgroundImage: "url('/banner.webp')" }}
-            aria-label="Lamitak portfolio"
-          >
-        </div>
-      </section>
-
-      {/* ─── WHY VARINDO ──────────────────────────────────────────── */}
-      <section className="border-t border-varindo-line bg-varindo-50">
-        <div className="shell py-14 sm:py-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div>
-              <p className="label mb-4">Why Varindo</p>
-              <h2 className="display text-varindo-ink text-4xl sm:text-5xl mb-5">
-                Built on Trust.<br />Driven by Service.
-              </h2>
-              <p className="text-[14px] leading-7 text-varindo-500 max-w-md">
-                As an authorized Lamitak dealer in Indonesia, we deliver a transparent, professional, and dependable procurement experience for every project.
-              </p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-px bg-varindo-line border border-varindo-line">
-              {[
-                { title: 'Authorized Dealer', body: 'Direct authorized distribution of Lamitak HPL in Indonesia — genuine products guaranteed.' },
-                { title: '', body: 'Structured processes from quotation to delivery for contractors, designers, and project owners.' },
-                { title: 'Responsive Service', body: 'Quick replies via WhatsApp for product enquiries, stock checks, and purchase coordination.' },
-                { title: 'Transparent Pricing', body: 'Clear, consistent pricing with no hidden costs. Tax-inclusive pricing visible on every product.' }
-              ].map((item) => (
-                <div key={item.title} className="bg-white p-6">
-                  <div className="w-6 h-[1.5px] bg-varindo-gold mb-4" />
-                  <h3 className="text-[13px] font-semibold text-varindo-ink mb-2">{item.title}</h3>
-                  <p className="text-[12px] leading-6 text-varindo-500">{item.body}</p>
-                </div>
+            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+              {quickSearch.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="border border-white/12 bg-white/[0.06] px-5 py-4 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:border-varindo-gold hover:text-varindo-gold"
+                >
+                  {item.label}
+                </Link>
               ))}
             </div>
+
+            <div className="mt-7 border-t border-white/10 pt-5 text-sm text-white/60">
+              {allProducts.length} active products available in the catalogue.
+            </div>
           </div>
         </div>
       </section>
 
-    </div>
+      <section className="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
+        <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <p className="eyebrow text-varindo-gold">Material Library</p>
+            <h2 className="mt-3 text-3xl font-black tracking-[-0.045em] text-varindo-ink sm:text-5xl">
+              Explore by collection.
+            </h2>
+          </div>
+          <Link href="/products" className="btn-ghost">
+            View All Products
+          </Link>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {materialLibrary.map((item) => (
+            <Link key={item.href} href={item.href} className="group border border-varindo-line bg-white p-6 transition hover:-translate-y-1 hover:shadow-card">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-varindo-gold">{item.title}</p>
+              <p className="mt-4 text-sm leading-7 text-varindo-600">{item.description}</p>
+              <span className="mt-6 inline-flex text-xs font-black uppercase tracking-[0.18em] text-varindo-ink group-hover:text-varindo-gold">
+                Explore →
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {newProducts.length > 0 ? (
+        <section className="border-y border-varindo-line bg-white py-14 lg:py-20">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <div>
+                <p className="eyebrow text-varindo-gold">New Arrivals</p>
+                <h2 className="mt-3 text-3xl font-black tracking-[-0.045em] text-varindo-ink sm:text-5xl">
+                  Recently added products.
+                </h2>
+              </div>
+              <Link href="/collections/new-arrivals" className="btn-ghost">
+                View New Arrivals
+              </Link>
+            </div>
+            <ProductGrid products={newProducts} />
+          </div>
+        </section>
+      ) : null}
+
+      {bestSellers.length > 0 ? (
+        <section className="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
+          <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p className="eyebrow text-varindo-gold">Best Sellers</p>
+              <h2 className="mt-3 text-3xl font-black tracking-[-0.045em] text-varindo-ink sm:text-5xl">
+                Frequently selected designs.
+              </h2>
+            </div>
+            <Link href="/collections/best-sellers" className="btn-ghost">
+              View Best Sellers
+            </Link>
+          </div>
+          <ProductGrid products={bestSellers} />
+        </section>
+      ) : null}
+
+      {promoProducts.length > 0 ? (
+        <section className="border-y border-varindo-line bg-white py-14 lg:py-20">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <div>
+                <p className="eyebrow text-varindo-gold">Promo</p>
+                <h2 className="mt-3 text-3xl font-black tracking-[-0.045em] text-varindo-ink sm:text-5xl">
+                  Selected promotional products.
+                </h2>
+              </div>
+              <Link href="/collections/promo-items" className="btn-ghost">
+                View Promo
+              </Link>
+            </div>
+            <ProductGrid products={promoProducts} showPromoPricing />
+          </div>
+        </section>
+      ) : null}
+
+      <section className="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
+        <div className="grid gap-5 md:grid-cols-3">
+          {whyShop.map((item) => (
+            <article key={item.title} className="border border-varindo-line bg-white p-7">
+              <h3 className="text-xl font-black tracking-[-0.03em] text-varindo-ink">{item.title}</h3>
+              <p className="mt-4 text-sm leading-7 text-varindo-600">{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
