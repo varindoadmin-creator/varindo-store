@@ -94,7 +94,7 @@ const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
                 <span className="font-display text-3xl font-light text-varindo-ink">{formatIDR(product.price)}</span>
               )}
               <p className="mt-2 text-[11px] tracking-[0.14em] uppercase text-varindo-400">
-                INCL. TAX · FREE SHIPPING (JAVA & BALI) · Free shipping (Java &amp; Bali)
+                INCL. TAX · FREE SHIPPING (JAVA & BALI)
               </p>
             </div>
 
