@@ -10,9 +10,10 @@ import { ProductGrid } from '@/components/ProductGrid';
 export const revalidate = 600;
 
 const quickSearch = [
-  { label: 'Woods',    href: '/collections/woods' },
-  { label: 'Patterns', href: '/collections/patterns' },
-  { label: 'Solids',   href: '/collections/solids' }
+  { label: 'Woods',       href: '/collections/woods' },
+  { label: 'Patterns',    href: '/collections/patterns' },
+  { label: 'Solids',      href: '/collections/solids' },
+  { label: 'Promo Items', href: '/collections/promo-items' }
 ];
 
 const materialLibrary = [
@@ -30,6 +31,11 @@ const materialLibrary = [
     title: 'Solids',
     href: '/collections/solids',
     description: 'Clean solid colours, Solid Core, Protak, and Protak Core options for versatile applications.'
+  },
+  {
+    title: 'Promo Items',
+    href: '/collections/promo-items',
+    description: 'Selected Lamitak items with special promotional pricing — available while stocks last.'
   }
 ];
 
@@ -163,7 +169,7 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-px bg-varindo-line border border-varindo-line">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-varindo-line border border-varindo-line">
             {materialLibrary.map((item) => (
               <Link
                 key={item.href}

@@ -9,6 +9,16 @@ const ROWS = 10;
 type Row = { code: string; qty: string };
 const emptyRows = (): Row[] => Array.from({ length: ROWS }, () => ({ code: '', qty: '' }));
 
+function isValidQty(qty: string) {
+  const n = Number(qty.trim());
+  return Number.isFinite(n) && n > 0;
+}
+
+function rowHasError(row: Row) {
+  // Code filled but qty empty or invalid
+  return row.code.trim() !== '' && !isValidQty(row.qty);
+}
+
 function buildMessage(name: string, address: string, phone: string, rows: Row[]) {
   const filled = rows.filter((r) => r.code.trim());
   const lines = [
@@ -42,8 +52,9 @@ export function RequestQuoteForm({ products }: Props) {
   const updateQty = (i: number, qty: string) =>
     setRows((prev) => prev.map((r, idx) => idx === i ? { ...r, qty } : r));
 
-  const filledCount = rows.filter((r) => r.code.trim()).length;
-  const canSubmit   = name.trim() && address.trim() && phone.trim() && filledCount > 0;
+  const filledCount  = rows.filter((r) => r.code.trim()).length;
+  const hasQtyErrors = rows.some(rowHasError);
+  const canSubmit    = name.trim() && address.trim() && phone.trim() && filledCount > 0 && !hasQtyErrors;
 
   const handleSubmit = () => {
     if (!canSubmit) return;
@@ -110,7 +121,7 @@ export function RequestQuoteForm({ products }: Props) {
         {/* Rows */}
         <div className="divide-y divide-varindo-line/50">
           {rows.map((row, i) => (
-            <div key={i} className="grid grid-cols-[2rem_1fr_5.5rem]">
+            <div key={i} className={`grid grid-cols-[2rem_1fr_5.5rem] transition-colors ${rowHasError(row) ? 'bg-red-50/40' : ''}`}>
               {/* Number */}
               <div className="flex items-center justify-center border-r border-varindo-line/40">
                 <span className="text-[11px] text-varindo-400 font-medium">{i + 1}</span>
@@ -129,11 +140,15 @@ export function RequestQuoteForm({ products }: Props) {
               {/* Qty */}
               <div>
                 <input
-                  type="text"
+                  type="number"
+                  min="1"
+                  step="1"
                   value={row.qty}
                   onChange={(e) => updateQty(i, e.target.value)}
                   placeholder={i === 0 ? 'e.g. 10' : ''}
-                  className="w-full h-10 px-3 text-[13px] text-varindo-ink bg-transparent outline-none placeholder:text-varindo-300 focus:bg-varindo-50 transition-colors text-center"
+                  className={`w-full h-10 px-3 text-[13px] text-varindo-ink bg-transparent outline-none placeholder:text-varindo-300 focus:bg-varindo-50 transition-colors text-center ${
+                    rowHasError(row) ? 'bg-red-50 text-red-600 placeholder:text-red-300' : ''
+                  }`}
                 />
               </div>
             </div>
@@ -144,7 +159,9 @@ export function RequestQuoteForm({ products }: Props) {
         <div className="px-6 py-5 border-t border-varindo-line bg-varindo-50/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="text-[11px] text-varindo-400">
             {!canSubmit
-              ? 'Fill in your details and at least one product to continue.'
+              ? hasQtyErrors
+                ? 'Please enter a valid quantity for all filled rows.'
+                : 'Fill in your details and at least one product to continue.'
               : `Ready — ${filledCount} product${filledCount !== 1 ? 's' : ''} with your details.`}
           </p>
           <button type="button" onClick={handleSubmit} disabled={!canSubmit}
