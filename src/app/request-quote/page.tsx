@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getPublicProducts } from '@/lib/products';
 import { RequestQuoteForm } from './RequestQuoteForm';
 
 export const metadata: Metadata = {
@@ -6,7 +7,17 @@ export const metadata: Metadata = {
   description: 'Request a product quote from Varindo. Fill in your details and product codes — we will follow up via WhatsApp.'
 };
 
-export default function RequestQuotePage() {
+export default async function RequestQuotePage() {
+  const products = await getPublicProducts();
+
+  // Pass only the fields the autocomplete needs — keeps the client bundle lean
+  const productOptions = products.map((p) => ({
+    code:       p.code,
+    name:       p.name,
+    design:     p.design,
+    collection: p.collection
+  }));
+
   return (
     <div>
       <div className="bg-varindo-ink text-white border-b border-varindo-800">
@@ -16,13 +27,13 @@ export default function RequestQuotePage() {
             Request a Quote
           </h1>
           <p className="mt-5 text-[14px] leading-7 text-varindo-400 max-w-lg">
-            Fill in your details and the product codes or design names you need. Your request will be sent directly to our team via WhatsApp.
+            Fill in your details and search for the product codes or design names you need. Your request will be sent directly to our team via WhatsApp.
           </p>
         </div>
       </div>
 
       <div className="shell py-12 sm:py-16 max-w-5xl">
-        <RequestQuoteForm />
+        <RequestQuoteForm products={productOptions} />
       </div>
     </div>
   );

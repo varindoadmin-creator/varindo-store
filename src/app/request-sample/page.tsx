@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getPublicProducts } from '@/lib/products';
 import { RequestSampleForm } from './RequestSampleForm';
 
 export const metadata: Metadata = {
@@ -6,7 +7,16 @@ export const metadata: Metadata = {
   description: 'Request up to 5 Lamitak sample pieces from Varindo.'
 };
 
-export default function RequestSamplePage() {
+export default async function RequestSamplePage() {
+  const products = await getPublicProducts();
+
+  const productOptions = products.map((p) => ({
+    code:       p.code,
+    name:       p.name,
+    design:     p.design,
+    collection: p.collection
+  }));
+
   return (
     <div>
       <div className="bg-varindo-ink text-white border-b border-varindo-800">
@@ -50,7 +60,7 @@ export default function RequestSamplePage() {
           </div>
 
           {/* Right — form */}
-          <RequestSampleForm />
+          <RequestSampleForm products={productOptions} />
         </div>
       </div>
     </div>
