@@ -103,7 +103,7 @@ export default async function CollectionPage({ params }: { params: { group: stri
       {/* Collection tabs bar */}
       <div className="border-b border-varindo-line bg-white overflow-x-auto">
         <div className="shell flex gap-0">
-          {(Object.keys(groups) as CollectionGroup[]).map((g) => (
+          {(Object.keys(groups) as CollectionGroup[]).filter((g) => groups[g] !== undefined).map((g) => (
             <Link
               key={g}
               href={`/collections/${g}`}
@@ -113,7 +113,7 @@ export default async function CollectionPage({ params }: { params: { group: stri
                   : 'border-transparent text-varindo-500 hover:text-varindo-ink hover:border-varindo-300'
               }`}
             >
-              {groups[g].title}
+              {groups[g]!.title}
             </Link>
           ))}
         </div>
