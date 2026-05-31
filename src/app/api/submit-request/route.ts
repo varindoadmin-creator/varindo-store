@@ -58,6 +58,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true });
 
+    // Supported types: 'quote' | 'sample' | 'catalogue'
+
   } catch (err) {
     console.error('[submit-request] Fetch to Apps Script failed:', err);
     return NextResponse.json(

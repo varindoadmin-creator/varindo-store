@@ -45,10 +45,11 @@ export function Footer() {
           <p className="label text-varindo-500 mb-5">Company</p>
           <ul className="space-y-3">
             {[
-              { href: '/about',           label: 'About Varindo' },
-              { href: '/contact',         label: 'Contact' },
-              { href: '/request-quote',  label: 'Request Quote' },
-              { href: '/request-sample',  label: 'Request Sample' }
+              { href: '/about',              label: 'About Varindo' },
+              { href: '/contact',            label: 'Contact' },
+              { href: '/request-catalogue',  label: 'Request Catalogue' },
+              { href: '/request-quote',      label: 'Request Quote' },
+              { href: '/request-sample',     label: 'Request Sample' }
             ].map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="text-[13px] text-varindo-400 hover:text-white transition-colors">
