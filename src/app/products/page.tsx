@@ -1,48 +1,52 @@
-import type { Metadata } from 'next';
+'use client';
+
 import { Suspense } from 'react';
+import { useLang } from '@/lib/LangContext';
+import { t } from '@/lib/i18n';
 import { ProductExplorer } from '@/components/ProductExplorer';
-import { getFilterOptions, getPublicProducts } from '@/lib/products';
+import { useEffect, useState } from 'react';
+import type { Product } from '@/types/product';
 
-export const dynamic = 'force-dynamic';
-export const fetchCache = 'force-no-store';
-export const revalidate = 600;
+function ProductsContent() {
+  const { lang } = useLang();
+  const [products, setProducts] = useState<Product[]>([]);
 
-export const metadata: Metadata = {
-  title: 'Lamitak Product Catalog',
-  description: 'Search and browse Lamitak HPL products available through Varindo in Indonesia.'
-};
+  useEffect(() => {
+    fetch('/api/products').then(r => r.json()).then(d => setProducts(d.products || []));
+  }, []);
 
-export default async function ProductsPage() {
-  const products = await getPublicProducts();
-  const filterOptions = await getFilterOptions();
+  const filterOptions = {
+    collections: ['Woods','Patterns','Solids'],
+    categories: ['Patterns','Protak','Protak Core','Saville','Solid Core','Solids','Solids+','Woods','Bookmatched'],
+    finishes: [],
+    sizes: ["4'x8' / 1220 x 2440mm","4'x10' / 1220 x 3050mm"],
+    colorFamilies: []
+  };
 
   return (
     <div>
-      {/* Page header */}
       <div className="bg-varindo-ink text-white border-b border-varindo-ink">
         <div className="shell py-12 sm:py-16">
-          <p className="label text-varindo-400 mb-4">Lamitak HPL</p>
-          <h1 className="display text-white text-5xl sm:text-6xl lg:text-7xl mb-4">
-            Product Catalog
-          </h1>
-          <p className="text-[14px] leading-7 text-varindo-400 max-w-xl">
-            Search by product code, design name, collection, finish, or colour family.
-          </p>
+          <p className="label text-varindo-400 mb-4">{t('products', 'badge', lang)}</p>
+          <h1 className="display text-white text-5xl sm:text-6xl lg:text-7xl mb-4">{t('products', 'title', lang)}</h1>
+          <p className="text-[14px] leading-7 text-varindo-400 max-w-xl">{t('products', 'subtitle', lang)}</p>
         </div>
       </div>
-
-      {/* Explorer */}
       <div className="shell py-10 sm:py-12">
-        <Suspense
-          fallback={
-            <div className="border border-varindo-line bg-white py-12 px-6 text-center">
-              <p className="label text-varindo-500">Loading catalog…</p>
-            </div>
-          }
-        >
-          <ProductExplorer products={products} filterOptions={filterOptions} />
-        </Suspense>
+        {products.length === 0 ? (
+          <div className="border border-varindo-line bg-white py-12 px-6 text-center">
+            <p className="label text-varindo-500">{t('products', 'loading', lang)}</p>
+          </div>
+        ) : (
+          <Suspense fallback={<div className="border border-varindo-line bg-white py-12 px-6 text-center"><p className="label text-varindo-500">{t('products', 'loading', lang)}</p></div>}>
+            <ProductExplorer products={products} filterOptions={filterOptions} />
+          </Suspense>
+        )}
       </div>
     </div>
   );
+}
+
+export default function ProductsPage() {
+  return <ProductsContent />;
 }

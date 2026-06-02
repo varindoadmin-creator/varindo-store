@@ -3,6 +3,7 @@ import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { LangProvider } from '@/lib/LangContext';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -20,29 +21,31 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Varindo — Lamitak HPL Catalog',
+    default: 'Varindo — Katalog HPL Lamitak',
     template: '%s | Varindo'
   },
   description:
-    'Browse Lamitak HPL products from Varindo, an authorized dealer in Indonesia. Search product codes, view prices, and enquire by WhatsApp.',
+    'Jelajahi produk HPL Lamitak dari Varindo, dealer resmi di Indonesia. Cari kode produk, lihat harga, dan hubungi kami via WhatsApp.',
   metadataBase: new URL('https://varindo.co.id'),
   openGraph: {
-    title: 'Varindo — Lamitak HPL Catalog',
-    description: 'Browse Lamitak HPL products from Varindo in Indonesia.',
+    title: 'Varindo — Katalog HPL Lamitak',
+    description: 'Jelajahi produk HPL Lamitak dari Varindo di Indonesia.',
     url: 'https://varindo.co.id',
     siteName: 'Varindo',
-    locale: 'en_ID',
+    locale: 'id_ID',
     type: 'website'
   }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html lang="id" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body className="min-h-screen font-sans antialiased">
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <LangProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </LangProvider>
       </body>
     </html>
   );

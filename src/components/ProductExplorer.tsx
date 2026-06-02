@@ -6,66 +6,22 @@ import { useSearchParams } from 'next/navigation';
 import type { Product } from '@/types/product';
 import { searchProducts } from '@/lib/products';
 import { ProductGrid } from './ProductGrid';
+import { useLang } from '@/lib/LangContext';
+import { t } from '@/lib/i18n';
 
 const PRODUCTS_PER_PAGE = 24;
 
-const SIZE_OPTIONS = [
-  "4'x8' / 1220 x 2440mm",
-  "4'x10' / 1220 x 3050mm"
-];
+const SIZE_OPTIONS = ["4'x8' / 1220 x 2440mm", "4'x10' / 1220 x 3050mm"];
+const CATEGORY_OPTIONS = ['Patterns','Protak','Protak Core','Saville','Solid Core','Solids','Solids+','Woods','Bookmatched'];
 
-const CATEGORY_OPTIONS = [
-  'Patterns',
-  'Protak',
-  'Protak Core',
-  'Saville',
-  'Solid Core',
-  'Solids',
-  'Solids+',
-  'Woods',
-  'Bookmatched'
-];
+function normalizeText(v?: string | null) { return (v || '').toLowerCase().trim(); }
+function matchesSize(p: Product, s: string) { return !s || normalizeText(p.size) === normalizeText(s); }
+function matchesCategory(p: Product, c: string) { return !c || normalizeText(p.category) === normalizeText(c); }
 
-function normalizeText(value?: string | null) {
-  return (value || '').toLowerCase().trim();
-}
+type FilterOptions = { collections: string[]; categories: string[]; finishes: string[]; sizes: string[]; colorFamilies: string[] };
+type Props = { products: Product[]; filterOptions: FilterOptions; showCollectionTabs?: boolean; showPromoPricing?: boolean };
 
-function matchesSize(product: Product, selectedSize: string) {
-  if (!selectedSize) return true;
-  return normalizeText(product.size) === normalizeText(selectedSize);
-}
-
-function matchesCategory(product: Product, selectedCategory: string) {
-  if (!selectedCategory) return true;
-  return normalizeText(product.category) === normalizeText(selectedCategory);
-}
-
-type FilterOptions = {
-  collections: string[];
-  categories: string[];
-  finishes: string[];
-  sizes: string[];
-  colorFamilies: string[];
-};
-
-type ProductExplorerProps = {
-  products: Product[];
-  filterOptions: FilterOptions;
-  showCollectionTabs?: boolean;
-  showPromoPricing?: boolean;
-};
-
-function SelectWrapper({
-  label,
-  value,
-  onChange,
-  children
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  children: React.ReactNode;
-}) {
+function SelectWrapper({ label, value, onChange, children }: { label: string; value: string; onChange: (v: string) => void; children: React.ReactNode }) {
   return (
     <label className="block">
       <span className="label text-varindo-600 mb-2 block">{label}</span>
@@ -83,83 +39,54 @@ function SelectWrapper({
   );
 }
 
-const collectionTabs = [
-  { label: 'All Products', href: '/products' },
-  { label: 'New Arrivals', href: '/collections/new-arrivals' },
-  { label: 'Best Sellers', href: '/collections/best-sellers' },
-  { label: 'Promo', href: '/collections/promo-items' },
-  { label: 'Woods', href: '/collections/woods' },
-  { label: 'Patterns', href: '/collections/patterns' },
-  { label: 'Solids', href: '/collections/solids' }
-];
-
-export function ProductExplorer({ products, showCollectionTabs = true, showPromoPricing = false }: ProductExplorerProps) {
+export function ProductExplorer({ products, showCollectionTabs = true, showPromoPricing = false }: Props) {
+  const { lang } = useLang();
   const searchParams = useSearchParams();
-  const [query, setQuery] = useState(searchParams.get('search') || '');
+  const [query, setQuery]       = useState(searchParams.get('search') || '');
   const [collection, setCollection] = useState('');
   const [category, setCategory] = useState('');
-  const [size, setSize] = useState('');
-  const [page, setPage] = useState(1);
+  const [size, setSize]         = useState('');
+  const [page, setPage]         = useState(1);
 
-  useEffect(() => {
-    setQuery(searchParams.get('search') || '');
-    setPage(1);
-  }, [searchParams]);
-
-  useEffect(() => {
-    setPage(1);
-  }, [query, collection, category, size]);
+  useEffect(() => { setQuery(searchParams.get('search') || ''); setPage(1); }, [searchParams]);
+  useEffect(() => { setPage(1); }, [query, collection, category, size]);
 
   const filteredProducts = useMemo(() => {
     let result = searchProducts(products, query);
-
-    if (collection === '__promo-items') {
-      result = result.filter((product) => product.isPromoItem);
-    } else if (collection) {
-      result = result.filter((product) => product.collection === collection);
-    }
-
-    if (category) {
-      result = result.filter((product) => matchesCategory(product, category));
-    }
-
-    if (size) {
-      result = result.filter((product) => matchesSize(product, size));
-    }
-
+    if (collection === '__promo-items') result = result.filter((p) => p.isPromoItem);
+    else if (collection) result = result.filter((p) => p.collection === collection);
+    if (category) result = result.filter((p) => matchesCategory(p, category));
+    if (size) result = result.filter((p) => matchesSize(p, size));
     return result;
   }, [products, query, collection, category, size]);
 
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE));
-  const safePage = Math.min(page, totalPages);
+  const safePage   = Math.min(page, totalPages);
   const startIndex = (safePage - 1) * PRODUCTS_PER_PAGE;
-  const endIndex = startIndex + PRODUCTS_PER_PAGE;
-  const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
-  const hasActiveFilters = Boolean(query || collection || category || size);
+  const endIndex   = startIndex + PRODUCTS_PER_PAGE;
+  const paginated  = filteredProducts.slice(startIndex, endIndex);
+  const hasFilters = Boolean(query || collection || category || size);
 
-  const clearFilters = () => {
-    setQuery('');
-    setCollection('');
-    setCategory('');
-    setSize('');
-    setPage(1);
-  };
+  const clearFilters = () => { setQuery(''); setCollection(''); setCategory(''); setSize(''); setPage(1); };
+  const goToPage = (n: number) => { setPage(Math.min(Math.max(n, 1), totalPages)); window.scrollTo({ top: 0, behavior: 'smooth' }); };
 
-  const goToPage = (nextPage: number) => {
-    setPage(Math.min(Math.max(nextPage, 1), totalPages));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const collectionTabs = [
+    { label: t('explorer', 'tabAll', lang),         href: '/products' },
+    { label: t('explorer', 'tabNewArrivals', lang),  href: '/collections/new-arrivals' },
+    { label: t('explorer', 'tabBestSellers', lang),  href: '/collections/best-sellers' },
+    { label: t('explorer', 'tabPromo', lang),        href: '/collections/promo-items' },
+    { label: 'Woods',                                href: '/collections/woods' },
+    { label: 'Patterns',                             href: '/collections/patterns' },
+    { label: 'Solids',                               href: '/collections/solids' },
+  ];
 
   return (
     <div className="space-y-0">
       {showCollectionTabs && (
         <div className="flex gap-0 overflow-x-auto border-b border-varindo-line mb-8 scrollbar-none">
           {collectionTabs.map(({ label, href }) => (
-            <Link
-              key={href}
-              href={href}
-              className="shrink-0 px-5 py-3 text-[10px] font-semibold tracking-[0.18em] uppercase text-varindo-600 border-b-2 border-transparent hover:text-varindo-ink hover:border-varindo-ink transition-all duration-150 whitespace-nowrap"
-            >
+            <Link key={href} href={href}
+              className="shrink-0 px-5 py-3 text-[10px] font-semibold tracking-[0.18em] uppercase text-varindo-600 border-b-2 border-transparent hover:text-varindo-ink hover:border-varindo-ink transition-all duration-150 whitespace-nowrap">
               {label}
             </Link>
           ))}
@@ -172,12 +99,11 @@ export function ProductExplorer({ products, showCollectionTabs = true, showPromo
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-varindo-500">
               <path d="M1 3h12M3 7h8M5 11h4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
             </svg>
-            <span className="label text-varindo-700">Filter & Search</span>
+            <span className="label text-varindo-700">{t('explorer', 'filterTitle', lang)}</span>
           </div>
-
-          {hasActiveFilters && (
+          {hasFilters && (
             <button onClick={clearFilters} className="text-[11px] font-medium tracking-[0.12em] uppercase text-varindo-gold hover:text-varindo-ink transition-colors">
-              Clear All
+              {t('explorer', 'clearAll', lang)}
             </button>
           )}
         </div>
@@ -185,72 +111,56 @@ export function ProductExplorer({ products, showCollectionTabs = true, showPromo
         <div className="p-5">
           <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
             <label className="block">
-              <span className="label text-varindo-600 mb-2 block">Search</span>
-              <input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search code, design name, collection, size..."
-                className="field w-full"
-              />
+              <span className="label text-varindo-600 mb-2 block">{t('explorer', 'searchLabel', lang)}</span>
+              <input value={query} onChange={(e) => setQuery(e.target.value)}
+                placeholder={t('explorer', 'searchPlaceholder', lang)}
+                className="field w-full" />
             </label>
 
-            <SelectWrapper label="Collection" value={collection} onChange={setCollection}>
-              <option value="">All collections</option>
+            <SelectWrapper label={t('explorer', 'collectionLabel', lang)} value={collection} onChange={setCollection}>
+              <option value="">{t('explorer', 'allCollections', lang)}</option>
               <option value="Woods">Woods</option>
               <option value="Patterns">Patterns</option>
               <option value="Solids">Solids</option>
             </SelectWrapper>
 
-            <SelectWrapper label="Category" value={category} onChange={setCategory}>
-              <option value="">All categories</option>
-              {CATEGORY_OPTIONS.map((item) => (
-                <option key={item} value={item}>{item}</option>
-              ))}
+            <SelectWrapper label={t('explorer', 'categoryLabel', lang)} value={category} onChange={setCategory}>
+              <option value="">{t('explorer', 'allCategories', lang)}</option>
+              {CATEGORY_OPTIONS.map((item) => <option key={item} value={item}>{item}</option>)}
             </SelectWrapper>
 
-            <SelectWrapper label="Size" value={size} onChange={setSize}>
-              <option value="">All sizes</option>
-              {SIZE_OPTIONS.map((item) => (
-                <option key={item} value={item}>{item}</option>
-              ))}
+            <SelectWrapper label={t('explorer', 'sizeLabel', lang)} value={size} onChange={setSize}>
+              <option value="">{t('explorer', 'allSizes', lang)}</option>
+              {SIZE_OPTIONS.map((item) => <option key={item} value={item}>{item}</option>)}
             </SelectWrapper>
           </div>
 
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-varindo-500">
             <p>
-              <span className="font-semibold text-varindo-ink">{filteredProducts.length}</span> product{filteredProducts.length === 1 ? '' : 's'} found
+              <span className="font-semibold text-varindo-ink">{filteredProducts.length}</span>
+              {' '}{filteredProducts.length === 1 ? t('explorer', 'productFound', lang) : t('explorer', 'productsFound', lang)}
               {filteredProducts.length > 0 && (
-                <span> · Showing <span className="font-semibold text-varindo-ink">{startIndex + 1}-{Math.min(endIndex, filteredProducts.length)}</span></span>
+                <span> · {t('explorer', 'showing', lang)} <span className="font-semibold text-varindo-ink">{startIndex + 1}–{Math.min(endIndex, filteredProducts.length)}</span></span>
               )}
             </p>
           </div>
         </div>
       </div>
 
-      <ProductGrid products={paginatedProducts} showPromoPricing={showPromoPricing || collection === '__promo-items'} />
+      <ProductGrid products={paginated} showPromoPricing={showPromoPricing || collection === '__promo-items'} />
 
       {filteredProducts.length > PRODUCTS_PER_PAGE && (
         <div className="flex flex-wrap items-center justify-center gap-2 pt-10">
-          <button
-            type="button"
-            onClick={() => goToPage(safePage - 1)}
-            disabled={safePage === 1}
-            className="btn-ghost disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            Previous
+          <button type="button" onClick={() => goToPage(safePage - 1)} disabled={safePage === 1}
+            className="btn-ghost disabled:opacity-40 disabled:cursor-not-allowed">
+            {t('explorer', 'previous', lang)}
           </button>
-
           <span className="px-4 text-sm text-varindo-500">
-            Page <span className="font-semibold text-varindo-ink">{safePage}</span> of {totalPages}
+            {t('explorer', 'page', lang)} <span className="font-semibold text-varindo-ink">{safePage}</span> {t('explorer', 'of', lang)} {totalPages}
           </span>
-
-          <button
-            type="button"
-            onClick={() => goToPage(safePage + 1)}
-            disabled={safePage === totalPages}
-            className="btn-ghost disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            Next
+          <button type="button" onClick={() => goToPage(safePage + 1)} disabled={safePage === totalPages}
+            className="btn-ghost disabled:opacity-40 disabled:cursor-not-allowed">
+            {t('explorer', 'next', lang)}
           </button>
         </div>
       )}

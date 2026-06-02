@@ -1,132 +1,114 @@
-import type { Metadata } from 'next';
+'use client';
+
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { use, useEffect, useState } from 'react';
 import { ProductExplorer } from '@/components/ProductExplorer';
-import { CollectionGroup, getProductsByCollectionGroup } from '@/lib/products';
+import { useLang } from '@/lib/LangContext';
+import { t } from '@/lib/i18n';
+import type { Product } from '@/types/product';
 
-export const dynamic = 'force-dynamic';
-export const fetchCache = 'force-no-store';
-export const revalidate = 600;
+type CollectionGroup = 'new-arrivals'|'new-collections'|'best-sellers'|'promo-items'|'woods'|'patterns'|'solids';
 
-const groups: Partial<Record<CollectionGroup, { title: string; subtitle: string; description: string; accent?: string }>> = {
-  'new-arrivals': {
-    title: 'New Arrivals',
-    subtitle: 'Fresh Lamitak designs and latest surface selections',
-    description: 'Browse newly introduced Lamitak designs selected from the latest product code families.',
-    accent: 'varindo'
-  },
-  'best-sellers': {
-    title: 'Best Sellers',
-    subtitle: 'Popular Lamitak choices for interior projects',
-    description: 'Explore frequently selected Lamitak surfaces for residential, retail, and commercial interiors.',
-    accent: 'varindo'
-  },
-  'promo-items': {
-    title: 'Promo Items',
-    subtitle: 'Selected Lamitak products with promotional pricing',
-    description: 'Browse selected promotional items while availability lasts.',
-    accent: 'varindo'
-  },
-  woods: {
-    title: 'Woods',
-    subtitle: 'Warm woodgrain laminates for refined interiors',
-    description: 'Explore Lamitak wood designs for cabinetry, wall panels, furniture, and interior detailing.'
-  },
-  patterns: {
-    title: 'Patterns',
-    subtitle: 'Decorative patterns, Saville, and Bookmatched designs',
-    description: 'Browse expressive Lamitak designs for feature walls, furniture, counters, and project highlights.'
-  },
-  solids: {
-    title: 'Solids',
-    subtitle: 'Clean solid surfaces for modern spaces',
-    description: 'Explore solid colours, solid core, Protak, and Protak Core options for versatile interior applications.'
-  }
+const groupConfig: Partial<Record<CollectionGroup, { titleKey: string; descKey: string; accentKey: string }>> = {
+  'new-arrivals':  { titleKey: 'newArrivalsTitle',  descKey: 'newArrivalsDesc',  accentKey: 'newArrivalsAccent' },
+  'best-sellers':  { titleKey: 'bestSellersTitle',  descKey: 'bestSellersDesc',  accentKey: 'bestSellersAccent' },
+  'promo-items':   { titleKey: 'promoTitle',        descKey: 'promoDesc',        accentKey: 'promoAccent' },
+  'woods':         { titleKey: 'woodsTitle',        descKey: 'woodsDesc',        accentKey: '' },
+  'patterns':      { titleKey: 'patternsTitle',     descKey: 'patternsDesc',     accentKey: '' },
+  'solids':        { titleKey: 'solidsTitle',       descKey: 'solidsDesc',       accentKey: '' },
 };
 
-export function generateMetadata({ params }: { params: { group: string } }): Metadata {
-  const group = params.group as CollectionGroup;
-  const page = groups[group];
-  if (!page) return { title: 'Collection Not Found' };
-  return {
-    title: `${page.title} Collection`,
-    description: page.description
-  };
-}
+const tabOrder: CollectionGroup[] = ['new-arrivals','best-sellers','promo-items','woods','patterns','solids'];
 
-export default async function CollectionPage({ params }: { params: { group: string } }) {
-  const group = params.group as CollectionGroup;
-  const page = groups[group];
-  if (!page) notFound();
+export default function CollectionPage({ params }: { params: Promise<{ group: string }> }) {
+  const { group } = use(params) as { group: CollectionGroup };
+  const { lang }  = useLang();
+  const config    = groupConfig[group];
+  const [products, setProducts] = useState<Product[]>([]);
 
-  const products = await getProductsByCollectionGroup(group);
+  useEffect(() => {
+    fetch('/api/products').then(r => r.json()).then(data => {
+      const all: Product[] = data.products || [];
+      let filtered: Product[];
+      if (group === 'new-arrivals' || group === 'new-collections') {
+        filtered = all.filter(p => p.badges?.includes('new-arrivals') || p.badges?.includes('new-collections'));
+      } else if (group === 'best-sellers') {
+        filtered = all.filter(p => p.badges?.includes('best-sellers'));
+      } else if (group === 'promo-items') {
+        filtered = all.filter(p => p.isPromoItem);
+      } else {
+        filtered = all.filter(p => p.collection?.toLowerCase() === group);
+      }
+      setProducts(filtered);
+    });
+  }, [group]);
+
+  if (!config) return notFound();
+
   const filterOptions = {
-    collections: Array.from(new Set(products.map((p) => p.collection).filter(Boolean) as string[])).sort(),
-    categories: Array.from(new Set(products.map((p) => p.category).filter(Boolean) as string[])).sort(),
-    finishes: Array.from(new Set(products.map((p) => p.finish).filter(Boolean) as string[])).sort(),
-    sizes: Array.from(new Set(products.map((p) => p.size).filter(Boolean) as string[])).sort(),
-    colorFamilies: Array.from(new Set(products.map((p) => p.colorFamily).filter(Boolean) as string[])).sort()
+    collections: ['Woods','Patterns','Solids'],
+    categories: ['Patterns','Protak','Protak Core','Saville','Solid Core','Solids','Solids+','Woods','Bookmatched'],
+    finishes: [],
+    sizes: ["4'x8' / 1220 x 2440mm","4'x10' / 1220 x 3050mm"],
+    colorFamilies: []
   };
+
+  const title  = t('collections', config.titleKey,  lang);
+  const desc   = t('collections', config.descKey,   lang);
+  const accent = config.accentKey ? t('collections', config.accentKey, lang) : '';
 
   return (
     <div>
-      {/* Collection header */}
       <div className="bg-varindo-ink text-white">
         <div className="shell py-12 sm:py-16">
-          {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-[11px] tracking-[0.12em] uppercase mb-8">
             <Link href="/products" className="text-varindo-500 hover:text-varindo-300 transition-colors">
-              Catalog
+              {t('collections', 'breadcrumbCatalog', lang)}
             </Link>
             <span className="text-varindo-600">·</span>
-            <span className="text-varindo-400">{page.title}</span>
+            <span className="text-varindo-400">{title}</span>
           </div>
-
           <div className="flex items-start justify-between gap-6 flex-wrap">
             <div>
-              {page.accent && <p className="label text-varindo-400 mb-4">{page.accent}</p>}
-              <h1 className="display text-white text-5xl sm:text-6xl lg:text-7xl mb-4">
-                {page.title}
-              </h1>
-              <p className="text-[14px] leading-7 text-varindo-400 max-w-xl">{page.description}</p>
+              {accent && <p className="label text-varindo-400 mb-4">{accent}</p>}
+              <h1 className="display text-white text-5xl sm:text-6xl lg:text-7xl mb-4">{title}</h1>
+              <p className="text-[14px] leading-7 text-varindo-400 max-w-xl">{desc}</p>
             </div>
-
-            {/* Stats */}
             <div className="border border-varindo-700 bg-varindo-800/40 px-6 py-4 text-center shrink-0">
               <p className="font-display text-4xl font-light text-white">{products.length}</p>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-varindo-500 mt-1">Products</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-varindo-500 mt-1">
+                {t('collections', 'products', lang)}
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Collection tabs bar */}
       <div className="border-b border-varindo-line bg-white overflow-x-auto">
         <div className="shell flex gap-0">
-          {(Object.keys(groups) as CollectionGroup[]).filter((g) => groups[g] !== undefined).map((g) => (
-            <Link
-              key={g}
-              href={`/collections/${g}`}
+          {tabOrder.filter(g => groupConfig[g]).map((g) => (
+            <Link key={g} href={`/collections/${g}`}
               className={`shrink-0 px-5 py-3.5 text-[10px] font-semibold tracking-[0.18em] uppercase transition-all border-b-2 ${
                 g === group
                   ? 'border-varindo-ink text-varindo-ink'
                   : 'border-transparent text-varindo-500 hover:text-varindo-ink hover:border-varindo-300'
-              }`}
-            >
-              {groups[g]!.title}
+              }`}>
+              {t('collections', groupConfig[g]!.titleKey, lang)}
             </Link>
           ))}
         </div>
       </div>
 
-      {/* Explorer */}
       <div className="shell py-10 sm:py-12">
-        <ProductExplorer
-          products={products}
-          filterOptions={filterOptions}
-          showCollectionTabs={false}
-          showPromoPricing={group === 'promo-items'}
-        />
+        {products.length === 0 ? (
+          <div className="border border-varindo-line bg-white py-12 px-6 text-center">
+            <p className="label text-varindo-500">{t('products', 'loading', lang)}</p>
+          </div>
+        ) : (
+          <ProductExplorer products={products} filterOptions={filterOptions}
+            showCollectionTabs={false} showPromoPricing={group === 'promo-items'} />
+        )}
       </div>
     </div>
   );
