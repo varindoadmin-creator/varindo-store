@@ -21,8 +21,8 @@ export default function HomePage() {
       .then((data) => {
         const all: Product[] = data.products || [];
         setAllCount(all.length);
-        const isNew   = (p: Product) => p.badges?.includes('new-arrivals') || p.badges?.includes('new-collections');
-        const isBest  = (p: Product) => p.badges?.includes('best-sellers');
+        const isNew   = (p: Product) => p.badges?.includes('NEW' as any);
+        const isBest  = (p: Product) => p.badges?.includes('BESTSELLER' as any);
         const isPromo = (p: Product) => p.isPromoItem;
         setNew(all.filter(isNew).slice(0, 8));
         setBest(all.filter(isBest).slice(0, 8));

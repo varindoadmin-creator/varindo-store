@@ -32,9 +32,9 @@ export default function CollectionPage({ params }: { params: Promise<{ group: st
       const all: Product[] = data.products || [];
       let filtered: Product[];
       if (group === 'new-arrivals' || group === 'new-collections') {
-        filtered = all.filter(p => p.badges?.includes('new-arrivals') || p.badges?.includes('new-collections'));
+        filtered = all.filter(p => p.badges?.includes('NEW' as any));
       } else if (group === 'best-sellers') {
-        filtered = all.filter(p => p.badges?.includes('best-sellers'));
+        filtered = all.filter(p => p.badges?.includes('BESTSELLER' as any));
       } else if (group === 'promo-items') {
         filtered = all.filter(p => p.isPromoItem);
       } else {
