@@ -29,7 +29,7 @@ export function Footer() {
             {[
               { href: '/collections/new-arrivals', id: 'Produk Terbaru',  en: 'New Arrivals' },
               { href: '/collections/best-sellers', id: 'Produk Terlaris', en: 'Best Sellers' },
-              { href: '/collections/promo-items',  id: 'Promo Items',     en: 'Promo Items' },
+              { href: '/collections/promo-items',  id: 'Produk Promo',     en: 'Promo Items' },
               { href: '/collections/woods',        id: 'Woods',           en: 'Woods' },
               { href: '/collections/patterns',     id: 'Patterns',        en: 'Patterns' },
               { href: '/collections/solids',       id: 'Solids',          en: 'Solids' },

@@ -32,9 +32,9 @@ export const translations = {
   // ── Homepage ──────────────────────────────────────────────────
   home: {
     heroBadge:    { id: 'Dealer Resmi Lamitak', en: 'Authorized Lamitak Dealer' },
-    heroLine1:    { id: 'Material Permukaan', en: 'Surface Materials' },
-    heroLine2:    { id: 'Pilihan untuk', en: 'Curated for' },
-    heroLine3:    { id: 'Para Profesional', en: 'Professionals' },
+    heroLine1:    { id: 'Material Terbaik', en: 'Surface Materials' },
+    heroLine2:    { id: 'Pilihan Para', en: 'Curated for' },
+    heroLine3:    { id: 'Profesional', en: 'Professionals' },
     heroBody:     {
       id: 'Jelajahi produk HPL Lamitak berdasarkan kode, nama desain, koleksi, sub koleksi, ukuran, ketebalan, dan harga melalui katalog online Varindo.',
       en: "Browse Lamitak HPL products by code, design name, collection, sub collection, size, thickness, and price through Varindo's online catalogue."
@@ -87,7 +87,7 @@ export const translations = {
     },
 
     promoLabel: { id: 'Harga Spesial', en: 'Special Pricing' },
-    promoTitle: { id: 'Promo Items', en: 'Promo Items' },
+    promoTitle: { id: 'Produk Promo', en: 'Promo Items' },
     promoBody:  {
       id: 'Produk Lamitak pilihan dengan harga promo — tersedia selama stok masih ada.',
       en: 'Selected Lamitak items with special promotional pricing — available while stocks last.'
@@ -103,8 +103,8 @@ export const translations = {
     portfolioCta:   { id: 'Lihat Portofolio', en: 'View Portfolio' },
 
     whyLabel: { id: 'Mengapa Varindo', en: 'Why Varindo' },
-    whyTitle1:{ id: 'Berdasarkan Kepercayaan.', en: 'Built on Trust.' },
-    whyTitle2:{ id: 'Digerakkan oleh Layanan.', en: 'Driven by Service.' },
+    whyTitle1:{ id: 'Built on Trust.', en: 'Built on Trust.' },
+    whyTitle2:{ id: 'Driven by Service.', en: 'Driven by Service.' },
     whyBody:  {
       id: 'Sebagai dealer resmi Lamitak di Indonesia, kami memberikan pengalaman pengadaan yang transparan, profesional, dan terpercaya untuk setiap proyek.',
       en: 'As an authorized Lamitak dealer in Indonesia, we deliver a transparent, professional, and dependable procurement experience for every project.'
@@ -216,7 +216,7 @@ export const translations = {
       en: 'Explore frequently selected Lamitak surfaces for residential, retail, and commercial interiors.'
     },
     promoAccent:       { id: 'Harga Spesial', en: 'Special Price' },
-    promoTitle:        { id: 'Promo Items', en: 'Promo Items' },
+    promoTitle:        { id: 'Produk Promo', en: 'Promo Items' },
     promoDesc:         {
       id: 'Jelajahi produk promo pilihan selama stok masih tersedia.',
       en: 'Browse selected promotional items while availability lasts.'
@@ -243,8 +243,8 @@ export const translations = {
     badge:        { id: 'Perusahaan', en: 'Company' },
     title:        { id: 'Tentang Varindo', en: 'About Varindo' },
     missionLabel: { id: 'Misi', en: 'Mission' },
-    missionTitle1:{ id: 'Berdasarkan Kepercayaan.', en: 'Built on Trust.' },
-    missionTitle2:{ id: 'Digerakkan oleh Layanan.', en: 'Driven by Service.' },
+    missionTitle1:{ id: 'Built on Trust.', en: 'Built on Trust.' },
+    missionTitle2:{ id: 'Driven by Service.', en: 'Driven by Service.' },
     mission1:     {
       id: 'Varindo adalah dealer resmi Lamitak High Pressure Laminates (HPL) di Indonesia. Kami berkomitmen memberikan pengalaman pembelian yang transparan, profesional, dan terpercaya bagi seluruh pelanggan.',
       en: 'Varindo is an authorized dealer of Lamitak High Pressure Laminates (HPL) in Indonesia. We are committed to delivering a transparent, professional, and dependable purchasing experience for all our customers.'
@@ -309,7 +309,7 @@ export const translations = {
     email:        { id: 'Email', en: 'Email' },
     waTitle:      { id: 'Butuh Bantuan?', en: 'Need assistance?' },
     waBody:       {
-      id: 'Chat dengan tim kami untuk pertanyaan produk, harga, pengecekan stok, sampel, informasi katalog, dan panduan pengiriman.',
+      id: 'Hubungi tim kami untuk pertanyaan produk, harga, pengecekan stok, sampel, informasi katalog, dan panduan pengiriman.',
       en: 'Chat with our team for product enquiries, pricing, stock checks, samples, catalog information, and delivery guidance.'
     },
     browseCatalog:{ id: 'Lihat Katalog', en: 'Browse Catalog' },
