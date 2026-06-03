@@ -328,9 +328,9 @@ export const translations = {
     phone:        { id: 'Telepon', en: 'Phone' },
     aboutLink:    { id: 'Tentang Varindo', en: 'About Varindo' },
     contactLink:  { id: 'Kontak', en: 'Contact' },
-    catalogueLink:{ id: 'Minta Katalog', en: 'Request Catalogue' },
-    quoteLink:    { id: 'Minta Penawaran', en: 'Request Quote' },
-    sampleLink:   { id: 'Minta Sampel', en: 'Request Sample' },
+    catalogueLink:{ id: 'Permintaan Katalog', en: 'Request Catalogue' },
+    quoteLink:    { id: 'Permintaan Penawaran', en: 'Request Quote' },
+    sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
     copyright:    { id: '© {year} CV. Varindo Forma Hutama. Hak cipta dilindungi.', en: '© {year} CV. Varindo Forma Hutama. All rights reserved.' },
     dealerBadge:  { id: 'Dealer Resmi Lamitak · Indonesia', en: 'Authorized Lamitak Dealer · Indonesia' }
   },

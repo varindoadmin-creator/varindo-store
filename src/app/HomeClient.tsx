@@ -20,14 +20,14 @@ export function HomeClient({ allCount, newProducts, bestSellers, promoProducts }
     { label: 'Woods',       href: '/collections/woods' },
     { label: 'Patterns',    href: '/collections/patterns' },
     { label: 'Solids',      href: '/collections/solids' },
-    { label: 'Promo Items', href: '/collections/promo-items' },
+    { label: lang === 'id' ? 'Produk Promo' : 'Promo Items', href: '/collections/promo-items' },
   ];
 
   const materialLibrary = [
     { title: 'Woods',       href: '/collections/woods',       desc: t('home', 'woodsDesc', lang) },
     { title: 'Patterns',    href: '/collections/patterns',    desc: t('home', 'patternsDesc', lang) },
     { title: 'Solids',      href: '/collections/solids',      desc: t('home', 'solidsDesc', lang) },
-    { title: 'Promo Items', href: '/collections/promo-items', desc: t('home', 'promoDesc', lang) },
+    { title: lang === 'id' ? 'Produk Promo' : 'Promo Items', href: '/collections/promo-items', desc: t('home', 'promoDesc', lang) },
   ];
 
   const whyItems = [
