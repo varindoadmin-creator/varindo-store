@@ -366,7 +366,7 @@ export const translations = {
 
     // Catalogue form
     catalogueBadge:   { id: 'Permintaan Katalog', en: 'Catalogue Request' },
-    catalogueTitle:   { id: 'Minta Katalog\nLamitak', en: 'Request a\nLamitak Catalogue' },
+    catalogueTitle:   { id: 'Permintaan Katalog\nLamitak', en: 'Request a\nLamitak Catalogue' },
     catalogueSubtitle:{ id: 'Isi data Anda dan tim kami akan mengatur katalog produk Lamitak untuk Anda.', en: 'Fill in your details and our team will arrange the Lamitak product catalogue for you.' },
     catalogueSuccess: {
       id: 'Terima kasih, {name}. Tim kami akan mengatur katalog dan menghubungi Anda di {phone} dalam 1 hari kerja.',
@@ -376,7 +376,7 @@ export const translations = {
 
     // Quote form
     quoteBadge:       { id: 'Permintaan Penawaran', en: 'Quote Request' },
-    quoteTitle:       { id: 'Minta Penawaran', en: 'Request a Quote' },
+    quoteTitle:       { id: 'Permintaan Penawaran', en: 'Request a Quote' },
     quoteSubtitle:    {
       id: 'Isi data Anda dan cari kode atau nama desain yang dibutuhkan. Permintaan akan dikirim langsung ke tim kami.',
       en: 'Fill in your details and search for the product codes or design names you need. Your request will be sent directly to our team.'
@@ -400,7 +400,7 @@ export const translations = {
 
     // Sample form
     sampleBadge:      { id: 'Permintaan Sampel', en: 'Sample Request' },
-    sampleTitle:      { id: 'Minta\nSampel Lamitak', en: 'Request\nLamitak Samples' },
+    sampleTitle:      { id: 'Permintaan\nSampel Lamitak', en: 'Request\nLamitak Samples' },
     sampleSubtitle:   {
       id: 'Pelanggan dapat meminta hingga 5 sampel Lamitak per permintaan. Siapkan kode produk atau nama desain agar tim kami dapat menindaklanjuti dengan tepat.',
       en: 'Customers may request up to 5 Lamitak sample pieces per request. Please prepare product codes or design names so our team can follow up accurately.'
