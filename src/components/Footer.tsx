@@ -53,6 +53,7 @@ export function Footer() {
               { href: '/request-catalogue',  label: t('footer', 'catalogueLink', lang) },
               { href: '/request-quote',      label: t('footer', 'quoteLink', lang) },
               { href: '/request-sample',     label: t('footer', 'sampleLink', lang) },
+              { href: '/privacy',            label: lang === 'id' ? 'Kebijakan Privasi' : 'Privacy Policy' },
             ].map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="text-[13px] text-varindo-400 hover:text-white transition-colors">
