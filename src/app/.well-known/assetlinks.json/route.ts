@@ -1,0 +1,23 @@
+import { NextResponse } from 'next/server';
+
+const assetLinks = [
+  {
+    relation: ['delegate_permission/common.handle_all_urls'],
+    target: {
+      namespace: 'android_app',
+      package_name: 'co.varindo.catalog',
+      sha256_cert_fingerprints: [
+        '04:27:A8:99:28:A2:C2:08:A2:04:BD:32:29:57:83:F0:45:FB:98:61:78:1C:93:71:29:75:59:64:E8:C9:95:96'
+      ]
+    }
+  }
+];
+
+export async function GET() {
+  return NextResponse.json(assetLinks, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'public, max-age=86400'
+    }
+  });
+}
