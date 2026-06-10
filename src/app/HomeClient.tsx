@@ -100,7 +100,7 @@ export function HomeClient({ allCount, newProducts, bestSellers, promoProducts }
 
         <div className="absolute bottom-0 left-0 right-0 border-t border-white/10">
           <div className="shell py-4 flex items-center gap-8 overflow-x-auto">
-            {[t('home', 'stripDealer', lang), t('home', 'stripShipping', lang)].map((item) => (
+            {[t('home', 'stripDealer', lang)].map((item) => (
               <span key={item} className="text-[10px] tracking-[0.2em] uppercase text-white/40 shrink-0">{item}</span>
             ))}
           </div>

@@ -48,7 +48,6 @@ export const translations = {
     },
     productCount: { id: 'produk aktif dalam katalog', en: 'active products in the catalogue' },
     stripDealer:  { id: 'Dealer Resmi', en: 'Authorized Dealer' },
-    stripShipping:{ id: 'Gratis Ongkir · Jawa & Bali', en: 'Free Shipping · Java & Bali' },
 
     collectionsSectionLabel: { id: 'Koleksi', en: 'Collections' },
     collectionsSectionTitle: { id: 'Perpustakaan Material', en: 'Material Library' },
@@ -184,7 +183,7 @@ export const translations = {
       id: 'Catatan: Warna aktual dapat berbeda dari tampilan digital. Kami menyarankan untuk melihat sampel fisik sebelum spesifikasi final.',
       en: 'Note: Actual colours may vary from digital display. We recommend viewing a physical sample prior to specification.'
     },
-    inclTax:           { id: 'Sudah termasuk pajak · Gratis ongkir (Jawa & Bali)', en: 'Tax included · Free shipping (Java & Bali)' },
+    inclTax:           { id: 'Sudah termasuk pajak', en: 'Tax included' },
     promoOff:          { id: 'Promo Diskon 5%', en: 'Promo 5% Off' },
     enquireCta:        { id: 'Tanya via WhatsApp', en: 'Enquire via WhatsApp' },
     backCatalog:       { id: '← Kembali ke Katalog', en: '← Back to Catalog' },
