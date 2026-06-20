@@ -4,6 +4,7 @@ import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { LangProvider } from '@/lib/LangContext';
+import { AiChat } from '@/components/AiChat';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Header />
           <main>{children}</main>
           <Footer />
+          <AiChat />
         </LangProvider>
       </body>
     </html>
