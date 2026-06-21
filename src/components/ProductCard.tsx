@@ -23,7 +23,6 @@ export function ProductCard({ product }: { product: Product }) {
         {product.code && (
           <p className="text-[10px] font-medium tracking-[0.18em] uppercase text-varindo-500 mb-1">{product.code}</p>
         )}
-        {/* Product name — NEVER translated */}
         <Link href={`/products/${product.slug}`}
           className="block text-[13px] font-medium leading-[1.45] text-varindo-ink hover:text-varindo-gold transition-colors line-clamp-2 min-h-[38px]">
           {product.name}
@@ -33,12 +32,6 @@ export function ProductCard({ product }: { product: Product }) {
         )}
         <div className="mt-3 pt-3 border-t border-varindo-line/60">
           <span className="text-[13px] font-semibold text-varindo-ink">{formatIDR(product.price)}</span>
-          )}</span>
-              <span className="text-[11px] text-varindo-400 line-through">{formatIDR(product.price)}</span>
-            </div>
-          ) : (
-            <span className="text-[13px] font-semibold text-varindo-ink">{formatIDR(product.price)}</span>
-          )}
           <p className="mt-0.5 text-[10px] tracking-[0.12em] uppercase text-varindo-400">
             {t('card', 'inclTax', lang)}
           </p>

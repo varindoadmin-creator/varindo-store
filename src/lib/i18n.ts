@@ -163,7 +163,7 @@ export const translations = {
 
   // ── Product Card ──────────────────────────────────────────────
   card: {
-    inclTax:    { id: 'sudah termasuk pajak', en: 'incl. tax' },
+    inclTax:    { id: 'sudah termasuk pajak', en: 'incl. tax' }
   },
 
   // ── Product Detail page ───────────────────────────────────────
@@ -174,7 +174,6 @@ export const translations = {
       en: 'Note: Actual colours may vary from digital display. We recommend viewing a physical sample prior to specification.'
     },
     inclTax:           { id: 'Sudah termasuk pajak', en: 'Tax included' },
-    promoOff:          { id: 'Promo Diskon 5%', en: 'Promo 5% Off' },
     enquireCta:        { id: 'Tanya via WhatsApp', en: 'Enquire via WhatsApp' },
     backCatalog:       { id: '← Kembali ke Katalog', en: '← Back to Catalog' },
     specsTitle:        { id: 'Spesifikasi Produk', en: 'Product Specifications' },
@@ -203,9 +202,6 @@ export const translations = {
     bestSellersDesc:   {
       id: 'Jelajahi desain Lamitak yang paling sering dipilih untuk interior hunian, ritel, dan komersial.',
       en: 'Explore frequently selected Lamitak surfaces for residential, retail, and commercial interiors.'
-    },
-      id: 'Jelajahi produk promo pilihan selama stok masih tersedia.',
-      en: 'Browse selected promotional items while availability lasts.'
     },
     woodsTitle:        { id: 'Woods', en: 'Woods' },
     woodsDesc:         {
