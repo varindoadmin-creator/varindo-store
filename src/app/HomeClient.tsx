@@ -76,7 +76,7 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
                   </svg>
                 </button>
               </form>
-              <div className="grid grid-cols-2 gap-px bg-varindo-line border border-varindo-line">
+              <div className="grid grid-cols-3 gap-px bg-varindo-line border border-varindo-line">
                 {quickSearch.map((item) => (
                   <Link key={item.href} href={item.href}
                     className="bg-white p-4 hover:bg-varindo-50 transition-colors group">
