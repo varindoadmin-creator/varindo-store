@@ -119,7 +119,7 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
               {t('home', 'collectionsViewAll', lang)}
             </Link>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-varindo-line border border-varindo-line">
+          <div className="grid grid-cols-3 gap-px bg-varindo-line border border-varindo-line">
             {materialLibrary.map((item) => (
               <Link key={item.href} href={item.href}
                 className="bg-white p-6 hover:bg-varindo-50 transition-colors group">
