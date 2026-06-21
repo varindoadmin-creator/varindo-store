@@ -1,7 +1,6 @@
 import {
   getBestSellerProducts,
   getNewCollectionProducts,
-  getPromoItemProducts,
   getPublicProducts
 } from '@/lib/products';
 import { HomeClient } from './HomeClient';
@@ -9,11 +8,10 @@ import { HomeClient } from './HomeClient';
 export const revalidate = 600;
 
 export default async function HomePage() {
-  const [allProducts, newProducts, bestSellers, promoProducts] = await Promise.all([
+  const [allProducts, newProducts, bestSellers,
     getPublicProducts(),
     getNewCollectionProducts(),
-    getBestSellerProducts(),
-    getPromoItemProducts()
+    getBestSellerProducts()
   ]);
 
   return (
@@ -21,7 +19,6 @@ export default async function HomePage() {
       allCount={allProducts.length}
       newProducts={newProducts.slice(0, 8)}
       bestSellers={bestSellers.slice(0, 8)}
-      promoProducts={promoProducts.slice(0, 4)}
     />
   );
 }

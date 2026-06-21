@@ -19,7 +19,7 @@ function matchesSize(p: Product, s: string) { return !s || normalizeText(p.size)
 function matchesCategory(p: Product, c: string) { return !c || normalizeText(p.category) === normalizeText(c); }
 
 type FilterOptions = { collections: string[]; categories: string[]; finishes: string[]; sizes: string[]; colorFamilies: string[] };
-type Props = { products: Product[]; filterOptions: FilterOptions; showCollectionTabs?: boolean; showPromoPricing?: boolean };
+type Props = { products: Product[]; filterOptions: FilterOptions; showCollectionTabs?: boolean; };
 
 function SelectWrapper({ label, value, onChange, children }: { label: string; value: string; onChange: (v: string) => void; children: React.ReactNode }) {
   return (
@@ -39,7 +39,7 @@ function SelectWrapper({ label, value, onChange, children }: { label: string; va
   );
 }
 
-export function ProductExplorer({ products, showCollectionTabs = true, showPromoPricing = false }: Props) {
+export function ProductExplorer({ products, showCollectionTabs = true }: Props) {
   const { lang } = useLang();
   const searchParams = useSearchParams();
   const [query, setQuery]       = useState(searchParams.get('search') || '');
@@ -53,7 +53,6 @@ export function ProductExplorer({ products, showCollectionTabs = true, showPromo
 
   const filteredProducts = useMemo(() => {
     let result = searchProducts(products, query);
-    if (collection === '__promo-items') result = result.filter((p) => p.isPromoItem);
     else if (collection) result = result.filter((p) => p.collection === collection);
     if (category) result = result.filter((p) => matchesCategory(p, category));
     if (size) result = result.filter((p) => matchesSize(p, size));
@@ -74,7 +73,6 @@ export function ProductExplorer({ products, showCollectionTabs = true, showPromo
     { label: t('explorer', 'tabAll', lang),         href: '/products' },
     { label: t('explorer', 'tabNewArrivals', lang),  href: '/collections/new-arrivals' },
     { label: t('explorer', 'tabBestSellers', lang),  href: '/collections/best-sellers' },
-    { label: t('explorer', 'tabPromo', lang),        href: '/collections/promo-items' },
     { label: 'Woods',                                href: '/collections/woods' },
     { label: 'Patterns',                             href: '/collections/patterns' },
     { label: 'Solids',                               href: '/collections/solids' },
@@ -147,7 +145,7 @@ export function ProductExplorer({ products, showCollectionTabs = true, showPromo
         </div>
       </div>
 
-      <ProductGrid products={paginated} showPromoPricing={showPromoPricing || collection === '__promo-items'} />
+      <ProductGrid products={paginated} />
 
       {filteredProducts.length > PRODUCTS_PER_PAGE && (
         <div className="flex flex-wrap items-center justify-center gap-2 pt-10">

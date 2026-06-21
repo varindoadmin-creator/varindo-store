@@ -9,7 +9,6 @@ import { t, type Lang } from '@/lib/i18n';
 const collectionItems = [
   { key: 'new-arrivals', href: '/collections/new-arrivals' },
   { key: 'best-sellers', href: '/collections/best-sellers' },
-  { key: 'promo-items',  href: '/collections/promo-items' },
   { key: 'woods',        href: '/collections/woods' },
   { key: 'patterns',     href: '/collections/patterns' },
   { key: 'solids',       href: '/collections/solids' },
@@ -18,7 +17,6 @@ const collectionItems = [
 const collectionLabels: Record<string, { id: string; en: string }> = {
   'new-arrivals': { id: 'Produk Terbaru', en: 'New Arrivals' },
   'best-sellers': { id: 'Produk Terlaris', en: 'Best Sellers' },
-  'promo-items':  { id: 'Produk Promo',    en: 'Promo Items' },
   'woods':        { id: 'Woods',          en: 'Woods' },
   'patterns':     { id: 'Patterns',       en: 'Patterns' },
   'solids':       { id: 'Solids',         en: 'Solids' },

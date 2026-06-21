@@ -65,7 +65,6 @@ export const translations = {
       id: 'Warna solid, Solid Core, Protak, dan Protak Core untuk berbagai kebutuhan aplikasi.',
       en: 'Clean solid colours, Solid Core, Protak, and Protak Core options for versatile applications.'
     },
-    promoDesc:    {
       id: 'Produk Lamitak pilihan dengan harga promo khusus — tersedia selama stok masih ada.',
       en: 'Selected Lamitak items with special promotional pricing — available while stocks last.'
     },
@@ -85,9 +84,6 @@ export const translations = {
       en: 'Frequently specified Lamitak designs trusted for diverse interior applications.'
     },
 
-    promoLabel: { id: 'Harga Spesial', en: 'Special Pricing' },
-    promoTitle: { id: 'Produk Promo', en: 'Promo Items' },
-    promoBody:  {
       id: 'Produk Lamitak pilihan dengan harga promo — tersedia selama stok masih ada.',
       en: 'Selected Lamitak items with special promotional pricing — available while stocks last.'
     },
@@ -161,7 +157,6 @@ export const translations = {
     tabAll:           { id: 'Semua Produk', en: 'All Products' },
     tabNewArrivals:   { id: 'Produk Terbaru', en: 'New Arrivals' },
     tabBestSellers:   { id: 'Terlaris', en: 'Best Sellers' },
-    tabPromo:         { id: 'Promo', en: 'Promo' },
     noResults:        { id: 'Tidak Ada Hasil', en: 'No Results' },
     noResultsTitle:   { id: 'Produk tidak ditemukan', en: 'No products found' },
     noResultsBody:    {
@@ -173,7 +168,6 @@ export const translations = {
   // ── Product Card ──────────────────────────────────────────────
   card: {
     inclTax:    { id: 'sudah termasuk pajak', en: 'incl. tax' },
-    promo:      { id: 'Promo', en: 'Promo' }
   },
 
   // ── Product Detail page ───────────────────────────────────────
@@ -214,9 +208,6 @@ export const translations = {
       id: 'Jelajahi desain Lamitak yang paling sering dipilih untuk interior hunian, ritel, dan komersial.',
       en: 'Explore frequently selected Lamitak surfaces for residential, retail, and commercial interiors.'
     },
-    promoAccent:       { id: 'Harga Spesial', en: 'Special Price' },
-    promoTitle:        { id: 'Produk Promo', en: 'Promo Items' },
-    promoDesc:         {
       id: 'Jelajahi produk promo pilihan selama stok masih tersedia.',
       en: 'Browse selected promotional items while availability lasts.'
     },

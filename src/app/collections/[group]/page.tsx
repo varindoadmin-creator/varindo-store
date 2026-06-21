@@ -11,7 +11,6 @@ const groupMeta: Partial<Record<CollectionGroup, { titleEN: string; descEN: stri
   'new-arrivals':  { titleEN: 'New Arrivals',  descEN: 'Browse newly introduced Lamitak designs.' },
   'new-collections':{ titleEN: 'New Arrivals', descEN: 'Browse newly introduced Lamitak designs.' },
   'best-sellers':  { titleEN: 'Best Sellers',  descEN: 'Explore frequently selected Lamitak surfaces.' },
-  'promo-items':   { titleEN: 'Promo Items',   descEN: 'Browse selected Lamitak promotional items.' },
   'woods':         { titleEN: 'Woods',         descEN: 'Lamitak woodgrain surfaces for interior projects.' },
   'patterns':      { titleEN: 'Patterns',      descEN: 'Decorative Lamitak pattern surfaces.' },
   'solids':        { titleEN: 'Solids',        descEN: 'Lamitak solid colour and core surfaces.' }

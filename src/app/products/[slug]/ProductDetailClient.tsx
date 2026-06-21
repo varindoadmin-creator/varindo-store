@@ -59,18 +59,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
             <h1 className="display text-varindo-ink text-4xl sm:text-5xl mb-6">{product.name}</h1>
 
             <div className="border-t border-b border-varindo-line py-5 mb-7">
-              {product.isPromoItem && typeof product.promoPrice === 'number' ? (
-                <div>
-                  <div className="flex items-baseline gap-3 mb-1">
-                    <span className="font-display text-3xl font-light text-varindo-ink">{formatIDR(product.promoPrice)}</span>
-                    <span className="text-[13px] text-varindo-400 line-through">{formatIDR(product.price)}</span>
-                  </div>
-                  <span className="bg-varindo-gold text-white text-[9px] font-semibold tracking-[0.2em] uppercase px-3 py-1 mt-2 inline-block">
-                    {t('detail', 'promoOff', lang)}
-                  </span>
-                </div>
-              ) : (
-                <span className="font-display text-3xl font-light text-varindo-ink">{formatIDR(product.price)}</span>
+              <span className="font-display text-3xl font-light text-varindo-ink">{formatIDR(product.price)}</span>
               )}
               <p className="mt-2 text-[11px] tracking-[0.14em] uppercase text-varindo-400">
                 {t('detail', 'inclTax', lang)}

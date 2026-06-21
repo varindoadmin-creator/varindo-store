@@ -7,7 +7,7 @@ import { ProductImage } from './ProductImage';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
-export function ProductCard({ product, showPromoPricing = false }: { product: Product; showPromoPricing?: boolean }) {
+export function ProductCard({ product }: { product: Product }) {
   const { lang } = useLang();
 
   return (
@@ -15,11 +15,6 @@ export function ProductCard({ product, showPromoPricing = false }: { product: Pr
       <Link href={`/products/${product.slug}`} aria-label={product.name} className="block">
         <div className="relative aspect-square overflow-hidden bg-varindo-50">
           <ProductImage src={product.imageUrl || ''} imageUrls={product.imageUrlCandidates || []} alt={product.name} />
-          {showPromoPricing && product.isPromoItem && (
-            <span className="absolute top-3 left-3 bg-varindo-gold text-white text-[9px] font-semibold tracking-[0.18em] uppercase px-2.5 py-1">
-              {t('card', 'promo', lang)}
-            </span>
-          )}
           <div className="absolute inset-0 bg-varindo-ink/0 transition-colors duration-300 group-hover:bg-varindo-ink/[0.04]" />
         </div>
       </Link>
@@ -37,9 +32,8 @@ export function ProductCard({ product, showPromoPricing = false }: { product: Pr
           <p className="mt-1.5 text-[10px] tracking-[0.12em] uppercase text-varindo-400">{product.finish}</p>
         )}
         <div className="mt-3 pt-3 border-t border-varindo-line/60">
-          {showPromoPricing && product.isPromoItem && typeof product.promoPrice === 'number' ? (
-            <div className="flex items-baseline gap-2">
-              <span className="text-[13px] font-semibold text-varindo-ink">{formatIDR(product.promoPrice)}</span>
+          <span className="text-[13px] font-semibold text-varindo-ink">{formatIDR(product.price)}</span>
+          )}</span>
               <span className="text-[11px] text-varindo-400 line-through">{formatIDR(product.price)}</span>
             </div>
           ) : (

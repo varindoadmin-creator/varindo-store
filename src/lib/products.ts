@@ -3,16 +3,11 @@ import type { Product } from '@/types/product';
 import { getLamitakImageUrl, getLamitakImageUrlCandidates } from './cloudinary';
 import { normalizeCode, slugify, uniq } from './utils';
 
-export type CollectionGroup = 'new-arrivals' | 'new-collections' | 'best-sellers' | 'promo-items' | 'woods' | 'patterns' | 'solids';
+export type CollectionGroup = 'new-arrivals' | 'new-collections' | 'best-sellers' | 'woods' | 'patterns' | 'solids';
 
 function addPpn(price?: number | null) {
   if (typeof price !== 'number') return null;
   return Math.round(price * 1.11);
-}
-
-function calculatePromoPrice(price?: number | null) {
-  if (typeof price !== 'number') return null;
-  return Math.round(price * 0.95);
 }
 
 function toBooleanBadge(product: Product, badge: 'NEW' | 'BESTSELLER' | 'PROMO') {
@@ -25,16 +20,14 @@ function enrichProduct(product: Product): Product {
     ? product.imageUrlCandidates
     : getLamitakImageUrlCandidates(product.code);
 
-  const isPromoItem = Boolean(product.isPromoItem || toBooleanBadge(product, 'PROMO'));
-
   return {
     ...product,
     price: priceIncludingPpn,
     slug: product.slug || slugify(`${product.code} ${product.name}`),
     imageUrl: product.imageUrl || imageUrlCandidates[0] || getLamitakImageUrl(product.code),
     imageUrlCandidates,
-    isPromoItem,
-    promoPrice: isPromoItem ? calculatePromoPrice(priceIncludingPpn) : null,
+    isPromoItem: false,
+    promoPrice: null,
     taxIncluded: true,
     badges: product.badges || []
   };
@@ -140,11 +133,6 @@ export async function getNewCollectionProducts() {
   return toPublicProducts(sortByCode(products.filter((product) => product.badges?.includes('NEW'))));
 }
 
-export async function getPromoItemProducts() {
-  const products = await getAllProducts();
-  return toPublicProducts(sortByCode(products.filter((product) => product.isPromoItem || product.badges?.includes('PROMO'))));
-}
-
 export async function getBestSellerProducts() {
   const products = await getAllProducts();
   return toPublicProducts(sortByCode(products.filter((product) => product.badges?.includes('BESTSELLER'))));
@@ -153,8 +141,6 @@ export async function getBestSellerProducts() {
 export async function getProductsByCollectionGroup(group: CollectionGroup) {
   if (group === 'new-arrivals' || group === 'new-collections') return getNewCollectionProducts();
   if (group === 'best-sellers') return getBestSellerProducts();
-  if (group === 'promo-items') return getPromoItemProducts();
-
   const products = await getAllProducts();
 
   if (group === 'woods') {

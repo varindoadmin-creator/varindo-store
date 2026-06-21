@@ -12,7 +12,7 @@ function buildSystemPrompt(lang: 'id' | 'en', products: any[]): string {
   const productSummary = products
     .slice(0, MAX_PRODUCTS_IN_CONTEXT)
     .map(p =>
-      `${p.code} | ${p.name} | ${p.collection || ''} | ${p.category || ''} | ${p.finish || ''} | ${p.size || ''} | ${p.thickness || ''} | Rp${p.price?.toLocaleString('id-ID') || '?'} | ${p.isPromoItem ? 'PROMO' : ''}`
+      `${p.code} | ${p.name} | ${p.collection || ''} | ${p.category || ''} | ${p.finish || ''} | ${p.size || ''} | ${p.thickness || ''} | Rp${p.price?.toLocaleString('id-ID') || '?'}`
     )
     .join('\n');
 

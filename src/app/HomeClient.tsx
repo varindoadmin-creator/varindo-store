@@ -13,21 +13,19 @@ type Props = {
   promoProducts: Product[];
 };
 
-export function HomeClient({ allCount, newProducts, bestSellers, promoProducts }: Props) {
+export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
   const { lang } = useLang();
 
   const quickSearch = [
     { label: 'Woods',       href: '/collections/woods' },
     { label: 'Patterns',    href: '/collections/patterns' },
     { label: 'Solids',      href: '/collections/solids' },
-    { label: lang === 'id' ? 'Produk Promo' : 'Promo Items', href: '/collections/promo-items' },
   ];
 
   const materialLibrary = [
     { title: 'Woods',       href: '/collections/woods',       desc: t('home', 'woodsDesc', lang) },
     { title: 'Patterns',    href: '/collections/patterns',    desc: t('home', 'patternsDesc', lang) },
     { title: 'Solids',      href: '/collections/solids',      desc: t('home', 'solidsDesc', lang) },
-    { title: lang === 'id' ? 'Produk Promo' : 'Promo Items', href: '/collections/promo-items', desc: t('home', 'promoDesc', lang) },
   ];
 
   const whyItems = [
@@ -170,25 +168,6 @@ export function HomeClient({ allCount, newProducts, bestSellers, promoProducts }
               </Link>
             </div>
             <ProductGrid products={bestSellers} />
-          </div>
-        </section>
-      )}
-
-      {/* ─── PROMO ────────────────────────────────────────────── */}
-      {promoProducts.length > 0 && (
-        <section className="border-b border-varindo-line">
-          <div className="shell py-14 sm:py-20">
-            <div className="flex items-end justify-between mb-10">
-              <div>
-                <p className="label mb-3">{t('home', 'promoLabel', lang)}</p>
-                <h2 className="display text-varindo-ink text-4xl sm:text-5xl">{t('home', 'promoTitle', lang)}</h2>
-                <p className="mt-3 text-[13px] leading-7 text-varindo-500 max-w-lg">{t('home', 'promoBody', lang)}</p>
-              </div>
-              <Link href="/collections/promo-items" className="hidden sm:block text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors shrink-0 ml-6">
-                {t('home', 'viewAll', lang)}
-              </Link>
-            </div>
-            <ProductGrid products={promoProducts} showPromoPricing />
           </div>
         </section>
       )}

@@ -15,7 +15,6 @@ const QUICK_REPLIES_ID = [
   'Cari produk kayu / woodgrain',
   'Apa itu Protak Core?',
   'Cara minta sampel?',
-  'Produk promo apa saja?',
   'Hubungi tim Varindo',
 ];
 
@@ -23,7 +22,6 @@ const QUICK_REPLIES_EN = [
   'Find a woodgrain product',
   'What is Protak Core?',
   'How to request a sample?',
-  'What products are on promo?',
   'Contact the Varindo team',
 ];
 

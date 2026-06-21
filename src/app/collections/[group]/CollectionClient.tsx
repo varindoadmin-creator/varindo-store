@@ -11,13 +11,12 @@ const groupConfig: Partial<Record<CollectionGroup, { titleKey: string; descKey: 
   'new-arrivals':   { titleKey: 'newArrivalsTitle',  descKey: 'newArrivalsDesc',  accentKey: 'newArrivalsAccent' },
   'new-collections':{ titleKey: 'newArrivalsTitle',  descKey: 'newArrivalsDesc',  accentKey: 'newArrivalsAccent' },
   'best-sellers':   { titleKey: 'bestSellersTitle',  descKey: 'bestSellersDesc',  accentKey: 'bestSellersAccent' },
-  'promo-items':    { titleKey: 'promoTitle',        descKey: 'promoDesc',        accentKey: 'promoAccent' },
   'woods':          { titleKey: 'woodsTitle',        descKey: 'woodsDesc',        accentKey: '' },
   'patterns':       { titleKey: 'patternsTitle',     descKey: 'patternsDesc',     accentKey: '' },
   'solids':         { titleKey: 'solidsTitle',       descKey: 'solidsDesc',       accentKey: '' },
 };
 
-const tabOrder: CollectionGroup[] = ['new-arrivals','best-sellers','promo-items','woods','patterns','solids'];
+const tabOrder: CollectionGroup[] = ['new-arrivals','best-sellers','woods','patterns','solids'];
 
 const filterOptions = {
   collections: ['Woods','Patterns','Solids'],
@@ -90,8 +89,7 @@ export function CollectionClient({ group, products }: Props) {
           products={products}
           filterOptions={filterOptions}
           showCollectionTabs={false}
-          showPromoPricing={group === 'promo-items'}
-        />
+                />
       </div>
     </div>
   );
