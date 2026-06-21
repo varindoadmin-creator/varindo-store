@@ -65,9 +65,6 @@ export const translations = {
       id: 'Warna solid, Solid Core, Protak, dan Protak Core untuk berbagai kebutuhan aplikasi.',
       en: 'Clean solid colours, Solid Core, Protak, and Protak Core options for versatile applications.'
     },
-      id: 'Produk Lamitak pilihan dengan harga promo khusus — tersedia selama stok masih ada.',
-      en: 'Selected Lamitak items with special promotional pricing — available while stocks last.'
-    },
 
     newArrivalsLabel: { id: 'Produk Terbaru', en: 'New Arrivals' },
     newArrivalsTitle: { id: 'Produk Terbaru', en: 'New Arrivals' },
