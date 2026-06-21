@@ -79,7 +79,7 @@ export function AiChat() {
         setMessages([{
           role: 'assistant',
           content: lang === 'id'
-            ? 'Halo! Saya asisten virtual Varindo. Saya bisa membantu Anda menemukan produk HPL Lamitak, informasi harga, atau menjawab pertanyaan umum. Apa yang bisa saya bantu?'
+            ? 'Halo! Saya VIA, asisten virtual Varindo. Saya bisa membantu Anda menemukan produk HPL Lamitak, informasi harga, atau menjawab pertanyaan umum. Apa yang bisa saya bantu?'
             : 'Hello! I\'m Varindo\'s virtual assistant. I can help you find Lamitak HPL products, pricing information, or answer general questions. How can I help you?'
         }]);
       }
@@ -160,10 +160,10 @@ export function AiChat() {
               </div>
               <div>
                 <p className="text-[13px] font-semibold leading-tight">
-                  {lang === 'id' ? 'Asisten Varindo' : 'Varindo Assistant'}
+                  'VIA'
                 </p>
                 <p className="text-[10px] text-varindo-400 tracking-[0.1em]">
-                  {lang === 'id' ? 'Didukung AI · Online' : 'AI powered · Online'}
+                  'Online'
                 </p>
               </div>
             </div>
@@ -174,7 +174,7 @@ export function AiChat() {
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.19 1.6 6L0 24l6.19-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52z"/>
                 </svg>
-                WA
+                WhatsApp
               </a>
               <button onClick={() => setOpen(false)}
                 className="w-7 h-7 flex items-center justify-center text-varindo-400 hover:text-white transition-colors"
