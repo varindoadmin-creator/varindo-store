@@ -60,7 +60,6 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
             <div className="border-t border-b border-varindo-line py-5 mb-7">
               <span className="font-display text-3xl font-light text-varindo-ink">{formatIDR(product.price)}</span>
-              )}
               <p className="mt-2 text-[11px] tracking-[0.14em] uppercase text-varindo-400">
                 {t('detail', 'inclTax', lang)}
               </p>

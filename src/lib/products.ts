@@ -10,7 +10,7 @@ function addPpn(price?: number | null) {
   return Math.round(price * 1.11);
 }
 
-function toBooleanBadge(product: Product, badge: 'NEW' | 'BESTSELLER' | 'PROMO') {
+function toBooleanBadge(product: Product, badge: 'NEW' | 'BESTSELLER') {
   return Boolean(product.badges?.includes(badge));
 }
 
@@ -26,8 +26,6 @@ function enrichProduct(product: Product): Product {
     slug: product.slug || slugify(`${product.code} ${product.name}`),
     imageUrl: product.imageUrl || imageUrlCandidates[0] || getLamitakImageUrl(product.code),
     imageUrlCandidates,
-    isPromoItem: false,
-    promoPrice: null,
     taxIncluded: true,
     badges: product.badges || []
   };
