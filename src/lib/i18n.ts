@@ -84,10 +84,6 @@ export const translations = {
       en: 'Frequently specified Lamitak designs trusted for diverse interior applications.'
     },
 
-      id: 'Produk Lamitak pilihan dengan harga promo — tersedia selama stok masih ada.',
-      en: 'Selected Lamitak items with special promotional pricing — available while stocks last.'
-    },
-
     portfolioLabel: { id: 'Portofolio Digital', en: 'Digital Portfolio' },
     portfolioTitle1:{ id: 'Lamitak Portfolio', en: 'Lamitak Portfolio' },
     portfolioTitle2:{ id: '2026 / 2027', en: '2026 / 2027' },

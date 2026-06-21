@@ -8,7 +8,7 @@ import { HomeClient } from './HomeClient';
 export const revalidate = 600;
 
 export default async function HomePage() {
-  const [allProducts, newProducts, bestSellers,
+  const [allProducts, newProducts, bestSellers] = await Promise.all([
     getPublicProducts(),
     getNewCollectionProducts(),
     getBestSellerProducts()

@@ -53,7 +53,7 @@ export function ProductExplorer({ products, showCollectionTabs = true }: Props) 
 
   const filteredProducts = useMemo(() => {
     let result = searchProducts(products, query);
-    else if (collection) result = result.filter((p) => p.collection === collection);
+    if (collection) result = result.filter((p) => p.collection === collection);
     if (category) result = result.filter((p) => matchesCategory(p, category));
     if (size) result = result.filter((p) => matchesSize(p, size));
     return result;
