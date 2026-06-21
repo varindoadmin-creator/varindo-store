@@ -1,69 +1,124 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// ── Proxy between the browser form and Google Apps Script ────────
-//
-// Why a server-side proxy?
-// Google Apps Script Web App URLs respond with a redirect,
-// which browsers block from fetch() due to CORS. This route
-// forwards the POST server-side, avoiding the CORS issue entirely.
-//
-// Set in your .env:
-//   GOOGLE_SHEETS_WEBHOOK_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
+export const dynamic = 'force-dynamic';
 
-const WEBHOOK_URL = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+const SUPABASE_URL      = process.env.SUPABASE_URL;
+const SUPABASE_KEY      = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+type RequestBody = {
+  type: 'catalogue' | 'quote' | 'sample';
+  name?: string;
+  address?: string;
+  phone?: string;
+  // Quote: array of { code, qty }
+  items?: { code: string; qty: string }[];
+  // Sample: array of codes
+  samples?: string[];
+};
+
+async function insertRow(row: Record<string, unknown>) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/requests`, {
+    method: 'POST',
+    headers: {
+      'Content-Type':  'application/json',
+      'apikey':        SUPABASE_KEY!,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Prefer':        'return=minimal',
+    },
+    body: JSON.stringify(row),
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Supabase error ${res.status}: ${err}`);
+  }
+}
 
 export async function POST(req: NextRequest) {
-  if (!WEBHOOK_URL) {
-    console.error('[submit-request] GOOGLE_SHEETS_WEBHOOK_URL is not set');
+  if (!SUPABASE_URL || !SUPABASE_KEY) {
+    console.error('[submit-request] Supabase env vars not set');
     return NextResponse.json(
       { success: false, error: 'Submission service is not configured.' },
       { status: 503 }
     );
   }
 
-  let body: unknown;
+  let body: RequestBody;
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json(
-      { success: false, error: 'Invalid request body.' },
-      { status: 400 }
-    );
+    return NextResponse.json({ success: false, error: 'Invalid request body.' }, { status: 400 });
+  }
+
+  const { type, name, address, phone } = body;
+
+  if (!type || !['catalogue', 'quote', 'sample'].includes(type)) {
+    return NextResponse.json({ success: false, error: 'Invalid request type.' }, { status: 400 });
   }
 
   try {
-    const response = await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-      // Apps Script redirects — follow them
-      redirect: 'follow',
-    });
+    if (type === 'catalogue') {
+      // One row per catalogue request
+      await insertRow({
+        request_type:  'catalogue',
+        status:        'new',
+        customer_name: name || null,
+        address:       address || null,
+        phone:         phone || null,
+        source:        'website',
+        raw_data:      { name, address, phone },
+      });
 
-    const text = await response.text();
+    } else if (type === 'quote') {
+      // One row per product item
+      const items = body.items || [];
+      if (items.length === 0) {
+        return NextResponse.json({ success: false, error: 'No items provided.' }, { status: 400 });
+      }
 
-    // Apps Script returns JSON — parse it
-    let result: { success: boolean; error?: string };
-    try {
-      result = JSON.parse(text);
-    } catch {
-      // Apps Script returned something unexpected
-      console.error('[submit-request] Unexpected Apps Script response:', text);
-      result = { success: false, error: 'Unexpected response from submission service.' };
-    }
+      for (const item of items) {
+        await insertRow({
+          request_type:  'quote',
+          status:        'new',
+          customer_name: name || null,
+          address:       address || null,
+          phone:         phone || null,
+          item_code:     item.code || null,
+          quantity:      item.qty ? parseFloat(item.qty) : null,
+          unit:          'lembar',
+          source:        'website',
+          raw_data:      { name, address, phone, item },
+        });
+      }
 
-    if (!result.success) {
-      return NextResponse.json(result, { status: 500 });
+    } else if (type === 'sample') {
+      // One row per sample code
+      const samples = (body.samples || []).filter(Boolean);
+      if (samples.length === 0) {
+        return NextResponse.json({ success: false, error: 'No samples provided.' }, { status: 400 });
+      }
+
+      for (const code of samples) {
+        await insertRow({
+          request_type:  'sample',
+          status:        'new',
+          customer_name: name || null,
+          address:       address || null,
+          phone:         phone || null,
+          item_code:     code,
+          unit:          'pcs',
+          source:        'website',
+          raw_data:      { name, address, phone, code },
+        });
+      }
     }
 
     return NextResponse.json({ success: true });
 
-    // Supported types: 'quote' | 'sample' | 'catalogue'
-
   } catch (err) {
-    console.error('[submit-request] Fetch to Apps Script failed:', err);
+    console.error('[submit-request] Supabase insert failed:', err);
     return NextResponse.json(
-      { success: false, error: 'Could not reach submission service. Please try again.' },
+      { success: false, error: 'Could not save request. Please try again.' },
       { status: 500 }
     );
   }
