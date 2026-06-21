@@ -10,7 +10,7 @@ type Props = {
   allCount: number;
   newProducts: Product[];
   bestSellers: Product[];
-  promoProducts: Product[];
+
 };
 
 export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
