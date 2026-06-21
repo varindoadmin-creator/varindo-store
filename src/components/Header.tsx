@@ -160,10 +160,6 @@ export function Header() {
             {/* Right controls */}
             <div className="hidden sm:flex shrink-0 items-center gap-3">
               <LangSwitcher />
-              <a href="https://wa.me/6281288885224" target="_blank" rel="noreferrer"
-                className="btn-ink text-[10px] py-2.5 px-5">
-                {t('nav', 'chatWithUs', lang)}
-              </a>
             </div>
 
             {/* Mobile hamburger */}
