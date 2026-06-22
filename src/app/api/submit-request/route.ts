@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { sendRequestNotification } from '@/lib/mailer';
 
 export const dynamic = 'force-dynamic';
 
@@ -112,6 +113,10 @@ export async function POST(req: NextRequest) {
         });
       }
     }
+
+    // Send email notification (non-blocking — don't fail the response if email errors)
+    sendRequestNotification({ type, name, phone, address, items: body.items, samples: body.samples })
+      .catch((e) => console.error('[submit-request] Email notification failed:', e));
 
     return NextResponse.json({ success: true });
 
