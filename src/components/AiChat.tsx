@@ -134,6 +134,16 @@ export function AiChat() {
     }
   };
 
+  const sendTranscript = () => {
+    const userMessages = messages.filter(m => m.role === 'user');
+    if (userMessages.length === 0) return;
+    fetch('/api/chat-transcript', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages, lang }),
+    }).catch(() => {});
+  };
+
   const waUrl = `https://wa.me/6281288885224?text=${encodeURIComponent(
     lang === 'id' ? 'Halo Admin Varindo, saya ingin bertanya mengenai produk Lamitak.' : 'Hello Varindo team, I would like to ask about Lamitak products.'
   )}`;
@@ -174,7 +184,7 @@ export function AiChat() {
                 </svg>
                 WhatsApp
               </a>
-              <button onClick={() => setOpen(false)}
+              <button onClick={() => { sendTranscript(); setOpen(false); }}
                 className="w-7 h-7 flex items-center justify-center text-varindo-400 hover:text-white transition-colors"
                 aria-label="Close chat">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -278,7 +288,7 @@ export function AiChat() {
 
       {/* Floating button */}
       <button
-        onClick={() => setOpen(v => !v)}
+        onClick={() => { if (open) sendTranscript(); setOpen(v => !v); }}
         aria-label={lang === 'id' ? 'Buka asisten AI' : 'Open AI assistant'}
         className={`fixed bottom-4 right-4 sm:right-6 z-[200] w-14 h-14 shadow-luxury flex items-center justify-center transition-all duration-200 ${
           open ? 'bg-varindo-800' : 'bg-varindo-ink hover:bg-varindo-800'

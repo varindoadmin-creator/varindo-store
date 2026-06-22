@@ -66,6 +66,50 @@ function buildHtml(p: NotifyParams): string {
 </div>`;
 }
 
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+export async function sendChatTranscript(messages: ChatMessage[], lang: string): Promise<void> {
+  const transporter = getTransporter();
+  if (!transporter) return;
+
+  const userMessages = messages.filter(m => m.role === 'user');
+  if (userMessages.length === 0) return;
+
+  const lines = messages
+    .filter(m => m.role !== 'assistant' || messages.indexOf(m) > 0) // skip greeting
+    .map(m => {
+      const who = m.role === 'user' ? '👤 Visitor' : '🤖 VIA';
+      const text = m.content.replace(/\n/g, '<br>');
+      return `<tr style="border-top:1px solid #e8e4df;vertical-align:top">
+        <td style="padding:10px 12px;width:80px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6b6560;white-space:nowrap">${who}</td>
+        <td style="padding:10px 12px;font-size:13px;color:#1a1714;line-height:1.6">${text}</td>
+      </tr>`;
+    })
+    .join('');
+
+  const html = `
+<div style="font-family:'Helvetica Neue',Arial,sans-serif;max-width:620px;margin:0 auto;color:#1a1714">
+  <div style="background:#1a1714;padding:20px 28px">
+    <p style="margin:0;color:#a8763e;font-size:11px;letter-spacing:.18em;text-transform:uppercase">Varindo VIA — Chat Transcript</p>
+    <h1 style="margin:4px 0 0;color:#fff;font-size:22px;font-weight:300">${userMessages.length} message${userMessages.length > 1 ? 's' : ''} from visitor</h1>
+  </div>
+  <div style="border:1px solid #e8e4df;border-top:none">
+    <table style="border-collapse:collapse;width:100%">${lines}</table>
+    <p style="margin:0;padding:16px 20px;font-size:11px;color:#a8a49f;border-top:1px solid #e8e4df">Language: ${lang} · Sent from varindo.co.id</p>
+  </div>
+</div>`;
+
+  await transporter.sendMail({
+    from:    `"Varindo VIA" <${process.env.SMTP_USER}>`,
+    to:      NOTIFY_TO,
+    subject: `[VIA Transcript] ${userMessages.length} msg — ${new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}`,
+    html,
+  });
+}
+
 export async function sendRequestNotification(params: NotifyParams): Promise<void> {
   const transporter = getTransporter();
   if (!transporter) return; // silently skip if SMTP not configured
