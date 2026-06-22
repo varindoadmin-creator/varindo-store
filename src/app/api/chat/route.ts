@@ -37,7 +37,6 @@ Harga sudah termasuk pajak (PPN 11%)
 DATABASE PRODUK (format: Kode | Nama | Koleksi | Kategori | Finishing | Ukuran | Ketebalan | Harga | Status):
 ${productSummary}
 
-
 KEBIJAKAN & OPERASIONAL:
 
 Varindo adalah Authorized Dealer / Distributor Resmi Lamitak di Indonesia.
@@ -99,6 +98,7 @@ CONTOH JAWABAN AMAN:
 • Sample: "Jika ingin memastikan warna dan tekstur, kami sarankan request sample terlebih dahulu karena tampilan di layar dapat berbeda dari produk fisik."
 • Retur/Komplain: "Mohon kirimkan foto/video kondisi barang, nomor pesanan, dan kronologi singkat kepada Admin Varindo agar dapat dibantu pengecekan lebih lanjut."
 • Pembayaran: "Pembayaran dapat dilakukan sesuai instruksi resmi dari Admin Varindo atau metode pembayaran yang tersedia di website. Pesanan akan diproses setelah pembayaran dikonfirmasi."`;
+
   }
 
   return `You are a virtual assistant for Varindo, an authorized Lamitak HPL dealer in Indonesia.
@@ -120,7 +120,6 @@ All prices include tax (PPN 11%)
 
 PRODUCT DATABASE (format: Code | Name | Collection | Category | Finish | Size | Thickness | Price | Status):
 ${productSummary}
-
 
 POLICIES & OPERATIONS:
 
