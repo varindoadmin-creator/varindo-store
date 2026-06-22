@@ -32,7 +32,7 @@ export const translations = {
   // ── Homepage ──────────────────────────────────────────────────
   home: {
     heroBadge:    { id: 'Dealer Resmi Lamitak', en: 'Authorized Lamitak Dealer' },
-    heroLine1:    { id: 'Material Terbaik', en: 'Surface Materials' },
+    heroLine1:    { id: 'HPL Terbaik', en: 'Surface HPL' },
     heroLine2:    { id: 'Pilihan Para', en: 'Curated for' },
     heroLine3:    { id: 'Profesional', en: 'Professionals' },
     heroBody:     {
