@@ -49,7 +49,7 @@ export default function ContactPage() {
                 <div className="bg-white px-6 py-6">
                   <p className="label text-varindo-gold mb-3">{t('contact', 'medanHub', lang)}</p>
                   <address className="not-italic text-[13px] leading-7 text-varindo-600">
-                    House of HPL<br />
+                    HOUSE OF HPL<br />
                     Jl. S. Parman No.28, Petisah Tengah<br />
                     Kec. Medan Petisah<br />
                     Kota Medan 20112, Sumatera Utara<br />
