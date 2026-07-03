@@ -25,7 +25,7 @@ export default function ContactPage() {
                 <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-varindo-500">{t('contact', 'companyLabel', lang)}</p>
                 <p className="mt-1 text-[15px] font-semibold text-varindo-ink">CV. Varindo Forma Hutama</p>
               </div>
-              <div className="grid sm:grid-cols-2 gap-px bg-varindo-line">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-varindo-line">
                 <div className="bg-white px-6 py-6">
                   <p className="label text-varindo-gold mb-3">{t('contact', 'headOffice', lang)}</p>
                   <address className="not-italic text-[13px] leading-7 text-varindo-600">
@@ -44,6 +44,16 @@ export default function ContactPage() {
                     Kec. Bandung Kidul<br />
                     Bandung 40267, Jawa Barat<br />
                     <span className="font-medium text-varindo-ink">T. 0812 1001 5224</span>
+                  </address>
+                </div>
+                <div className="bg-white px-6 py-6">
+                  <p className="label text-varindo-gold mb-3">{t('contact', 'medanHub', lang)}</p>
+                  <address className="not-italic text-[13px] leading-7 text-varindo-600">
+                    House of HPL<br />
+                    Jl. S. Parman No.28, Petisah Tengah<br />
+                    Kec. Medan Petisah<br />
+                    Kota Medan 20112, Sumatera Utara<br />
+                    <span className="font-medium text-varindo-ink">T. 0811 611 805</span>
                   </address>
                 </div>
               </div>
@@ -71,8 +81,12 @@ export default function ContactPage() {
               Chat → 0812 8888 5224
             </a>
             <a href="https://wa.me/6281210015224" target="_blank" rel="noopener noreferrer"
-              className="btn-ghost w-full justify-center">
+              className="btn-ghost w-full justify-center mb-3">
               Chat → 0812 1001 5224
+            </a>
+            <a href="https://wa.me/62811611805" target="_blank" rel="noopener noreferrer"
+              className="btn-ghost w-full justify-center">
+              Chat → 0811 611 805
             </a>
             <div className="mt-8 pt-6 border-t border-varindo-line">
               <p className="label text-varindo-500 mb-3">{t('contact', 'browseCatalog', lang)}</p>

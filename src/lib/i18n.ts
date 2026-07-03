@@ -283,6 +283,7 @@ export const translations = {
     companyLabel: { id: 'Perusahaan', en: 'Company' },
     headOffice:   { id: 'Kantor Utama', en: 'Head Office' },
     regOffice:    { id: 'Kantor Terdaftar', en: 'Registered Office' },
+    medanHub:     { id: 'Hub Medan', en: 'Medan Hub' },
     hours:        { id: 'Jam Operasional', en: 'Opening Hours' },
     hoursValue:   { id: 'Senin – Jumat\n09.00 – 17.00 WIB', en: 'Monday – Friday\n09.00 – 17.00 WIB' },
     email:        { id: 'Email', en: 'Email' },
