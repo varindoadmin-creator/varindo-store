@@ -81,12 +81,8 @@ export default function ContactPage() {
               Chat → 0812 8888 5224
             </a>
             <a href="https://wa.me/6281210015224" target="_blank" rel="noopener noreferrer"
-              className="btn-ghost w-full justify-center mb-3">
-              Chat → 0812 1001 5224
-            </a>
-            <a href="https://wa.me/62811611805" target="_blank" rel="noopener noreferrer"
               className="btn-ghost w-full justify-center">
-              Chat → 0811 611 805
+              Chat → 0812 1001 5224
             </a>
             <div className="mt-8 pt-6 border-t border-varindo-line">
               <p className="label text-varindo-500 mb-3">{t('contact', 'browseCatalog', lang)}</p>

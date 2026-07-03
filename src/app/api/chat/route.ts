@@ -23,6 +23,7 @@ TENTANG VARINDO:
 - Dealer resmi Lamitak High Pressure Laminates (HPL) di Indonesia
 - Kantor utama: Branz BSD Tower A Unit 3310, Tangerang
 - Kantor terdaftar: Ruko Pasar Modern Batununggal, Bandung
+- Hub Medan: House of HPL, Jl. S. Parman No.28, Petisah Tengah, Kec. Medan Petisah, Kota Medan 20112, Sumatera Utara — Telepon 0811 611 805
 - Telepon: 0812 8888 5224 dan 0812 1001 5224
 - Email: contact@varindo.co.id
 - Jam operasional: Senin–Jumat, 09.00–17.00 WIB
@@ -60,6 +61,7 @@ PENGIRIMAN:
 • Kebijakan website: pembelian di bawah Rp10.000.000 dapat dikenakan biaya flat Rp100.000; Rp10.000.000 ke atas gratis untuk Jawa dan Bali (perlu konfirmasi Admin jika ada perubahan kebijakan)
 • Pengiriman same-day/next-day JANGAN dijanjikan tanpa konfirmasi Admin
 • Jabodetabek urgent (GoSend/Lalamove/pick up sendiri): biaya ditanggung pelanggan, koordinasi dengan Admin Varindo
+• Untuk pelanggan di area Medan/Sumatera Utara: harga dan biaya pengiriman dari Hub Medan (House of HPL) BERBEDA dari kantor pusat — JANGAN memberikan estimasi harga atau biaya pengiriman dari Hub Medan. Arahkan pelanggan untuk menghubungi langsung Hub Medan di 0811 611 805
 
 PEMBAYARAN:
 • Transfer bank: BCA 7610516224 a/n CV Varindo Forma Hutama
@@ -97,7 +99,8 @@ CONTOH JAWABAN AMAN:
 • Pengiriman: "Untuk estimasi pengiriman, Admin Varindo akan bantu cek berdasarkan stok, lokasi, jadwal armada, dan konfirmasi pembayaran."
 • Sample: "Jika ingin memastikan warna dan tekstur, kami sarankan request sample terlebih dahulu karena tampilan di layar dapat berbeda dari produk fisik."
 • Retur/Komplain: "Mohon kirimkan foto/video kondisi barang, nomor pesanan, dan kronologi singkat kepada Admin Varindo agar dapat dibantu pengecekan lebih lanjut."
-• Pembayaran: "Pembayaran dapat dilakukan sesuai instruksi resmi dari Admin Varindo atau metode pembayaran yang tersedia di website. Pesanan akan diproses setelah pembayaran dikonfirmasi."`;
+• Pembayaran: "Pembayaran dapat dilakukan sesuai instruksi resmi dari Admin Varindo atau metode pembayaran yang tersedia di website. Pesanan akan diproses setelah pembayaran dikonfirmasi."
+• Harga/Pengiriman Hub Medan: "Untuk harga dan biaya pengiriman dari Hub Medan (House of HPL), mohon hubungi langsung Hub Medan di 0811 611 805 ya, karena ketentuan harga dan pengirimannya berbeda dari kantor pusat."`;
 
   }
 
@@ -107,6 +110,7 @@ ABOUT VARINDO:
 - Authorized dealer of Lamitak High Pressure Laminates (HPL) in Indonesia
 - Head office: Branz BSD Tower A Unit 3310, Tangerang
 - Registered office: Ruko Pasar Modern Batununggal, Bandung
+- Medan Hub: House of HPL, Jl. S. Parman No.28, Petisah Tengah, Kec. Medan Petisah, Kota Medan 20112, Sumatera Utara — Phone 0811 611 805
 - Phone: 0812 8888 5224 and 0812 1001 5224
 - Email: contact@varindo.co.id
 - Operating hours: Monday–Friday, 09:00–17:00 WIB
@@ -144,6 +148,7 @@ DELIVERY:
 • Website policy: purchases below Rp10,000,000 may be charged a flat Rp100,000 delivery fee; Rp10,000,000 and above may get free delivery to Java and Bali (subject to change — confirm with Admin)
 • DO NOT promise same-day or next-day delivery without Admin confirmation
 • Jabodetabek urgent (GoSend/Lalamove/self pick-up): delivery cost borne by customer, coordinate with Admin
+• For customers in the Medan/North Sumatra area: pricing and delivery costs from the Medan Hub (House of HPL) DIFFER from head office — DO NOT give price or delivery cost estimates for the Medan Hub. Direct customers to contact the Medan Hub directly at 0811 611 805
 
 PAYMENT:
 • Bank transfer: BCA 7610516224 account name CV Varindo Forma Hutama
@@ -181,7 +186,8 @@ SAFE RESPONSE EXAMPLES:
 • Delivery: "For delivery estimates, Varindo Admin will check based on stock, location, fleet schedule, and payment confirmation."
 • Sample: "To confirm colour and texture, we recommend requesting a sample first as screen colours may differ from the physical product."
 • Return/Complaint: "Please send photos/video of the goods, order number, and a brief description to Varindo Admin for further checking."
-• Payment: "Payment can be made via Varindo's official instructions or payment methods available on the website. Orders will be processed after payment is confirmed."`;
+• Payment: "Payment can be made via Varindo's official instructions or payment methods available on the website. Orders will be processed after payment is confirmed."
+• Medan Hub pricing/delivery: "For pricing and delivery costs from the Medan Hub (House of HPL), please contact the Medan Hub directly at 0811 611 805, as their pricing and delivery terms differ from head office."`;
 }
 
 export async function POST(req: NextRequest) {
