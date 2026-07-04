@@ -6,10 +6,6 @@ function thumbUrl(secureUrl: string, w = 400) {
   return secureUrl.replace("/upload/", `/upload/w_${w},c_fill,q_auto,f_auto/`);
 }
 
-function parseProductCode(resource: any) {
-  return resource.display_name || resource.public_id?.split("/").pop() || "Unknown";
-}
-
 function humanLabel(name: string = "") {
   return name.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).trim();
 }
@@ -88,61 +84,16 @@ export default function SurfaceMatch() {
       const response = await fetch("/api/surface-match", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-6",
-          max_tokens: 1000,
-          system: `You are a Lamitak design assistant. Use the Cloudinary visual search tool to find visually similar laminate/surface designs from the asset library.
-
-Respond ONLY with a JSON array (no markdown, no backticks, no explanation) of up to 6 best matches:
-[{"asset_id":"...","public_id":"...","display_name":"...","secure_url":"...","score":0.0,"asset_folder":"..."}]
-
-If no matches, return [].`,
-          messages: [{
-            role: "user",
-            content: `Find Lamitak products visually similar to: ${publicCloudinaryUrl}\n\nUse visual_search with this image_url and threshold 0.5. Return JSON array only.`
-          }],
-          mcp_servers: [{
-            type: "url",
-            url: "https://asset-management.mcp.cloudinary.com/sse",
-            name: "cloudinary-mcp"
-          }]
-        })
+        body: JSON.stringify({ imageUrl: publicCloudinaryUrl })
       });
 
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err?.error || "Search failed");
+      }
+
       const data = await response.json();
-      let matches: any[] = [];
-
-      for (const block of (data.content || [])) {
-        if (block.type === "text") {
-          const m = block.text.match(/\[[\s\S]*\]/);
-          if (m) { try { matches = JSON.parse(m[0]); break; } catch (_) {} }
-        }
-      }
-
-      if (matches.length === 0) {
-        for (const block of (data.content || [])) {
-          if (block.type === "mcp_tool_result") {
-            const raw = block?.content?.[0]?.text || "";
-            try {
-              const parsed = JSON.parse(raw);
-              const resources = parsed?.resources || parsed?.result?.resources || [];
-              if (resources.length > 0) {
-                matches = resources.slice(0, 6).map((r: any) => ({
-                  asset_id: r.asset_id,
-                  public_id: r.public_id,
-                  display_name: r.display_name || r.public_id?.split("/").pop(),
-                  secure_url: r.secure_url,
-                  score: r.score || 0.75,
-                  asset_folder: r.asset_folder || "lamitak"
-                }));
-                break;
-              }
-            } catch (_) {}
-          }
-        }
-      }
-
-      setResults(matches);
+      setResults(data.matches || []);
       setPhase("results");
     } catch (err: any) {
       console.error(err);
@@ -315,7 +266,7 @@ If no matches, return [].`,
                   <span style={S.resultsBadge}>{results.length} found</span>
                 </div>
                 <div style={S.grid}>
-                  {results.map((r, i) => <ResultCard key={r.asset_id || i} result={r} rank={i} />)}
+                  {results.map((r, i) => <ResultCard key={r.code || i} result={r} rank={i} />)}
                 </div>
                 <button style={S.btnNewSearch} onClick={reset}>← New Search</button>
               </div>
@@ -347,15 +298,11 @@ If no matches, return [].`,
 }
 
 function ResultCard({ result, rank }: { result: any; rank: number }) {
-  const code = parseProductCode(result);
-  const label = humanLabel(result.display_name || code);
+  const code = result.code || "Unknown";
+  const label = humanLabel(result.name || code);
   const score = result.score ?? 0.75;
-  const folder = result.asset_folder || "";
-  const folderLabel = folder === "lamitak" ? "Texture Swatch"
-    : folder === "product-images" ? "Product"
-    : folder === "edl" ? "Design Library"
-    : "Lamitak";
-  const imageUrl = result.secure_url ? thumbUrl(result.secure_url, 400) : null;
+  const folderLabel = result.collection || result.category || "Lamitak";
+  const imageUrl = result.imageUrl ? thumbUrl(result.imageUrl, 400) : null;
 
   return (
     <div className="result-card" style={{ ...S.card, animationDelay: `${rank * 70}ms` }}>
