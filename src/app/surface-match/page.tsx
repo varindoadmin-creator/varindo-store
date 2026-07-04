@@ -118,26 +118,14 @@ export default function SurfaceMatch() {
   return (
     <div style={S.root}>
       <style dangerouslySetInnerHTML={{ __html: `
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
         @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
         * { box-sizing: border-box; }
-        .lam-btn-primary { background: linear-gradient(135deg,#c8a96e,#a07840) !important; }
         .lam-btn-primary:active { transform: scale(0.97); }
         .lam-btn-secondary:active { transform: scale(0.97); }
-        .result-card:active { transform: scale(0.98); border-color: #c8a96e !important; }
+        .result-card:active { transform: scale(0.98); border-color: #a8763e !important; }
       ` }} />
-
-      <header style={S.header}>
-        <div style={S.logoRow}>
-          <div style={S.logoMark}>L</div>
-          <div>
-            <div style={S.logoText}>LAMITAK</div>
-            <div style={S.tagline}>Surface Match</div>
-          </div>
-        </div>
-      </header>
 
       <main style={S.main}>
 
@@ -152,12 +140,12 @@ export default function SurfaceMatch() {
             <div style={S.hero}>
               <div style={S.heroIcon}>
                 <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-                  <circle cx="28" cy="28" r="27" stroke="#c8a96e" strokeWidth="1.5" strokeDasharray="4 3"/>
-                  <rect x="14" y="18" width="28" height="22" rx="3" fill="#1e1a14" stroke="#c8a96e" strokeWidth="1.5"/>
-                  <circle cx="22" cy="26" r="4" stroke="#c8a96e" strokeWidth="1.5"/>
-                  <path d="M14 34l8-6 6 5 5-4 9 7" stroke="#c8a96e" strokeWidth="1.5" strokeLinejoin="round"/>
-                  <circle cx="38" cy="19" r="5" fill="#0f0e0c" stroke="#c8a96e" strokeWidth="1.5"/>
-                  <path d="M38 16v6M35 19h6" stroke="#c8a96e" strokeWidth="1.5" strokeLinecap="round"/>
+                  <circle cx="28" cy="28" r="27" stroke="#a8763e" strokeWidth="1.5" strokeDasharray="4 3"/>
+                  <rect x="14" y="18" width="28" height="22" rx="3" fill="#1a1714" stroke="#a8763e" strokeWidth="1.5"/>
+                  <circle cx="22" cy="26" r="4" stroke="#a8763e" strokeWidth="1.5"/>
+                  <path d="M14 34l8-6 6 5 5-4 9 7" stroke="#a8763e" strokeWidth="1.5" strokeLinejoin="round"/>
+                  <circle cx="38" cy="19" r="5" fill="#faf8f5" stroke="#a8763e" strokeWidth="1.5"/>
+                  <path d="M38 16v6M35 19h6" stroke="#a8763e" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
               </div>
               <h1 style={S.heroTitle}>Find Your Perfect Surface</h1>
@@ -201,22 +189,6 @@ export default function SurfaceMatch() {
                   <span style={S.tipText}>{tip.text}</span>
                 </div>
               ))}
-            </div>
-
-            <div style={S.aboutBox}>
-              <div style={S.aboutTitle}>About Lamitak</div>
-              <p style={S.aboutText}>
-                Lamitak is a premium range of high-pressure laminates (HPL) available in hundreds of colours,
-                textures and finishes — from natural wood grains to solid mattes and stone effects.
-                This tool helps you discover the closest match in our collection from a real-world photo.
-              </p>
-              <div style={S.collectionStats}>
-                <div style={S.stat}><span style={S.statNum}>2,000+</span><span style={S.statLabel}>Designs</span></div>
-                <div style={S.statDivider} />
-                <div style={S.stat}><span style={S.statNum}>3</span><span style={S.statLabel}>Collections</span></div>
-                <div style={S.statDivider} />
-                <div style={S.stat}><span style={S.statNum}>AI</span><span style={S.statLabel}>Powered</span></div>
-              </div>
             </div>
 
           </div>
@@ -288,7 +260,7 @@ export default function SurfaceMatch() {
 
       <footer style={S.footer}>
         <div style={S.footerInner}>
-          Powered by Cloudinary Visual Search
+          Powered by AI
           <span style={S.footerDot}>·</span>
           Lamitak Collection
         </div>
@@ -308,7 +280,7 @@ function ResultCard({ result, rank }: { result: any; rank: number }) {
     <div className="result-card" style={{ ...S.card, animationDelay: `${rank * 70}ms` }}>
       {imageUrl
         ? <img src={imageUrl} alt={label} style={S.cardImg} onError={(e: any) => { e.target.style.display = "none"; }} />
-        : <div style={S.cardImgPlaceholder}><span style={{ color: "#c8a96e", fontSize: 32 }}>◈</span></div>
+        : <div style={S.cardImgPlaceholder}><span style={{ color: "#a8763e", fontSize: 32 }}>◈</span></div>
       }
       <div style={S.cardBody}>
         <div style={S.cardMeta}>
@@ -322,74 +294,64 @@ function ResultCard({ result, rank }: { result: any; rank: number }) {
   );
 }
 
+const FONT_BODY = "var(--font-body), 'DM Sans', ui-sans-serif, system-ui, sans-serif";
+const FONT_DISPLAY = "var(--font-display), 'Cormorant Garamond', Georgia, serif";
+
 const S = {
-  root: { minHeight: "100vh", background: "#0f0e0c", fontFamily: "'DM Sans', sans-serif", color: "#e8e0d4", display: "flex", flexDirection: "column" },
-  header: { padding: "16px 20px", borderBottom: "1px solid #1e1c18", background: "#0d0c0a" },
-  logoRow: { display: "flex", alignItems: "center", gap: 12 },
-  logoMark: { width: 36, height: 36, borderRadius: "50%", background: "linear-gradient(135deg,#c8a96e,#7a5230)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, fontFamily: "'Cormorant Garamond',serif", fontWeight: 600, color: "#fff", flexShrink: 0 },
-  logoText: { fontFamily: "'Cormorant Garamond',serif", fontSize: 20, fontWeight: 600, letterSpacing: 5, color: "#e8e0d4", lineHeight: 1 },
-  tagline: { fontSize: 9, letterSpacing: 3, color: "#c8a96e", textTransform: "uppercase", marginTop: 2 },
+  root: { minHeight: "100vh", background: "#faf8f5", fontFamily: FONT_BODY, color: "#1a1714", display: "flex", flexDirection: "column" },
   main: { flex: 1, padding: "24px 16px 40px", maxWidth: 520, margin: "0 auto", width: "100%" },
   hero: { textAlign: "center", padding: "8px 0 28px" },
   heroIcon: { margin: "0 auto 20px", width: 56, height: 56 },
-  heroTitle: { fontFamily: "'Cormorant Garamond',serif", fontSize: 28, fontWeight: 600, color: "#e8e0d4", margin: "0 0 12px", lineHeight: 1.2 },
-  heroSub: { fontSize: 14, color: "#8a8070", lineHeight: 1.6, margin: "0 0 28px", padding: "0 8px" },
+  heroTitle: { fontFamily: FONT_DISPLAY, fontSize: 28, fontWeight: 600, color: "#1a1714", margin: "0 0 12px", lineHeight: 1.2 },
+  heroSub: { fontSize: 14, color: "#6b6159", lineHeight: 1.6, margin: "0 0 28px", padding: "0 8px" },
   btnStack: { display: "flex", flexDirection: "column", gap: 12, maxWidth: 320, margin: "0 auto" },
-  btnPrimary: { display: "block", padding: "16px 24px", background: "linear-gradient(135deg,#c8a96e,#a07840)", borderRadius: 12, color: "#0f0e0c", fontSize: 16, fontWeight: 600, cursor: "pointer", textAlign: "center", letterSpacing: 0.3, transition: "transform 0.15s", userSelect: "none" },
-  btnSecondary: { display: "block", padding: "14px 24px", background: "transparent", border: "1.5px solid #3a3530", borderRadius: 12, color: "#c8a96e", fontSize: 15, cursor: "pointer", textAlign: "center", letterSpacing: 0.3, transition: "transform 0.15s", userSelect: "none" },
+  btnPrimary: { display: "block", padding: "16px 24px", background: "#1a1714", borderRadius: 12, color: "#ffffff", fontSize: 16, fontWeight: 600, cursor: "pointer", textAlign: "center", letterSpacing: 0.3, transition: "transform 0.15s", userSelect: "none" },
+  btnSecondary: { display: "block", padding: "14px 24px", background: "transparent", border: "1.5px solid #1a1714", borderRadius: 12, color: "#1a1714", fontSize: 15, cursor: "pointer", textAlign: "center", letterSpacing: 0.3, transition: "transform 0.15s", userSelect: "none" },
   divider: { display: "flex", alignItems: "center", gap: 12, margin: "8px 0 24px" },
-  dividerLine: { flex: 1, height: 1, background: "#2a2620" },
-  dividerText: { fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: "#4a4540", whiteSpace: "nowrap" },
+  dividerLine: { flex: 1, height: 1, background: "#e4ddd4" },
+  dividerText: { fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: "#6b6159", whiteSpace: "nowrap" },
   stepsGrid: { display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 },
-  stepCard: { display: "flex", alignItems: "flex-start", gap: 14, background: "#141210", border: "1px solid #222018", borderRadius: 14, padding: "16px", animation: "fadeUp 0.4s ease both" },
-  stepNumber: { width: 22, height: 22, borderRadius: "50%", background: "#c8a96e20", border: "1px solid #c8a96e60", color: "#c8a96e", fontSize: 11, fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 },
+  stepCard: { display: "flex", alignItems: "flex-start", gap: 14, background: "#ffffff", border: "1px solid #e4ddd4", borderRadius: 14, padding: "16px", animation: "fadeUp 0.4s ease both" },
+  stepNumber: { width: 22, height: 22, borderRadius: "50%", background: "#a8763e20", border: "1px solid #a8763e60", color: "#a8763e", fontSize: 11, fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 },
   stepIcon: { fontSize: 22, flexShrink: 0 },
-  stepTitle: { fontFamily: "'Cormorant Garamond',serif", fontSize: 16, fontWeight: 600, color: "#e8e0d4", marginBottom: 4 },
-  stepDesc: { fontSize: 13, color: "#7a7060", lineHeight: 1.55 },
-  tipsBox: { background: "#141210", border: "1px solid #1e1c18", borderRadius: 14, padding: "16px", marginBottom: 20 },
-  tipsHeading: { fontSize: 12, fontWeight: 500, letterSpacing: 1, textTransform: "uppercase", color: "#c8a96e", marginBottom: 12 },
+  stepTitle: { fontFamily: FONT_DISPLAY, fontSize: 16, fontWeight: 600, color: "#1a1714", marginBottom: 4 },
+  stepDesc: { fontSize: 13, color: "#6b6159", lineHeight: 1.55 },
+  tipsBox: { background: "#ffffff", border: "1px solid #e4ddd4", borderRadius: 14, padding: "16px", marginBottom: 20 },
+  tipsHeading: { fontSize: 12, fontWeight: 500, letterSpacing: 1, textTransform: "uppercase", color: "#a8763e", marginBottom: 12 },
   tipRow: { display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 10 },
   tipIcon: { fontSize: 14, flexShrink: 0, marginTop: 1 },
-  tipText: { fontSize: 13, color: "#7a7060", lineHeight: 1.5 },
-  aboutBox: { background: "#0d0c0a", border: "1px solid #1e1c18", borderRadius: 14, padding: "18px" },
-  aboutTitle: { fontFamily: "'Cormorant Garamond',serif", fontSize: 17, fontWeight: 600, color: "#e8e0d4", marginBottom: 8 },
-  aboutText: { fontSize: 13, color: "#6a6050", lineHeight: 1.65, margin: "0 0 16px" },
-  collectionStats: { display: "flex", alignItems: "center", justifyContent: "center", gap: 0 },
-  stat: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 2 },
-  statNum: { fontFamily: "'Cormorant Garamond',serif", fontSize: 20, fontWeight: 600, color: "#c8a96e" },
-  statLabel: { fontSize: 10, letterSpacing: 1.5, textTransform: "uppercase", color: "#4a4540" },
-  statDivider: { width: 1, height: 32, background: "#2a2620" },
+  tipText: { fontSize: 13, color: "#6b6159", lineHeight: 1.5 },
   previewWrap: { position: "relative", width: "100%", borderRadius: 16, overflow: "hidden", marginBottom: 20, maxHeight: 280 },
   previewImg: { width: "100%", height: 240, objectFit: "cover", display: "block" },
-  previewGradient: { position: "absolute", inset: 0, background: "linear-gradient(to top, #0f0e0caa 0%, transparent 50%)" },
-  previewLabel: { position: "absolute", bottom: 40, left: 14, fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "#c8a96e" },
+  previewGradient: { position: "absolute", inset: 0, background: "linear-gradient(to top, #1a1714aa 0%, transparent 50%)" },
+  previewLabel: { position: "absolute", bottom: 40, left: 14, fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "#f0e8dc" },
   statusBadge: { position: "absolute", bottom: 12, left: 14 },
-  pill: { display: "inline-block", padding: "5px 12px", background: "#c8a96e", color: "#0f0e0c", borderRadius: 20, fontSize: 12, fontWeight: 600 },
+  pill: { display: "inline-block", padding: "5px 12px", background: "#a8763e", color: "#ffffff", borderRadius: 20, fontSize: 12, fontWeight: 600 },
   spinnerSection: { textAlign: "center", padding: "20px 0 8px" },
-  spinner: { width: 32, height: 32, border: "2.5px solid #2a2620", borderTop: "2.5px solid #c8a96e", borderRadius: "50%", animation: "spin 0.8s linear infinite", margin: "0 auto 14px" },
-  spinnerText: { fontSize: 15, color: "#e8e0d4", marginBottom: 4 },
-  spinnerSub: { fontSize: 12, color: "#4a4540", letterSpacing: 0.5 },
-  errorBox: { textAlign: "center", background: "#180f0f", border: "1px solid #ef444330", borderRadius: 14, padding: "28px 20px", marginTop: 8 },
+  spinner: { width: 32, height: 32, border: "2.5px solid #e4ddd4", borderTop: "2.5px solid #a8763e", borderRadius: "50%", animation: "spin 0.8s linear infinite", margin: "0 auto 14px" },
+  spinnerText: { fontSize: 15, color: "#1a1714", marginBottom: 4 },
+  spinnerSub: { fontSize: 12, color: "#6b6159", letterSpacing: 0.5 },
+  errorBox: { textAlign: "center", background: "#fdf2f2", border: "1px solid #ef444440", borderRadius: 14, padding: "28px 20px", marginTop: 8 },
   errorIcon: { fontSize: 32, marginBottom: 12 },
-  errorText: { color: "#ef4444", fontSize: 14, margin: "0 0 16px", lineHeight: 1.5 },
-  btnRetry: { padding: "12px 28px", background: "#c8a96e", border: "none", borderRadius: 10, color: "#0f0e0c", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans',sans-serif" },
+  errorText: { color: "#dc2626", fontSize: 14, margin: "0 0 16px", lineHeight: 1.5 },
+  btnRetry: { padding: "12px 28px", background: "#1a1714", border: "none", borderRadius: 10, color: "#ffffff", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: FONT_BODY },
   resultsHeader: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 },
-  resultsHeading: { fontFamily: "'Cormorant Garamond',serif", fontSize: 20, fontWeight: 600, color: "#e8e0d4", margin: 0 },
-  resultsBadge: { fontSize: 11, padding: "3px 10px", background: "#c8a96e20", border: "1px solid #c8a96e40", borderRadius: 20, color: "#c8a96e", letterSpacing: 0.5 },
+  resultsHeading: { fontFamily: FONT_DISPLAY, fontSize: 20, fontWeight: 600, color: "#1a1714", margin: 0 },
+  resultsBadge: { fontSize: 11, padding: "3px 10px", background: "#a8763e20", border: "1px solid #a8763e40", borderRadius: 20, color: "#a8763e", letterSpacing: 0.5 },
   grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 },
-  card: { background: "#141210", border: "1px solid #222018", borderRadius: 12, overflow: "hidden", animation: "fadeUp 0.4s ease both", transition: "border-color 0.2s, transform 0.15s", cursor: "default" },
+  card: { background: "#ffffff", border: "1px solid #e4ddd4", borderRadius: 12, overflow: "hidden", animation: "fadeUp 0.4s ease both", transition: "border-color 0.2s, transform 0.15s", cursor: "default" },
   cardImg: { width: "100%", height: 130, objectFit: "cover", display: "block" },
-  cardImgPlaceholder: { width: "100%", height: 130, display: "flex", alignItems: "center", justifyContent: "center", background: "#1a1712" },
+  cardImgPlaceholder: { width: "100%", height: 130, display: "flex", alignItems: "center", justifyContent: "center", background: "#f2ede5" },
   cardBody: { padding: "10px 12px 12px" },
   cardMeta: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 5 },
-  cardFolder: { fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: "#4a4540" },
-  cardCode: { fontSize: 14, fontFamily: "'Cormorant Garamond',serif", fontWeight: 600, color: "#e8e0d4", marginBottom: 2 },
-  cardLabel: { fontSize: 11, color: "#6a6050", lineHeight: 1.3 },
-  btnNewSearch: { display: "block", width: "100%", marginTop: 20, padding: "13px", background: "transparent", border: "1px solid #2a2620", borderRadius: 10, color: "#6a6050", fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans',sans-serif", textAlign: "center" },
+  cardFolder: { fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: "#6b6159" },
+  cardCode: { fontSize: 14, fontFamily: FONT_DISPLAY, fontWeight: 600, color: "#1a1714", marginBottom: 2 },
+  cardLabel: { fontSize: 11, color: "#6b6159", lineHeight: 1.3 },
+  btnNewSearch: { display: "block", width: "100%", marginTop: 20, padding: "13px", background: "transparent", border: "1px solid #e4ddd4", borderRadius: 10, color: "#6b6159", fontSize: 13, cursor: "pointer", fontFamily: FONT_BODY, textAlign: "center" },
   noResults: { textAlign: "center", padding: "32px 20px", marginTop: 8 },
-  noResultsTitle: { fontFamily: "'Cormorant Garamond',serif", fontSize: 20, color: "#e8e0d4", margin: "0 0 8px" },
-  noResultsSub: { fontSize: 13, color: "#6a6050", margin: "0 0 20px", lineHeight: 1.5 },
-  footer: { borderTop: "1px solid #1a1814", padding: "16px 20px" },
-  footerInner: { textAlign: "center", fontSize: 10, color: "#3a3530", letterSpacing: 1.5, textTransform: "uppercase" },
+  noResultsTitle: { fontFamily: FONT_DISPLAY, fontSize: 20, color: "#1a1714", margin: "0 0 8px" },
+  noResultsSub: { fontSize: 13, color: "#6b6159", margin: "0 0 20px", lineHeight: 1.5 },
+  footer: { borderTop: "1px solid #e4ddd4", padding: "16px 20px" },
+  footerInner: { textAlign: "center", fontSize: 10, color: "#6b6159", letterSpacing: 1.5, textTransform: "uppercase" },
   footerDot: { margin: "0 8px" },
 } as any;
