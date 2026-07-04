@@ -18,6 +18,7 @@ export const translations = {
     allProducts:  { id: 'Semua Produk', en: 'All Products' },
     about:        { id: 'Tentang',   en: 'About' },
     contact:      { id: 'Kontak',    en: 'Contact' },
+    surfaceMatch: { id: 'Cocokkan Motif', en: 'Surface Match' },
     chatWithUs:   { id: 'Hubungi Kami', en: 'Chat with Us' },
     searchPlaceholder: {
       id: 'Cari kode, desain, finishing...',
