@@ -67,14 +67,6 @@ export const translations = {
       en: 'Clean solid colours, Solid Core, Protak, and Protak Core options for versatile applications.'
     },
 
-    arcGalleryLabel: { id: 'Koleksi Signature', en: 'Signature Collection' },
-    arcGalleryTitle: { id: 'Satu Dunia Permukaan', en: 'A World of Surfaces' },
-    arcGalleryBody: {
-      id: 'Dari motif kayu hangat hingga warna solid dan pola dekoratif — jelajahi keragaman desain Lamitak dalam satu tampilan.',
-      en: 'From warm woodgrains to solid colours and decorative patterns — explore the breadth of Lamitak design in one view.'
-    },
-    arcGalleryCta: { id: 'Jelajahi Semua Desain →', en: 'Explore All Designs →' },
-
     newArrivalsLabel: { id: 'Produk Terbaru', en: 'New Arrivals' },
     newArrivalsTitle: { id: 'Produk Terbaru', en: 'New Arrivals' },
     newArrivalsBody:  {
