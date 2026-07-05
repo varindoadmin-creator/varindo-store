@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import type { Product } from '@/types/product';
 import { ProductGrid } from '@/components/ProductGrid';
+import { Reveal } from '@/components/Reveal';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
@@ -107,28 +108,30 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
 
       {/* ─── MATERIAL LIBRARY ─────────────────────────────────── */}
       <section className="border-b border-varindo-line">
-        <div className="shell py-14 sm:py-20">
-          <div className="flex items-end justify-between mb-10">
+        <div className="shell py-[var(--space-section)]">
+          <Reveal className="flex items-end justify-between mb-10">
             <div>
               <p className="label mb-3">{t('home', 'collectionsSectionLabel', lang)}</p>
-              <h2 className="display text-varindo-ink text-4xl sm:text-5xl">
+              <h2 className="display text-varindo-ink text-4xl sm:text-5xl lg:text-6xl">
                 {t('home', 'collectionsSectionTitle', lang)}
               </h2>
             </div>
             <Link href="/products" className="hidden sm:block text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors">
               {t('home', 'collectionsViewAll', lang)}
             </Link>
-          </div>
+          </Reveal>
           <div className="grid grid-cols-3 gap-px bg-varindo-line border border-varindo-line">
-            {materialLibrary.map((item) => (
-              <Link key={item.href} href={item.href}
-                className="bg-white p-6 hover:bg-varindo-50 transition-colors group">
-                <div className="w-6 h-[1.5px] bg-varindo-line group-hover:bg-varindo-gold transition-colors mb-4" />
-                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-ink group-hover:text-varindo-gold transition-colors mb-3">
-                  {item.title}
-                </p>
-                <p className="text-[12px] leading-6 text-varindo-400">{item.desc}</p>
-              </Link>
+            {materialLibrary.map((item, i) => (
+              <Reveal key={item.href} delay={i * 80}>
+                <Link href={item.href}
+                  className="block h-full bg-white p-6 hover:bg-varindo-50 transition-colors group">
+                  <div className="w-6 h-[1.5px] bg-varindo-line group-hover:bg-varindo-gold transition-colors mb-4" />
+                  <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-ink group-hover:text-varindo-gold transition-colors mb-3">
+                    {item.title}
+                  </p>
+                  <p className="text-[12px] leading-6 text-varindo-400">{item.desc}</p>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -137,18 +140,20 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
       {/* ─── NEW ARRIVALS ─────────────────────────────────────── */}
       {newProducts.length > 0 && (
         <section className="border-b border-varindo-line">
-          <div className="shell py-14 sm:py-20">
-            <div className="flex items-end justify-between mb-10">
+          <div className="shell py-[var(--space-section)]">
+            <Reveal className="flex items-end justify-between mb-10">
               <div>
                 <p className="label mb-3">{t('home', 'newArrivalsLabel', lang)}</p>
-                <h2 className="display text-varindo-ink text-4xl sm:text-5xl">{t('home', 'newArrivalsTitle', lang)}</h2>
+                <h2 className="display text-varindo-ink text-4xl sm:text-5xl lg:text-6xl">{t('home', 'newArrivalsTitle', lang)}</h2>
                 <p className="mt-3 text-[13px] leading-7 text-varindo-500 max-w-lg">{t('home', 'newArrivalsBody', lang)}</p>
               </div>
               <Link href="/collections/new-arrivals" className="hidden sm:block text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors shrink-0 ml-6">
                 {t('home', 'viewAll', lang)}
               </Link>
-            </div>
-            <ProductGrid products={newProducts} />
+            </Reveal>
+            <Reveal delay={100}>
+              <ProductGrid products={newProducts} />
+            </Reveal>
           </div>
         </section>
       )}
@@ -156,18 +161,20 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
       {/* ─── BEST SELLERS ─────────────────────────────────────── */}
       {bestSellers.length > 0 && (
         <section className="border-b border-varindo-line bg-varindo-50">
-          <div className="shell py-14 sm:py-20">
-            <div className="flex items-end justify-between mb-10">
+          <div className="shell py-[var(--space-section)]">
+            <Reveal className="flex items-end justify-between mb-10">
               <div>
                 <p className="label mb-3">{t('home', 'bestSellersLabel', lang)}</p>
-                <h2 className="display text-varindo-ink text-4xl sm:text-5xl">{t('home', 'bestSellersTitle', lang)}</h2>
+                <h2 className="display text-varindo-ink text-4xl sm:text-5xl lg:text-6xl">{t('home', 'bestSellersTitle', lang)}</h2>
                 <p className="mt-3 text-[13px] leading-7 text-varindo-500 max-w-lg">{t('home', 'bestSellersBody', lang)}</p>
               </div>
               <Link href="/collections/best-sellers" className="hidden sm:block text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors shrink-0 ml-6">
                 {t('home', 'viewAll', lang)}
               </Link>
-            </div>
-            <ProductGrid products={bestSellers} />
+            </Reveal>
+            <Reveal delay={100}>
+              <ProductGrid products={bestSellers} />
+            </Reveal>
           </div>
         </section>
       )}
@@ -175,9 +182,9 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
       {/* ─── PORTFOLIO CTA ────────────────────────────────────── */}
       <section>
         <div className="grid lg:grid-cols-2 min-h-[420px]">
-          <div className="bg-varindo-ink text-white flex flex-col justify-center px-8 py-14 sm:px-12 sm:py-16 lg:px-16">
+          <Reveal className="bg-varindo-ink text-white flex flex-col justify-center px-8 py-14 sm:px-12 sm:py-16 lg:px-16">
             <p className="label text-varindo-400 mb-5">{t('home', 'portfolioLabel', lang)}</p>
-            <h2 className="display text-white text-4xl sm:text-5xl mb-6">
+            <h2 className="display text-white text-4xl sm:text-5xl lg:text-6xl mb-6">
               {t('home', 'portfolioTitle1', lang)}<br />
               <em className="text-varindo-300 not-italic">{t('home', 'portfolioTitle2', lang)}</em>
             </h2>
@@ -185,7 +192,7 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
             <a href="https://online.flippingbook.com/view/842367758/4-5/" target="_blank" rel="noreferrer" className="btn-ghost-white self-start">
               {t('home', 'portfolioCta', lang)}
             </a>
-          </div>
+          </Reveal>
           <div className="relative min-h-[280px] bg-cover bg-center" style={{ backgroundImage: "url('/banner.webp')" }}>
             <div className="absolute inset-0 bg-gradient-to-r from-varindo-ink/20 to-transparent" />
           </div>
@@ -194,22 +201,24 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
 
       {/* ─── WHY VARINDO ──────────────────────────────────────── */}
       <section className="border-t border-varindo-line bg-varindo-50">
-        <div className="shell py-14 sm:py-20">
+        <div className="shell py-[var(--space-section)]">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div>
+            <Reveal>
               <p className="label mb-4">{t('home', 'whyLabel', lang)}</p>
-              <h2 className="display text-varindo-ink text-4xl sm:text-5xl mb-5">
+              <h2 className="display text-varindo-ink text-4xl sm:text-5xl lg:text-6xl mb-5">
                 {t('home', 'whyTitle1', lang)}<br />{t('home', 'whyTitle2', lang)}
               </h2>
               <p className="text-[14px] leading-7 text-varindo-500 max-w-md">{t('home', 'whyBody', lang)}</p>
-            </div>
+            </Reveal>
             <div className="grid sm:grid-cols-3 gap-px bg-varindo-line border border-varindo-line">
-              {whyItems.map((item) => (
-                <div key={item.title} className="bg-white p-6">
-                  <div className="w-6 h-[1.5px] bg-varindo-gold mb-4" />
-                  <h3 className="text-[13px] font-semibold text-varindo-ink mb-2">{item.title}</h3>
-                  <p className="text-[12px] leading-6 text-varindo-500">{item.body}</p>
-                </div>
+              {whyItems.map((item, i) => (
+                <Reveal key={item.title} delay={i * 80} className="h-full">
+                  <div className="h-full bg-white p-6">
+                    <div className="w-6 h-[1.5px] bg-varindo-gold mb-4" />
+                    <h3 className="text-[13px] font-semibold text-varindo-ink mb-2">{item.title}</h3>
+                    <p className="text-[12px] leading-6 text-varindo-500">{item.body}</p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>

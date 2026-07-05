@@ -143,3 +143,10 @@ img { -webkit-user-drag: none; }
 .delay-200 { animation-delay: 0.20s; }
 .delay-300 { animation-delay: 0.30s; }
 .delay-400 { animation-delay: 0.40s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up, .animate-fade-in {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+  }
+}
