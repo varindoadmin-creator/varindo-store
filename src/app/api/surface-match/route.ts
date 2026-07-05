@@ -7,6 +7,7 @@ const VOYAGE_API_URL = 'https://api.voyageai.com/v1/multimodalembeddings';
 const VOYAGE_MODEL = 'voyage-multimodal-3.5';
 const EMBEDDING_DIMENSION = 1024;
 const MATCH_COUNT = 6;
+const MIN_SIMILARITY = 0.85;
 
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 10;
@@ -115,6 +116,7 @@ export async function POST(req: NextRequest) {
     const productByCode = new Map(products.map((p) => [p.code.toUpperCase(), p]));
 
     const matches = ranked
+      .filter((r) => r.similarity >= MIN_SIMILARITY)
       .map((r) => {
         const product = productByCode.get((r.product_code || '').toUpperCase());
         if (!product) return null;
