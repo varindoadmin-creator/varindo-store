@@ -3168,11 +3168,10 @@ export const lamitakProductsFromCsv: Product[] = [
     "active": true,
     "description": "DXO 5337D STOFFA CREMA Lamitak HPL decorative surface.",
     "badges": [
-      "BESTSELLER",
-      "PROMO"
+      "BESTSELLER"
     ],
-    "isPromoItem": true,
-    "promoPrice": 665000
+    "isPromoItem": false,
+    "promoPrice": null
   },
   {
     "slug": "dxo-5338d-stoffa-grigio",
