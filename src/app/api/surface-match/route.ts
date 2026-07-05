@@ -8,6 +8,37 @@ const VOYAGE_MODEL = 'voyage-multimodal-3.5';
 const EMBEDDING_DIMENSION = 1024;
 const MATCH_COUNT = 6;
 
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 10;
+const RATE_LIMIT_MAP_CLEANUP_THRESHOLD = 5000;
+
+const requestCounts = new Map<string, { count: number; resetAt: number }>();
+
+function getClientIp(req: NextRequest): string {
+  const forwardedFor = req.headers.get('x-forwarded-for');
+  if (forwardedFor) return forwardedFor.split(',')[0].trim();
+  return req.headers.get('x-real-ip') || 'unknown';
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+
+  if (requestCounts.size > RATE_LIMIT_MAP_CLEANUP_THRESHOLD) {
+    requestCounts.forEach((entry, key) => {
+      if (now > entry.resetAt) requestCounts.delete(key);
+    });
+  }
+
+  const entry = requestCounts.get(ip);
+  if (!entry || now > entry.resetAt) {
+    requestCounts.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+
+  entry.count += 1;
+  return entry.count > RATE_LIMIT_MAX_REQUESTS;
+}
+
 async function embedImage(imageUrl: string, apiKey: string): Promise<number[]> {
   const response = await fetch(VOYAGE_API_URL, {
     method: 'POST',
@@ -35,6 +66,14 @@ async function embedImage(imageUrl: string, apiKey: string): Promise<number[]> {
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIp(req);
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: 'Too many searches. Please wait a bit before trying again.' },
+        { status: 429 }
+      );
+    }
+
     const { imageUrl } = await req.json();
 
     if (!imageUrl || typeof imageUrl !== 'string') {
