@@ -4,6 +4,7 @@ import Link from 'next/link';
 import type { Product } from '@/types/product';
 import { ProductGrid } from '@/components/ProductGrid';
 import { Reveal } from '@/components/Reveal';
+import { SurfaceArcGallery } from '@/components/SurfaceArcGallery';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
@@ -133,6 +134,25 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
                 </Link>
               </Reveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── SIGNATURE ARC GALLERY ────────────────────────────── */}
+      <section className="border-b border-varindo-line overflow-hidden">
+        <div className="shell py-[var(--space-section)]">
+          <Reveal className="text-center max-w-xl mx-auto mb-8">
+            <p className="label mb-3 justify-center flex">{t('home', 'arcGalleryLabel', lang)}</p>
+            <h2 className="display text-varindo-ink text-4xl sm:text-5xl lg:text-6xl mb-4">
+              {t('home', 'arcGalleryTitle', lang)}
+            </h2>
+            <p className="text-[13px] leading-7 text-varindo-500">{t('home', 'arcGalleryBody', lang)}</p>
+          </Reveal>
+          <SurfaceArcGallery />
+          <div className="text-center mt-6">
+            <Link href="/products" className="text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors">
+              {t('home', 'arcGalleryCta', lang)}
+            </Link>
           </div>
         </div>
       </section>
