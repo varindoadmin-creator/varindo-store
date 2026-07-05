@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "import:products": "node scripts/import-products-from-csv.mjs"
+    "import:products": "node scripts/import-products-from-csv.mjs",
+    "embed:products": "node --env-file=.env.local scripts/embed-product-images.mjs"
   },
   "dependencies": {
     "@types/node": "^20.14.10",
