@@ -61,3 +61,9 @@ export function getLamitakImageUrlCandidates(code: string) {
 export function getLamitakImageUrl(code: string) {
   return getLamitakImageUrlCandidates(code)[0];
 }
+
+/** Crops a Cloudinary image to a fixed size (default: 1200x630 for Open Graph/Twitter cards). */
+export function getOgImageUrl(secureUrl: string, width = 1200, height = 630) {
+  if (!secureUrl.includes('/upload/')) return secureUrl;
+  return secureUrl.replace('/upload/', `/upload/w_${width},h_${height},c_fill,q_auto,f_auto/`);
+}

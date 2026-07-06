@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getProductBySlug } from '@/lib/products';
+import { getOgImageUrl } from '@/lib/cloudinary';
+import { buildProductTitle, buildProductDescription, getProductUrl } from '@/lib/seo';
 import { ProductDetailClient } from './ProductDetailClient';
 
 export const dynamic = 'force-dynamic';
@@ -9,9 +11,30 @@ export const revalidate = 600;
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const product = await getProductBySlug(params.slug);
   if (!product) return { title: 'Produk Tidak Ditemukan' };
+
+  const title = buildProductTitle(product);
+  const description = buildProductDescription(product);
+  const url = getProductUrl(product.slug);
+  const ogImage = product.imageUrl ? getOgImageUrl(product.imageUrl) : undefined;
+
   return {
-    title: product.name,
-    description: product.description || `${product.name} — Varindo Lamitak HPL Catalog.`
+    // Bypass the root layout's "%s | Varindo" title template — our title already ends in "| Varindo".
+    title: { absolute: title },
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: 'website',
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: title }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ogImage ? [ogImage] : undefined,
+    },
   };
 }
 
