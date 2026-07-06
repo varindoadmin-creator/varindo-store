@@ -13,7 +13,7 @@ function formatPriceIDR(value?: number | null) {
  * products, but a future live Zoho item without local enrichment could still lack it, so fall
  * back to a stripped-down version of `name` rather than duplicating the code.
  */
-function safeDesignName(product: Product): string {
+export function safeDesignName(product: Product): string {
   if (product.design) return product.design;
   const cleaned = product.name
     .replace(product.code, '')
@@ -62,4 +62,14 @@ export function buildProductDescription(product: Product): string {
 
 export function getProductUrl(slug: string): string {
   return `${SITE_URL}/products/${slug}`;
+}
+
+/** Alt text template: "HPL Lamitak {code} {designName} motif {category} {size}" — attributes are all optional in principle, so build it defensively. */
+export function buildProductImageAlt(product: Product): string {
+  const designName = safeDesignName(product);
+  let alt = `HPL Lamitak ${product.code} ${designName}`;
+  const categoryLabel = product.category || product.collection;
+  if (categoryLabel) alt += ` motif ${categoryLabel}`;
+  if (product.size) alt += ` ${product.size}`;
+  return alt;
 }

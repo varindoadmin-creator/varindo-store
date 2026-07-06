@@ -5,12 +5,14 @@ import type { Product } from '@/types/product';
 import { ProductImageZoom } from '@/components/ProductImageZoom';
 import { buildProductEnquiryMessage, buildWhatsAppUrl } from '@/lib/whatsapp';
 import { formatIDR } from '@/lib/utils';
+import { buildProductImageAlt } from '@/lib/seo';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
 export function ProductDetailClient({ product }: { product: Product }) {
   const { lang } = useLang();
   const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
+  const imageAlt = buildProductImageAlt(product);
 
   const specs = [
     [t('detail', 'specCode', lang),          product.code],
@@ -45,7 +47,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
             <ProductImageZoom
               src={product.imageUrl || ''}
               imageUrls={product.imageUrlCandidates || []}
-              alt={product.name}
+              alt={imageAlt}
             />
             <div className="mt-4 border border-varindo-line/60 bg-varindo-50 px-5 py-4">
               <p className="text-[11px] leading-6 text-varindo-500">{t('detail', 'colourNote', lang)}</p>
