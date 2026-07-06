@@ -17,9 +17,27 @@ export function Footer() {
           <img src="/varindo-logo-transparent.png" alt="Varindo"
             style={{ width: '80px', filter: 'brightness(0) invert(1)' }}
             className="h-auto object-contain opacity-80 mb-6" />
-          <p className="text-[13px] leading-7 text-varindo-400 max-w-xs">
+          <p className="text-[13px] font-semibold text-white mb-1">
+            {t('footer', 'legalName', lang)}
+          </p>
+          <p className="text-[11px] tracking-[0.1em] uppercase text-varindo-500 mb-5">
+            {t('footer', 'dealerLine', lang)}
+          </p>
+          <p className="text-[13px] leading-7 text-varindo-400 max-w-xs mb-5">
             {t('footer', 'tagline', lang)}
           </p>
+          <address className="not-italic text-[13px] leading-7 text-varindo-400 max-w-xs">
+            <span className="block text-varindo-500 text-[10px] tracking-[0.16em] uppercase mb-1">
+              {t('contact', 'headOffice', lang)}
+            </span>
+            Branz BSD Tower A Unit 3310<br />
+            Jl. BSD Boulevard Parcel 55-F<br />
+            Tangerang 15339, Banten
+            <span className="block mt-3 text-varindo-500 text-[10px] tracking-[0.16em] uppercase mb-1">
+              {t('contact', 'hours', lang)}
+            </span>
+            <span className="whitespace-pre-line">{t('contact', 'hoursValue', lang)}</span>
+          </address>
         </div>
 
         {/* Collections */}
@@ -72,11 +90,19 @@ export function Footer() {
               <span className="block text-varindo-500 text-[10px] tracking-[0.16em] uppercase mb-1">
                 {t('footer', 'phone', lang)}
               </span>
-              0812 8888 5224<br />0812 1001 5224
+              <a href="tel:+6281288885224" className="hover:text-white transition-colors">0812 8888 5224</a>
+              <br />
+              <a href="tel:+6281210015224" className="hover:text-white transition-colors">0812 1001 5224</a>
+            </p>
+            <p className="text-[13px] text-varindo-400">
+              <a href="https://wa.me/6281288885224" target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 hover:text-white transition-colors">
+                WhatsApp →
+              </a>
             </p>
             <p className="text-[13px] text-varindo-400">
               <span className="block text-varindo-500 text-[10px] tracking-[0.16em] uppercase mb-1">Email</span>
-              contact@varindo.co.id
+              <a href="mailto:contact@varindo.co.id" className="hover:text-white transition-colors">contact@varindo.co.id</a>
             </p>
           </address>
         </div>

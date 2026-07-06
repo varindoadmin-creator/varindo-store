@@ -313,6 +313,8 @@ export const translations = {
     quoteLink:    { id: 'Permintaan Penawaran', en: 'Request Quote' },
     sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
     priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
+    legalName:    { id: 'CV. Varindo Forma Hutama', en: 'CV. Varindo Forma Hutama' },
+    dealerLine:   { id: 'Dealer Resmi HPL Lamitak', en: 'Authorized Dealer of HPL Lamitak' },
     copyright:    { id: '© {year} CV. Varindo Forma Hutama. Hak cipta dilindungi.', en: '© {year} CV. Varindo Forma Hutama. All rights reserved.' },
     dealerBadge:  { id: 'Dealer Resmi Lamitak · Indonesia', en: 'Authorized Lamitak Dealer · Indonesia' }
   },
