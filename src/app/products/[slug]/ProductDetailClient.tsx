@@ -73,7 +73,16 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
           {/* Details */}
           <div>
-            <p className="label text-varindo-gold mb-3">{product.brand || 'Lamitak'}</p>
+            <div className="flex items-center gap-3 mb-3">
+              <p className="label text-varindo-gold">{product.brand || 'Lamitak'}</p>
+              <Link href="/otorisasi"
+                className="inline-flex items-center gap-1 text-[10px] font-semibold tracking-[0.12em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors">
+                <svg width="11" height="11" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M4 10.5L8 14.5L16 5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                {t('footer', 'otorisasiLink', lang)}
+              </Link>
+            </div>
             {/* Product name — NEVER translated */}
             <h1 className="display text-varindo-ink text-4xl sm:text-5xl mb-6">{product.name}</h1>
 
