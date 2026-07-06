@@ -6,6 +6,7 @@ import { ProductImageZoom } from '@/components/ProductImageZoom';
 import { buildProductEnquiryMessage, buildWhatsAppUrl } from '@/lib/whatsapp';
 import { formatIDR } from '@/lib/utils';
 import { buildProductImageAlt } from '@/lib/seo';
+import { buildProductDescriptionBlock } from '@/lib/productDescription';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
@@ -13,6 +14,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
   const { lang } = useLang();
   const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
   const imageAlt = buildProductImageAlt(product);
+  const { paragraph: descriptionParagraph, suitableFor } = buildProductDescriptionBlock(product);
 
   const collectionLabel = product.collection || product.category;
   const sampleUrl = `/request-sample?code=${encodeURIComponent(product.code)}`;
@@ -98,6 +100,21 @@ export function ProductDetailClient({ product }: { product: Product }) {
               <Link href="/products" className="text-[11px] font-medium tracking-[0.12em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors">
                 {t('detail', 'backCatalog', lang)}
               </Link>
+            </div>
+
+            {/* Description — deterministic per-product copy, always Bahasa Indonesia */}
+            <div className="border border-varindo-line mb-6">
+              <div className="border-b border-varindo-line px-5 py-3.5 bg-varindo-50">
+                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-700">
+                  {t('detail', 'descriptionTitle', lang)}
+                </p>
+              </div>
+              <div className="px-5 py-4">
+                <p className="text-[13px] leading-7 text-varindo-600">{descriptionParagraph}</p>
+                <p className="mt-3 text-[13px] leading-7 text-varindo-600">
+                  <span className="font-semibold text-varindo-ink">{t('detail', 'suitableFor', lang)}:</span> {suitableFor}.
+                </p>
+              </div>
             </div>
 
             {/* Spec table */}

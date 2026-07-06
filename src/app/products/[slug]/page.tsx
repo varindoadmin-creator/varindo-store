@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { getProductBySlug, getRelatedProducts } from '@/lib/products';
 import { getOgImageUrl } from '@/lib/cloudinary';
 import { buildProductTitle, buildProductDescription, getProductUrl } from '@/lib/seo';
+import { buildProductDescriptionBlock, getFirstSentence } from '@/lib/productDescription';
 import { buildProductJsonLd, buildProductBreadcrumbJsonLd } from '@/lib/structured-data';
 import { JsonLd } from '@/components/JsonLd';
 import { RelatedProducts } from '@/components/RelatedProducts';
@@ -16,7 +17,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!product) return { title: 'Produk Tidak Ditemukan' };
 
   const title = buildProductTitle(product);
-  const description = buildProductDescription(product);
+  const hasCoreAttributes = Boolean(product.category || product.collection || product.size);
+  const fallbackLead = hasCoreAttributes ? undefined : getFirstSentence(buildProductDescriptionBlock(product).paragraph);
+  const description = buildProductDescription(product, fallbackLead);
   const url = getProductUrl(product.slug);
   const ogImage = product.imageUrl ? getOgImageUrl(product.imageUrl) : undefined;
 

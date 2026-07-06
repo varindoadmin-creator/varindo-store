@@ -186,7 +186,9 @@ export const translations = {
     specColourFamily:  { id: 'Famili Warna', en: 'Colour Family' },
     breadcrumbHome:    { id: 'Beranda', en: 'Home' },
     sampleCta:         { id: 'Minta Sampel Gratis', en: 'Request Free Sample' },
-    relatedTitle:      { id: 'Produk Serupa', en: 'Related Products' }
+    relatedTitle:      { id: 'Produk Serupa', en: 'Related Products' },
+    descriptionTitle:  { id: 'Deskripsi Produk', en: 'Product Description' },
+    suitableFor:       { id: 'Cocok untuk', en: 'Suitable for' }
   },
 
   // ── Collections page ─────────────────────────────────────────

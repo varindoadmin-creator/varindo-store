@@ -34,21 +34,35 @@ export function buildProductTitle(product: Product): string {
   return `HPL Lamitak ${product.code} ${designName} | Varindo`;
 }
 
-/** Bahasa Indonesia meta description, 140–160 chars where possible, trimmed gracefully. */
-export function buildProductDescription(product: Product): string {
+/**
+ * Bahasa Indonesia meta description, 140–160 chars where possible, trimmed gracefully.
+ * `fallbackLead` (the first sentence of the generated product description block — see
+ * productDescription.ts) is used as the opening line only when category/collection AND size
+ * are both missing, since the usual "HPL Lamitak {code} {design} — motif X, ukuran Y" opener
+ * would otherwise read as a bare code with nothing to say about it. Never triggers against the
+ * current 802-product dataset (those attributes are always populated) — it's a safety net for
+ * a future live Zoho item without local enrichment.
+ */
+export function buildProductDescription(product: Product, fallbackLead?: string): string {
   const designName = safeDesignName(product);
   const categoryLabel = product.category || product.collection;
   const priceText = formatPriceIDR(product.price);
+  const isSparse = !categoryLabel && !product.size;
 
   const build = (includeThickness: boolean) => {
-    const detailBits: string[] = [];
-    if (categoryLabel) detailBits.push(`motif ${categoryLabel}`);
-    if (product.size) detailBits.push(`ukuran ${product.size}`);
-    if (includeThickness && product.thickness) detailBits.push(`tebal ${product.thickness}`);
+    let desc: string;
+    if (isSparse && fallbackLead) {
+      desc = fallbackLead;
+    } else {
+      const detailBits: string[] = [];
+      if (categoryLabel) detailBits.push(`motif ${categoryLabel}`);
+      if (product.size) detailBits.push(`ukuran ${product.size}`);
+      if (includeThickness && product.thickness) detailBits.push(`tebal ${product.thickness}`);
 
-    let desc = `HPL Lamitak ${product.code} ${designName}`;
-    if (detailBits.length) desc += ` — ${detailBits.join(', ')}`;
-    desc += '.';
+      desc = `HPL Lamitak ${product.code} ${designName}`;
+      if (detailBits.length) desc += ` — ${detailBits.join(', ')}`;
+      desc += '.';
+    }
     if (priceText) desc += ` Harga ${priceText} termasuk PPN.`;
     desc += ' Stok ready, minta sampel gratis. Dealer resmi Lamitak Indonesia.';
     return desc;
