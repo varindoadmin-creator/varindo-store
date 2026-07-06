@@ -4,7 +4,7 @@ import { RequestSamplePage } from './RequestSamplePageClient';
 export const dynamic = 'force-dynamic';
 export const revalidate = 600;
 
-export default async function Page() {
+export default async function Page({ searchParams }: { searchParams: { code?: string } }) {
   const products = await getPublicProducts();
   const productOptions = products.map((p) => ({
     code:       p.code       ?? '',
@@ -12,5 +12,5 @@ export default async function Page() {
     design:     p.design     ?? '',
     collection: p.collection ?? '',
   }));
-  return <RequestSamplePage products={productOptions} />;
+  return <RequestSamplePage products={productOptions} initialCode={searchParams.code} />;
 }

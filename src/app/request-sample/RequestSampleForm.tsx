@@ -8,10 +8,14 @@ import { t } from '@/lib/i18n';
 const MAX = 5;
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
-export function RequestSampleForm({ products }: { products: ProductOption[] }) {
+export function RequestSampleForm({ products, initialCode }: { products: ProductOption[]; initialCode?: string }) {
   const { lang } = useLang();
 
-  const [samples, setSamples] = useState<string[]>(Array(MAX).fill(''));
+  const [samples, setSamples] = useState<string[]>(() => {
+    const slots = Array(MAX).fill('');
+    if (initialCode) slots[0] = initialCode;
+    return slots;
+  });
   const [name,    setName]    = useState('');
   const [address, setAddress] = useState('');
   const [phone,   setPhone]   = useState('');

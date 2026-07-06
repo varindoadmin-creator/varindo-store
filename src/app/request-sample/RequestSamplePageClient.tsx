@@ -5,7 +5,7 @@ import { t } from '@/lib/i18n';
 import { RequestSampleForm } from './RequestSampleForm';
 import type { ProductOption } from '@/components/ProductCodeInput';
 
-export function RequestSamplePage({ products }: { products: ProductOption[] }) {
+export function RequestSamplePage({ products, initialCode }: { products: ProductOption[]; initialCode?: string }) {
   const { lang } = useLang();
 
   const infoItems = lang === 'id'
@@ -52,7 +52,7 @@ export function RequestSamplePage({ products }: { products: ProductOption[] }) {
           </div>
 
           {/* Right — form */}
-          <RequestSampleForm products={products} />
+          <RequestSampleForm products={products} initialCode={initialCode} />
         </div>
       </div>
     </div>
