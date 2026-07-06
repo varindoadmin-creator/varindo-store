@@ -13,13 +13,13 @@ export function OtorisasiPageClient() {
         'Cocokkan kode produk dan nama desain yang Anda lihat dengan katalog resmi di situs ini (varindo.co.id).',
         'Pastikan penjual dapat menunjukkan asal produk dan menyebutkan bahwa produk berasal dari jalur distribusi resmi Lamitak.',
         'Hubungi tim Varindo langsung via WhatsApp untuk menanyakan ketersediaan kode produk tertentu sebelum membeli dari pihak lain.',
-        'Jika ragu, Anda juga dapat menghubungi PT. TAK Products and Services secara langsung untuk konfirmasi status distributor resmi di wilayah Anda.'
+        'Jika ragu, Anda juga dapat menghubungi PT. TAK Products and Services secara langsung untuk konfirmasi status dealer kami.'
       ]
     : [
         'Match the product code and design name you see against the official catalogue on this site (varindo.co.id).',
         "Make sure the seller can show the product's origin and confirm it comes from Lamitak's official distribution channel.",
         'Contact the Varindo team directly via WhatsApp to check the availability of a specific product code before buying elsewhere.',
-        'If in doubt, you may also contact PT. TAK Products and Services directly to confirm official distributor status in your area.'
+        'If in doubt, you may also contact PT. TAK Products and Services directly to confirm our dealer status.'
       ];
 
   const riskItems = lang === 'id'
