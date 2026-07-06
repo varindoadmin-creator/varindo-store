@@ -7,13 +7,13 @@ import { ProductExplorer } from '@/components/ProductExplorer';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
-const groupConfig: Partial<Record<CollectionGroup, { titleKey: string; descKey: string; accentKey: string }>> = {
-  'new-arrivals':   { titleKey: 'newArrivalsTitle',  descKey: 'newArrivalsDesc',  accentKey: 'newArrivalsAccent' },
-  'new-collections':{ titleKey: 'newArrivalsTitle',  descKey: 'newArrivalsDesc',  accentKey: 'newArrivalsAccent' },
-  'best-sellers':   { titleKey: 'bestSellersTitle',  descKey: 'bestSellersDesc',  accentKey: 'bestSellersAccent' },
-  'woods':          { titleKey: 'woodsTitle',        descKey: 'woodsDesc',        accentKey: '' },
-  'patterns':       { titleKey: 'patternsTitle',     descKey: 'patternsDesc',     accentKey: '' },
-  'solids':         { titleKey: 'solidsTitle',       descKey: 'solidsDesc',       accentKey: '' },
+const groupConfig: Partial<Record<CollectionGroup, { titleKey: string; descKey: string; accentKey: string; introKey: string }>> = {
+  'new-arrivals':   { titleKey: 'newArrivalsTitle',  descKey: 'newArrivalsDesc',  accentKey: 'newArrivalsAccent', introKey: 'newArrivalsIntro' },
+  'new-collections':{ titleKey: 'newArrivalsTitle',  descKey: 'newArrivalsDesc',  accentKey: 'newArrivalsAccent', introKey: 'newArrivalsIntro' },
+  'best-sellers':   { titleKey: 'bestSellersTitle',  descKey: 'bestSellersDesc',  accentKey: 'bestSellersAccent', introKey: 'bestSellersIntro' },
+  'woods':          { titleKey: 'woodsTitle',        descKey: 'woodsDesc',        accentKey: '',                  introKey: 'woodsIntro' },
+  'patterns':       { titleKey: 'patternsTitle',     descKey: 'patternsDesc',     accentKey: '',                  introKey: 'patternsIntro' },
+  'solids':         { titleKey: 'solidsTitle',       descKey: 'solidsDesc',       accentKey: '',                  introKey: 'solidsIntro' },
 };
 
 const tabOrder: CollectionGroup[] = ['new-arrivals','best-sellers','woods','patterns','solids'];
@@ -36,6 +36,7 @@ export function CollectionClient({ group, products }: Props) {
   const title  = t('collections', config.titleKey,  lang);
   const desc   = t('collections', config.descKey,   lang);
   const accent = config.accentKey ? t('collections', config.accentKey, lang) : '';
+  const intro  = t('collections', config.introKey,  lang);
 
   return (
     <div>
@@ -81,6 +82,11 @@ export function CollectionClient({ group, products }: Props) {
             </Link>
           ))}
         </div>
+      </div>
+
+      {/* SEO intro copy — server-rendered above the grid */}
+      <div className="shell pt-10 sm:pt-12">
+        <p className="text-[13px] leading-7 text-varindo-600 max-w-3xl">{intro}</p>
       </div>
 
       {/* Explorer */}

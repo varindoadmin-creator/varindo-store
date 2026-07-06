@@ -77,6 +77,29 @@ export function buildProductJsonLd(product: Product) {
   return json;
 }
 
+export function buildCollectionPageJsonLd(name: string, description: string, url: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name,
+    description,
+    url
+  };
+}
+
+export function buildItemListJsonLd(products: Product[], limit = 20) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: products.slice(0, limit).map((product, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: getProductUrl(product.slug),
+      name: product.name
+    }))
+  };
+}
+
 export function buildProductBreadcrumbJsonLd(product: Product) {
   const collectionLabel = product.collection || product.category;
 
