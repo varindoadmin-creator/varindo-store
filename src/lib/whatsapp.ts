@@ -29,6 +29,14 @@ export function buildProductEnquiryMessage(product: Product) {
   return lines.join('\n');
 }
 
+export function buildCityEnquiryMessage(cityName: string) {
+  return [
+    `Halo Admin Varindo, saya ingin tanya-tanya HPL Lamitak untuk kebutuhan di ${cityName}.`,
+    '',
+    'Terima kasih.'
+  ].join('\n');
+}
+
 export function buildSampleRequestMessage(product?: Product) {
   if (!product) {
     return [

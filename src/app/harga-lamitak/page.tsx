@@ -131,7 +131,11 @@ export default async function HargaLamitakPage() {
               { href: '/products', label: 'Semua Produk' },
               { href: '/collections/woods', label: 'Koleksi Woods' },
               { href: '/collections/patterns', label: 'Koleksi Patterns' },
-              { href: '/collections/solids', label: 'Koleksi Solids' }
+              { href: '/collections/solids', label: 'Koleksi Solids' },
+              { href: '/lamitak-jakarta', label: 'Jual HPL Lamitak Jakarta' },
+              { href: '/lamitak-tangerang', label: 'Jual HPL Lamitak Tangerang' },
+              { href: '/lamitak-bandung', label: 'Jual HPL Lamitak Bandung' },
+              { href: '/lamitak-surabaya', label: 'Jual HPL Lamitak Surabaya' }
             ].map((item) => (
               <Link key={item.href} href={item.href}
                 className="bg-white px-5 py-4 text-[13px] font-medium text-varindo-ink hover:text-varindo-gold hover:bg-varindo-50 transition-colors">

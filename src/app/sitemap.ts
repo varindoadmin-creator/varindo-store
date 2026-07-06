@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { getPublicProducts } from '@/lib/products';
 import { SITE_URL } from '@/lib/seo';
+import { CITY_SLUGS } from '@/lib/cityContent';
 
 // Only the 5 collection groups actually linked from the site nav/footer.
 // 'new-collections' exists as a route (alias of 'new-arrivals') but is never linked —
@@ -21,6 +22,8 @@ const STATIC_PAGES: Array<{
   { path: '/request-quote', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/request-catalogue', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/price-list', changeFrequency: 'monthly', priority: 0.6 },
+  { path: '/harga-lamitak', changeFrequency: 'daily', priority: 0.8 },
+  { path: '/otorisasi', changeFrequency: 'monthly', priority: 0.4 },
   { path: '/privacy', changeFrequency: 'yearly', priority: 0.2 }
 ];
 
@@ -51,5 +54,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6
     }));
 
-  return [...staticEntries, ...collectionEntries, ...productEntries];
+  const cityEntries: MetadataRoute.Sitemap = CITY_SLUGS.map((slug) => ({
+    url: `${SITE_URL}/lamitak-${slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.5
+  }));
+
+  return [...staticEntries, ...collectionEntries, ...productEntries, ...cityEntries];
 }

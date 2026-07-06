@@ -10,7 +10,7 @@ export function Footer() {
 
   return (
     <footer className="bg-varindo-ink text-varindo-200">
-      <div className="shell pt-14 pb-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+      <div className="shell pt-14 pb-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr]">
 
         {/* Brand */}
         <div>
@@ -73,6 +73,26 @@ export function Footer() {
               { href: '/price-list',         label: t('footer', 'priceListLink', lang) },
               { href: '/otorisasi',          label: t('footer', 'otorisasiLink', lang) },
               { href: '/privacy',            label: lang === 'id' ? 'Kebijakan Privasi' : 'Privacy Policy' },
+            ].map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="text-[13px] text-varindo-400 hover:text-white transition-colors">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Area Layanan */}
+        <div>
+          <p className="label text-varindo-500 mb-5">{t('footer', 'areaLayanan', lang)}</p>
+          <ul className="space-y-3">
+            {[
+              { href: '/lamitak-jakarta',   label: 'Jakarta' },
+              { href: '/lamitak-tangerang', label: 'Tangerang' },
+              { href: '/lamitak-bandung',   label: 'Bandung' },
+              { href: '/lamitak-surabaya',  label: 'Surabaya' },
+              { href: '/harga-lamitak',     label: 'Harga Lamitak' }
             ].map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="text-[13px] text-varindo-400 hover:text-white transition-colors">
