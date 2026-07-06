@@ -183,7 +183,10 @@ export const translations = {
     specSubCollection: { id: 'Sub Koleksi', en: 'Sub Collection' },
     specSize:          { id: 'Ukuran', en: 'Size' },
     specThickness:     { id: 'Ketebalan', en: 'Thickness' },
-    specColourFamily:  { id: 'Famili Warna', en: 'Colour Family' }
+    specColourFamily:  { id: 'Famili Warna', en: 'Colour Family' },
+    breadcrumbHome:    { id: 'Beranda', en: 'Home' },
+    sampleCta:         { id: 'Minta Sampel Gratis', en: 'Request Free Sample' },
+    relatedTitle:      { id: 'Produk Serupa', en: 'Related Products' }
   },
 
   // ── Collections page ─────────────────────────────────────────

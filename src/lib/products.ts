@@ -151,3 +151,31 @@ export async function getProductsByCollectionGroup(group: CollectionGroup) {
 
   return toPublicProducts(products.filter((product) => product.collection?.toLowerCase() === 'solids'));
 }
+
+/**
+ * Deterministic "related products" for a product detail page: prefer the same category
+ * (more specific), fall back to the same collection if there aren't enough, always
+ * excluding the product itself. Sorted by code rather than randomized so the result is
+ * stable across requests/builds and safe to server-render for crawlers.
+ */
+export async function getRelatedProducts(product: Product, count = 8) {
+  const products = await getAllProducts();
+  const others = products.filter((p) => p.slug !== product.slug);
+
+  const sameCategory = product.category
+    ? others.filter((p) => p.category?.toLowerCase() === product.category!.toLowerCase())
+    : [];
+
+  const sameCollection = product.collection
+    ? others.filter((p) => p.collection?.toLowerCase() === product.collection!.toLowerCase())
+    : [];
+
+  const seen = new Set<string>();
+  const combined = [...sortByCode(sameCategory), ...sortByCode(sameCollection)].filter((p) => {
+    if (seen.has(p.slug)) return false;
+    seen.add(p.slug);
+    return true;
+  });
+
+  return toPublicProducts(combined.slice(0, count));
+}

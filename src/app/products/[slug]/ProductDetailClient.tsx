@@ -14,6 +14,9 @@ export function ProductDetailClient({ product }: { product: Product }) {
   const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
   const imageAlt = buildProductImageAlt(product);
 
+  const collectionLabel = product.collection || product.category;
+  const sampleUrl = `/request-sample?code=${encodeURIComponent(product.code)}`;
+
   const specs = [
     [t('detail', 'specCode', lang),          product.code],
     [t('detail', 'specBrand', lang),         product.brand],
@@ -27,15 +30,27 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
   return (
     <div>
-      {/* Breadcrumb */}
+      {/* Breadcrumb — mirrors the BreadcrumbList JSON-LD (Beranda › Katalog › Koleksi › Produk) */}
       <div className="border-b border-varindo-line bg-varindo-50">
-        <div className="shell py-4 flex items-center gap-2 text-[11px] tracking-[0.12em] uppercase">
+        <nav aria-label="Breadcrumb" className="shell py-4 flex items-center gap-2 text-[11px] tracking-[0.12em] uppercase flex-wrap">
+          <Link href="/" className="text-varindo-500 hover:text-varindo-ink transition-colors">
+            {t('detail', 'breadcrumbHome', lang)}
+          </Link>
+          <span className="text-varindo-300">·</span>
           <Link href="/products" className="text-varindo-500 hover:text-varindo-ink transition-colors">
             {t('detail', 'breadcrumbCatalog', lang)}
           </Link>
+          {collectionLabel && (
+            <>
+              <span className="text-varindo-300">·</span>
+              <Link href="/products" className="text-varindo-500 hover:text-varindo-ink transition-colors">
+                {collectionLabel}
+              </Link>
+            </>
+          )}
           <span className="text-varindo-300">·</span>
           <span className="text-varindo-ink font-medium truncate max-w-xs">{product.name}</span>
-        </div>
+        </nav>
       </div>
 
       {/* Main */}
@@ -74,7 +89,13 @@ export function ProductDetailClient({ product }: { product: Product }) {
                 </svg>
                 {t('detail', 'enquireCta', lang)}
               </a>
-              <Link href="/products" className="btn-ghost">
+              <Link href={sampleUrl} className="btn-ghost">
+                {t('detail', 'sampleCta', lang)}
+              </Link>
+            </div>
+
+            <div className="mb-10">
+              <Link href="/products" className="text-[11px] font-medium tracking-[0.12em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors">
                 {t('detail', 'backCatalog', lang)}
               </Link>
             </div>
