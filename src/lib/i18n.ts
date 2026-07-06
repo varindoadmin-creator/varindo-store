@@ -312,6 +312,7 @@ export const translations = {
     catalogueLink:{ id: 'Permintaan Katalog', en: 'Request Catalogue' },
     quoteLink:    { id: 'Permintaan Penawaran', en: 'Request Quote' },
     sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
+    priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
     copyright:    { id: '© {year} CV. Varindo Forma Hutama. Hak cipta dilindungi.', en: '© {year} CV. Varindo Forma Hutama. All rights reserved.' },
     dealerBadge:  { id: 'Dealer Resmi Lamitak · Indonesia', en: 'Authorized Lamitak Dealer · Indonesia' }
   },
@@ -407,7 +408,21 @@ export const translations = {
     samplesRequested: { id: 'Sampel yang Diminta', en: 'Samples Requested' },
     readySample:      { id: 'Siap — {n} sampel dengan data Anda.', en: 'Ready — {n} samples with your details.' },
     fillSample:       { id: 'Isi minimal satu produk dan data kontak.', en: 'Fill in at least one product and your contact details.' },
-    itemsOf:          { id: '{n} / {max} item', en: '{n} / {max} items' }
+    itemsOf:          { id: '{n} / {max} item', en: '{n} / {max} items' },
+
+    // Price list form
+    priceListBadge:   { id: 'Daftar Harga', en: 'Price List' },
+    priceListTitle:   { id: 'Unduh Daftar Harga\nLamitak', en: 'Download the\nLamitak Price List' },
+    priceListSubtitle:{
+      id: 'Isi data Anda untuk mengunduh daftar harga Lamitak dalam format PDF.',
+      en: 'Fill in your details to download the Lamitak price list in PDF format.'
+    },
+    priceListSuccessTitle: { id: 'Daftar harga siap diunduh.', en: 'Price list ready to download.' },
+    priceListSuccessBody: {
+      id: 'Terima kasih, {name}. Klik tombol di bawah untuk mengunduh PDF daftar harga Lamitak.',
+      en: 'Thank you, {name}. Click the button below to download the Lamitak price list PDF.'
+    },
+    downloadPdfBtn:   { id: 'Unduh PDF', en: 'Download PDF' }
   },
 
   // ── Product search autocomplete ───────────────────────────────

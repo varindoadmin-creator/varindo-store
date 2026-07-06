@@ -7,7 +7,7 @@ const SUPABASE_URL      = process.env.SUPABASE_URL;
 const SUPABASE_KEY      = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 type RequestBody = {
-  type: 'catalogue' | 'quote' | 'sample';
+  type: 'catalogue' | 'quote' | 'sample' | 'price-list';
   name?: string;
   address?: string;
   phone?: string;
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
 
   const { type, name, address, phone } = body;
 
-  if (!type || !['catalogue', 'quote', 'sample'].includes(type)) {
+  if (!type || !['catalogue', 'quote', 'sample', 'price-list'].includes(type)) {
     return NextResponse.json({ success: false, error: 'Invalid request type.' }, { status: 400 });
   }
 
@@ -91,6 +91,17 @@ export async function POST(req: NextRequest) {
           raw_data:      { name, address, phone, item },
         });
       }
+
+    } else if (type === 'price-list') {
+      // One row per price list download request
+      await insertRow({
+        request_type:  'price-list',
+        status:        'new',
+        customer_name: name || null,
+        phone:         phone || null,
+        source:        'website',
+        raw_data:      { name, phone },
+      });
 
     } else if (type === 'sample') {
       // One row per sample code

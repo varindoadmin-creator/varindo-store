@@ -52,6 +52,7 @@ export function Footer() {
               { href: '/request-catalogue',  label: t('footer', 'catalogueLink', lang) },
               { href: '/request-quote',      label: t('footer', 'quoteLink', lang) },
               { href: '/request-sample',     label: t('footer', 'sampleLink', lang) },
+              { href: '/price-list',         label: t('footer', 'priceListLink', lang) },
               { href: '/privacy',            label: lang === 'id' ? 'Kebijakan Privasi' : 'Privacy Policy' },
             ].map((item) => (
               <li key={item.href}>
