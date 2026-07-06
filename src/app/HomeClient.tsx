@@ -55,9 +55,14 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
             <p className="text-[14px] leading-7 text-white/65 max-w-md mb-8">
               {t('home', 'heroBody', lang)}
             </p>
-            <Link href="/products" className="btn-ghost-white">
-              {t('home', 'browseCta', lang)}
-            </Link>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/products" className="btn-ghost-white">
+                {t('home', 'browseCta', lang)}
+              </Link>
+              <Link href="/surface-match" className="btn-ghost-white">
+                {t('home', 'surfaceMatchCta', lang)}
+              </Link>
+            </div>
           </div>
 
           <div className="animate-fade-up delay-200">

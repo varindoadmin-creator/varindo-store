@@ -41,6 +41,7 @@ export const translations = {
       en: "Browse Lamitak HPL products by code, design name, collection, sub collection, size, thickness, and price through Varindo's online catalogue."
     },
     browseCta:    { id: 'Lihat Produk', en: 'Browse Products' },
+    surfaceMatchCta: { id: '📷 Cari dari Foto', en: '📷 Search by Photo' },
     quickSearchLabel:   { id: 'Pencarian Cepat', en: 'Quick Search' },
     quickSearchTitle:   { id: 'Cari Produk', en: 'Search Products' },
     searchPlaceholder:  {
@@ -452,6 +453,55 @@ export const translations = {
   // ── Product image placeholder ─────────────────────────────────
   imagePlaceholder: {
     label: { id: 'Gambar segera hadir', en: 'Image coming soon' }
+  },
+
+  // ── Surface Match (visual search) ─────────────────────────────
+  surfaceMatch: {
+    heroTitle: { id: 'Temukan Motif yang Anda Cari', en: 'Find Your Perfect Surface' },
+    heroSub: {
+      id: 'Arahkan kamera ke permukaan apa pun dan temukan desain Lamitak yang paling mirip dari seluruh koleksi kami.',
+      en: 'Point your camera at any surface and instantly discover matching Lamitak designs from our full collection.'
+    },
+    takePhoto:    { id: '📷 Ambil Foto', en: '📷 Take a Photo' },
+    chooseGallery:{ id: '🖼 Pilih dari Galeri', en: '🖼 Choose from Gallery' },
+    howItWorks:   { id: 'Cara Kerja', en: 'How it works' },
+    step1Title:   { id: 'Foto atau Unggah', en: 'Snap or Upload' },
+    step1Desc:    {
+      id: 'Ambil foto permukaan apa pun — dinding, lantai, meja, furnitur — atau unggah gambar dari galeri Anda.',
+      en: 'Take a photo of any surface — a wall, floor, countertop, furniture — or upload an existing image from your gallery.'
+    },
+    step2Title:   { id: 'AI Memindai Koleksi', en: 'AI Scans the Library' },
+    step2Desc:    {
+      id: 'AI kami membandingkan foto Anda secara visual dengan seluruh koleksi Lamitak untuk menemukan motif dan warna yang paling mirip.',
+      en: 'Our AI visually compares your photo against the full Lamitak collection to find the closest design and colour matches.'
+    },
+    step3Title:   { id: 'Temukan Kecocokan Anda', en: 'Discover Your Match' },
+    step3Desc:    {
+      id: 'Jelajahi produk Lamitak yang disarankan beserta skor kecocokan. Setiap hasil menampilkan kode produk agar Anda bisa memesan atau minta sampel.',
+      en: 'Browse suggested Lamitak items with match scores. Each result shows the product code so you can order or request a sample.'
+    },
+    tipsHeading:  { id: '📌 Tips agar hasil maksimal', en: '📌 Tips for best results' },
+    tip1: { id: 'Pencahayaan yang baik memberi hasil lebih akurat — cahaya alami paling optimal.', en: 'Good lighting gives better results — natural light works best.' },
+    tip2: { id: 'Penuhi bingkai foto dengan tekstur permukaan untuk akurasi tertinggi.', en: 'Fill the frame with the surface texture for highest accuracy.' },
+    tip3: { id: 'Foto tegak lurus dan datar lebih cocok dibanding sudut miring.', en: 'Flat, head-on shots match better than angled perspectives.' },
+    yourSurface:  { id: 'Permukaan Anda', en: 'Your Surface' },
+    uploadingBadge: { id: '⏫ Mengunggah…', en: '⏫ Uploading…' },
+    matchingBadge:  { id: '🔍 Mencocokkan…', en: '🔍 Matching…' },
+    matchesBadge:   { id: '✓ {n} kecocokan', en: '✓ {n} match{s}' },
+    errorBadge:     { id: '✗ Error', en: '✗ Error' },
+    uploadingImage: { id: 'Mengunggah foto Anda…', en: 'Uploading your image…' },
+    scanningLibrary:{ id: 'Memindai koleksi Lamitak…', en: 'Scanning Lamitak library…' },
+    comparingDesigns:{ id: 'Membandingkan dengan 2.000+ motif', en: 'Comparing against 2,000+ designs' },
+    uploadImageOnly:{ id: 'Mohon unggah file berupa gambar.', en: 'Please upload an image file.' },
+    uploadFailed:   { id: 'Unggah gagal', en: 'Upload failed' },
+    searchFailed:   { id: 'Pencarian gagal', en: 'Search failed' },
+    errorGeneric:   { id: 'Terjadi kesalahan. Silakan coba lagi.', en: 'Something went wrong. Please try again.' },
+    tryAgain:       { id: 'Coba lagi', en: 'Try again' },
+    suggestedDesigns:{ id: 'Motif yang Disarankan', en: 'Suggested Designs' },
+    foundCount:     { id: '{n} ditemukan', en: '{n} found' },
+    newSearch:      { id: '← Cari Lagi', en: '← New Search' },
+    noMatchesTitle: { id: 'Tidak ada kecocokan yang dekat', en: 'No close matches found' },
+    noMatchesSub:   { id: 'Coba foto yang lebih jelas dengan pencahayaan merata dan sudut lebih lurus.', en: 'Try a clearer photo with even lighting and less angle.' }
   }
 } as const;
 
