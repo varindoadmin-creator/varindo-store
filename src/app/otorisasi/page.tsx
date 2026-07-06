@@ -51,8 +51,8 @@ export default function OtorisasiPage() {
 
         <section>
           <p className="label text-varindo-gold mb-4">Alamat &amp; Kontak Resmi</p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8">
-            <address className="not-italic text-[14px] leading-8 text-varindo-600">
+          <div className="border border-varindo-line grid sm:grid-cols-2 gap-px bg-varindo-line">
+            <address className="not-italic text-[14px] leading-8 text-varindo-600 bg-white p-6 sm:p-8">
               <span className="font-semibold text-varindo-ink block mb-1">CV. Varindo Forma Hutama — Kantor Utama</span>
               Branz BSD Tower A Unit 3310<br />
               Jl. BSD Boulevard Parcel 55-F<br />
@@ -60,6 +60,15 @@ export default function OtorisasiPage() {
               <span className="block mt-3">
                 Telepon / WhatsApp: <a href="tel:+6281288885224" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">0812 8888 5224</a><br />
                 Email: <a href="mailto:contact@varindo.co.id" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">contact@varindo.co.id</a>
+              </span>
+            </address>
+            <address className="not-italic text-[14px] leading-8 text-varindo-600 bg-white p-6 sm:p-8">
+              <span className="font-semibold text-varindo-ink block mb-1">CV. Varindo Forma Hutama — Registered Office</span>
+              Ruko Pasar Modern Batununggal<br />
+              Blok RA/06, Kel. Mengger<br />
+              Kec. Bandung Kidul, Bandung 40267, Jawa Barat, Indonesia<br />
+              <span className="block mt-3">
+                Telepon / WhatsApp: <a href="tel:+6281210015224" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">0812 1001 5224</a>
               </span>
             </address>
           </div>
