@@ -22,15 +22,16 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Varindo — Katalog HPL Lamitak',
+    default: 'Dealer Resmi HPL Lamitak Indonesia - Katalog & Harga 800 Produk | Varindo',
     template: '%s | Varindo'
   },
   description:
-    'Jelajahi produk HPL Lamitak dari Varindo, dealer resmi di Indonesia. Cari kode produk, lihat harga, dan hubungi kami via WhatsApp.',
+    'Dealer resmi Lamitak di Indonesia. 800 produk, harga transparan termasuk PPN, sampel gratis, gudang Tangerang & Bandung. Cek katalog & harga sekarang.',
   metadataBase: new URL('https://varindo.co.id'),
   openGraph: {
-    title: 'Varindo — Katalog HPL Lamitak',
-    description: 'Jelajahi produk HPL Lamitak dari Varindo di Indonesia.',
+    title: 'Dealer Resmi HPL Lamitak Indonesia - Katalog & Harga 800 Produk | Varindo',
+    description:
+      'Dealer resmi Lamitak di Indonesia. 800 produk, harga transparan termasuk PPN, sampel gratis, gudang Tangerang & Bandung. Cek katalog & harga sekarang.',
     url: 'https://varindo.co.id',
     siteName: 'Varindo',
     locale: 'id_ID',
