@@ -2,7 +2,7 @@ import type { Product } from '@/types/product';
 
 export const SITE_URL = 'https://varindo.co.id';
 
-function formatPriceIDR(value?: number | null) {
+export function formatPriceIDR(value?: number | null) {
   return typeof value === 'number' ? `Rp${value.toLocaleString('id-ID')}` : null;
 }
 

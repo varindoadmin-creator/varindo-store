@@ -179,3 +179,28 @@ export async function getRelatedProducts(product: Product, count = 8) {
 
   return toPublicProducts(combined.slice(0, count));
 }
+
+export type PriceTableRow = { collection: string; size: string; minPrice: number; maxPrice: number; count: number };
+
+/** Min/max price per collection + size, computed live from product data — never goes stale. */
+export async function getPriceTable(): Promise<PriceTableRow[]> {
+  const products = await getPublicProducts();
+  const groups = new Map<string, { collection: string; size: string; prices: number[] }>();
+
+  for (const p of products) {
+    if (!p.collection || !p.size || typeof p.price !== 'number') continue;
+    const key = `${p.collection}|${p.size}`;
+    if (!groups.has(key)) groups.set(key, { collection: p.collection, size: p.size, prices: [] });
+    groups.get(key)!.prices.push(p.price);
+  }
+
+  return Array.from(groups.values())
+    .map(({ collection, size, prices }) => ({
+      collection,
+      size,
+      minPrice: Math.min(...prices),
+      maxPrice: Math.max(...prices),
+      count: prices.length
+    }))
+    .sort((a, b) => a.collection.localeCompare(b.collection) || a.size.localeCompare(b.size));
+}
