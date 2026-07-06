@@ -38,6 +38,9 @@ export const metadata: Metadata = {
     siteName: 'Varindo',
     locale: 'id_ID',
     type: 'website'
+  },
+  verification: {
+    google: '3OQ2o384S0-hyZZ7oCS2BI-aOb5Q3c6HSD8g4U-vDtk'
   }
 };
 
