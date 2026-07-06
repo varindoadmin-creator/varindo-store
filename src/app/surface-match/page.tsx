@@ -8,6 +8,11 @@ const description =
 const url = `${SITE_URL}/surface-match`;
 const ogImage = `${SITE_URL}/portfolio.webp`;
 
+// Without this, Next marks the route fully static with no revalidation, and
+// Hostinger's CDN caches it for up to a year (s-maxage=31536000) — content
+// updates would never reach visitors until the cache is manually purged.
+export const revalidate = 600;
+
 export const metadata: Metadata = {
   // title.absolute bypasses the root layout's "%s | Varindo" template — this string already ends in "| Varindo".
   title: { absolute: title },
