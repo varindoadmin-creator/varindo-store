@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { lamitakProductsFromCsv } from '@/data/lamitak-products-from-csv';
 import type { Product } from '@/types/product';
 import { getLamitakImageUrl, getLamitakImageUrlCandidates } from './cloudinary';
@@ -40,11 +41,17 @@ function toPublicProducts(products: Product[]) {
   return products.map(toPublicProduct);
 }
 
-export async function getAllProducts() {
+/**
+ * Every function below calls getAllProducts() independently (a homepage request alone calls it
+ * 3x via getPublicProducts/getNewCollectionProducts/getBestSellerProducts). React's cache()
+ * memoizes it per request so the filter+enrich pass over all 802 products only runs once,
+ * instead of once per caller — a free server-response-time win with no behaviour change.
+ */
+export const getAllProducts = cache(async () => {
   return lamitakProductsFromCsv
     .filter((product) => product.active)
     .map(enrichProduct);
-}
+});
 
 export async function getPublicProducts() {
   return toPublicProducts(await getAllProducts());

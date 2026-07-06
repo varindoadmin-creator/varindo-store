@@ -5,7 +5,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { JsonLd } from '@/components/JsonLd';
 import { LangProvider } from '@/lib/LangContext';
-import { AiChat } from '@/components/AiChat';
+import { AiChatLoader } from '@/components/AiChatLoader';
 import { buildOrganizationJsonLd, buildLocalBusinessJsonLd } from '@/lib/structured-data';
 
 const cormorant = Cormorant_Garamond({
@@ -51,7 +51,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Header />
           <main>{children}</main>
           <Footer />
-          <AiChat />
+          <AiChatLoader />
         </LangProvider>
       </body>
     </html>

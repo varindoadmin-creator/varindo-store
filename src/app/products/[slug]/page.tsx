@@ -48,11 +48,12 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
   const product = await getProductBySlug(params.slug);
   if (!product) notFound();
   const related = await getRelatedProducts(product);
+  const { paragraph, suitableFor } = buildProductDescriptionBlock(product);
   return (
     <>
       <JsonLd data={buildProductJsonLd(product)} />
       <JsonLd data={buildProductBreadcrumbJsonLd(product)} />
-      <ProductDetailClient product={product} />
+      <ProductDetailClient product={product} descriptionParagraph={paragraph} suitableFor={suitableFor} />
       <RelatedProducts products={related} />
     </>
   );

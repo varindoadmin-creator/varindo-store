@@ -6,15 +6,22 @@ import { ProductImageZoom } from '@/components/ProductImageZoom';
 import { buildProductEnquiryMessage, buildWhatsAppUrl } from '@/lib/whatsapp';
 import { formatIDR } from '@/lib/utils';
 import { buildProductImageAlt } from '@/lib/seo';
-import { buildProductDescriptionBlock } from '@/lib/productDescription';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
-export function ProductDetailClient({ product }: { product: Product }) {
+type Props = {
+  product: Product;
+  /** Computed server-side (page.tsx) rather than imported here — productDescription.ts's ~20
+   *  template-variant functions have no reason to ship to the browser for a value that only
+   *  ever needs to be computed once, server-side, per render. */
+  descriptionParagraph: string;
+  suitableFor: string;
+};
+
+export function ProductDetailClient({ product, descriptionParagraph, suitableFor }: Props) {
   const { lang } = useLang();
   const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
   const imageAlt = buildProductImageAlt(product);
-  const { paragraph: descriptionParagraph, suitableFor } = buildProductDescriptionBlock(product);
 
   const collectionLabel = product.collection || product.category;
   const sampleUrl = `/request-sample?code=${encodeURIComponent(product.code)}`;
