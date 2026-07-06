@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { getProductBySlug } from '@/lib/products';
 import { getOgImageUrl } from '@/lib/cloudinary';
 import { buildProductTitle, buildProductDescription, getProductUrl } from '@/lib/seo';
+import { buildProductJsonLd, buildProductBreadcrumbJsonLd } from '@/lib/structured-data';
+import { JsonLd } from '@/components/JsonLd';
 import { ProductDetailClient } from './ProductDetailClient';
 
 export const dynamic = 'force-dynamic';
@@ -41,5 +43,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
   const product = await getProductBySlug(params.slug);
   if (!product) notFound();
-  return <ProductDetailClient product={product} />;
+  return (
+    <>
+      <JsonLd data={buildProductJsonLd(product)} />
+      <JsonLd data={buildProductBreadcrumbJsonLd(product)} />
+      <ProductDetailClient product={product} />
+    </>
+  );
 }

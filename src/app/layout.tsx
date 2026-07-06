@@ -3,8 +3,10 @@ import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { JsonLd } from '@/components/JsonLd';
 import { LangProvider } from '@/lib/LangContext';
 import { AiChat } from '@/components/AiChat';
+import { buildOrganizationJsonLd, buildLocalBusinessJsonLd } from '@/lib/structured-data';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -43,6 +45,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="id" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body className="min-h-screen font-sans antialiased">
+        <JsonLd data={buildOrganizationJsonLd()} />
+        <JsonLd data={buildLocalBusinessJsonLd()} />
         <LangProvider>
           <Header />
           <main>{children}</main>
