@@ -2,11 +2,18 @@
 // res.cloudinary.com, and the Surface Match feature's direct browser upload to
 // api.cloudinary.com (src/app/surface-match/SurfaceMatchClient.tsx). Everything else
 // (chat widget, forms, sitemap, JSON-LD) talks to same-origin API routes.
+//
+// 'unsafe-eval' is added to script-src only in development: Next.js's dev-mode React
+// Fast Refresh runtime evaluates code via eval(), and without it every client
+// component's interactivity silently breaks in `next dev` (confirmed: onClick handlers
+// stopped firing entirely under the strict policy). Production builds don't use eval
+// anywhere, so the production CSP stays fully strict.
+const isDev = process.env.NODE_ENV !== 'production';
 const csp = [
   "default-src 'self'",
   "img-src 'self' data: blob: https://res.cloudinary.com",
   "connect-src 'self' https://api.cloudinary.com",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
   "object-src 'none'",
