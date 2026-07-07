@@ -1,7 +1,9 @@
 // Only two things load from outside the app's own origin: product/OG images from
 // res.cloudinary.com, and the Surface Match feature's direct browser upload to
-// api.cloudinary.com (src/app/surface-match/SurfaceMatchClient.tsx). Everything else
-// (chat widget, forms, sitemap, JSON-LD) talks to same-origin API routes.
+// api.cloudinary.com (src/app/surface-match/SurfaceMatchClient.tsx). The /portfolio
+// page embeds the Lamitak digital catalogue from online.flippingbook.com in an
+// iframe (frame-src) instead of sending users off-site. Everything else (chat
+// widget, forms, sitemap, JSON-LD) talks to same-origin API routes.
 //
 // 'unsafe-eval' is added to script-src only in development: Next.js's dev-mode React
 // Fast Refresh runtime evaluates code via eval(), and without it every client
@@ -16,6 +18,7 @@ const csp = [
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
+  "frame-src https://online.flippingbook.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

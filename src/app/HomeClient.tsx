@@ -194,9 +194,9 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
               <em className="text-varindo-300 not-italic">{t('home', 'portfolioTitle2', lang)}</em>
             </h2>
             <p className="text-[14px] leading-7 text-varindo-400 max-w-sm mb-8">{t('home', 'portfolioBody', lang)}</p>
-            <a href="https://online.flippingbook.com/view/842367758/4-5/" target="_blank" rel="noreferrer" className="btn-ghost-white self-start">
+            <Link href="/portfolio" className="btn-ghost-white self-start">
               {t('home', 'portfolioCta', lang)}
-            </a>
+            </Link>
           </Reveal>
           <div className="relative min-h-[280px] bg-cover bg-center" style={{ backgroundImage: "url('/banner.webp')" }}>
             <div className="absolute inset-0 bg-gradient-to-r from-varindo-ink/20 to-transparent" />

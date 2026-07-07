@@ -91,6 +91,8 @@ export const translations = {
       en: 'Explore the complete Lamitak design portfolio — textures, finishes, and surface families for every interior project.'
     },
     portfolioCta:   { id: 'Lihat Portofolio', en: 'View Portfolio' },
+    portfolioOpenExternal: { id: 'Buka di Tab Baru ↗', en: 'Open in New Tab ↗' },
+    portfolioBack:  { id: '← Kembali ke Beranda', en: '← Back to Home' },
 
     whyLabel: { id: 'Mengapa Varindo', en: 'Why Varindo' },
     whyTitle1:{ id: 'Built on Trust.', en: 'Built on Trust.' },
