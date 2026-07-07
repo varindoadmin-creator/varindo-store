@@ -71,9 +71,16 @@ export function PrivacyPageClient() {
               </section>
 
               <section>
+                <h2 className="font-display text-2xl font-light text-varindo-ink mb-4">Fitur Cari dari Foto (Surface Match)</h2>
+                <p>
+                  Fitur Cari dari Foto memungkinkan Anda mengunggah foto permukaan interior untuk mencari desain HPL Lamitak yang mirip. Foto yang Anda unggah disimpan di layanan hosting gambar cloud kami (Cloudinary) dan dianalisis oleh layanan AI pihak ketiga (Voyage AI) semata-mata untuk menghasilkan hasil pencocokan visual. Kami menyarankan Anda tidak mengunggah foto yang memuat wajah atau informasi pribadi sensitif lainnya. Jika Anda ingin foto yang telah diunggah dihapus, silakan hubungi kami melalui email di bawah.
+                </p>
+              </section>
+
+              <section>
                 <h2 className="font-display text-2xl font-light text-varindo-ink mb-4">Penyimpanan Data</h2>
                 <p>
-                  Data yang Anda kirimkan melalui formulir disimpan di Google Sheets yang hanya dapat diakses oleh tim internal Varindo. Kami tidak menjual, memperdagangkan, atau menyerahkan informasi pribadi Anda kepada pihak ketiga manapun.
+                  Data yang Anda kirimkan melalui formulir disimpan secara aman di database cloud kami (Supabase) yang hanya dapat diakses oleh tim internal Varindo. Kami tidak menjual, memperdagangkan, atau menyerahkan informasi pribadi Anda kepada pihak ketiga manapun.
                 </p>
               </section>
 
@@ -154,9 +161,16 @@ export function PrivacyPageClient() {
               </section>
 
               <section>
+                <h2 className="font-display text-2xl font-light text-varindo-ink mb-4">Search by Photo Feature (Surface Match)</h2>
+                <p>
+                  The Search by Photo feature lets you upload a photo of an interior surface to find similar Lamitak HPL designs. Uploaded photos are stored on our cloud image hosting service (Cloudinary) and analyzed by a third-party AI service (Voyage AI) solely to generate visual matching results. We recommend you avoid uploading photos that contain faces or other sensitive personal information. If you'd like an uploaded photo removed, please contact us at the email below.
+                </p>
+              </section>
+
+              <section>
                 <h2 className="font-display text-2xl font-light text-varindo-ink mb-4">Data Storage</h2>
                 <p>
-                  Data submitted through our forms is stored in Google Sheets accessible only by Varindo's internal team. We do not sell, trade, or transfer your personal information to any third parties.
+                  Data submitted through our forms is stored securely in our cloud database (Supabase), accessible only by Varindo's internal team. We do not sell, trade, or transfer your personal information to any third parties.
                 </p>
               </section>
 
