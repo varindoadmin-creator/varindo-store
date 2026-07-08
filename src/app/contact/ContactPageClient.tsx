@@ -53,7 +53,7 @@ export function ContactPageClient() {
                     Jl. S. Parman No.28, Petisah Tengah<br />
                     Kec. Medan Petisah<br />
                     Kota Medan 20112, Sumatera Utara<br />
-                    <span className="font-medium text-varindo-ink">T. 0811 611 805</span>
+                    <span className="font-medium text-varindo-ink">T. 0852 1020 9968 / 0852 0076 9968</span>
                   </address>
                 </div>
               </div>
