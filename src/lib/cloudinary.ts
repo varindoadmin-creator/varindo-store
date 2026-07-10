@@ -67,3 +67,35 @@ export function getOgImageUrl(secureUrl: string, width = 1200, height = 630) {
   if (!secureUrl.includes('/upload/')) return secureUrl;
   return secureUrl.replace('/upload/', `/upload/w_${width},h_${height},c_fill,q_auto,f_auto/`);
 }
+
+export type PercentBox = { xPct: number; yPct: number; wPct: number; hPct: number };
+
+/**
+ * Crops a Cloudinary image to a region given as percentages of the original width/height
+ * (e.g. from a vision model's approximate bounding box). Pads the box a bit before clamping,
+ * since such boxes are only approximate and a tight crop risks clipping the item.
+ */
+export function getCroppedImageUrl(
+  secureUrl: string,
+  box: PercentBox,
+  originalWidth: number,
+  originalHeight: number,
+  paddingPct = 0.06
+) {
+  if (!secureUrl.includes('/upload/') || !originalWidth || !originalHeight) return secureUrl;
+
+  const padX = box.wPct * paddingPct;
+  const padY = box.hPct * paddingPct;
+
+  const x0 = Math.max(0, box.xPct - padX);
+  const y0 = Math.max(0, box.yPct - padY);
+  const x1 = Math.min(100, box.xPct + box.wPct + padX);
+  const y1 = Math.min(100, box.yPct + box.hPct + padY);
+
+  const x = Math.round((x0 / 100) * originalWidth);
+  const y = Math.round((y0 / 100) * originalHeight);
+  const w = Math.max(1, Math.round(((x1 - x0) / 100) * originalWidth));
+  const h = Math.max(1, Math.round(((y1 - y0) / 100) * originalHeight));
+
+  return secureUrl.replace('/upload/', `/upload/c_crop,x_${x},y_${y},w_${w},h_${h}/`);
+}

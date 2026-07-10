@@ -73,7 +73,7 @@ export function PrivacyPageClient() {
               <section>
                 <h2 className="font-display text-2xl font-light text-varindo-ink mb-4">Fitur Cari dari Foto (Surface Match)</h2>
                 <p>
-                  Fitur Cari dari Foto memungkinkan Anda mengunggah foto permukaan interior untuk mencari desain HPL Lamitak yang mirip. Foto yang Anda unggah disimpan di layanan hosting gambar cloud kami (Cloudinary) dan dianalisis oleh layanan AI pihak ketiga (Voyage AI) semata-mata untuk menghasilkan hasil pencocokan visual. Kami menyarankan Anda tidak mengunggah foto yang memuat wajah atau informasi pribadi sensitif lainnya. Jika Anda ingin foto yang telah diunggah dihapus, silakan hubungi kami melalui email di bawah.
+                  Fitur Cari dari Foto memungkinkan Anda mengunggah foto permukaan interior, termasuk foto yang memuat beberapa contoh produk sekaligus atau kode produk tercetak, untuk mencari desain HPL Lamitak yang mirip. Foto yang Anda unggah disimpan di layanan hosting gambar cloud kami (Cloudinary) dan dianalisis oleh layanan AI pihak ketiga (Voyage AI dan Anthropic/Claude) semata-mata untuk menghasilkan hasil pencocokan visual dan membaca kode produk yang terlihat pada foto. Kami menyarankan Anda tidak mengunggah foto yang memuat wajah atau informasi pribadi sensitif lainnya. Jika Anda ingin foto yang telah diunggah dihapus, silakan hubungi kami melalui email di bawah.
                 </p>
               </section>
 
@@ -163,7 +163,7 @@ export function PrivacyPageClient() {
               <section>
                 <h2 className="font-display text-2xl font-light text-varindo-ink mb-4">Search by Photo Feature (Surface Match)</h2>
                 <p>
-                  The Search by Photo feature lets you upload a photo of an interior surface to find similar Lamitak HPL designs. Uploaded photos are stored on our cloud image hosting service (Cloudinary) and analyzed by a third-party AI service (Voyage AI) solely to generate visual matching results. We recommend you avoid uploading photos that contain faces or other sensitive personal information. If you'd like an uploaded photo removed, please contact us at the email below.
+                  The Search by Photo feature lets you upload a photo of an interior surface — including photos showing several product samples at once, or a visible printed product code — to find similar Lamitak HPL designs. Uploaded photos are stored on our cloud image hosting service (Cloudinary) and analyzed by third-party AI services (Voyage AI and Anthropic/Claude) solely to generate visual matching results and read any visible product code. We recommend you avoid uploading photos that contain faces or other sensitive personal information. If you'd like an uploaded photo removed, please contact us at the email below.
                 </p>
               </section>
 

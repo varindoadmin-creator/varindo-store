@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import { useLang } from '@/lib/LangContext';
-import { t } from '@/lib/i18n';
+import { t, type Lang } from '@/lib/i18n';
 
 function thumbUrl(secureUrl: string, w = 400) {
   return secureUrl.replace("/upload/", `/upload/w_${w},c_fill,q_auto,f_auto/`);
@@ -24,8 +24,10 @@ export function SurfaceMatchClient() {
   const { lang } = useLang();
   const [phase, setPhase] = useState("idle");
   const [preview, setPreview] = useState<string | null>(null);
-  const [results, setResults] = useState<any[]>([]);
+  const [groups, setGroups] = useState<any[]>([]);
   const [errorMsg, setErrorMsg] = useState("");
+
+  const totalMatches = groups.reduce((sum, g) => sum + (g.matches?.length || 0), 0);
 
   const STEPS = [
     { icon: "📸", title: t('surfaceMatch', 'step1Title', lang), desc: t('surfaceMatch', 'step1Desc', lang) },
@@ -50,7 +52,7 @@ export function SurfaceMatchClient() {
     const objectUrl = URL.createObjectURL(file);
     setPreview(objectUrl);
     setPhase("uploading");
-    setResults([]);
+    setGroups([]);
     setErrorMsg("");
 
     try {
@@ -75,7 +77,11 @@ export function SurfaceMatchClient() {
       const response = await fetch("/api/surface-match", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageUrl: publicCloudinaryUrl })
+        body: JSON.stringify({
+          imageUrl: publicCloudinaryUrl,
+          width: uploadData.width,
+          height: uploadData.height
+        })
       });
 
       if (!response.ok) {
@@ -84,7 +90,7 @@ export function SurfaceMatchClient() {
       }
 
       const data = await response.json();
-      setResults(data.matches || []);
+      setGroups(data.groups || []);
       setPhase("results");
     } catch (err: any) {
       console.error(err);
@@ -102,7 +108,7 @@ export function SurfaceMatchClient() {
   const reset = () => {
     setPhase("idle");
     setPreview(null);
-    setResults([]);
+    setGroups([]);
     setErrorMsg("");
   };
 
@@ -196,7 +202,7 @@ export function SurfaceMatchClient() {
                 <div style={S.statusBadge}>
                   {phase === "uploading" && <span style={{ ...S.pill, animation: "pulse 1.2s ease infinite" }}>{t('surfaceMatch', 'uploadingBadge', lang)}</span>}
                   {phase === "searching" && <span style={{ ...S.pill, animation: "pulse 1.2s ease infinite" }}>{t('surfaceMatch', 'matchingBadge', lang)}</span>}
-                  {phase === "results" && <span style={{ ...S.pill, background: "#22c55e", color: "#fff" }}>{t('surfaceMatch', 'matchesBadge', lang, { n: results.length, s: results.length !== 1 ? 'es' : '' })}</span>}
+                  {phase === "results" && <span style={{ ...S.pill, background: "#22c55e", color: "#fff" }}>{t('surfaceMatch', 'matchesBadge', lang, { n: totalMatches, s: totalMatches !== 1 ? 'es' : '' })}</span>}
                   {phase === "error" && <span style={{ ...S.pill, background: "#ef4444", color: "#fff" }}>{t('surfaceMatch', 'errorBadge', lang)}</span>}
                 </div>
               </div>
@@ -222,20 +228,30 @@ export function SurfaceMatchClient() {
               </div>
             )}
 
-            {phase === "results" && results.length > 0 && (
+            {phase === "results" && groups.length > 0 && totalMatches > 0 && (
               <div style={{ marginTop: 24 }}>
                 <div style={S.resultsHeader}>
                   <h2 style={S.resultsHeading}>{t('surfaceMatch', 'suggestedDesigns', lang)}</h2>
-                  <span style={S.resultsBadge}>{t('surfaceMatch', 'foundCount', lang, { n: results.length })}</span>
+                  <span style={S.resultsBadge}>{t('surfaceMatch', 'foundCount', lang, { n: totalMatches })}</span>
                 </div>
-                <div style={S.grid}>
-                  {results.map((r, i) => <ResultCard key={r.code || i} result={r} rank={i} />)}
-                </div>
+
+                {groups.length > 1 ? (
+                  groups.map((group, gi) => (
+                    <GroupSection key={gi} group={group} index={gi} lang={lang} />
+                  ))
+                ) : (
+                  <div style={S.grid}>
+                    {(groups[0]?.matches || []).map((r: any, i: number) => (
+                      <ResultCard key={r.code || i} result={r} rank={i} lang={lang} />
+                    ))}
+                  </div>
+                )}
+
                 <button style={S.btnNewSearch} onClick={reset}>{t('surfaceMatch', 'newSearch', lang)}</button>
               </div>
             )}
 
-            {phase === "results" && results.length === 0 && (
+            {phase === "results" && totalMatches === 0 && (
               <div style={S.noResults}>
                 <div style={{ fontSize: 40, marginBottom: 12 }}>🔎</div>
                 <p style={S.noResultsTitle}>{t('surfaceMatch', 'noMatchesTitle', lang)}</p>
@@ -252,12 +268,13 @@ export function SurfaceMatchClient() {
   );
 }
 
-function ResultCard({ result, rank }: { result: any; rank: number }) {
+function ResultCard({ result, rank, lang }: { result: any; rank: number; lang: Lang }) {
   const code = result.code || "Unknown";
   const label = humanLabel(result.name || code);
   const score = result.score ?? 0.75;
   const folderLabel = result.collection || result.category || "Lamitak";
   const imageUrl = result.imageUrl ? thumbUrl(result.imageUrl, 400) : null;
+  const isCodeMatch = result.matchType === "code";
 
   return (
     <div className="result-card" style={{ ...S.card, animationDelay: `${rank * 70}ms` }}>
@@ -268,11 +285,46 @@ function ResultCard({ result, rank }: { result: any; rank: number }) {
       <div style={S.cardBody}>
         <div style={S.cardMeta}>
           <span style={S.cardFolder}>{folderLabel}</span>
-          <span style={{ fontSize: 11, fontWeight: 500, color: scoreColor(score) }}>{Math.round(score * 100)}%</span>
+          {isCodeMatch
+            ? <span style={S.codeMatchPill}>{t('surfaceMatch', 'codeMatchBadge', lang)}</span>
+            : <span style={{ fontSize: 11, fontWeight: 500, color: scoreColor(score) }}>{Math.round(score * 100)}%</span>
+          }
         </div>
         <div style={S.cardCode}>{code}</div>
         {label !== code && <div style={S.cardLabel}>{label}</div>}
       </div>
+    </div>
+  );
+}
+
+function GroupSection({ group, index, lang }: { group: any; index: number; lang: Lang }) {
+  const thumb = group.cropImageUrl ? thumbUrl(group.cropImageUrl, 160) : null;
+  const matches = group.matches || [];
+
+  return (
+    <div style={S.groupSection}>
+      <div style={S.groupHeader}>
+        {thumb
+          ? <img src={thumb} alt="" style={S.groupThumb} onError={(e: any) => { e.target.style.display = "none"; }} />
+          : <div style={S.groupThumbPlaceholder}>{index + 1}</div>
+        }
+        <div>
+          <div style={S.groupLabel}>{t('surfaceMatch', 'itemLabel', lang, { n: index + 1 })}</div>
+          {group.detectedCode && matches.length === 0 && (
+            <div style={S.groupCodeNotFound}>
+              {t('surfaceMatch', 'codeDetectedNotFound', lang, { code: group.detectedCode })}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {matches.length > 0 ? (
+        <div style={S.grid}>
+          {matches.map((r: any, i: number) => <ResultCard key={r.code || i} result={r} rank={i} lang={lang} />)}
+        </div>
+      ) : (
+        !group.detectedCode && <div style={S.groupNoMatch}>{t('surfaceMatch', 'noMatchForItem', lang)}</div>
+      )}
     </div>
   );
 }
@@ -330,8 +382,16 @@ const S = {
   cardFolder: { fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: "#6b6159" },
   cardCode: { fontSize: 14, fontFamily: FONT_DISPLAY, fontWeight: 600, color: "#1a1714", marginBottom: 2 },
   cardLabel: { fontSize: 11, color: "#6b6159", lineHeight: 1.3 },
+  codeMatchPill: { fontSize: 10, fontWeight: 600, padding: "2px 8px", borderRadius: 10, background: "#22c55e20", border: "1px solid #22c55e60", color: "#16803c", letterSpacing: 0.3 },
   btnNewSearch: { display: "block", width: "100%", marginTop: 20, padding: "13px", background: "transparent", border: "1px solid #e4ddd4", borderRadius: 10, color: "#6b6159", fontSize: 13, cursor: "pointer", fontFamily: FONT_BODY, textAlign: "center" },
   noResults: { textAlign: "center", padding: "32px 20px", marginTop: 8 },
   noResultsTitle: { fontFamily: FONT_DISPLAY, fontSize: 20, color: "#1a1714", margin: "0 0 8px" },
   noResultsSub: { fontSize: 13, color: "#6b6159", margin: "0 0 20px", lineHeight: 1.5 },
+  groupSection: { marginBottom: 24 },
+  groupHeader: { display: "flex", alignItems: "center", gap: 10, marginBottom: 10 },
+  groupThumb: { width: 40, height: 40, borderRadius: 8, objectFit: "cover", border: "1px solid #e4ddd4", flexShrink: 0 },
+  groupThumbPlaceholder: { width: 40, height: 40, borderRadius: 8, border: "1px solid #e4ddd4", background: "#f2ede5", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 600, color: "#a8763e", flexShrink: 0 },
+  groupLabel: { fontSize: 12, fontWeight: 600, letterSpacing: 0.5, textTransform: "uppercase", color: "#1a1714" },
+  groupCodeNotFound: { fontSize: 12, color: "#6b6159", marginTop: 2 },
+  groupNoMatch: { fontSize: 12, color: "#6b6159", padding: "8px 0 4px" },
 } as any;

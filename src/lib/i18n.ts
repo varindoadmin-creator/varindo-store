@@ -531,7 +531,14 @@ export const translations = {
     foundCount:     { id: '{n} ditemukan', en: '{n} found' },
     newSearch:      { id: '← Cari Lagi', en: '← New Search' },
     noMatchesTitle: { id: 'Tidak ada kecocokan yang dekat', en: 'No close matches found' },
-    noMatchesSub:   { id: 'Coba foto yang lebih jelas dengan pencahayaan merata dan sudut lebih lurus.', en: 'Try a clearer photo with even lighting and less angle.' }
+    noMatchesSub:   { id: 'Coba foto yang lebih jelas dengan pencahayaan merata dan sudut lebih lurus.', en: 'Try a clearer photo with even lighting and less angle.' },
+    itemLabel:      { id: 'Item {n}', en: 'Item {n}' },
+    codeMatchBadge: { id: 'Cocok kode', en: 'Matched by code' },
+    codeDetectedNotFound: {
+      id: 'Kode terdeteksi: {code} — tidak ditemukan di katalog',
+      en: 'Code detected: {code} — not found in catalogue'
+    },
+    noMatchForItem: { id: 'Tidak ada kecocokan untuk item ini', en: 'No match found for this item' }
   }
 } as const;
 
