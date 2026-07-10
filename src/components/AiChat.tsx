@@ -61,6 +61,9 @@ export function AiChat() {
   const [hasOpened, setHasOpened] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef  = useRef<HTMLInputElement>(null);
+  // Number of user messages already included in the last transcript sent — lets sendTranscript
+  // skip re-sending an unchanged conversation when the chat is opened/closed more than once.
+  const sentUserMessageCountRef = useRef(0);
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -137,6 +140,11 @@ export function AiChat() {
   const sendTranscript = () => {
     const userMessages = messages.filter(m => m.role === 'user');
     if (userMessages.length === 0) return;
+    // Nothing new since the last send (e.g. user closed, reopened, closed again) — skip to
+    // avoid emailing an identical transcript more than once.
+    if (userMessages.length <= sentUserMessageCountRef.current) return;
+
+    sentUserMessageCountRef.current = userMessages.length;
     fetch('/api/chat-transcript', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

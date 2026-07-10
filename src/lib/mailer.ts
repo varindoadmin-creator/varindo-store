@@ -11,6 +11,25 @@ function getTransporter() {
   return nodemailer.createTransport({ host, port, secure: port === 465, auth: { user, pass } });
 }
 
+/**
+ * Rule for whether a chat is worth emailing to the admin inbox: the visitor must have typed
+ * something with actual substance. Filters out test/gibberish input (e.g. "Aa", "asdf", "😊")
+ * so admins aren't notified about chats nobody needs to follow up on.
+ */
+const MIN_MEANINGFUL_CHARS = 4;
+
+function isMeaningfulVisitorText(text: string): boolean {
+  const stripped = text.trim();
+  if (stripped.length < MIN_MEANINGFUL_CHARS) return false;
+  if (!/[a-zA-Z]/.test(stripped)) return false; // pure emoji/punctuation/digits, e.g. "😊", "???"
+
+  const lettersOnly = stripped.toLowerCase().replace(/[^a-z]/g, '');
+  const uniqueLetters = new Set(lettersOnly).size;
+  if (lettersOnly.length >= 3 && uniqueLetters <= 2) return false; // keyboard mash, e.g. "aaaa", "kkkkk"
+
+  return true;
+}
+
 type RequestType = 'sample' | 'quote' | 'catalogue' | 'price-list';
 
 interface NotifyParams {
@@ -78,6 +97,9 @@ export async function sendChatTranscript(messages: ChatMessage[], lang: string):
 
   const userMessages = messages.filter(m => m.role === 'user');
   if (userMessages.length === 0) return;
+
+  const combinedVisitorText = userMessages.map(m => m.content).join(' ');
+  if (!isMeaningfulVisitorText(combinedVisitorText)) return;
 
   const lines = messages
     .filter(m => m.role !== 'assistant' || messages.indexOf(m) > 0) // skip greeting
