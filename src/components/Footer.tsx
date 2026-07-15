@@ -14,15 +14,24 @@ export function Footer() {
 
         {/* Brand */}
         <div>
-          <img src="/varindo-logo-transparent.png" alt="Varindo"
-            style={{ width: '80px', filter: 'brightness(0) invert(1)' }}
-            className="h-auto object-contain opacity-80 mb-6" />
-          <p className="text-[13px] font-semibold text-white mb-1">
-            {t('footer', 'legalName', lang)}
-          </p>
-          <p className="text-[11px] tracking-[0.1em] uppercase text-varindo-500 mb-5">
-            {t('footer', 'dealerLine', lang)}
-          </p>
+          <div className="flex items-center gap-4 mb-6">
+            <img src="/varindo-logo-transparent.png" alt="Varindo"
+              style={{ width: '80px', filter: 'brightness(0) invert(1)' }}
+              className="h-auto object-contain opacity-80" />
+            <div className="h-8 w-px bg-white/15" />
+            <img src="/lamitak-logo-transparent.png" alt="Lamitak"
+              style={{ width: '64px', filter: 'brightness(0) invert(1)' }}
+              className="h-auto object-contain opacity-80" />
+            <div className="h-8 w-px bg-white/15" />
+            <div className="flex flex-col leading-tight">
+              <span className="text-[9px] font-semibold tracking-[0.18em] uppercase text-varindo-500">
+                {t('nav', 'authorizedDealerLine1', lang)}
+              </span>
+              <span className="text-[11px] font-bold tracking-[0.06em] uppercase text-white/80">
+                {t('nav', 'authorizedDealerLine2', lang)}
+              </span>
+            </div>
+          </div>
           <p className="text-[13px] leading-7 text-varindo-400 max-w-xs mb-5">
             {t('footer', 'tagline', lang)}
           </p>
@@ -110,12 +119,9 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/[0.07]">
-        <div className="shell py-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <div className="shell py-5">
           <p className="text-[11px] text-varindo-600">
             {t('footer', 'copyright', lang, { year })}
-          </p>
-          <p className="text-[11px] text-varindo-700">
-            {t('footer', 'dealerBadge', lang)}
           </p>
         </div>
       </div>

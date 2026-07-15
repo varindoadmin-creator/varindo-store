@@ -25,9 +25,11 @@ export const translations = {
       en: 'Search by code, design, finish...'
     },
     announcementBar: {
-      id: 'Dealer Resmi Lamitak · Indonesia',
-      en: 'Authorized Lamitak Dealer · Indonesia'
-    }
+      id: 'Authorized Dealer of Lamitak - Indonesia',
+      en: 'Authorized Dealer of Lamitak - Indonesia'
+    },
+    authorizedDealerLine1: { id: 'Authorized', en: 'Authorized' },
+    authorizedDealerLine2: { id: 'Dealer', en: 'Dealer' }
   },
 
   // ── Homepage ──────────────────────────────────────────────────
@@ -344,10 +346,7 @@ export const translations = {
     sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
     priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
-    legalName:    { id: 'CV. Varindo Forma Hutama', en: 'CV. Varindo Forma Hutama' },
-    dealerLine:   { id: 'Dealer Resmi HPL Lamitak', en: 'Authorized Dealer of HPL Lamitak' },
-    copyright:    { id: '© {year} CV. Varindo Forma Hutama. Hak cipta dilindungi.', en: '© {year} CV. Varindo Forma Hutama. All rights reserved.' },
-    dealerBadge:  { id: 'Dealer Resmi Lamitak · Indonesia', en: 'Authorized Lamitak Dealer · Indonesia' }
+    copyright:    { id: '© {year} CV. Varindo Forma Hutama. Hak cipta dilindungi.', en: '© {year} CV. Varindo Forma Hutama. All rights reserved.' }
   },
 
   // ── Request forms ─────────────────────────────────────────────
