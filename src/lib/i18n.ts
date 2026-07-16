@@ -27,9 +27,7 @@ export const translations = {
     announcementBar: {
       id: 'Authorized Dealer of Lamitak - Indonesia',
       en: 'Authorized Dealer of Lamitak - Indonesia'
-    },
-    authorizedDealerLine1: { id: 'Authorized', en: 'Authorized' },
-    authorizedDealerLine2: { id: 'Dealer', en: 'Dealer' }
+    }
   },
 
   // ── Homepage ──────────────────────────────────────────────────

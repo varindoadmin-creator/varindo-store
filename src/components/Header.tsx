@@ -114,20 +114,11 @@ export function Header() {
                 style={{ width: '88px' }} className="h-auto object-contain opacity-90 hover:opacity-100 transition-opacity" />
             </Link>
 
-            {/* Lamitak brand mark + authorized dealer badge */}
+            {/* Lamitak authorized dealer badge */}
             <div className="hidden lg:flex items-center gap-4 shrink-0">
               <div className="h-8 w-px bg-varindo-line" />
-              <img src="/lamitak-logo-transparent.png" alt="Lamitak"
-                style={{ width: '72px' }} className="h-auto object-contain" />
-              <div className="h-8 w-px bg-varindo-line" />
-              <div className="flex flex-col leading-tight">
-                <span className="text-[9px] font-semibold tracking-[0.18em] uppercase text-varindo-600">
-                  {t('nav', 'authorizedDealerLine1', lang)}
-                </span>
-                <span className="text-[11px] font-bold tracking-[0.06em] uppercase text-varindo-ink">
-                  {t('nav', 'authorizedDealerLine2', lang)}
-                </span>
-              </div>
+              <img src="/lamitak-authorized-dealer.png" alt="Authorized Dealer of Lamitak"
+                style={{ height: '34px' }} className="w-auto object-contain" />
             </div>
 
             {/* Desktop nav */}
