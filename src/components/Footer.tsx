@@ -71,6 +71,7 @@ export function Footer() {
               { href: '/request-quote',      label: t('footer', 'quoteLink', lang) },
               { href: '/request-sample',     label: t('footer', 'sampleLink', lang) },
               { href: '/price-list',         label: t('footer', 'priceListLink', lang) },
+              { href: '/harga-lamitak',      label: t('footer', 'hargaLamitakLink', lang) },
               { href: '/apa-itu-laminate',   label: t('footer', 'laminateLink', lang) },
               { href: '/blog',               label: t('footer', 'blogLink', lang) },
               { href: '/otorisasi',          label: t('footer', 'otorisasiLink', lang) },

@@ -395,6 +395,7 @@ export const translations = {
     quoteLink:    { id: 'Permintaan Penawaran', en: 'Request Quote' },
     sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
     priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
+    hargaLamitakLink:{ id: 'Harga HPL Lamitak', en: 'Lamitak HPL Price' },
     laminateLink: { id: 'Apa Itu HPL', en: 'What Are Laminates' },
     blogLink:     { id: 'Artikel', en: 'Articles' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },

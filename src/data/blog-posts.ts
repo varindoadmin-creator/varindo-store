@@ -37,6 +37,32 @@ export const blogPosts: BlogPost[] = [
       id: 'Panduan bagi orang tua dan desainer interior seputar keamanan HPL Lamitak untuk ruang anak — sertifikasi GREENGUARD Gold, batas emisi formaldehida, Green Label Singapore, dan cara memilih material rendah emisi.',
       en: "A guide for homeowners and interior designers on the safety of Lamitak HPL for children's spaces — GREENGUARD Gold certification, formaldehyde emission limits, Green Label Singapore, and how to choose low-emission materials."
     }
+  },
+  {
+    slug: 'pentingnya-memilih-hpl-berkualitas',
+    date: '2026-07-17',
+    category: { id: 'Edukasi Produk', en: 'Product Education' },
+    title: {
+      id: 'Kenapa Memilih HPL Berkualitas Itu Penting: Tampilan Alami hingga Perawatan Mudah',
+      en: 'Why Choosing High-Quality Laminate Matters: From Natural Looks to Easy Maintenance'
+    },
+    excerpt: {
+      id: 'HPL murah mungkin terlihat serupa pada pandangan pertama, tapi berbeda jauh dalam tampilan alami, pilihan desain, daya tahan jangka panjang, dan kemudahan perawatan — inilah alasan HPL berkualitas seperti Lamitak layak dipertimbangkan.',
+      en: "Cheap laminate might look similar at first glance, but differs sharply in natural appearance, design choice, long-term durability, and ease of maintenance — here's why quality HPL like Lamitak is worth the investment."
+    }
+  },
+  {
+    slug: 'kenapa-beli-lamitak-di-varindo',
+    date: '2026-07-17',
+    category: { id: 'Panduan Pembelian', en: 'Buying Guide' },
+    title: {
+      id: 'Kenapa Membeli HPL Lamitak Harus Lewat Varindo, Dealer Resmi',
+      en: 'Why You Should Buy Lamitak HPL Through Varindo, an Authorized Dealer'
+    },
+    excerpt: {
+      id: 'Sebagai dealer resmi Lamitak di Indonesia, Varindo menawarkan lebih dari sekadar harga — mulai dari jaminan keaslian produk, katalog terstruktur, harga transparan, hingga dukungan sampel dan proyek.',
+      en: 'As an authorized Lamitak dealer in Indonesia, Varindo offers more than just price — genuine product guarantees, a structured catalogue, transparent pricing, and sample and project support.'
+    }
   }
 ];
 
