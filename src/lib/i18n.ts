@@ -151,8 +151,8 @@ export const translations = {
     },
     safeguard4Title: { id: 'Keaslian Terjamin', en: 'Authenticity Guaranteed' },
     safeguard4Body:  {
-      id: 'Belilah hanya dari dealer resmi seperti Varindo untuk menghindari produk substitusi dan menjaga keabsahan garansi.',
-      en: 'Purchase only from authorized dealers like Varindo to avoid inferior substitutions and keep your warranty valid.'
+      id: 'Pastikan pembelian dilakukan hanya melalui dealer resmi seperti Varindo untuk menghindari produk substitusi dan memastikan keaslian setiap lembar.',
+      en: 'Purchase only through authorized dealers like Varindo to avoid inferior substitutions and ensure the authenticity of every sheet.'
     }
   },
 
