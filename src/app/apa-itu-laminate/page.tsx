@@ -4,7 +4,7 @@ import { ApaItuLaminateClient } from './ApaItuLaminateClient';
 
 export const revalidate = 600;
 
-const title = 'Apa Itu Laminate HPL? Panduan, Perawatan & Sertifikasi Lamitak | Varindo';
+const title = 'Apa Itu HPL? Panduan, Perawatan & Sertifikasi Lamitak | Varindo';
 const description =
   'Pelajari apa itu High-Pressure Laminate (HPL), fitur anti-bakteri, panduan perawatan dan pembersihan, kode finishing, sertifikasi, serta spesifikasi standar produk Lamitak.';
 

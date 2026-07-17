@@ -381,7 +381,7 @@ export const translations = {
     quoteLink:    { id: 'Permintaan Penawaran', en: 'Request Quote' },
     sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
     priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
-    laminateLink: { id: 'Apa Itu Laminate', en: 'What Are Laminates' },
+    laminateLink: { id: 'Apa Itu HPL', en: 'What Are Laminates' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
     copyright:    { id: '© {year} CV. Varindo Forma Hutama. Hak cipta dilindungi.', en: '© {year} CV. Varindo Forma Hutama. All rights reserved.' }
   },

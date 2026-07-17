@@ -11,10 +11,10 @@ export function ApaItuLaminateClient() {
 
   const careDonts = lang === 'id'
     ? [
-        'Jangan memotong, mengiris, atau memukul langsung permukaan laminate.',
-        'Jangan gunakan benda tajam seperti pisau atau cutter pada permukaan laminate.',
-        'Jangan meletakkan panci atau alat masak panas langsung di atas permukaan laminate.',
-        'Jangan biarkan laminate terpapar suhu di atas 60°C dalam waktu lama, karena dapat menyebabkan laminate terlepas dari substrat.',
+        'Jangan memotong, mengiris, atau memukul langsung permukaan HPL.',
+        'Jangan gunakan benda tajam seperti pisau atau cutter pada permukaan HPL.',
+        'Jangan meletakkan panci atau alat masak panas langsung di atas permukaan HPL.',
+        'Jangan biarkan HPL terpapar suhu di atas 60°C dalam waktu lama, karena dapat menyebabkan HPL terlepas dari substrat.',
         'Jangan membiarkan air menggenang atau merembes pada sambungan, karena dapat menyebabkan substrat mengembang.'
       ]
     : [
@@ -57,8 +57,8 @@ export function ApaItuLaminateClient() {
 
   const certifications = lang === 'id'
     ? [
-        { title: 'Green Label Singapore', body: 'Sertifikasi emisi dan toksisitas rendah untuk produk laminate.' },
-        { title: 'GREENGUARD', body: 'Sertifikasi kualitas udara dalam ruangan (indoor air quality) untuk laminate dan edging Lamitak.' },
+        { title: 'Green Label Singapore', body: 'Sertifikasi emisi dan toksisitas rendah untuk produk HPL.' },
+        { title: 'GREENGUARD', body: 'Sertifikasi kualitas udara dalam ruangan (indoor air quality) untuk HPL dan edging Lamitak.' },
         { title: 'TÜV SÜD — ISO 4586', body: 'Kesesuaian terhadap standar internasional ISO 4586-1 dan ISO 4586-2 untuk HPL.' },
         { title: "Class '0' Fire Rating", body: 'Sertifikasi tahan api Class 0 oleh TÜV SÜD PSB sesuai standar BS476 Part 6 & 7.' },
         { title: 'Singapore Green Building Product', body: 'Sertifikat produk bangunan hijau dari Singapore Green Building Council (SGBC).' },
@@ -95,7 +95,7 @@ export function ApaItuLaminateClient() {
             {lang === 'id' ? 'Edukasi Produk' : 'Product Education'}
           </p>
           <h1 className="display text-white text-4xl sm:text-5xl lg:text-6xl mb-5">
-            {lang === 'id' ? 'Apa Itu Laminate HPL?' : 'What Are Laminates?'}
+            {lang === 'id' ? 'Apa Itu HPL?' : 'What Are Laminates?'}
           </h1>
           <p className="text-[14px] leading-7 text-varindo-400 max-w-2xl">
             {lang === 'id'
@@ -127,7 +127,7 @@ export function ApaItuLaminateClient() {
           <div className="border border-varindo-line bg-white p-6 sm:p-8">
             <p className="text-[14px] leading-8 text-varindo-600">
               {lang === 'id'
-                ? 'Laminate dan edging Lamitak dilengkapi fitur anti-mikroba yang memberikan perlindungan berkelanjutan dengan menghambat pertumbuhan mikroba pada permukaannya — mikroorganisme yang terlalu kecil untuk dilihat dengan mata telanjang.'
+                ? 'HPL dan edging Lamitak dilengkapi fitur anti-mikroba yang memberikan perlindungan berkelanjutan dengan menghambat pertumbuhan mikroba pada permukaannya — mikroorganisme yang terlalu kecil untuk dilihat dengan mata telanjang.'
                 : 'Lamitak laminates and edging solutions come with anti-microbial features that provide continuous protection by inhibiting the growth of microbes on the surface — microorganisms too small to see with the naked eye.'}
             </p>
           </div>
@@ -140,7 +140,7 @@ export function ApaItuLaminateClient() {
           <div className="border border-varindo-line bg-white p-6 sm:p-8 space-y-4">
             <p className="text-[14px] leading-8 text-varindo-600">
               {lang === 'id'
-                ? 'Laminate Lamitak tahan lama, tahan gesekan, dan tahan benturan dalam penggunaan normal. Agar laminate Anda lebih awet:'
+                ? 'HPL Lamitak tahan lama, tahan gesekan, dan tahan benturan dalam penggunaan normal. Agar HPL Anda lebih awet:'
                 : 'Lamitak laminates are durable, abrasion resistant, and impact resistant under normal use. To better care for your laminate:'}
             </p>
             <ul className="space-y-3">
@@ -169,7 +169,7 @@ export function ApaItuLaminateClient() {
             </ul>
             <p className="text-[13px] leading-7 text-varindo-500">
               {lang === 'id'
-                ? 'Untuk noda membandel, gunakan sedikit thinner pada kain bersih tidak abrasif untuk mengangkat noda secara perlahan, lalu bilas dengan kain lembap bersih. Hindari bahan pembersih yang mengandung asam, alkali, atau sodium hipoklorit karena dapat mengikis, memudarkan, atau merusak permukaan laminate.'
+                ? 'Untuk noda membandel, gunakan sedikit thinner pada kain bersih tidak abrasif untuk mengangkat noda secara perlahan, lalu bilas dengan kain lembap bersih. Hindari bahan pembersih yang mengandung asam, alkali, atau sodium hipoklorit karena dapat mengikis, memudarkan, atau merusak permukaan HPL.'
                 : 'For stubborn stains, apply a small amount of thinner on a clean, non-abrasive cloth to gently lift the stain, then rinse with another clean, damp cloth. Avoid cleaning agents containing acid, alkali, or sodium hypochlorite, as they may corrode, discolour, or damage the laminate surface.'}
             </p>
           </div>
@@ -214,11 +214,6 @@ export function ApaItuLaminateClient() {
                 </div>
               ))}
             </div>
-            <p className="text-[12px] leading-6 text-varindo-500">
-              {lang === 'id'
-                ? 'Salinan sertifikat tersedia atas permintaan — hubungi tim Varindo untuk informasi lebih lanjut.'
-                : 'Certificate copies are available on request — contact the Varindo team for more information.'}
-            </p>
           </div>
         </section>
 
@@ -236,31 +231,6 @@ export function ApaItuLaminateClient() {
           </div>
         </section>
 
-        <section>
-          <p className="label text-varindo-gold mb-4">
-            {lang === 'id' ? 'Jaminan Pembeli & Garansi' : 'Buyer Safeguard & Warranty'}
-          </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8 space-y-4">
-            <p className="text-[14px] leading-8 text-varindo-600">
-              {lang === 'id'
-                ? 'Setiap desain laminate Lamitak dirancang dan disempurnakan hingga detail terkecil. Pastikan Anda mendapatkan produk asli — cocokkan hasil akhir dengan sampel pada portofolio Lamitak, atau minta contoh chip laminate melalui Varindo sebagai dealer resmi.'
-                : "Every Lamitak laminate design is crafted and fine-tuned down to the smallest detail. Make sure you're getting the genuine product — check your finished result against the samples in the Lamitak portfolio, or request sample laminate chips through Varindo as an official dealer."}
-            </p>
-            <p className="text-[13px] leading-7 text-varindo-500">
-              {lang === 'id'
-                ? 'Mohon periksa seluruh produk sebelum pemasangan. Garansi berlaku bagi pembeli asli terhadap cacat material sesuai ketentuan ISO 4586 – Part 1 & 2, dalam penggunaan yang normal dan wajar, terbatas pada nilai produk saja, untuk jangka waktu 3 tahun sejak tanggal penjualan.'
-                : 'Please inspect all products prior to installation. Warranty coverage applies to the original buyer against material defects under ISO 4586 – Part 1 & 2 guidelines, under normal and proper use, limited to the value of the product only, for a period of 3 years from the date of sale.'}
-            </p>
-            <p className="text-[13px] leading-7 text-varindo-500">
-              {lang === 'id' ? 'Pelajari lebih lanjut cara memverifikasi keaslian produk di ' : 'Learn more about verifying product authenticity on our '}
-              <Link href="/otorisasi" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">
-                {lang === 'id' ? 'halaman Dealer Resmi' : 'Authorized Dealer page'}
-              </Link>
-              {lang === 'id' ? '.' : '.'}
-            </p>
-          </div>
-        </section>
-
         <section className="border border-varindo-line bg-varindo-50 px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
             <p className="font-display text-2xl font-light text-varindo-ink mb-2">
@@ -268,7 +238,7 @@ export function ApaItuLaminateClient() {
             </p>
             <p className="text-[13px] text-varindo-600 max-w-lg">
               {lang === 'id'
-                ? 'Ajukan permintaan sampel laminate atau tanyakan spesifikasi produk kepada tim Varindo.'
+                ? 'Ajukan permintaan sampel HPL atau tanyakan spesifikasi produk kepada tim Varindo.'
                 : 'Request a laminate sample or ask the Varindo team about product specifications.'}
             </p>
           </div>
