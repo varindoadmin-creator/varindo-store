@@ -269,6 +269,9 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
                   </li>
                 ))}
               </ul>
+              <Link href="/blog/buyer-safeguard" className="inline-block mt-8 text-[11px] font-semibold tracking-[0.14em] uppercase text-varindo-ink hover:text-varindo-gold transition-colors">
+                {t('blog', 'readMore', lang)}
+              </Link>
             </Reveal>
           </div>
         </div>

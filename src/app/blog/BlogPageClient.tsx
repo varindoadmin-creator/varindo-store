@@ -1,0 +1,62 @@
+'use client';
+
+import Link from 'next/link';
+import { useLang } from '@/lib/LangContext';
+import { t } from '@/lib/i18n';
+import { blogPosts } from '@/data/blog-posts';
+import { Reveal } from '@/components/Reveal';
+
+function formatDate(iso: string, lang: 'id' | 'en') {
+  return new Date(iso).toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
+export function BlogPageClient() {
+  const { lang } = useLang();
+
+  return (
+    <div>
+      <div className="bg-varindo-ink text-white border-b border-varindo-800">
+        <div className="shell py-14 sm:py-20">
+          <p className="label text-varindo-400 mb-4">{t('blog', 'badge', lang)}</p>
+          <h1 className="display text-white text-4xl sm:text-5xl lg:text-6xl mb-5">
+            {t('blog', 'title', lang)}
+          </h1>
+          <p className="text-[14px] leading-7 text-varindo-400 max-w-2xl">
+            {t('blog', 'subtitle', lang)}
+          </p>
+        </div>
+      </div>
+
+      <div className="shell py-12 sm:py-16">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {blogPosts.map((post, i) => (
+            <Reveal key={post.slug} delay={i * 80}>
+              <Link
+                href={`/blog/${post.slug}`}
+                className="group flex h-full flex-col border border-varindo-line bg-white p-6 sm:p-8 transition-all duration-300 hover:border-varindo-ink hover:shadow-luxury"
+              >
+                <p className="label mb-4">{post.category[lang]}</p>
+                <h2 className="font-display text-2xl font-light leading-snug text-varindo-ink mb-3 group-hover:text-varindo-gold transition-colors">
+                  {post.title[lang]}
+                </h2>
+                <p className="text-[13px] leading-7 text-varindo-500 mb-6 flex-1">
+                  {post.excerpt[lang]}
+                </p>
+                <div className="flex items-center justify-between text-[11px] text-varindo-400">
+                  <time dateTime={post.date}>{formatDate(post.date, lang)}</time>
+                  <span className="font-semibold tracking-[0.1em] uppercase text-varindo-ink group-hover:text-varindo-gold transition-colors">
+                    {t('blog', 'readMore', lang)}
+                  </span>
+                </div>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

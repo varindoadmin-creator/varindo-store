@@ -16,6 +16,7 @@ export const translations = {
     home:         { id: 'Beranda',    en: 'Home' },
     collections:  { id: 'Koleksi',   en: 'Collections' },
     allProducts:  { id: 'Semua Produk', en: 'All Products' },
+    blog:         { id: 'Artikel',   en: 'Articles' },
     about:        { id: 'Tentang',   en: 'About' },
     contact:      { id: 'Kontak',    en: 'Contact' },
     surfaceMatch: { id: 'Cari Desain', en: 'Find Design' },
@@ -286,6 +287,19 @@ export const translations = {
     }
   },
 
+  // ── Blog / Articles ─────────────────────────────────────────
+  blog: {
+    badge:       { id: 'Artikel', en: 'Articles' },
+    title:       { id: 'Artikel & Edukasi', en: 'Articles & Education' },
+    subtitle:    {
+      id: 'Panduan dan wawasan seputar HPL secara umum maupun khusus produk Lamitak — ditulis oleh tim Varindo untuk membantu Anda memilih dan merawat material dengan tepat.',
+      en: "Guides and insights on laminates in general and Lamitak's products specifically — written by the Varindo team to help you choose and care for your material with confidence."
+    },
+    readMore:    { id: 'Baca Selengkapnya →', en: 'Read More →' },
+    backToBlog:  { id: '← Kembali ke Artikel', en: '← Back to Articles' },
+    publishedOn: { id: 'Dipublikasikan', en: 'Published' }
+  },
+
   // ── About page ───────────────────────────────────────────────
   about: {
     badge:        { id: 'Perusahaan', en: 'Company' },
@@ -382,6 +396,7 @@ export const translations = {
     sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
     priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
     laminateLink: { id: 'Apa Itu HPL', en: 'What Are Laminates' },
+    blogLink:     { id: 'Artikel', en: 'Articles' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
     copyright:    { id: '© {year} CV. Varindo Forma Hutama. Hak cipta dilindungi.', en: '© {year} CV. Varindo Forma Hutama. All rights reserved.' }
   },

@@ -154,6 +154,9 @@ export function Header() {
               <Link href="/surface-match" className="hover:text-varindo-ink transition-colors">
                 {t('nav', 'surfaceMatch', lang)}
               </Link>
+              <Link href="/blog" className="hover:text-varindo-ink transition-colors">
+                {t('nav', 'blog', lang)}
+              </Link>
               <Link href="/about" className="hover:text-varindo-ink transition-colors">
                 {t('nav', 'about', lang)}
               </Link>
@@ -197,6 +200,7 @@ export function Header() {
                 { href: '/',        label: t('nav', 'home', lang) },
                 { href: '/products',label: t('nav', 'allProducts', lang) },
                 { href: '/surface-match', label: t('nav', 'surfaceMatch', lang) },
+                { href: '/blog',    label: t('nav', 'blog', lang) },
                 { href: '/about',   label: t('nav', 'about', lang) },
                 { href: '/contact', label: t('nav', 'contact', lang) },
               ].map((item) => (

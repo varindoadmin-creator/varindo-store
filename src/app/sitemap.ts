@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { getPublicProducts } from '@/lib/products';
 import { SITE_URL } from '@/lib/seo';
 import { CITY_SLUGS } from '@/lib/cityContent';
+import { blogPosts } from '@/data/blog-posts';
 
 // Only the 5 collection groups actually linked from the site nav/footer.
 // 'new-collections' exists as a route (alias of 'new-arrivals') but is never linked —
@@ -24,6 +25,7 @@ const STATIC_PAGES: Array<{
   { path: '/price-list', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/harga-lamitak', changeFrequency: 'daily', priority: 0.8 },
   { path: '/apa-itu-laminate', changeFrequency: 'monthly', priority: 0.5 },
+  { path: '/blog', changeFrequency: 'weekly', priority: 0.6 },
   { path: '/otorisasi', changeFrequency: 'monthly', priority: 0.4 },
   { path: '/portfolio', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/privacy', changeFrequency: 'yearly', priority: 0.2 }
@@ -63,5 +65,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5
   }));
 
-  return [...staticEntries, ...collectionEntries, ...productEntries, ...cityEntries];
+  const blogEntries: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${SITE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'monthly',
+    priority: 0.5
+  }));
+
+  return [...staticEntries, ...collectionEntries, ...productEntries, ...cityEntries, ...blogEntries];
 }
