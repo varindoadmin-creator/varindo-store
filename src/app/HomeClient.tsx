@@ -35,6 +35,13 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
     { title: t('home', 'why3Title', lang), body: t('home', 'why3Body', lang) },
   ];
 
+  const safeguardItems = [
+    { title: t('home', 'safeguard1Title', lang), body: t('home', 'safeguard1Body', lang) },
+    { title: t('home', 'safeguard2Title', lang), body: t('home', 'safeguard2Body', lang) },
+    { title: t('home', 'safeguard3Title', lang), body: t('home', 'safeguard3Body', lang) },
+    { title: t('home', 'safeguard4Title', lang), body: t('home', 'safeguard4Body', lang) },
+  ];
+
   return (
     <div>
       {/* ─── HERO ─────────────────────────────────────────────── */}
@@ -226,6 +233,42 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
                 </Reveal>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── BUYER SAFEGUARD ──────────────────────────────────── */}
+      <section className="border-t border-varindo-line">
+        <div className="shell py-[var(--space-section)]">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <Reveal>
+              <div
+                role="img"
+                aria-label={t('home', 'safeguardImageAlt', lang)}
+                className="relative aspect-[4/5] w-full bg-cover bg-center border border-varindo-line"
+                style={{ backgroundImage: "url('/lamitak-buyer-safeguard.jpg')" }}
+              />
+            </Reveal>
+            <Reveal delay={100}>
+              <p className="label mb-4">{t('home', 'safeguardLabel', lang)}</p>
+              <h2 className="display text-varindo-ink text-4xl sm:text-5xl lg:text-6xl mb-5">
+                {t('home', 'safeguardTitle1', lang)}<br />{t('home', 'safeguardTitle2', lang)}
+              </h2>
+              <p className="text-[14px] leading-7 text-varindo-500 max-w-md mb-8">
+                {t('home', 'safeguardBody', lang)}
+              </p>
+              <ul className="space-y-5">
+                {safeguardItems.map((item) => (
+                  <li key={item.title} className="flex gap-4">
+                    <span className="w-6 h-[1.5px] bg-varindo-gold mt-2.5 shrink-0" />
+                    <div>
+                      <p className="text-[13px] font-semibold text-varindo-ink mb-1">{item.title}</p>
+                      <p className="text-[12px] leading-6 text-varindo-500">{item.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
           </div>
         </div>
       </section>

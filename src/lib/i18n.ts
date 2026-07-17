@@ -115,6 +115,38 @@ export const translations = {
     why3Body: {
       id: 'Hubungi tim kami untuk pertanyaan produk, detail pesanan, pengecekan stok, dan panduan pengiriman.',
       en: 'Contact our team for product enquiries, order details, availability checks, and delivery guidance.'
+    },
+
+    safeguardLabel: { id: 'Jaminan Pembeli', en: 'Buyer Safeguard' },
+    safeguardTitle1:{ id: 'Setiap Lembar,', en: 'Every Sheet,' },
+    safeguardTitle2:{ id: 'Terjamin Asli.', en: 'Verified Authentic.' },
+    safeguardBody:  {
+      id: 'Setiap laminat Lamitak yang dibeli melalui Varindo membawa kode tanda tangan eksklusif Lamitak — jaminan keaslian produk dan perlindungan garansi penuh untuk proyek Anda.',
+      en: "Every Lamitak laminate purchased through Varindo carries Lamitak's exclusive signature code — your assurance of genuine product and full warranty protection for your project."
+    },
+    safeguardImageAlt: {
+      id: 'Label Jaminan Pembeli & Keaslian Lamitak pada gulungan laminat',
+      en: "Lamitak Buyer's Safeguard & Authenticity label on a laminate roll"
+    },
+    safeguard1Title: { id: 'Inskripsi Laser', en: 'Laser Inscription' },
+    safeguard1Body:  {
+      id: 'Setiap laminat Lamitak diverifikasi dengan cetakan laser hitam pada bagian belakang.',
+      en: 'Each Lamitak laminate is verified with a black laser print on the backing.'
+    },
+    safeguard2Title: { id: 'Inspeksi Multi-Titik', en: 'Multi-point Inspection' },
+    safeguard2Body:  {
+      id: 'Seluruh laminat Lamitak diperiksa oleh tim gudang dan operasional terlatih.',
+      en: 'All Lamitak laminates are inspected by a team of trained warehouse and operations staff.'
+    },
+    safeguard3Title: { id: 'Verifikasi', en: 'Verification' },
+    safeguard3Body:  {
+      id: 'Setiap inskripsi laser mencantumkan merek dan Kode Artikel agar Anda menerima produk yang sesuai pesanan.',
+      en: "Each laser inscription includes the brand and Article Code to ensure you'll get exactly what you ordered."
+    },
+    safeguard4Title: { id: 'Keaslian Terjamin', en: 'Authenticity Guaranteed' },
+    safeguard4Body:  {
+      id: 'Belilah hanya dari dealer resmi seperti Varindo untuk menghindari produk substitusi dan menjaga keabsahan garansi.',
+      en: 'Purchase only from authorized dealers like Varindo to avoid inferior substitutions and keep your warranty valid.'
     }
   },
 
@@ -343,6 +375,7 @@ export const translations = {
     quoteLink:    { id: 'Permintaan Penawaran', en: 'Request Quote' },
     sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
     priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
+    laminateLink: { id: 'Apa Itu Laminate', en: 'What Are Laminates' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
     copyright:    { id: '© {year} CV. Varindo Forma Hutama. Hak cipta dilindungi.', en: '© {year} CV. Varindo Forma Hutama. All rights reserved.' }
   },
