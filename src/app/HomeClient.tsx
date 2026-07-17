@@ -250,13 +250,14 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
               />
             </Reveal>
             <Reveal delay={100}>
-              <p className="label mb-4">{t('home', 'safeguardLabel', lang)}</p>
               <h2 className="display text-varindo-ink text-4xl sm:text-5xl lg:text-6xl mb-5">
-                {t('home', 'safeguardTitle1', lang)}<br />{t('home', 'safeguardTitle2', lang)}
+                {t('home', 'safeguardTitle', lang)}
               </h2>
-              <p className="text-[14px] leading-7 text-varindo-500 max-w-md mb-8">
-                {t('home', 'safeguardBody', lang)}
-              </p>
+              <div className="space-y-4 max-w-md mb-8">
+                <p className="text-[14px] leading-7 text-varindo-500">{t('home', 'safeguardBody1', lang)}</p>
+                <p className="text-[14px] leading-7 text-varindo-500">{t('home', 'safeguardBody2', lang)}</p>
+                <p className="text-[14px] leading-7 text-varindo-500">{t('home', 'safeguardBody3', lang)}</p>
+              </div>
               <ul className="space-y-5">
                 {safeguardItems.map((item) => (
                   <li key={item.title} className="flex gap-4">

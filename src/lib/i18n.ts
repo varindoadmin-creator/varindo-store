@@ -117,25 +117,31 @@ export const translations = {
       en: 'Contact our team for product enquiries, order details, availability checks, and delivery guidance.'
     },
 
-    safeguardLabel: { id: 'Jaminan Pembeli', en: 'Buyer Safeguard' },
-    safeguardTitle1:{ id: 'Setiap Lembar,', en: 'Every Sheet,' },
-    safeguardTitle2:{ id: 'Terjamin Asli.', en: 'Verified Authentic.' },
-    safeguardBody:  {
-      id: 'Setiap laminat Lamitak yang dibeli melalui Varindo membawa kode tanda tangan eksklusif Lamitak — jaminan keaslian produk dan perlindungan garansi penuh untuk proyek Anda.',
-      en: "Every Lamitak laminate purchased through Varindo carries Lamitak's exclusive signature code — your assurance of genuine product and full warranty protection for your project."
+    safeguardTitle: { id: 'Jaminan Pembeli', en: 'Buyer Safeguard' },
+    safeguardBody1: {
+      id: 'Setiap permukaan Lamitak membawa lebih dari sekadar inspirasi desain—ia membawa janji kami.',
+      en: 'Every Lamitak surface carries more than design inspiration—it carries our promise.'
+    },
+    safeguardBody2: {
+      id: 'Kode identitas kami menjamin bahwa setiap lembar adalah ciptaan eksklusif Lamitak, dikembangkan dengan saksama dan dedikasi terhadap kualitas dan orisinalitas.',
+      en: 'Our signature code assures you that every piece is an exclusive Lamitak creation, meticulously developed with dedication to quality and originality.'
+    },
+    safeguardBody3: {
+      id: 'Seluruh HPL dan solusi edging kami dilengkapi fitur antimikroba, sehingga Anda dapat menikmati ruang bergaya yang terjamin mendukung kesejahteraan Anda. Di Singapura, produk pilihan juga tersedia dengan sertifikasi FSC® Chain of Custody (FSC® C220543), mendukung komitmen kami terhadap sumber material yang bertanggung jawab dan desain berkelanjutan.',
+      en: 'All our laminates and edging solutions are equipped with antimicrobial features, so you can enjoy a stylish space that is certified to support your well-being. In Singapore, selected products are also available with FSC® Chain of Custody certification (FSC® C220543), supporting our commitment to responsible sourcing and sustainable design.'
     },
     safeguardImageAlt: {
-      id: 'Label Jaminan Pembeli & Keaslian Lamitak pada gulungan laminat',
+      id: 'Label Jaminan Pembeli & Keaslian Lamitak pada gulungan HPL',
       en: "Lamitak Buyer's Safeguard & Authenticity label on a laminate roll"
     },
     safeguard1Title: { id: 'Inskripsi Laser', en: 'Laser Inscription' },
     safeguard1Body:  {
-      id: 'Setiap laminat Lamitak diverifikasi dengan cetakan laser hitam pada bagian belakang.',
+      id: 'Setiap HPL Lamitak diverifikasi dengan cetakan laser hitam pada bagian belakang.',
       en: 'Each Lamitak laminate is verified with a black laser print on the backing.'
     },
     safeguard2Title: { id: 'Inspeksi Multi-Titik', en: 'Multi-point Inspection' },
     safeguard2Body:  {
-      id: 'Seluruh laminat Lamitak diperiksa oleh tim gudang dan operasional terlatih.',
+      id: 'Seluruh HPL Lamitak diperiksa oleh tim gudang dan operasional terlatih.',
       en: 'All Lamitak laminates are inspected by a team of trained warehouse and operations staff.'
     },
     safeguard3Title: { id: 'Verifikasi', en: 'Verification' },
