@@ -55,23 +55,79 @@ export function ApaItuLaminateClient() {
     { code: 'NC',      id: 'Dune',        en: 'Dune' },
   ];
 
-  const certifications = lang === 'id'
-    ? [
-        { title: 'Green Label Singapore', body: 'Sertifikasi emisi dan toksisitas rendah untuk produk HPL.' },
-        { title: 'GREENGUARD', body: 'Sertifikasi kualitas udara dalam ruangan (indoor air quality) untuk HPL dan edging Lamitak.' },
-        { title: 'TÜV SÜD — ISO 4586', body: 'Kesesuaian terhadap standar internasional ISO 4586-1 dan ISO 4586-2 untuk HPL.' },
-        { title: "Class '0' Fire Rating", body: 'Sertifikasi tahan api Class 0 oleh TÜV SÜD PSB sesuai standar BS476 Part 6 & 7.' },
-        { title: 'Singapore Green Building Product', body: 'Sertifikat produk bangunan hijau dari Singapore Green Building Council (SGBC).' },
-        { title: 'FSC® Chain of Custody', body: 'Sertifikasi rantai pengawasan Forest Stewardship Council untuk sumber material yang bertanggung jawab.' },
+  // Certificate PDF links sourced from lamitak.com/pages/what-are-laminates
+  const certifications: Array<{
+    title: string;
+    body: string;
+    links: Array<{ label: string; href: string }>;
+  }> = [
+    {
+      title: 'Green Label Singapore',
+      body: lang === 'id'
+        ? 'Sertifikasi emisi dan toksisitas rendah untuk produk HPL.'
+        : 'Certification for low emissions and low toxicity in laminate products.',
+      links: [
+        { label: 'GreenLabel Certification for Lamitak Laminates', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/Lamitak_Green_Label_Certificate_Valid_till_26_July_2028.pdf?v=1776059928' }
       ]
-    : [
-        { title: 'Green Label Singapore', body: 'Certification for low emissions and low toxicity in laminate products.' },
-        { title: 'GREENGUARD', body: 'Indoor air quality certification covering Lamitak laminates and edging.' },
-        { title: 'TÜV SÜD — ISO 4586', body: 'Conformance to the international ISO 4586-1 and ISO 4586-2 standards for HPL.' },
-        { title: "Class '0' Fire Rating", body: 'Class 0 fire rating certified by TÜV SÜD PSB under BS476 Part 6 & 7 standards.' },
-        { title: 'Singapore Green Building Product', body: 'Green building product certificate from the Singapore Green Building Council (SGBC).' },
-        { title: 'FSC® Chain of Custody', body: "Forest Stewardship Council chain-of-custody certification for responsible material sourcing." },
-      ];
+    },
+    {
+      title: 'GREENGUARD',
+      body: lang === 'id'
+        ? 'Sertifikasi kualitas udara dalam ruangan (indoor air quality) untuk HPL dan edging Lamitak.'
+        : 'Indoor air quality certification covering Lamitak laminates and edging.',
+      links: [
+        { label: 'GREENGUARD Gold Certification for Lamitak Laminates', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/Lamitak_Greenguard_Gold_130338-420_valid_till_16_Dec_2026.pdf?v=1765428238' },
+        { label: 'GREENGUARD Certification for Lamitak Laminates', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/Lamitak_Greenguard_130338-410_valid_till_16_Dec_2026.pdf?v=1765428236' },
+        { label: 'GREENGUARD Gold Certification for Newedge Edging', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/Newedge_GREENGUARD_Gold_Certification_28_Sep_2026.pdf?v=1759481631' },
+        { label: 'GREENGUARD Certification for Newedge Edging', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/Newedge_GREENGUARD_Certification_28_Sep_2026.pdf?v=1759481632' },
+        { label: 'GREENGUARD Gold Certification for Artak Laminates', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/Artak_GREENGUARD_Gold_Certification_28_Dec_2026.pdf?v=1767666044' },
+        { label: 'GREENGUARD Certification for Artak Laminates', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/Artak_GREENGUARD_Certification_28_Dec_2026.pdf?v=1767666044' }
+      ]
+    },
+    {
+      title: 'TÜV SÜD — ISO 4586',
+      body: lang === 'id'
+        ? 'Kesesuaian terhadap standar internasional ISO 4586-1 dan ISO 4586-2 untuk HPL.'
+        : 'Conformance to the international ISO 4586-1 and ISO 4586-2 standards for HPL.',
+      links: []
+    },
+    {
+      title: "Class '0' Fire Rating",
+      body: lang === 'id'
+        ? 'Sertifikasi tahan api Class 0 oleh TÜV SÜD PSB sesuai standar BS476 Part 6 & 7.'
+        : 'Class 0 fire rating certified by TÜV SÜD PSB under BS476 Part 6 & 7 standards.',
+      links: [
+        { label: "TUV SUD PSB Certificate of Conformity (Class '0' Fire Rating) for Lamitak Laminate", href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/Lamitak_Class_0_Certificate_valid_till_12_Feb_2029.pdf?v=1751684980' }
+      ]
+    },
+    {
+      title: 'Singapore Green Building Product',
+      body: lang === 'id'
+        ? 'Sertifikat produk bangunan hijau dari Singapore Green Building Council (SGBC).'
+        : 'Green building product certificate from the Singapore Green Building Council (SGBC).',
+      links: [
+        { label: 'SGBP Certificate for Lamitak Laminate (5104)', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/SGBP_5104_TAK_Products_Services_Pte_Ltd_valid_until_01_June_2027.pdf?v=1751683954' },
+        { label: 'SGBP Certificate for Lamitak Laminate (4813)', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/SGBP_4813_TAK_Products_Services_Pte_Ltd_valid_until_20_Aug_2026.pdf?v=1754027829' },
+        { label: 'SGBP Certificate for Lamitak Laminate (5020)', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/SGBP_5020_TAK_Products_Services_Pte_Ltd__Valid_27_Feb_2027.pdf?v=1754027828' },
+        { label: 'SGBP Certificate for Lamitak Laminate (5021)', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/Lamitak_SGBP_5021_TAK_Products_Services_Pte_Ltd__Valid_27_Feb_2027_updated_02_Sep_2025.pdf?v=1757381832' },
+        { label: 'SGBP Certificate for Lamitak Laminate (6043)', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/Lamitak_SGBP_6043_TAK_Products_Services_Pte_Ltd__Valid_01_Sep_2027.pdf?v=1757381831' }
+      ]
+    },
+    {
+      title: 'FSC® Chain of Custody',
+      body: lang === 'id'
+        ? 'Sertifikasi rantai pengawasan Forest Stewardship Council untuk sumber material yang bertanggung jawab.'
+        : 'Forest Stewardship Council chain-of-custody certification for responsible material sourcing.',
+      links: [
+        { label: 'FSC Chain of Custody Certificate (COC-003256)', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/FSC_Cert_-_DNV-COC-003256-20260129-20260129.pdf?v=1779243657' }
+      ]
+    }
+  ];
+
+  const antiBacterialCerts = [
+    { label: lang === 'id' ? 'Sertifikat Anti-Bakteri — Lamitak Laminates' : 'Anti-bacterial Certification — Lamitak Laminates', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/Lamitak_Anti-bacteria_Certificate_till_4_Jan_2028.pdf?v=1767666532' },
+    { label: lang === 'id' ? 'Sertifikat Anti-Bakteri — Newedge' : 'Anti-bacterial Certification — Newedge', href: 'https://cdn.shopify.com/s/files/1/0870/9242/9076/files/Newedge_Anti-bacterial_Certificate_TTCN_080891_0014_Rev._00_Valid_till_08_Sep_2027.pdf?v=1757638723' }
+  ];
 
   const specs = lang === 'id'
     ? [
@@ -124,12 +180,22 @@ export function ApaItuLaminateClient() {
           <p className="label text-varindo-gold mb-4">
             {lang === 'id' ? 'Fitur Anti-Bakteri' : 'Anti-Bacterial Protection'}
           </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8">
+          <div className="border border-varindo-line bg-white p-6 sm:p-8 space-y-4">
             <p className="text-[14px] leading-8 text-varindo-600">
               {lang === 'id'
                 ? 'HPL dan edging Lamitak dilengkapi fitur anti-mikroba yang memberikan perlindungan berkelanjutan dengan menghambat pertumbuhan mikroba pada permukaannya — mikroorganisme yang terlalu kecil untuk dilihat dengan mata telanjang.'
                 : 'Lamitak laminates and edging solutions come with anti-microbial features that provide continuous protection by inhibiting the growth of microbes on the surface — microorganisms too small to see with the naked eye.'}
             </p>
+            <ul className="space-y-1.5">
+              {antiBacterialCerts.map((cert) => (
+                <li key={cert.href}>
+                  <a href={cert.href} target="_blank" rel="noreferrer"
+                    className="text-[12px] text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">
+                    {cert.label} (PDF) ↗
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
@@ -210,7 +276,19 @@ export function ApaItuLaminateClient() {
               {certifications.map((cert) => (
                 <div key={cert.title} className="bg-white p-5">
                   <p className="text-[13px] font-semibold text-varindo-ink mb-1.5">{cert.title}</p>
-                  <p className="text-[12px] leading-6 text-varindo-500">{cert.body}</p>
+                  <p className="text-[12px] leading-6 text-varindo-500 mb-3">{cert.body}</p>
+                  {cert.links.length > 0 && (
+                    <ul className="space-y-1">
+                      {cert.links.map((link) => (
+                        <li key={link.href}>
+                          <a href={link.href} target="_blank" rel="noreferrer"
+                            className="text-[11px] leading-5 text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">
+                            {link.label} (PDF) ↗
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               ))}
             </div>
