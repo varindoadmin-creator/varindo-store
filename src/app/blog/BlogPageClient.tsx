@@ -36,7 +36,7 @@ export function BlogPageClient() {
           {blogPosts.map((post, i) => (
             <Reveal key={post.slug} delay={i * 80}>
               <Link
-                href={`/blog/${post.slug}`}
+                href={post.href ?? `/blog/${post.slug}`}
                 className="group flex h-full flex-col border border-varindo-line bg-white p-6 sm:p-8 transition-all duration-300 hover:border-varindo-ink hover:shadow-luxury"
               >
                 <p className="label mb-4">{post.category[lang]}</p>

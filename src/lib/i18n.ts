@@ -16,7 +16,6 @@ export const translations = {
     home:         { id: 'Beranda',    en: 'Home' },
     collections:  { id: 'Koleksi',   en: 'Collections' },
     allProducts:  { id: 'Semua Produk', en: 'All Products' },
-    harga:        { id: 'Harga',     en: 'Price' },
     blog:         { id: 'Artikel',   en: 'Articles' },
     about:        { id: 'Tentang',   en: 'About' },
     contact:      { id: 'Kontak',    en: 'Contact' },
@@ -396,8 +395,6 @@ export const translations = {
     quoteLink:    { id: 'Permintaan Penawaran', en: 'Request Quote' },
     sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
     priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
-    hargaLamitakLink:{ id: 'Harga HPL Lamitak', en: 'Lamitak HPL Price' },
-    laminateLink: { id: 'Apa Itu HPL', en: 'What Are Laminates' },
     blogLink:     { id: 'Artikel', en: 'Articles' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
     copyright:    { id: '© {year} CV. Varindo Forma Hutama. Hak cipta dilindungi.', en: '© {year} CV. Varindo Forma Hutama. All rights reserved.' }

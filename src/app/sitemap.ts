@@ -65,12 +65,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5
   }));
 
-  const blogEntries: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${SITE_URL}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: 'monthly',
-    priority: 0.5
-  }));
+  // Posts with a custom `href` live outside /blog/* and already have their own
+  // STATIC_PAGES entry above — skip them here to avoid a duplicate sitemap URL.
+  const blogEntries: MetadataRoute.Sitemap = blogPosts
+    .filter((post) => !post.href)
+    .map((post) => ({
+      url: `${SITE_URL}/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: 'monthly',
+      priority: 0.5
+    }));
 
   return [...staticEntries, ...collectionEntries, ...productEntries, ...cityEntries, ...blogEntries];
 }
