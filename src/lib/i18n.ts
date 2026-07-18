@@ -16,6 +16,7 @@ export const translations = {
     home:         { id: 'Beranda',    en: 'Home' },
     collections:  { id: 'Koleksi',   en: 'Collections' },
     allProducts:  { id: 'Semua Produk', en: 'All Products' },
+    harga:        { id: 'Harga',     en: 'Price' },
     blog:         { id: 'Artikel',   en: 'Articles' },
     about:        { id: 'Tentang',   en: 'About' },
     contact:      { id: 'Kontak',    en: 'Contact' },

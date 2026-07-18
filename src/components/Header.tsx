@@ -151,6 +151,9 @@ export function Header() {
                 </div>
               </div>
 
+              <Link href="/harga-lamitak" className="hover:text-varindo-ink transition-colors">
+                {t('nav', 'harga', lang)}
+              </Link>
               <Link href="/surface-match" className="hover:text-varindo-ink transition-colors">
                 {t('nav', 'surfaceMatch', lang)}
               </Link>
@@ -199,6 +202,7 @@ export function Header() {
               {[
                 { href: '/',        label: t('nav', 'home', lang) },
                 { href: '/products',label: t('nav', 'allProducts', lang) },
+                { href: '/harga-lamitak', label: t('nav', 'harga', lang) },
                 { href: '/surface-match', label: t('nav', 'surfaceMatch', lang) },
                 { href: '/blog',    label: t('nav', 'blog', lang) },
                 { href: '/about',   label: t('nav', 'about', lang) },
