@@ -108,17 +108,15 @@ export function Header() {
         <div className="shell">
           <div className="flex h-[68px] items-center justify-between gap-6">
 
-            {/* Logo */}
-            <Link href="/" className="shrink-0" aria-label="Varindo">
-              <img src="/varindo-logo-transparent.png" alt="CV. Varindo Forma Hutama"
-                style={{ width: '88px' }} className="h-auto object-contain opacity-90 hover:opacity-100 transition-opacity" />
-            </Link>
-
-            {/* Lamitak authorized dealer badge */}
-            <div className="hidden lg:flex items-center gap-4 shrink-0">
-              <div className="h-8 w-px bg-varindo-line" />
+            {/* Logo + Lamitak authorized dealer badge */}
+            <div className="flex items-center gap-3 lg:gap-4 shrink-0">
+              <Link href="/" className="shrink-0" aria-label="Varindo">
+                <img src="/varindo-logo-transparent.png" alt="CV. Varindo Forma Hutama"
+                  style={{ width: '88px' }} className="h-auto object-contain opacity-90 hover:opacity-100 transition-opacity" />
+              </Link>
+              <div className="h-6 lg:h-8 w-px bg-varindo-line" />
               <img src="/lamitak-authorized-dealer.png" alt="Authorized Dealer of Lamitak"
-                style={{ height: '34px' }} className="w-auto object-contain" />
+                className="h-[22px] sm:h-[26px] lg:h-[34px] w-auto object-contain" />
             </div>
 
             {/* Desktop nav */}
