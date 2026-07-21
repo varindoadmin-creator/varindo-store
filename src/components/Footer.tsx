@@ -19,9 +19,14 @@ export function Footer() {
               style={{ width: '80px', filter: 'brightness(0) invert(1)' }}
               className="h-auto object-contain opacity-80" />
             <div className="h-8 w-px bg-white/15" />
-            <img src="/lamitak-authorized-dealer.png" alt="Authorized Dealer of Lamitak"
-              style={{ height: '32px', filter: 'brightness(0) invert(1)' }}
-              className="w-auto object-contain opacity-80" />
+            <div className="flex flex-col gap-1.5">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-varindo-400">
+                Authorized Dealer of
+              </span>
+              <img src="/lamitak-logo-mark.png" alt="Lamitak"
+                style={{ height: '24px', filter: 'brightness(0) invert(1)' }}
+                className="w-auto object-contain opacity-80" />
+            </div>
           </div>
           <p className="text-[13px] leading-7 text-varindo-400 max-w-xs mb-5">
             {t('footer', 'tagline', lang)}

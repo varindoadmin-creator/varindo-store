@@ -22,6 +22,84 @@ export function OtorisasiPageClient() {
         'If in doubt, you may also contact PT. TAK Products and Services directly to confirm our dealer status.'
       ];
 
+  const safeguardItems = lang === 'id'
+    ? [
+        { title: 'Inskripsi Laser', desc: 'Setiap lembar HPL Lamitak diverifikasi dengan cetakan laser hitam pada bagian belakang.' },
+        { title: 'Inspeksi Multi-titik', desc: 'Seluruh HPL Lamitak diperiksa oleh tim Warehouse dan Operations Lamitak yang terlatih.' },
+        { title: 'Verifikasi', desc: 'Setiap inskripsi laser mencantumkan merek dan Kode Artikel untuk memastikan Anda menerima produk yang sesuai pesanan.' },
+        { title: 'Jaminan Keaslian', desc: 'Waspadai produk substitusi berkualitas rendah dan harga yang tidak masuk akal.' },
+      ]
+    : [
+        { title: 'Laser Inscription', desc: 'Each Lamitak laminate is verified with a black laser print on the backing.' },
+        { title: 'Multi-point Inspection', desc: "All Lamitak laminates are inspected by Lamitak's trained Warehouse and Operations staff." },
+        { title: 'Verification', desc: "Each laser inscription includes the brand and Article Code to ensure you'll get exactly what you ordered." },
+        { title: 'Authenticity Guaranteed', desc: 'Look out for inferior substitutions and laminates sold at unbelievably low prices.' },
+      ];
+
+  const certifications = [
+    {
+      key: 'greenguard',
+      logo: '/certifications/cert-ul-greenguard-gold.png',
+      name: 'UL GREENGUARD & GREENGUARD Gold',
+      attribute: lang === 'id' ? 'Kualitas Udara Dalam Ruangan (VOC Rendah)' : 'Indoor Air Quality (Low VOCs)',
+      benefit: lang === 'id'
+        ? 'Udara yang lebih sehat untuk dihirup: Produk diuji terhadap lebih dari 10.000 bahan kimia dan disertifikasi memiliki emisi VOC (Volatile Organic Compounds) yang rendah — udara lebih bersih dan aman di rumah atau kantor Anda, terutama penting bagi anak-anak, lansia, atau mereka yang sensitif terhadap alergi.'
+        : 'Healthier air to breathe: the product is tested for over 10,000 chemicals and certified to emit low levels of Volatile Organic Compounds (VOCs) — cleaner, safer air in your home or office, especially important for children, the elderly, or those with allergies/sensitivities.',
+    },
+    {
+      key: 'green-label',
+      logo: '/certifications/cert-green-label-singapore.png',
+      name: 'Singapore Green Label',
+      attribute: lang === 'id' ? 'Keberlanjutan Lingkungan dan Kesehatan' : 'Environmental and Health Sustainability',
+      benefit: lang === 'id'
+        ? 'Pilihan yang bertanggung jawab dan bebas racun: Diverifikasi pihak ketiga independen sebagai produk yang diproduksi dengan pendekatan komprehensif untuk mengurangi dampak lingkungan sepanjang siklus hidupnya, serta bebas dari logam berat dan bahan kimia berbahaya. Produk bersertifikat Green Label turut berkontribusi pada poin BCA Green Mark.'
+        : 'A responsible, non-toxic choice: independently verified to be manufactured with a comprehensive approach to reducing environmental impact across its lifecycle, and free from harmful heavy metals and chemicals. Green Label certified products contribute to BCA Green Mark credits.',
+    },
+    {
+      key: 'sgbp',
+      logo: '/certifications/cert-sgbp-leader.png',
+      name: 'Singapore Green Building Product (SGBP) — Leader Rating (4 Ticks)',
+      attribute: lang === 'id' ? 'Kinerja Lingkungan Superior' : 'Superior Environmental Performance',
+      benefit: lang === 'id'
+        ? 'Ruang berkualitas tinggi yang berfokus pada kesehatan: sebagai peringkat tertinggi, produk ini terbukti rendah kandungan racun dan emisi VOC — penting bagi kesehatan penghuni, terutama keluarga dengan anak kecil.'
+        : "A high-quality, health-focused space: as the highest-tier rating, the product is certified to be low in toxic content and VOC emissions — crucial for the health of end users, especially families with young children.",
+    },
+    {
+      key: 'fire-rating',
+      logo: null,
+      name: 'TUV SUD PSB Fire Rating: Class 0',
+      attribute: lang === 'id' ? 'Keamanan Kebakaran' : 'Fire Safety',
+      benefit: lang === 'id'
+        ? 'Keamanan dan ketenangan pikiran yang lebih baik: produk memiliki laju rambat api permukaan yang sangat rendah dan tidak mudah terbakar, membantu menahan dan memperlambat penyebaran api serta menjaga struktur bangunan — memberi lebih banyak waktu evakuasi dan melindungi jiwa serta harta benda.'
+        : 'Enhanced safety and peace of mind: the product has a very low surface spread of flame and is non-combustible, helping to contain and slow the spread of fire and maintain structural integrity — giving more time to evacuate and protecting life and property.',
+    },
+    {
+      key: 'antimicrobial',
+      logo: null,
+      name: 'TUV SUD PSB Antimicrobial Activity',
+      attribute: lang === 'id' ? 'Higienitas Permukaan' : 'Surface Hygiene',
+      benefit: lang === 'id'
+        ? 'Lingkungan yang lebih higienis: permukaan terbukti secara aktif mencegah pertumbuhan bakteri, dengan tingkat antibakteri tinggi (≥99,9%) terhadap strain umum seperti E. coli — menjadikan permukaan lebih aman dan sehat, terutama di area rawan kuman seperti dapur dan fasilitas kesehatan.'
+        : 'A more hygienic environment: the surface is proven to actively prevent bacterial growth, with a high antibacterial rate (≥99.9%) against common strains like E. coli — safer, healthier surfaces, especially in germ-prone areas like kitchens and healthcare spaces.',
+    },
+  ];
+
+  const lamitakBenefits = lang === 'id'
+    ? [
+        { title: 'Akurasi Desain', desc: 'Warna, motif, dan finishing yang Anda pilih, terkirim sesuai harapan.' },
+        { title: 'Performa yang Dapat Diandalkan', desc: 'Dibuat untuk fabrikasi berkualitas dan pemakaian jangka panjang.' },
+        { title: 'Jaminan Garansi 3 Tahun', desc: 'Permukaan Lamitak asli didukung oleh cakupan garansi resmi.' },
+        { title: 'Perlindungan Antibakteri', desc: 'Kepercayaan diri tambahan pada permukaan yang Anda sentuh setiap hari.' },
+        { title: 'Ketenangan Pikiran', desc: 'Keyakinan bahwa apa yang dispesifikasikan adalah apa yang dipasang.' },
+      ]
+    : [
+        { title: 'Design Accuracy', desc: 'The colour, pattern, and finish you selected, delivered as intended.' },
+        { title: 'Reliable Performance', desc: 'Made for quality fabrication and long-term use.' },
+        { title: '3-Year Warranty Assurance', desc: 'Original Lamitak surfaces are supported by warranty coverage.' },
+        { title: 'Anti-bacterial Protection', desc: 'Added confidence in the surfaces you touch every day.' },
+        { title: 'Peace of Mind', desc: 'Confidence that what was specified is what was installed.' },
+      ];
+
   const riskItems = lang === 'id'
     ? [
         'Ketidakpastian keaslian material — material yang dijual mungkin bukan produk Lamitak asli meskipun diberi label serupa.',
@@ -66,6 +144,90 @@ export function OtorisasiPageClient() {
                 ? <>CV. Varindo Forma Hutama adalah Authorized Dealer HPL Lamitak, produk dari PT. TAK Products and Services, yang beroperasi dan melayani kebutuhan HPL Lamitak di berbagai wilayah Indonesia. Status ini berarti seluruh produk yang tercantum di katalog online kami bersumber langsung dari jalur distribusi resmi Lamitak, dengan harga dan ketersediaan yang transparan.</>
                 : <>CV. Varindo Forma Hutama is an Authorized Dealer of HPL Lamitak, a product of PT. TAK Products and Services, operating and serving HPL Lamitak needs across various regions of Indonesia. This status means every product listed in our online catalogue is sourced directly through Lamitak&apos;s official distribution channel, with transparent pricing and availability.</>}
             </p>
+          </div>
+        </section>
+
+        <section>
+          <p className="label text-varindo-gold mb-4">
+            {lang === 'id' ? 'Pastikan Keaslian' : 'Insist on Original'}
+          </p>
+          <div className="border border-varindo-line bg-varindo-ink text-white p-6 sm:p-10">
+            <p className="font-display text-2xl sm:text-3xl font-light text-white mb-1">
+              Insist on the Original Lamitak
+            </p>
+            <p className="text-[13px] text-varindo-gold uppercase tracking-[0.14em] mb-5">
+              {lang === 'id' ? 'Karena setiap detail penting.' : 'Because every detail matters.'}
+            </p>
+            <p className="text-[14px] leading-8 text-varindo-300 max-w-xl mb-8">
+              {lang === 'id'
+                ? 'Setiap laminate Lamitak dilengkapi Mark of Authenticity, yang membantu Anda memverifikasi keaslian permukaan yang Anda pilih — dengan akurasi desain, kualitas, dan jaminan yang Anda harapkan.'
+                : 'Every Lamitak laminate carries a Mark of Authenticity, helping you verify the original surface you selected — with the design accuracy, quality, and assurance you expect.'}
+            </p>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {safeguardItems.map((item) => (
+                <div key={item.title}>
+                  <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-white mb-1.5">
+                    {item.title}
+                  </p>
+                  <p className="text-[13px] leading-7 text-varindo-400">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="text-[13px] leading-7 text-varindo-400 mt-8 pt-6 border-t border-white/10">
+              {lang === 'id'
+                ? 'Belilah HPL Lamitak melalui mitra resmi seperti Varindo untuk memastikan keaslian 100% dan cakupan garansi.'
+                : 'Purchase from an official partner like Varindo, or direct from Lamitak, to ensure 100% authenticity and warranty coverage.'}
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <p className="label text-varindo-gold mb-4">
+            {lang === 'id' ? 'Sertifikasi Lamitak' : 'Lamitak Certifications'}
+          </p>
+          <div className="grid sm:grid-cols-2 gap-px bg-varindo-line border border-varindo-line">
+            {certifications.map((cert, idx) => (
+              <div
+                key={cert.key}
+                className={`bg-white p-6 sm:p-8 flex flex-col ${
+                  idx === certifications.length - 1 && certifications.length % 2 === 1 ? 'sm:col-span-2' : ''
+                }`}
+              >
+                <div className="h-14 mb-4 flex items-center">
+                  {cert.logo ? (
+                    <img src={cert.logo} alt={cert.name} className="h-full w-auto object-contain" />
+                  ) : (
+                    <p className="text-[11px] text-varindo-400 italic">
+                      {lang === 'id' ? 'Logo sertifikasi menyusul' : 'Certification logo pending'}
+                    </p>
+                  )}
+                </div>
+                <p className="text-[13px] font-semibold text-varindo-ink mb-1">{cert.name}</p>
+                <p className="text-[11px] uppercase tracking-[0.1em] text-varindo-gold mb-3">{cert.attribute}</p>
+                <p className="text-[13px] leading-7 text-varindo-600">{cert.benefit}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <p className="label text-varindo-gold mb-4">
+            {lang === 'id' ? 'Keunggulan Memilih Lamitak' : 'Benefits of Choosing Lamitak'}
+          </p>
+          <div className="border border-varindo-line bg-white p-6 sm:p-8">
+            <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-5">
+              {lamitakBenefits.map((item) => (
+                <li key={item.title} className="flex items-start gap-3">
+                  <div className="w-4 h-[1.5px] bg-varindo-gold shrink-0 mt-3" />
+                  <div>
+                    <p className="text-[13px] font-semibold text-varindo-ink mb-0.5">{item.title}</p>
+                    <p className="text-[13px] leading-7 text-varindo-600">{item.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 

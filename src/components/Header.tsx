@@ -114,9 +114,14 @@ export function Header() {
                 <img src="/varindo-logo-transparent.png" alt="CV. Varindo Forma Hutama"
                   style={{ width: '88px' }} className="h-auto object-contain opacity-90 hover:opacity-100 transition-opacity" />
               </Link>
-              <div className="h-6 lg:h-8 w-px bg-varindo-line" />
-              <img src="/lamitak-authorized-dealer.png" alt="Authorized Dealer of Lamitak"
-                className="h-[22px] sm:h-[26px] lg:h-[34px] w-auto object-contain" />
+              <div className="h-8 lg:h-10 w-px bg-varindo-line" />
+              <div className="flex flex-col justify-center gap-[3px]">
+                <span className="text-[8px] sm:text-[9px] lg:text-[10px] font-semibold uppercase tracking-[0.14em] text-varindo-500 leading-none whitespace-nowrap">
+                  Authorized Dealer of
+                </span>
+                <img src="/lamitak-logo-mark.png" alt="Lamitak"
+                  className="h-[18px] sm:h-[20px] lg:h-[26px] w-auto object-contain" />
+              </div>
             </div>
 
             {/* Desktop nav */}
