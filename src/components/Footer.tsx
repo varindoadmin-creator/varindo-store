@@ -20,11 +20,11 @@ export function Footer() {
               className="h-auto object-contain opacity-80" />
             <div className="h-8 w-px bg-white/15" />
             <div className="flex flex-col gap-1.5">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-varindo-400">
+              <span className="text-[8px] font-semibold tracking-[0.05em] text-varindo-400">
                 Authorized Dealer of
               </span>
               <img src="/lamitak-logo-mark.png" alt="Lamitak"
-                style={{ height: '24px', filter: 'brightness(0) invert(1)' }}
+                style={{ height: '28px', filter: 'brightness(0) invert(1)' }}
                 className="w-auto object-contain opacity-80" />
             </div>
           </div>

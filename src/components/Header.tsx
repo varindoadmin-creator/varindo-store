@@ -116,11 +116,11 @@ export function Header() {
               </Link>
               <div className="h-8 lg:h-10 w-px bg-varindo-line" />
               <div className="flex flex-col justify-center gap-[3px]">
-                <span className="text-[8px] sm:text-[9px] lg:text-[10px] font-semibold uppercase tracking-[0.14em] text-varindo-500 leading-none whitespace-nowrap">
+                <span className="text-[7px] sm:text-[8px] lg:text-[9px] font-semibold tracking-[0.05em] text-varindo-500 leading-none whitespace-nowrap">
                   Authorized Dealer of
                 </span>
                 <img src="/lamitak-logo-mark.png" alt="Lamitak"
-                  className="h-[18px] sm:h-[20px] lg:h-[26px] w-auto object-contain" />
+                  className="h-[22px] sm:h-[24px] lg:h-[30px] w-auto object-contain" />
               </div>
             </div>
 
