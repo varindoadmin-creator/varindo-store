@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 import { buildWhatsAppUrl } from '@/lib/whatsapp';
@@ -7,6 +8,13 @@ import { buildWhatsAppUrl } from '@/lib/whatsapp';
 export function OtorisasiPageClient() {
   const { lang } = useLang();
   const waUrl = buildWhatsAppUrl('Halo Admin Varindo, saya ingin memverifikasi apakah produk Lamitak yang saya lihat adalah produk resmi.');
+
+  const buyerSafeguardItems = [
+    { title: t('home', 'safeguard1Title', lang), body: t('home', 'safeguard1Body', lang) },
+    { title: t('home', 'safeguard2Title', lang), body: t('home', 'safeguard2Body', lang) },
+    { title: t('home', 'safeguard3Title', lang), body: t('home', 'safeguard3Body', lang) },
+    { title: t('home', 'safeguard4Title', lang), body: t('home', 'safeguard4Body', lang) },
+  ];
 
   const verifyItems = lang === 'id'
     ? [
@@ -132,182 +140,249 @@ export function OtorisasiPageClient() {
         </div>
       </div>
 
-      <div className="shell py-12 sm:py-16 max-w-3xl space-y-12">
+      <div className="shell py-12 sm:py-16 max-w-3xl space-y-16">
 
-        <section>
-          <p className="label text-varindo-gold mb-4">
-            {lang === 'id' ? 'Status Resmi' : 'Official Status'}
-          </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8">
-            <p className="text-[14px] leading-8 text-varindo-600">
+        {/* Group: Varindo as Authorized Dealer */}
+        <div className="space-y-12">
+          <div>
+            <h2 className="font-display text-2xl sm:text-3xl font-light text-varindo-ink mb-2">
+              {lang === 'id' ? 'Varindo sebagai Dealer Resmi' : 'Varindo as Authorized Dealer'}
+            </h2>
+            <p className="text-[13px] leading-7 text-varindo-500 max-w-xl">
               {lang === 'id'
-                ? <>CV. Varindo Forma Hutama adalah Authorized Dealer HPL Lamitak, produk dari PT. TAK Products and Services, yang beroperasi dan melayani kebutuhan HPL Lamitak di berbagai wilayah Indonesia. Status ini berarti seluruh produk yang tercantum di katalog online kami bersumber langsung dari jalur distribusi resmi Lamitak, dengan harga dan ketersediaan yang transparan.</>
-                : <>CV. Varindo Forma Hutama is an Authorized Dealer of HPL Lamitak, a product of PT. TAK Products and Services, operating and serving HPL Lamitak needs across various regions of Indonesia. This status means every product listed in our online catalogue is sourced directly through Lamitak&apos;s official distribution channel, with transparent pricing and availability.</>}
+                ? 'Informasi mengenai status resmi Varindo, cara memverifikasi pembelian Anda, dan risiko membeli dari penjual tidak resmi.'
+                : "Information about Varindo's official status, how to verify your purchase, and the risks of buying from unofficial sellers."}
             </p>
           </div>
-        </section>
 
-        <section>
-          <p className="label text-varindo-gold mb-4">
-            {lang === 'id' ? 'Pastikan Keaslian' : 'Insist on Original'}
-          </p>
-          <div className="border border-varindo-line bg-varindo-ink text-white p-6 sm:p-10">
-            <p className="font-display text-2xl sm:text-3xl font-light text-white mb-1">
-              Insist on the Original Lamitak
+          <section>
+            <p className="label text-varindo-gold mb-4">
+              {lang === 'id' ? 'Status Resmi' : 'Official Status'}
             </p>
-            <p className="text-[13px] text-varindo-gold uppercase tracking-[0.14em] mb-5">
-              {lang === 'id' ? 'Karena setiap detail penting.' : 'Because every detail matters.'}
+            <div className="border border-varindo-line bg-white p-6 sm:p-8">
+              <p className="text-[14px] leading-8 text-varindo-600">
+                {lang === 'id'
+                  ? <>CV. Varindo Forma Hutama adalah Authorized Dealer HPL Lamitak, produk dari PT. TAK Products and Services, yang beroperasi dan melayani kebutuhan HPL Lamitak di berbagai wilayah Indonesia. Status ini berarti seluruh produk yang tercantum di katalog online kami bersumber langsung dari jalur distribusi resmi Lamitak, dengan harga dan ketersediaan yang transparan.</>
+                  : <>CV. Varindo Forma Hutama is an Authorized Dealer of HPL Lamitak, a product of PT. TAK Products and Services, operating and serving HPL Lamitak needs across various regions of Indonesia. This status means every product listed in our online catalogue is sourced directly through Lamitak&apos;s official distribution channel, with transparent pricing and availability.</>}
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <p className="label text-varindo-gold mb-4">
+              {lang === 'id' ? 'Alamat & Kontak Resmi' : 'Official Address & Contact'}
             </p>
-            <p className="text-[14px] leading-8 text-varindo-300 max-w-xl mb-8">
+            <div className="border border-varindo-line grid sm:grid-cols-2 gap-px bg-varindo-line">
+              <address className="not-italic text-[14px] leading-8 text-varindo-600 bg-white p-6 sm:p-8">
+                <span className="font-semibold text-varindo-ink block mb-1">
+                  CV. Varindo Forma Hutama — {t('contact', 'headOffice', lang)}
+                </span>
+                Branz BSD Tower A Unit 3310<br />
+                Jl. BSD Boulevard Parcel 55-F<br />
+                Tangerang 15339, Banten, Indonesia<br />
+                <span className="block mt-3">
+                  {lang === 'id' ? 'Telepon / WhatsApp' : 'Phone / WhatsApp'}: <a href="tel:+6281288885224" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">0812 8888 5224</a><br />
+                  Email: <a href="mailto:contact@varindo.co.id" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">contact@varindo.co.id</a>
+                </span>
+              </address>
+              <address className="not-italic text-[14px] leading-8 text-varindo-600 bg-white p-6 sm:p-8">
+                <span className="font-semibold text-varindo-ink block mb-1">
+                  CV. Varindo Forma Hutama — {t('contact', 'regOffice', lang)}
+                </span>
+                Ruko Pasar Modern Batununggal<br />
+                Blok RA/06, Kel. Mengger<br />
+                Kec. Bandung Kidul, Bandung 40267, Jawa Barat, Indonesia<br />
+                <span className="block mt-3">
+                  {lang === 'id' ? 'Telepon / WhatsApp' : 'Phone / WhatsApp'}: <a href="tel:+6281210015224" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">0812 1001 5224</a>
+                </span>
+              </address>
+            </div>
+          </section>
+
+          <section>
+            <p className="label text-varindo-gold mb-4">
+              {lang === 'id' ? 'Cara Memverifikasi Keaslian Produk' : 'How to Verify Product Authenticity'}
+            </p>
+            <div className="border border-varindo-line bg-white p-6 sm:p-8 space-y-4">
+              <p className="text-[14px] leading-8 text-varindo-600">
+                {lang === 'id'
+                  ? 'Sebelum melakukan pembelian, Anda dapat memverifikasi keaslian produk Lamitak dengan beberapa cara berikut:'
+                  : 'Before making a purchase, you can verify the authenticity of a Lamitak product in the following ways:'}
+              </p>
+              <ul className="space-y-3">
+                {verifyItems.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-[13px] leading-7 text-varindo-600">
+                    <div className="w-4 h-[1.5px] bg-varindo-gold shrink-0 mt-3" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          <section>
+            <p className="label text-varindo-gold mb-4">
+              {lang === 'id' ? 'Risiko Membeli dari Penjual Tidak Resmi' : 'Risks of Buying from Unofficial Sellers'}
+            </p>
+            <div className="border border-varindo-line bg-white p-6 sm:p-8 space-y-4">
+              <p className="text-[14px] leading-8 text-varindo-600">
+                {lang === 'id'
+                  ? 'Membeli HPL dari penjual yang tidak memiliki hubungan resmi dengan jalur distribusi Lamitak dapat menimbulkan beberapa risiko, di antaranya:'
+                  : "Buying HPL from a seller with no official relationship to Lamitak's distribution channel can carry several risks, including:"}
+              </p>
+              <ul className="space-y-3">
+                {riskItems.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-[13px] leading-7 text-varindo-600">
+                    <div className="w-4 h-[1.5px] bg-varindo-gold shrink-0 mt-3" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="text-[13px] leading-7 text-varindo-500">
+                {lang === 'id'
+                  ? 'Untuk menghindari risiko tersebut, kami menyarankan Anda selalu memastikan pembelian HPL Lamitak melalui dealer resmi seperti Varindo, atau memverifikasi langsung ke PT. TAK Products and Services.'
+                  : 'To avoid these risks, we recommend always purchasing HPL Lamitak through an official dealer like Varindo, or verifying directly with PT. TAK Products and Services.'}
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <div className="border-t border-varindo-line" />
+
+        {/* Group: About Lamitak */}
+        <div className="space-y-12">
+          <div>
+            <h2 className="font-display text-2xl sm:text-3xl font-light text-varindo-ink mb-2">
+              {lang === 'id' ? 'Tentang Lamitak' : 'About Lamitak'}
+            </h2>
+            <p className="text-[13px] leading-7 text-varindo-500 max-w-xl">
               {lang === 'id'
-                ? 'Setiap laminate Lamitak dilengkapi Mark of Authenticity, yang membantu Anda memverifikasi keaslian permukaan yang Anda pilih — dengan akurasi desain, kualitas, dan jaminan yang Anda harapkan.'
-                : 'Every Lamitak laminate carries a Mark of Authenticity, helping you verify the original surface you selected — with the design accuracy, quality, and assurance you expect.'}
+                ? 'Informasi mengenai keaslian, sertifikasi, dan keunggulan produk HPL Lamitak itu sendiri.'
+                : 'Information about the authenticity, certifications, and benefits of the HPL Lamitak product itself.'}
             </p>
-            <div className="grid sm:grid-cols-2 gap-6">
-              {safeguardItems.map((item) => (
-                <div key={item.title}>
-                  <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-white mb-1.5">
-                    {item.title}
-                  </p>
-                  <p className="text-[13px] leading-7 text-varindo-400">
-                    {item.desc}
-                  </p>
+          </div>
+
+          <section>
+            <p className="label text-varindo-gold mb-4">
+              {t('home', 'safeguardTitle', lang)}
+            </p>
+            <div className="border border-varindo-line bg-white p-6 sm:p-8">
+              <div className="grid sm:grid-cols-2 gap-8 items-center">
+                <div
+                  role="img"
+                  aria-label={t('home', 'safeguardImageAlt', lang)}
+                  className="aspect-[4/5] w-full bg-cover bg-center border border-varindo-line"
+                  style={{ backgroundImage: "url('/lamitak-buyer-safeguard.jpg')" }}
+                />
+                <div>
+                  <div className="space-y-4 mb-6">
+                    <p className="text-[14px] leading-7 text-varindo-600">{t('home', 'safeguardBody1', lang)}</p>
+                    <p className="text-[14px] leading-7 text-varindo-600">{t('home', 'safeguardBody2', lang)}</p>
+                    <p className="text-[14px] leading-7 text-varindo-600">{t('home', 'safeguardBody3', lang)}</p>
+                  </div>
+                  <ul className="space-y-4">
+                    {buyerSafeguardItems.map((item) => (
+                      <li key={item.title} className="flex gap-3">
+                        <span className="w-4 h-[1.5px] bg-varindo-gold shrink-0 mt-3" />
+                        <div>
+                          <p className="text-[13px] font-semibold text-varindo-ink mb-1">{item.title}</p>
+                          <p className="text-[13px] leading-7 text-varindo-600">{item.body}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/blog/buyer-safeguard" className="inline-block mt-6 text-[11px] font-semibold tracking-[0.14em] uppercase text-varindo-ink hover:text-varindo-gold transition-colors">
+                    {t('blog', 'readMore', lang)}
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <p className="label text-varindo-gold mb-4">
+              {lang === 'id' ? 'Pastikan Keaslian' : 'Insist on Original'}
+            </p>
+            <div className="border border-varindo-line bg-varindo-ink text-white p-6 sm:p-10">
+              <p className="font-display text-2xl sm:text-3xl font-light text-white mb-1">
+                Insist on the Original Lamitak
+              </p>
+              <p className="text-[13px] text-varindo-gold uppercase tracking-[0.14em] mb-5">
+                {lang === 'id' ? 'Karena setiap detail penting.' : 'Because every detail matters.'}
+              </p>
+              <p className="text-[14px] leading-8 text-varindo-300 max-w-xl mb-8">
+                {lang === 'id'
+                  ? 'Setiap laminate Lamitak dilengkapi Mark of Authenticity, yang membantu Anda memverifikasi keaslian permukaan yang Anda pilih — dengan akurasi desain, kualitas, dan jaminan yang Anda harapkan.'
+                  : 'Every Lamitak laminate carries a Mark of Authenticity, helping you verify the original surface you selected — with the design accuracy, quality, and assurance you expect.'}
+              </p>
+              <div className="grid sm:grid-cols-2 gap-6">
+                {safeguardItems.map((item) => (
+                  <div key={item.title}>
+                    <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-white mb-1.5">
+                      {item.title}
+                    </p>
+                    <p className="text-[13px] leading-7 text-varindo-400">
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[13px] leading-7 text-varindo-400 mt-8 pt-6 border-t border-white/10">
+                {lang === 'id'
+                  ? 'Belilah HPL Lamitak melalui mitra resmi seperti Varindo untuk memastikan keaslian 100% dan cakupan garansi.'
+                  : 'Purchase from an official partner like Varindo, or direct from Lamitak, to ensure 100% authenticity and warranty coverage.'}
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <p className="label text-varindo-gold mb-4">
+              {lang === 'id' ? 'Sertifikasi Lamitak' : 'Lamitak Certifications'}
+            </p>
+            <div className="grid sm:grid-cols-2 gap-px bg-varindo-line border border-varindo-line">
+              {certifications.map((cert, idx) => (
+                <div
+                  key={cert.key}
+                  className={`bg-white p-6 sm:p-8 flex flex-col ${
+                    idx === certifications.length - 1 && certifications.length % 2 === 1 ? 'sm:col-span-2' : ''
+                  }`}
+                >
+                  <div className="h-14 mb-4 flex items-center">
+                    {cert.logo ? (
+                      <img src={cert.logo} alt={cert.name} className="h-full w-auto object-contain" />
+                    ) : (
+                      <p className="text-[11px] text-varindo-400 italic">
+                        {lang === 'id' ? 'Logo sertifikasi menyusul' : 'Certification logo pending'}
+                      </p>
+                    )}
+                  </div>
+                  <p className="text-[13px] font-semibold text-varindo-ink mb-1">{cert.name}</p>
+                  <p className="text-[11px] uppercase tracking-[0.1em] text-varindo-gold mb-3">{cert.attribute}</p>
+                  <p className="text-[13px] leading-7 text-varindo-600">{cert.benefit}</p>
                 </div>
               ))}
             </div>
-            <p className="text-[13px] leading-7 text-varindo-400 mt-8 pt-6 border-t border-white/10">
-              {lang === 'id'
-                ? 'Belilah HPL Lamitak melalui mitra resmi seperti Varindo untuk memastikan keaslian 100% dan cakupan garansi.'
-                : 'Purchase from an official partner like Varindo, or direct from Lamitak, to ensure 100% authenticity and warranty coverage.'}
+          </section>
+
+          <section>
+            <p className="label text-varindo-gold mb-4">
+              {lang === 'id' ? 'Keunggulan Memilih Lamitak' : 'Benefits of Choosing Lamitak'}
             </p>
-          </div>
-        </section>
-
-        <section>
-          <p className="label text-varindo-gold mb-4">
-            {lang === 'id' ? 'Sertifikasi Lamitak' : 'Lamitak Certifications'}
-          </p>
-          <div className="grid sm:grid-cols-2 gap-px bg-varindo-line border border-varindo-line">
-            {certifications.map((cert, idx) => (
-              <div
-                key={cert.key}
-                className={`bg-white p-6 sm:p-8 flex flex-col ${
-                  idx === certifications.length - 1 && certifications.length % 2 === 1 ? 'sm:col-span-2' : ''
-                }`}
-              >
-                <div className="h-14 mb-4 flex items-center">
-                  {cert.logo ? (
-                    <img src={cert.logo} alt={cert.name} className="h-full w-auto object-contain" />
-                  ) : (
-                    <p className="text-[11px] text-varindo-400 italic">
-                      {lang === 'id' ? 'Logo sertifikasi menyusul' : 'Certification logo pending'}
-                    </p>
-                  )}
-                </div>
-                <p className="text-[13px] font-semibold text-varindo-ink mb-1">{cert.name}</p>
-                <p className="text-[11px] uppercase tracking-[0.1em] text-varindo-gold mb-3">{cert.attribute}</p>
-                <p className="text-[13px] leading-7 text-varindo-600">{cert.benefit}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section>
-          <p className="label text-varindo-gold mb-4">
-            {lang === 'id' ? 'Keunggulan Memilih Lamitak' : 'Benefits of Choosing Lamitak'}
-          </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8">
-            <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-5">
-              {lamitakBenefits.map((item) => (
-                <li key={item.title} className="flex items-start gap-3">
-                  <div className="w-4 h-[1.5px] bg-varindo-gold shrink-0 mt-3" />
-                  <div>
-                    <p className="text-[13px] font-semibold text-varindo-ink mb-0.5">{item.title}</p>
-                    <p className="text-[13px] leading-7 text-varindo-600">{item.desc}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section>
-          <p className="label text-varindo-gold mb-4">
-            {lang === 'id' ? 'Alamat & Kontak Resmi' : 'Official Address & Contact'}
-          </p>
-          <div className="border border-varindo-line grid sm:grid-cols-2 gap-px bg-varindo-line">
-            <address className="not-italic text-[14px] leading-8 text-varindo-600 bg-white p-6 sm:p-8">
-              <span className="font-semibold text-varindo-ink block mb-1">
-                CV. Varindo Forma Hutama — {t('contact', 'headOffice', lang)}
-              </span>
-              Branz BSD Tower A Unit 3310<br />
-              Jl. BSD Boulevard Parcel 55-F<br />
-              Tangerang 15339, Banten, Indonesia<br />
-              <span className="block mt-3">
-                {lang === 'id' ? 'Telepon / WhatsApp' : 'Phone / WhatsApp'}: <a href="tel:+6281288885224" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">0812 8888 5224</a><br />
-                Email: <a href="mailto:contact@varindo.co.id" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">contact@varindo.co.id</a>
-              </span>
-            </address>
-            <address className="not-italic text-[14px] leading-8 text-varindo-600 bg-white p-6 sm:p-8">
-              <span className="font-semibold text-varindo-ink block mb-1">
-                CV. Varindo Forma Hutama — {t('contact', 'regOffice', lang)}
-              </span>
-              Ruko Pasar Modern Batununggal<br />
-              Blok RA/06, Kel. Mengger<br />
-              Kec. Bandung Kidul, Bandung 40267, Jawa Barat, Indonesia<br />
-              <span className="block mt-3">
-                {lang === 'id' ? 'Telepon / WhatsApp' : 'Phone / WhatsApp'}: <a href="tel:+6281210015224" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">0812 1001 5224</a>
-              </span>
-            </address>
-          </div>
-        </section>
-
-        <section>
-          <p className="label text-varindo-gold mb-4">
-            {lang === 'id' ? 'Cara Memverifikasi Keaslian Produk' : 'How to Verify Product Authenticity'}
-          </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8 space-y-4">
-            <p className="text-[14px] leading-8 text-varindo-600">
-              {lang === 'id'
-                ? 'Sebelum melakukan pembelian, Anda dapat memverifikasi keaslian produk Lamitak dengan beberapa cara berikut:'
-                : 'Before making a purchase, you can verify the authenticity of a Lamitak product in the following ways:'}
-            </p>
-            <ul className="space-y-3">
-              {verifyItems.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-[13px] leading-7 text-varindo-600">
-                  <div className="w-4 h-[1.5px] bg-varindo-gold shrink-0 mt-3" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section>
-          <p className="label text-varindo-gold mb-4">
-            {lang === 'id' ? 'Risiko Membeli dari Penjual Tidak Resmi' : 'Risks of Buying from Unofficial Sellers'}
-          </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8 space-y-4">
-            <p className="text-[14px] leading-8 text-varindo-600">
-              {lang === 'id'
-                ? 'Membeli HPL dari penjual yang tidak memiliki hubungan resmi dengan jalur distribusi Lamitak dapat menimbulkan beberapa risiko, di antaranya:'
-                : "Buying HPL from a seller with no official relationship to Lamitak's distribution channel can carry several risks, including:"}
-            </p>
-            <ul className="space-y-3">
-              {riskItems.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-[13px] leading-7 text-varindo-600">
-                  <div className="w-4 h-[1.5px] bg-varindo-gold shrink-0 mt-3" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p className="text-[13px] leading-7 text-varindo-500">
-              {lang === 'id'
-                ? 'Untuk menghindari risiko tersebut, kami menyarankan Anda selalu memastikan pembelian HPL Lamitak melalui dealer resmi seperti Varindo, atau memverifikasi langsung ke PT. TAK Products and Services.'
-                : 'To avoid these risks, we recommend always purchasing HPL Lamitak through an official dealer like Varindo, or verifying directly with PT. TAK Products and Services.'}
-            </p>
-          </div>
-        </section>
+            <div className="border border-varindo-line bg-white p-6 sm:p-8">
+              <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-5">
+                {lamitakBenefits.map((item) => (
+                  <li key={item.title} className="flex items-start gap-3">
+                    <div className="w-4 h-[1.5px] bg-varindo-gold shrink-0 mt-3" />
+                    <div>
+                      <p className="text-[13px] font-semibold text-varindo-ink mb-0.5">{item.title}</p>
+                      <p className="text-[13px] leading-7 text-varindo-600">{item.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </div>
 
         <section className="border border-varindo-line bg-varindo-50 px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
