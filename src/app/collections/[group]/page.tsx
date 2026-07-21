@@ -37,8 +37,9 @@ const groupMeta: Partial<Record<CollectionGroup, { title: string; description: s
   }
 };
 
-export async function generateMetadata({ params }: { params: { group: string } }): Promise<Metadata> {
-  const group = params.group as CollectionGroup;
+export async function generateMetadata({ params }: { params: Promise<{ group: string }> }): Promise<Metadata> {
+  const { group: groupParam } = await params;
+  const group = groupParam as CollectionGroup;
   const meta = groupMeta[group];
   if (!meta) return { title: 'Koleksi' };
 
@@ -57,8 +58,9 @@ export async function generateMetadata({ params }: { params: { group: string } }
   };
 }
 
-export default async function CollectionPage({ params }: { params: { group: string } }) {
-  const group = params.group as CollectionGroup;
+export default async function CollectionPage({ params }: { params: Promise<{ group: string }> }) {
+  const { group: groupParam } = await params;
+  const group = groupParam as CollectionGroup;
   if (!groupMeta[group]) notFound();
 
   const products = await getProductsByCollectionGroup(group);
