@@ -34,6 +34,8 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
     [t('detail', 'specSubCollection', lang), product.category],
     [t('detail', 'specSize', lang),          product.size],
     [t('detail', 'specThickness', lang),     product.thickness],
+    ['Newedge Code (23mm Width)',             product.newedge23mm],
+    ['Newedge Code (44mm Width)',             product.newedge44mm],
     [t('detail', 'specColourFamily', lang),  product.colorFamily],
   ].filter(([, v]) => Boolean(v));
 

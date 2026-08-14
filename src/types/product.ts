@@ -30,6 +30,11 @@ export type Product = {
   active: boolean;
   imageUrl?: string;
   imageUrlCandidates?: string[];
+  /** Matching Newedge band codes published on the official Lamitak product page. */
+  newedge23mm?: string;
+  newedge44mm?: string;
+  /** Official Lamitak product page used to verify article and Newedge codes. */
+  lamitakUrl?: string;
   description?: string;
   badges?: ProductBadge[];
 };

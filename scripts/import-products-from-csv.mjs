@@ -1,95 +1,89 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const inputPath = path.join(process.cwd(), 'varindo-products.csv');
-const outputPath = path.join(process.cwd(), 'src', 'data', 'lamitak-products.ts');
+const inputPath = path.join(process.cwd(), 'public', 'data', 'lamitak-products.csv');
+const outputPath = path.join(process.cwd(), 'src', 'data', 'lamitak-products-from-csv.ts');
 
 function slugify(input) {
-  return input
-    .toLowerCase()
-    .replace(/&/g, ' and ')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)+/g, '');
+  return input.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 }
 
-function parseCsvLine(line) {
-  const cells = [];
-  let current = '';
-  let inQuotes = false;
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let cell = '';
+  let quoted = false;
 
-  for (let i = 0; i < line.length; i += 1) {
-    const char = line[i];
-    const next = line[i + 1];
-
-    if (char === '"' && next === '"') {
-      current += '"';
-      i += 1;
-      continue;
-    }
-
-    if (char === '"') {
-      inQuotes = !inQuotes;
-      continue;
-    }
-
-    if (char === ',' && !inQuotes) {
-      cells.push(current.trim());
-      current = '';
-      continue;
-    }
-
-    current += char;
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    if (quoted) {
+      if (char === '"' && text[index + 1] === '"') { cell += '"'; index += 1; }
+      else if (char === '"') quoted = false;
+      else cell += char;
+    } else if (char === '"') quoted = true;
+    else if (char === ',') { row.push(cell); cell = ''; }
+    else if (char === '\n') { row.push(cell.replace(/\r$/, '')); rows.push(row); row = []; cell = ''; }
+    else cell += char;
   }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
 
-  cells.push(current.trim());
-  return cells;
+  const headers = rows.shift().map((header) => header.replace(/^\uFEFF/, ''));
+  return rows.filter((values) => values.some(Boolean)).map((values) =>
+    Object.fromEntries(headers.map((header, index) => [header, values[index] || '']))
+  );
 }
 
-function parseCurrency(value) {
+function parseNumber(value) {
   if (!value) return null;
-  const cleaned = value.replace(/IDR/gi, '').replace(/[^0-9.]/g, '');
-  const number = Number.parseFloat(cleaned);
-  return Number.isFinite(number) ? Math.round(number) : null;
+  const parsed = Number(String(value).replace(/IDR/gi, '').replace(/[^0-9.-]/g, ''));
+  return Number.isFinite(parsed) ? parsed : null;
 }
 
-if (!fs.existsSync(inputPath)) {
-  console.error('Missing varindo-products.csv in project root.');
-  console.error('Expected columns: code,name,collection,finish,size,thickness,colorFamily,price,active');
-  process.exit(1);
+function toBoolean(value) {
+  return String(value || '').trim().toLowerCase() === 'true';
 }
 
-const content = fs.readFileSync(inputPath, 'utf8').trim();
-const [headerLine, ...rows] = content.split(/\r?\n/);
-const headers = parseCsvLine(headerLine).map((header) => header.trim());
+const rows = parseCsv(fs.readFileSync(inputPath, 'utf8'));
+const products = rows.map((record) => {
+  const code = record.Code.trim();
+  const design = record['Design Name'].trim();
+  const rate = parseNumber(record.Rate);
+  const promo = toBoolean(record['Promo Items']);
+  const badges = [
+    toBoolean(record['New Arrivals']) ? 'NEW' : null,
+    toBoolean(record['Best Sellers']) ? 'BESTSELLER' : null,
+    promo ? 'PROMO' : null,
+  ].filter(Boolean);
 
-const products = rows
-  .map((line) => {
-    const values = parseCsvLine(line);
-    const record = Object.fromEntries(headers.map((header, index) => [header, values[index] || '']));
+  return {
+    slug: slugify(`${code} ${design}`),
+    code,
+    name: record['Item Name'].trim(),
+    brand: 'LAMITAK',
+    collection: record['CF.Collection'].trim(),
+    category: record['CF.Sub Collection'].trim(),
+    design,
+    finish: '',
+    size: record['CF.Size'].trim(),
+    thickness: record['CF.Thickness'].trim(),
+    colorFamily: '',
+    price: rate,
+    priceExcludingTax: null,
+    taxIncluded: true,
+    stockOnHand: parseNumber(record['Stock On Hand']),
+    unit: record['Usage unit'].trim(),
+    currency: 'IDR',
+    active: record.Status.trim().toLowerCase() === 'active',
+    description: `${code} ${design} Lamitak HPL decorative surface.`,
+    badges,
+    isPromoItem: promo,
+    promoPrice: promo && rate !== null ? Math.round(rate * 0.95) : null,
+    newedge23mm: record['Newedge Code 23mm'].trim() || undefined,
+    newedge44mm: record['Newedge Code 44mm'].trim() || undefined,
+    lamitakUrl: record['Lamitak URL'].trim() || undefined,
+  };
+});
 
-    const code = record.code || record.Code || record.SKU || '';
-    const name = record.name || record.Name || record['Item Name'] || '';
-    const price = parseCurrency(record.price || record.Price || record.Rate || '');
-
-    return {
-      slug: slugify(`${code} ${name}`),
-      code,
-      name,
-      brand: 'LAMITAK',
-      collection: record.collection || record.Collection || '',
-      finish: record.finish || record.Finish || '',
-      size: record.size || record.Size || '',
-      thickness: record.thickness || record.Thickness || '',
-      colorFamily: record.colorFamily || record.ColorFamily || record['Color Family'] || '',
-      price,
-      currency: 'IDR',
-      active: String(record.active || record.Active || 'true').toLowerCase() !== 'false',
-      description: record.description || record.Description || ''
-    };
-  })
-  .filter((product) => product.code && product.name);
-
-const output = `import type { Product } from '@/types/product';\n\n// Auto-generated by scripts/import-products-from-csv.mjs.\n// Source: varindo-products.csv\nexport const lamitakProducts: Product[] = ${JSON.stringify(products, null, 2)};\n`;
-
+const output = `import type { Product } from '@/types/product';\n\n// Auto-generated by scripts/import-products-from-csv.mjs.\n// Source: public/data/lamitak-products.csv\nexport const lamitakProductsFromCsv: Product[] = ${JSON.stringify(products, null, 2)};\n`;
 fs.writeFileSync(outputPath, output);
 console.log(`Imported ${products.length} products into ${outputPath}`);
