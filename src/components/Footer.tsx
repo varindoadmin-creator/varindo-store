@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
@@ -15,16 +16,16 @@ export function Footer() {
         {/* Brand */}
         <div>
           <div className="flex items-center gap-4 mb-6">
-            <img src="/varindo-logo-transparent.png" alt="Varindo"
-              style={{ width: '80px', filter: 'brightness(0) invert(1)' }}
+            <Image src="/varindo-logo-transparent.png" alt="Varindo" width={80} height={44}
+              style={{ filter: 'brightness(0) invert(1)' }}
               className="h-auto object-contain opacity-80" />
             <div className="h-8 w-px bg-white/15" />
             <div className="flex flex-col gap-1.5">
               <span className="text-[8px] font-semibold tracking-[0.05em] text-varindo-400">
                 Authorized Dealer of
               </span>
-              <img src="/lamitak-logo-mark.png" alt="Lamitak"
-                style={{ height: '28px', filter: 'brightness(0) invert(1)' }}
+              <Image src="/lamitak-logo-mark.png" alt="Lamitak" width={112} height={28}
+                style={{ filter: 'brightness(0) invert(1)' }}
                 className="w-auto object-contain opacity-80" />
             </div>
           </div>

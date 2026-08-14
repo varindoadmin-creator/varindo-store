@@ -11,10 +11,6 @@ function addPpn(price?: number | null) {
   return Math.round(price * 1.11);
 }
 
-function toBooleanBadge(product: Product, badge: 'NEW' | 'BESTSELLER') {
-  return Boolean(product.badges?.includes(badge));
-}
-
 function enrichProduct(product: Product): Product {
   const priceIncludingPpn = addPpn(product.price);
   const imageUrlCandidates = product.imageUrlCandidates?.length

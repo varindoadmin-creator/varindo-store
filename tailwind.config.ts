@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-dm-sans)', 'DM Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['var(--font-cormorant)', 'Cormorant Garamond', 'Georgia', 'serif']
+        sans: ['var(--font-body)'],
+        display: ['var(--font-display)']
       },
       colors: {
         varindo: {

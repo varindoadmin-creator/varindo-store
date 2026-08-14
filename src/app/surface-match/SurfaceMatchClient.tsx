@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from "react";
+import Image from "next/image";
 import { useLang } from '@/lib/LangContext';
 import { t, type Lang } from '@/lib/i18n';
 
@@ -196,7 +197,7 @@ export function SurfaceMatchClient() {
 
             {preview && (
               <div style={S.previewWrap}>
-                <img src={preview} alt={t('surfaceMatch', 'yourSurface', lang)} style={S.previewImg} />
+                <Image src={preview} alt={t('surfaceMatch', 'yourSurface', lang)} width={1200} height={800} unoptimized style={S.previewImg} />
                 <div style={S.previewGradient} />
                 <div style={S.previewLabel}>{t('surfaceMatch', 'yourSurface', lang)}</div>
                 <div style={S.statusBadge}>
@@ -279,7 +280,7 @@ function ResultCard({ result, rank, lang }: { result: any; rank: number; lang: L
   return (
     <div className="result-card" style={{ ...S.card, animationDelay: `${rank * 70}ms` }}>
       {imageUrl
-        ? <img src={imageUrl} alt={label} style={S.cardImg} onError={(e: any) => { e.target.style.display = "none"; }} />
+        ? <Image src={imageUrl} alt={label} width={400} height={400} style={S.cardImg} onError={(e) => { e.currentTarget.style.display = "none"; }} />
         : <div style={S.cardImgPlaceholder}><span style={{ color: "#a8763e", fontSize: 32 }}>◈</span></div>
       }
       <div style={S.cardBody}>
@@ -305,7 +306,7 @@ function GroupSection({ group, index, lang }: { group: any; index: number; lang:
     <div style={S.groupSection}>
       <div style={S.groupHeader}>
         {thumb
-          ? <img src={thumb} alt="" style={S.groupThumb} onError={(e: any) => { e.target.style.display = "none"; }} />
+          ? <Image src={thumb} alt="" width={160} height={160} style={S.groupThumb} onError={(e) => { e.currentTarget.style.display = "none"; }} />
           : <div style={S.groupThumbPlaceholder}>{index + 1}</div>
         }
         <div>

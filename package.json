@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "import:products": "node scripts/import-products-from-csv.mjs",
     "embed:products": "node --env-file=.env.local scripts/embed-product-images.mjs"
   },

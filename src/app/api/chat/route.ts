@@ -7,6 +7,26 @@ const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 const MODEL = 'claude-sonnet-4-6';
 const MAX_TOKENS = 1024;
 const MAX_PRODUCTS_IN_CONTEXT = 800;
+const MAX_MESSAGES = 10;
+const MAX_MESSAGE_LENGTH = 4000;
+
+type ChatMessage = { role: 'user' | 'assistant'; content: string };
+
+function normalizeMessages(value: unknown): ChatMessage[] | null {
+  if (!Array.isArray(value) || value.length === 0 || value.length > MAX_MESSAGES) return null;
+
+  const messages: ChatMessage[] = [];
+  for (const message of value) {
+    if (!message || typeof message !== 'object') return null;
+    const { role, content } = message as Record<string, unknown>;
+    if ((role !== 'user' && role !== 'assistant') || typeof content !== 'string') return null;
+    const trimmed = content.trim();
+    if (!trimmed || trimmed.length > MAX_MESSAGE_LENGTH) return null;
+    messages.push({ role, content: trimmed });
+  }
+
+  return messages;
+}
 
 function buildSystemPrompt(lang: 'id' | 'en', products: any[]): string {
   const productSummary = products
@@ -212,9 +232,11 @@ SAFE RESPONSE EXAMPLES:
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, lang = 'id' } = await req.json();
+    const body = await req.json();
+    const messages = normalizeMessages(body?.messages);
+    const lang: 'id' | 'en' = body?.lang === 'en' ? 'en' : 'id';
 
-    if (!messages || !Array.isArray(messages)) {
+    if (!messages) {
       return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
     }
 
@@ -225,7 +247,7 @@ export async function POST(req: NextRequest) {
 
     // Fetch products for context
     const products = await getPublicProducts();
-    const systemPrompt = buildSystemPrompt(lang as 'id' | 'en', products);
+    const systemPrompt = buildSystemPrompt(lang, products);
 
     const response = await fetch(ANTHROPIC_API_URL, {
       method: 'POST',
@@ -238,7 +260,7 @@ export async function POST(req: NextRequest) {
         model: MODEL,
         max_tokens: MAX_TOKENS,
         system: systemPrompt,
-        messages: messages.slice(-10), // last 10 messages for context
+        messages,
       }),
     });
 

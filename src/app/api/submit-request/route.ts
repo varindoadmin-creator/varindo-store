@@ -17,7 +17,15 @@ type RequestBody = {
   samples?: string[];
 };
 
-async function insertRow(row: Record<string, unknown>) {
+const MAX_TEXT_LENGTH = 500;
+const MAX_QUOTE_ITEMS = 10;
+const MAX_SAMPLE_ITEMS = 5;
+
+function cleanText(value: unknown, maxLength = MAX_TEXT_LENGTH) {
+  return typeof value === 'string' ? value.trim().slice(0, maxLength) : '';
+}
+
+async function insertRows(rows: Record<string, unknown> | Record<string, unknown>[]) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/requests`, {
     method: 'POST',
     headers: {
@@ -26,7 +34,7 @@ async function insertRow(row: Record<string, unknown>) {
       'Authorization': `Bearer ${SUPABASE_KEY}`,
       'Prefer':        'return=minimal',
     },
-    body: JSON.stringify(row),
+    body: JSON.stringify(rows),
   });
 
   if (!res.ok) {
@@ -51,16 +59,29 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, error: 'Invalid request body.' }, { status: 400 });
   }
 
-  const { type, name, address, phone } = body;
+  const type = body.type;
+  const name = cleanText(body.name, 120);
+  const address = cleanText(body.address);
+  const phone = cleanText(body.phone, 40);
 
   if (!type || !['catalogue', 'quote', 'sample', 'price-list'].includes(type)) {
     return NextResponse.json({ success: false, error: 'Invalid request type.' }, { status: 400 });
   }
 
+  if (!name || !phone || (type !== 'price-list' && !address)) {
+    return NextResponse.json(
+      { success: false, error: 'Name, phone, and the required address must be provided.' },
+      { status: 400 }
+    );
+  }
+
+  let notificationItems: { code: string; qty: string }[] | undefined;
+  let notificationSamples: string[] | undefined;
+
   try {
     if (type === 'catalogue') {
       // One row per catalogue request
-      await insertRow({
+      await insertRows({
         request_type:  'catalogue',
         status:        'new',
         customer_name: name || null,
@@ -72,29 +93,39 @@ export async function POST(req: NextRequest) {
 
     } else if (type === 'quote') {
       // One row per product item
-      const items = body.items || [];
-      if (items.length === 0) {
-        return NextResponse.json({ success: false, error: 'No items provided.' }, { status: 400 });
+      const items = Array.isArray(body.items)
+        ? body.items.slice(0, MAX_QUOTE_ITEMS).map((item) => ({
+            code: cleanText(item?.code, 80),
+            qty: cleanText(item?.qty, 20),
+          }))
+        : [];
+      const invalidItem = items.some((item) => {
+        const quantity = Number(item.qty);
+        return !item.code || !Number.isFinite(quantity) || quantity <= 0;
+      });
+      if (items.length === 0 || invalidItem || (body.items?.length || 0) > MAX_QUOTE_ITEMS) {
+        return NextResponse.json({ success: false, error: 'Invalid quote items.' }, { status: 400 });
       }
+      notificationItems = items;
 
-      for (const item of items) {
-        await insertRow({
+      // Insert the whole request in one PostgREST statement so a network/database
+      // failure cannot leave only some quote lines persisted.
+      await insertRows(items.map((item) => ({
           request_type:  'quote',
           status:        'new',
           customer_name: name || null,
           address:       address || null,
           phone:         phone || null,
           item_code:     item.code || null,
-          quantity:      item.qty ? parseFloat(item.qty) : null,
+          quantity:      Number(item.qty),
           unit:          'lembar',
           source:        'website',
           raw_data:      { name, address, phone, item },
-        });
-      }
+        })));
 
     } else if (type === 'price-list') {
       // One row per price list download request
-      await insertRow({
+      await insertRows({
         request_type:  'price-list',
         status:        'new',
         customer_name: name || null,
@@ -105,13 +136,16 @@ export async function POST(req: NextRequest) {
 
     } else if (type === 'sample') {
       // One row per sample code
-      const samples = (body.samples || []).filter(Boolean);
-      if (samples.length === 0) {
-        return NextResponse.json({ success: false, error: 'No samples provided.' }, { status: 400 });
+      const samples = Array.isArray(body.samples)
+        ? body.samples.slice(0, MAX_SAMPLE_ITEMS).map((code) => cleanText(code, 80)).filter(Boolean)
+        : [];
+      if (samples.length === 0 || (body.samples?.length || 0) > MAX_SAMPLE_ITEMS) {
+        return NextResponse.json({ success: false, error: 'Invalid samples.' }, { status: 400 });
       }
+      notificationSamples = samples;
 
-      for (const code of samples) {
-        await insertRow({
+      // As above, keep a multi-sample request atomic.
+      await insertRows(samples.map((code) => ({
           request_type:  'sample',
           status:        'new',
           customer_name: name || null,
@@ -121,12 +155,11 @@ export async function POST(req: NextRequest) {
           unit:          'pcs',
           source:        'website',
           raw_data:      { name, address, phone, code },
-        });
-      }
+        })));
     }
 
     // Send email notification (non-blocking — don't fail the response if email errors)
-    sendRequestNotification({ type, name, phone, address, items: body.items, samples: body.samples })
+    sendRequestNotification({ type, name, phone, address, items: notificationItems, samples: notificationSamples })
       .catch((e) => console.error('[submit-request] Email notification failed:', e));
 
     return NextResponse.json({ success: true });

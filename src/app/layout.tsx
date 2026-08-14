@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -7,20 +6,6 @@ import { JsonLd } from '@/components/JsonLd';
 import { LangProvider } from '@/lib/LangContext';
 import { AiChatLoader } from '@/components/AiChatLoader';
 import { buildOrganizationJsonLd, buildLocalBusinessJsonLd } from '@/lib/structured-data';
-
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  style: ['normal', 'italic'],
-  display: 'swap',
-  variable: '--font-cormorant'
-});
-
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-dm-sans'
-});
 
 export const metadata: Metadata = {
   title: {
@@ -46,7 +31,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html lang="id">
       <body className="min-h-screen font-sans antialiased">
         <JsonLd data={buildOrganizationJsonLd()} />
         <JsonLd data={buildLocalBusinessJsonLd()} />

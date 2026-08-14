@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 import { buildWhatsAppUrl } from '@/lib/whatsapp';
@@ -349,7 +350,7 @@ export function OtorisasiPageClient() {
                 >
                   <div className="h-14 mb-4 flex items-center">
                     {cert.logo ? (
-                      <img src={cert.logo} alt={cert.name} className="h-full w-auto object-contain" />
+                      <Image src={cert.logo} alt={cert.name} width={180} height={56} className="h-full w-auto object-contain" />
                     ) : (
                       <p className="text-[11px] text-varindo-400 italic">
                         {lang === 'id' ? 'Logo sertifikasi menyusul' : 'Certification logo pending'}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback, KeyboardEvent } from 'react';
+import { useEffect, useId, useRef, useState, useCallback, KeyboardEvent } from 'react';
 import { lamitakProductsFromCsv } from '@/data/lamitak-products-from-csv';
 
 // Build a lean search index once at module level — code + design, deduped by code
@@ -44,6 +44,8 @@ type Props = {
 };
 
 export function ProductCodeCombobox({ value, onChange, placeholder, rowIndex }: Props) {
+  const id = useId();
+  const listboxId = `${id}-listbox`;
   const [inputValue, setInputValue] = useState(value);
   const [results, setResults]       = useState<Entry[]>([]);
   const [open, setOpen]             = useState(false);
@@ -129,9 +131,11 @@ export function ProductCodeCombobox({ value, onChange, placeholder, rowIndex }: 
         }}
         placeholder={placeholder}
         aria-label={label}
+        role="combobox"
         aria-autocomplete="list"
         aria-expanded={open}
-        aria-activedescendant={activeIdx >= 0 ? `pcb-option-${activeIdx}` : undefined}
+        aria-controls={listboxId}
+        aria-activedescendant={activeIdx >= 0 ? `${id}-option-${activeIdx}` : undefined}
         autoComplete="off"
         spellCheck={false}
         className="w-full h-10 px-4 text-[13px] text-varindo-ink bg-transparent outline-none placeholder:text-varindo-300 focus:bg-varindo-50 transition-colors"
@@ -141,6 +145,7 @@ export function ProductCodeCombobox({ value, onChange, placeholder, rowIndex }: 
       {open && (
         <div className="absolute left-0 right-0 top-full z-50 border border-varindo-line bg-white shadow-luxury">
           <ul
+            id={listboxId}
             ref={listRef}
             role="listbox"
             className="max-h-56 overflow-y-auto divide-y divide-varindo-line/40"
@@ -151,7 +156,7 @@ export function ProductCodeCombobox({ value, onChange, placeholder, rowIndex }: 
               return (
                 <li
                   key={entry.code}
-                  id={`pcb-option-${i}`}
+                  id={`${id}-option-${i}`}
                   role="option"
                   aria-selected={isActive}
                   onMouseDown={(e) => { e.preventDefault(); select(entry); }}

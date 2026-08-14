@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { FormEvent, useState, useEffect } from 'react';
 import { useLang } from '@/lib/LangContext';
@@ -111,16 +112,16 @@ export function Header() {
             {/* Logo + Lamitak authorized dealer badge */}
             <div className="flex items-center gap-3 lg:gap-4 shrink-0">
               <Link href="/" className="shrink-0" aria-label="Varindo">
-                <img src="/varindo-logo-transparent.png" alt="CV. Varindo Forma Hutama"
-                  style={{ width: '88px' }} className="h-auto object-contain opacity-90 hover:opacity-100 transition-opacity" />
+                <Image src="/varindo-logo-transparent.png" alt="CV. Varindo Forma Hutama"
+                  width={88} height={48} className="h-auto object-contain opacity-90 hover:opacity-100 transition-opacity" priority />
               </Link>
               <div className="h-8 lg:h-10 w-px bg-varindo-line" />
               <div className="flex flex-col justify-center gap-[3px]">
                 <span className="text-[7px] sm:text-[8px] lg:text-[9px] font-semibold tracking-[0.05em] text-varindo-500 leading-none whitespace-nowrap">
                   Authorized Dealer of
                 </span>
-                <img src="/lamitak-logo-mark.png" alt="Lamitak"
-                  className="h-[22px] sm:h-[24px] lg:h-[30px] w-auto object-contain" />
+                <Image src="/lamitak-logo-mark.png" alt="Lamitak"
+                  width={120} height={30} className="h-[22px] sm:h-[24px] lg:h-[30px] w-auto object-contain" priority />
               </div>
             </div>
 

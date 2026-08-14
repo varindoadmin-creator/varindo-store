@@ -85,7 +85,7 @@ export function AiChat() {
         }]);
       }
     }
-  }, [open]);
+  }, [open, hasOpened, lang]);
 
   const quickReplies = lang === 'id' ? QUICK_REPLIES_ID : QUICK_REPLIES_EN;
 
