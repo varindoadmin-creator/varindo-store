@@ -32,7 +32,7 @@ function buildSystemPrompt(lang: 'id' | 'en', products: any[]): string {
   const productSummary = products
     .slice(0, MAX_PRODUCTS_IN_CONTEXT)
     .map(p =>
-      `${p.code} | ${p.name} | ${p.collection || ''} | ${p.category || ''} | ${p.finish || ''} | ${p.size || ''} | ${p.thickness || ''} | Rp${p.price?.toLocaleString('id-ID') || '?'}`
+      `${p.code} | ${p.design || p.name} | ${p.collection || ''} | ${p.category || ''} | ${p.size || ''} | ${p.thickness || ''} | Rp${p.price?.toLocaleString('id-ID') || '?'} | E23:${p.newedge23mm || '-'} | E44:${p.newedge44mm || '-'}`
     )
     .join('\n');
 
@@ -55,7 +55,16 @@ Ukuran standar: 4'x8' (1220x2440mm) dan 4'x10' (1220x3050mm)
 Ketebalan: 0.7mm, 0.8mm, 1.0mm, dll
 Harga sudah termasuk pajak (PPN 11%)
 
-DATABASE PRODUK (format: Kode | Nama | Koleksi | Kategori | Finishing | Ukuran | Ketebalan | Harga | Status):
+KODE ARTIKEL, UKURAN & NEWEDGE:
+• Setiap ukuran adalah produk terpisah dengan kode dan harga masing-masing. Jangan menggabungkan harga 4'x8' dan 4'x10'.
+• Kode 4'x10' sering memiliki tambahan angka 1 setelah prefix, tetapi JANGAN menebak atau membentuk kode. Gunakan hanya kode persis di database.
+• E23 adalah matching Newedge lebar 23mm; E44 adalah matching Newedge lebar 44mm. Tanda "-" berarti tidak ada kode Newedge resmi yang tercantum untuk produk tersebut.
+• Kode Newedge yang sama dapat berlaku untuk artikel 4'x8' dan 4'x10' dari desain yang sama. Sebutkan pada kedua ukuran jika tercantum di masing-masing record.
+• "Tersedia dengan matching Newedge" berarti varian/kode tersebut ada di katalog, BUKAN jaminan stok saat ini. Stok tetap harus dikonfirmasi Admin Varindo.
+• Jika kode Newedge kosong, jangan mengarang kode berdasarkan kode artikel. Katakan matching Newedge belum tercantum dan tawarkan pengecekan oleh Admin.
+• Contoh: WY 1275D adalah 4'x8' dan WY 11275D adalah 4'x10'; keduanya memiliki E23 EAW1275D1/2310/1 dan E44 EAW1275D1/4410/1, tetapi harga masing-masing mengikuti record ukurannya.
+
+DATABASE PRODUK (format: Kode Artikel | Desain | Koleksi | Subkoleksi | Ukuran | Ketebalan | Harga termasuk PPN | E23 | E44):
 ${productSummary}
 
 KEBIJAKAN & OPERASIONAL:
@@ -152,7 +161,16 @@ Standard sizes: 4'x8' (1220x2440mm) and 4'x10' (1220x3050mm)
 Thickness: 0.7mm, 0.8mm, 1.0mm, etc.
 All prices include tax (PPN 11%)
 
-PRODUCT DATABASE (format: Code | Name | Collection | Category | Finish | Size | Thickness | Price | Status):
+ARTICLE CODES, SIZES & NEWEDGE:
+• Each size is a separate product with its own article code and price. Never merge the 4'x8' and 4'x10' prices.
+• The 4'x10' code often has an additional 1 after the prefix, but NEVER guess or construct a code. Use only exact codes in the database.
+• E23 is the matching 23mm Newedge code; E44 is the matching 44mm Newedge code. A "-" means no official matching Newedge code is listed for that product.
+• The same Newedge codes may apply to both the 4'x8' and 4'x10' articles of one design. Report them for both sizes when they appear in each record.
+• "Available with matching Newedge" means the variant/code exists in the catalogue, NOT that it is currently in stock. Current stock must still be confirmed by Varindo Admin.
+• When Newedge is blank, never invent a code from the article code. Say that no matching Newedge is listed and offer an Admin check.
+• Example: WY 1275D is 4'x8' and WY 11275D is 4'x10'; both list E23 EAW1275D1/2310/1 and E44 EAW1275D1/4410/1, while each size retains its own price.
+
+PRODUCT DATABASE (format: Article Code | Design | Collection | Subcollection | Size | Thickness | Tax-inclusive Price | E23 | E44):
 ${productSummary}
 
 POLICIES & OPERATIONS:

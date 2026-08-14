@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer';
 import { JsonLd } from '@/components/JsonLd';
 import { LangProvider } from '@/lib/LangContext';
 import { AiChatLoader } from '@/components/AiChatLoader';
+import { GoogleAdsTag } from '@/components/GoogleAdsTag';
 import { buildOrganizationJsonLd, buildLocalBusinessJsonLd } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="id">
       <body className="min-h-screen font-sans antialiased">
+        <GoogleAdsTag />
         <JsonLd data={buildOrganizationJsonLd()} />
         <JsonLd data={buildLocalBusinessJsonLd()} />
         <LangProvider>
