@@ -16,6 +16,13 @@ export const metadata: Metadata = {
   description:
     'Dealer resmi Lamitak di Indonesia. 800 produk, harga transparan termasuk PPN, sampel gratis, gudang Tangerang & Bandung. Cek katalog & harga sekarang.',
   metadataBase: new URL('https://varindo.co.id'),
+  manifest: '/manifest.webmanifest',
+  applicationName: 'Varindo Lamitak',
+  appleWebApp: {
+    capable: true,
+    title: 'Varindo Lamitak',
+    statusBarStyle: 'black-translucent'
+  },
   openGraph: {
     title: 'Dealer Resmi HPL Lamitak Indonesia - Katalog & Harga 800 Produk | Varindo',
     description:
@@ -27,6 +34,13 @@ export const metadata: Metadata = {
   },
   verification: {
     google: '3OQ2o384S0-hyZZ7oCS2BI-aOb5Q3c6HSD8g4U-vDtk'
+  },
+  icons: {
+    icon: [
+      { url: '/icons/varindo-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icons/varindo-512.png', sizes: '512x512', type: 'image/png' }
+    ],
+    apple: '/icons/varindo-192.png'
   }
 };
 

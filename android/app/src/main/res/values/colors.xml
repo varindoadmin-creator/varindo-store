@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- varindo-ink: the dark header color used throughout the site -->
+    <color name="colorPrimary">#1a1714</color>
+    <color name="colorPrimaryDark">#1a1714</color>
+    <color name="colorAccent">#a8763e</color>
+
+    <!-- Navigation bar (bottom of screen) — matches ink -->
+    <color name="navigationColor">#1a1714</color>
+    <color name="navigationDividerColor">#1a1714</color>
+
+    <!-- Splash screen background — matches varindo-paper -->
+    <color name="splashScreenBackground">#faf8f5</color>
+</resources>

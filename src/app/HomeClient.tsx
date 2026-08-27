@@ -59,9 +59,6 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
               <Link href="/products" className="btn-ghost-white">
                 {t('home', 'browseCta', lang)}
               </Link>
-              <Link href="/surface-match" className="btn-ghost-white">
-                {t('home', 'surfaceMatchCta', lang)}
-              </Link>
             </div>
           </div>
 

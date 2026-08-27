@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Varindo</string>
+    <string name="app_name_short">Varindo</string>
+
+    <!-- The reverse web relationship. The website publishes the Android
+         certificate relationship at /.well-known/assetlinks.json. -->
+    <string name="asset_statements">
+        [{
+            \"relation\": [\"delegate_permission/common.handle_all_urls\"],
+            \"target\": {
+                \"namespace\": \"web\",
+                \"site\": \"https://varindo.co.id\"
+            }
+        }]
+    </string>
+</resources>

@@ -1,4 +1,4 @@
-// External resources are limited to Cloudinary product imagery/uploads, the
+// External resources are limited to Cloudinary product imagery, the
 // embedded Lamitak catalogue, and Google Ads measurement. Everything else (chat
 // widget, forms, sitemap, JSON-LD) talks to same-origin API routes.
 //
@@ -11,7 +11,7 @@ const isDev = process.env.NODE_ENV !== 'production';
 const csp = [
   "default-src 'self'",
   "img-src 'self' data: blob: https://res.cloudinary.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net",
-  "connect-src 'self' https://api.cloudinary.com https://www.google-analytics.com https://region1.google-analytics.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net",
+  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net",
   `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com${isDev ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",

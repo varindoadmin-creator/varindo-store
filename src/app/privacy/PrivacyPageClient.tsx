@@ -17,8 +17,8 @@ export function PrivacyPageClient() {
           </h1>
           <p className="mt-4 text-[13px] text-varindo-400">
             {lang === 'id'
-              ? 'Terakhir diperbarui: Juni 2026'
-              : 'Last updated: June 2026'}
+              ? 'Terakhir diperbarui: Agustus 2026'
+              : 'Last updated: August 2026'}
           </p>
         </div>
       </div>
@@ -71,13 +71,6 @@ export function PrivacyPageClient() {
               </section>
 
               <section>
-                <h2 className="font-display text-2xl font-light text-varindo-ink mb-4">Fitur Cari dari Foto (Surface Match)</h2>
-                <p>
-                  Fitur Cari dari Foto memungkinkan Anda mengunggah foto permukaan interior, termasuk foto yang memuat beberapa contoh produk sekaligus atau kode produk tercetak, untuk mencari desain HPL Lamitak yang mirip. Foto yang Anda unggah disimpan di layanan hosting gambar cloud kami (Cloudinary) dan dianalisis oleh layanan AI pihak ketiga (Voyage AI dan Anthropic/Claude) semata-mata untuk menghasilkan hasil pencocokan visual dan membaca kode produk yang terlihat pada foto. Kami menyarankan Anda tidak mengunggah foto yang memuat wajah atau informasi pribadi sensitif lainnya. Jika Anda ingin foto yang telah diunggah dihapus, silakan hubungi kami melalui email di bawah.
-                </p>
-              </section>
-
-              <section>
                 <h2 className="font-display text-2xl font-light text-varindo-ink mb-4">Penyimpanan Data</h2>
                 <p>
                   Data yang Anda kirimkan melalui formulir disimpan secara aman di database cloud kami (Supabase) yang hanya dapat diakses oleh tim internal Varindo. Kami tidak menjual, memperdagangkan, atau menyerahkan informasi pribadi Anda kepada pihak ketiga manapun.
@@ -87,7 +80,7 @@ export function PrivacyPageClient() {
               <section>
                 <h2 className="font-display text-2xl font-light text-varindo-ink mb-4">Cookie dan Pelacakan</h2>
                 <p>
-                  Situs web kami tidak menggunakan cookie pelacakan atau layanan analitik pihak ketiga. Kami tidak melacak perilaku pengguna secara individual.
+                  Situs web kami menggunakan Google Ads untuk mengukur kunjungan dan tindakan yang berasal dari iklan, sehingga Google dapat menempatkan atau membaca cookie dan teknologi serupa sesuai kebijakannya. Data ini digunakan untuk pengukuran performa iklan dan tidak kami gunakan untuk mengidentifikasi Anda secara langsung.
                 </p>
               </section>
 
@@ -161,13 +154,6 @@ export function PrivacyPageClient() {
               </section>
 
               <section>
-                <h2 className="font-display text-2xl font-light text-varindo-ink mb-4">Search by Photo Feature (Surface Match)</h2>
-                <p>
-                  The Search by Photo feature lets you upload a photo of an interior surface — including photos showing several product samples at once, or a visible printed product code — to find similar Lamitak HPL designs. Uploaded photos are stored on our cloud image hosting service (Cloudinary) and analyzed by third-party AI services (Voyage AI and Anthropic/Claude) solely to generate visual matching results and read any visible product code. We recommend you avoid uploading photos that contain faces or other sensitive personal information. If you'd like an uploaded photo removed, please contact us at the email below.
-                </p>
-              </section>
-
-              <section>
                 <h2 className="font-display text-2xl font-light text-varindo-ink mb-4">Data Storage</h2>
                 <p>
                   Data submitted through our forms is stored securely in our cloud database (Supabase), accessible only by Varindo's internal team. We do not sell, trade, or transfer your personal information to any third parties.
@@ -177,7 +163,7 @@ export function PrivacyPageClient() {
               <section>
                 <h2 className="font-display text-2xl font-light text-varindo-ink mb-4">Cookies and Tracking</h2>
                 <p>
-                  Our website does not use tracking cookies or third-party analytics services. We do not track individual user behaviour.
+                  Our website uses Google Ads to measure visits and actions originating from advertisements. Google may place or read cookies and similar technologies under its own policies. We use this data for advertising performance measurement and do not use it to identify you directly.
                 </p>
               </section>
 

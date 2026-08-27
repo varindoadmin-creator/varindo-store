@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Splash screen shown while the TWA loads.
+    A centered Varindo "V" mark on the paper background.
+    Replace this with your actual logo SVG if desired.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background -->
+    <item>
+        <color android:color="@color/splashScreenBackground" />
+    </item>
+    <!-- Centered logo mark — a simple geometric V in varindo-ink -->
+    <item
+        android:gravity="center"
+        android:width="96dp"
+        android:height="96dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/splashScreenBackground" />
+        </shape>
+    </item>
+</layer-list>
