@@ -685,15 +685,6 @@ export const lamitakProductDatabase: LamitakProductDatabaseRecord[] = [
     "collection": "DXN"
   },
   {
-    "code": "DXN 5336X",
-    "design": "KOKO RAMSHACKLE",
-    "size": "4'x8' / 1220 x 2440 mm",
-    "thickness": "0.7mm",
-    "finish": "Slate",
-    "category": "Patterns",
-    "collection": "DXN"
-  },
-  {
     "code": "DXO 1108B",
     "design": "NAPPA BLACK",
     "size": "4'x8' / 1220 x 2440 mm",
