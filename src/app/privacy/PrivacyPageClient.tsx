@@ -104,7 +104,7 @@ export function PrivacyPageClient() {
                 <div className="mt-4 border border-varindo-line bg-varindo-50 p-5 space-y-2">
                   <p><span className="font-medium text-varindo-ink">CV. Varindo Forma Hutama</span></p>
                   <p>Email: <a href="mailto:contact@varindo.co.id" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">contact@varindo.co.id</a></p>
-                  <p>WhatsApp: 0812 8888 5224</p>
+                  <p>WhatsApp: 0811 945 224</p>
                   <p>Website: <a href="https://varindo.co.id" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">varindo.co.id</a></p>
                 </div>
               </section>
@@ -187,7 +187,7 @@ export function PrivacyPageClient() {
                 <div className="mt-4 border border-varindo-line bg-varindo-50 p-5 space-y-2">
                   <p><span className="font-medium text-varindo-ink">CV. Varindo Forma Hutama</span></p>
                   <p>Email: <a href="mailto:contact@varindo.co.id" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">contact@varindo.co.id</a></p>
-                  <p>WhatsApp: 0812 8888 5224</p>
+                  <p>WhatsApp: 0811 945 224</p>
                   <p>Website: <a href="https://varindo.co.id" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">varindo.co.id</a></p>
                 </div>
               </section>

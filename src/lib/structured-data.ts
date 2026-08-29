@@ -13,7 +13,7 @@ export function buildOrganizationJsonLd() {
     logo: `${SITE_URL}/varindo-logo-transparent.png`,
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+62-812-8888-5224',
+      telephone: '+62-811-945-224',
       email: 'contact@varindo.co.id',
       contactType: 'customer service',
       areaServed: 'ID',
@@ -30,7 +30,7 @@ export function buildLocalBusinessJsonLd() {
     name: LEGAL_NAME,
     image: `${SITE_URL}/varindo-logo-transparent.png`,
     url: SITE_URL,
-    telephone: '+62-812-8888-5224',
+    telephone: '+62-811-945-224',
     email: 'contact@varindo.co.id',
     priceRange: 'IDR',
     address: {

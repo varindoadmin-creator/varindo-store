@@ -98,12 +98,12 @@ export function Footer() {
               <span className="block text-varindo-500 text-[10px] tracking-[0.16em] uppercase mb-1">
                 {t('footer', 'phone', lang)}
               </span>
-              <a href="tel:+6281288885224" className="hover:text-white transition-colors">0812 8888 5224</a>
+              <a href="tel:+62811945224" className="hover:text-white transition-colors">0811 945 224</a>
               <br />
               <a href="tel:+6281210015224" className="hover:text-white transition-colors">0812 1001 5224</a>
             </p>
             <p className="text-[13px] text-varindo-400">
-              <a href="https://wa.me/6281288885224" target="_blank" rel="noopener noreferrer"
+              <a href="https://wa.me/62811945224" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 hover:text-white transition-colors">
                 WhatsApp →
               </a>

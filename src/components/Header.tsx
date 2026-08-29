@@ -225,7 +225,7 @@ export function Header() {
             {/* Mobile lang + CTA */}
             <div className="shell pb-5 pt-2 flex gap-3 items-center">
               <LangSwitcher />
-              <a href="https://wa.me/6281288885224" target="_blank" rel="noreferrer"
+              <a href="https://wa.me/62811945224" target="_blank" rel="noreferrer"
                 onClick={() => setIsOpen(false)}
                 className="btn-ink flex-1 justify-center">
                 {t('nav', 'chatWithUs', lang)}
