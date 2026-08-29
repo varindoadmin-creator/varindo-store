@@ -20,6 +20,7 @@ export const translations = {
     about:        { id: 'Tentang',   en: 'About' },
     contact:      { id: 'Kontak',    en: 'Contact' },
     chatWithUs:   { id: 'Hubungi Kami', en: 'Chat with Us' },
+    getApp:       { id: 'Aplikasi Android', en: 'Android App' },
     searchPlaceholder: {
       id: 'Cari kode, desain, finishing...',
       en: 'Search by code, design, finish...'
@@ -395,6 +396,11 @@ export const translations = {
     priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
     blogLink:     { id: 'Artikel', en: 'Articles' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
+    appTagline:   {
+      id: 'Unduh aplikasi Varindo untuk pengalaman belanja HPL yang lebih cepat.',
+      en: 'Download the Varindo app for a faster HPL browsing experience.'
+    },
+    appLink:      { id: 'Unduh di Google Play', en: 'Get it on Google Play' },
     copyright:    { id: '© {year} CV. Varindo Forma Hutama. Hak cipta dilindungi.', en: '© {year} CV. Varindo Forma Hutama. All rights reserved.' }
   },
 

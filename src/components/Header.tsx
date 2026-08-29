@@ -7,6 +7,16 @@ import { FormEvent, useState, useEffect } from 'react';
 import { useLang } from '@/lib/LangContext';
 import { t, type Lang } from '@/lib/i18n';
 
+const PLAY_STORE_URL = 'https://play.google.com/apps/testing/co.varindo.catalog';
+
+function PlayStoreIcon({ size = 11 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M3 2.5v19a1 1 0 0 0 1.53.85l15-9.5a1 1 0 0 0 0-1.7l-15-9.5A1 1 0 0 0 3 2.5z" />
+    </svg>
+  );
+}
+
 const collectionItems = [
   { key: 'new-arrivals', href: '/collections/new-arrivals' },
   { key: 'best-sellers', href: '/collections/best-sellers' },
@@ -173,6 +183,11 @@ export function Header() {
 
             {/* Right controls */}
             <div className="hidden sm:flex shrink-0 items-center gap-3">
+              <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 border border-varindo-line px-3 py-1.5 text-[10px] font-semibold tracking-[0.14em] uppercase text-varindo-700 hover:border-varindo-ink hover:text-varindo-ink transition-colors">
+                <PlayStoreIcon />
+                {t('nav', 'getApp', lang)}
+              </a>
               <LangSwitcher />
             </div>
 
@@ -223,12 +238,20 @@ export function Header() {
               </div>
             </div>
             {/* Mobile lang + CTA */}
-            <div className="shell pb-5 pt-2 flex gap-3 items-center">
-              <LangSwitcher />
-              <a href="https://wa.me/62811945224" target="_blank" rel="noreferrer"
+            <div className="shell pb-5 pt-2 flex flex-col gap-3">
+              <div className="flex gap-3 items-center">
+                <LangSwitcher />
+                <a href="https://wa.me/62811945224" target="_blank" rel="noreferrer"
+                  onClick={() => setIsOpen(false)}
+                  className="btn-ink flex-1 justify-center">
+                  {t('nav', 'chatWithUs', lang)}
+                </a>
+              </div>
+              <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer"
                 onClick={() => setIsOpen(false)}
-                className="btn-ink flex-1 justify-center">
-                {t('nav', 'chatWithUs', lang)}
+                className="inline-flex items-center justify-center gap-1.5 border border-varindo-line px-3 py-2.5 text-[11px] font-semibold tracking-[0.14em] uppercase text-varindo-700 hover:border-varindo-ink hover:text-varindo-ink transition-colors">
+                <PlayStoreIcon size={12} />
+                {t('nav', 'getApp', lang)}
               </a>
             </div>
           </div>

@@ -5,6 +5,16 @@ import Image from 'next/image';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
+const PLAY_STORE_URL = 'https://play.google.com/apps/testing/co.varindo.catalog';
+
+function PlayStoreIcon({ size = 13 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M3 2.5v19a1 1 0 0 0 1.53.85l15-9.5a1 1 0 0 0 0-1.7l-15-9.5A1 1 0 0 0 3 2.5z" />
+    </svg>
+  );
+}
+
 export function Footer() {
   const { lang } = useLang();
   const year = new Date().getFullYear();
@@ -113,6 +123,19 @@ export function Footer() {
               <a href="mailto:contact@varindo.co.id" className="hover:text-white transition-colors">contact@varindo.co.id</a>
             </p>
           </address>
+        </div>
+      </div>
+
+      <div className="border-t border-white/[0.07]">
+        <div className="shell py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-[13px] text-varindo-300 text-center sm:text-left">
+            {t('footer', 'appTagline', lang)}
+          </p>
+          <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 border border-white/20 px-4 py-2 text-[11px] font-semibold tracking-[0.14em] uppercase text-white hover:bg-white hover:text-varindo-ink transition-colors shrink-0">
+            <PlayStoreIcon />
+            {t('footer', 'appLink', lang)}
+          </a>
         </div>
       </div>
 
