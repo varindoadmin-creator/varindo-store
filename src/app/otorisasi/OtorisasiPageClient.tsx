@@ -182,7 +182,7 @@ export function OtorisasiPageClient() {
                 Jl. BSD Boulevard Parcel 55-F<br />
                 Tangerang 15339, Banten, Indonesia<br />
                 <span className="block mt-3">
-                  {lang === 'id' ? 'Telepon / WhatsApp' : 'Phone / WhatsApp'}: <a href="tel:+62811945224" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">0811 945 224</a><br />
+                  {lang === 'id' ? 'Telepon / WhatsApp' : 'Phone / WhatsApp'}: <a href="tel:+6281288885224" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">0812 8888 5224</a><br />
                   Email: <a href="mailto:contact@varindo.co.id" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">contact@varindo.co.id</a>
                 </span>
               </address>

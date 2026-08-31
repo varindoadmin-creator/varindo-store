@@ -1,7 +1,7 @@
 import type { Product } from '@/types/product';
 import { formatIDR } from './utils';
 
-const DEFAULT_WA_NUMBER = '62811945224';
+const DEFAULT_WA_NUMBER = '6281288885224';
 
 export function getWhatsAppNumber() {
   return process.env.NEXT_PUBLIC_VARINDO_WHATSAPP || DEFAULT_WA_NUMBER;
