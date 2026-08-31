@@ -6,16 +6,12 @@ import { useRouter, usePathname } from 'next/navigation';
 import { FormEvent, useState, useEffect } from 'react';
 import { useLang } from '@/lib/LangContext';
 import { t, type Lang } from '@/lib/i18n';
+import { useIsTwa } from '@/lib/useIsTwa';
 
 const PLAY_STORE_URL = 'https://play.google.com/apps/testing/co.varindo.catalog';
-
-function PlayStoreIcon({ size = 11 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M3 2.5v19a1 1 0 0 0 1.53.85l15-9.5a1 1 0 0 0 0-1.7l-15-9.5A1 1 0 0 0 3 2.5z" />
-    </svg>
-  );
-}
+const PLAY_BADGE_SRC: Record<Lang, string> = { id: '/play-badge-id.png', en: '/play-badge-en.png' };
+// Google's official badge art is 646x250 (2.584:1) at every locale.
+const PLAY_BADGE_RATIO = 646 / 250;
 
 const collectionItems = [
   { key: 'new-arrivals', href: '/collections/new-arrivals' },
@@ -95,6 +91,7 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const isTwa = useIsTwa();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 8);
@@ -183,11 +180,13 @@ export function Header() {
 
             {/* Right controls */}
             <div className="hidden sm:flex shrink-0 items-center gap-3">
-              <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 border border-varindo-line px-3 py-1.5 text-[10px] font-semibold tracking-[0.14em] uppercase text-varindo-700 hover:border-varindo-ink hover:text-varindo-ink transition-colors">
-                <PlayStoreIcon />
-                {t('nav', 'getApp', lang)}
-              </a>
+              {!isTwa && (
+                <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center shrink-0 opacity-90 hover:opacity-100 transition-opacity">
+                  <Image src={PLAY_BADGE_SRC[lang]} alt={t('nav', 'getApp', lang)}
+                    width={Math.round(32 * PLAY_BADGE_RATIO)} height={32} className="h-8 w-auto" />
+                </a>
+              )}
               <LangSwitcher />
             </div>
 
@@ -247,12 +246,14 @@ export function Header() {
                   {t('nav', 'chatWithUs', lang)}
                 </a>
               </div>
-              <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer"
-                onClick={() => setIsOpen(false)}
-                className="inline-flex items-center justify-center gap-1.5 border border-varindo-line px-3 py-2.5 text-[11px] font-semibold tracking-[0.14em] uppercase text-varindo-700 hover:border-varindo-ink hover:text-varindo-ink transition-colors">
-                <PlayStoreIcon size={12} />
-                {t('nav', 'getApp', lang)}
-              </a>
+              {!isTwa && (
+                <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer"
+                  onClick={() => setIsOpen(false)}
+                  className="inline-flex items-center justify-center">
+                  <Image src={PLAY_BADGE_SRC[lang]} alt={t('nav', 'getApp', lang)}
+                    width={Math.round(40 * PLAY_BADGE_RATIO)} height={40} className="h-10 w-auto" />
+                </a>
+              )}
             </div>
           </div>
         )}

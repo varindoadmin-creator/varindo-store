@@ -397,8 +397,8 @@ export const translations = {
     blogLink:     { id: 'Artikel', en: 'Articles' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
     appTagline:   {
-      id: 'Unduh aplikasi Varindo untuk pengalaman belanja HPL yang lebih cepat.',
-      en: 'Download the Varindo app for a faster HPL browsing experience.'
+      id: 'Unduh Aplikasi Varindo',
+      en: 'Download the Varindo App'
     },
     appLink:      { id: 'Unduh di Google Play', en: 'Get it on Google Play' },
     copyright:    { id: '© {year} CV. Varindo Forma Hutama. Hak cipta dilindungi.', en: '© {year} CV. Varindo Forma Hutama. All rights reserved.' }
