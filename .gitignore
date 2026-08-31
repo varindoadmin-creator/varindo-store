@@ -7,3 +7,11 @@ out
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Android signing keys — never commit private keystores
+android/keystore/
+*.jks
+*.keystore
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo

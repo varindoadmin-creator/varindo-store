@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Android 12+ (API 31) shows its own system splash screen before onCreate()
+        ever runs, derived from the launcher icon. Our adaptive icon's background
+        layer is dark ink (#1A1714) while the app's real splash/window background
+        is paper (#faf8f5) — left unset, the system splash flashes the dark icon
+        badge for a frame before the app's paper-colored splash replaces it.
+        Setting the background here makes the OS-drawn splash match the app's own.
+
+        windowSplashScreenAnimatedIcon / windowSplashScreenIconBackgroundColor were
+        also set here previously, pointing at the adaptive icon's @mipmap foreground
+        layer. That reproducibly crashed the app on launch on this One UI device —
+        it's a 108dp adaptive-icon canvas passed as a @mipmap (density-bucketed)
+        resource, which is a known crash trigger for this attribute on some OEM
+        splash-screen implementations. Removed; the OS falls back to deriving an
+        icon from the launcher icon itself, which brings back a one-frame flash of
+        the dark badge but at least launches.
+    -->
+    <style name="Theme.VarindoSplash" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@color/splashScreenBackground</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowSplashScreenBackground">@color/splashScreenBackground</item>
+    </style>
+</resources>

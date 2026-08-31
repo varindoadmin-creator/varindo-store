@@ -9,13 +9,10 @@
     <item>
         <color android:color="@color/splashScreenBackground" />
     </item>
-    <!-- Centered logo mark — a simple geometric V in varindo-ink -->
+    <!-- Centered logo mark — reuses the app icon's foreground mark -->
     <item
         android:gravity="center"
         android:width="96dp"
-        android:height="96dp">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/splashScreenBackground" />
-        </shape>
-    </item>
+        android:height="96dp"
+        android:drawable="@mipmap/ic_launcher_foreground" />
 </layer-list>
