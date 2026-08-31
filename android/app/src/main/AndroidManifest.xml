@@ -46,7 +46,7 @@
                 android:value="@drawable/splash_icon" />
             <meta-data
                 android:name="android.support.customtabs.trusted.SPLASH_SCREEN_BACKGROUND_COLOR"
-                android:value="@color/splashScreenBackground" />
+                android:resource="@color/splashScreenBackground" />
             <meta-data
                 android:name="android.support.customtabs.trusted.SPLASH_SCREEN_FADE_OUT_DURATION"
                 android:value="300" />
@@ -54,16 +54,16 @@
             <!-- Status bar and navigation bar -->
             <meta-data
                 android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR"
-                android:value="@color/colorPrimary" />
+                android:resource="@color/colorPrimary" />
             <meta-data
                 android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR_DARK"
-                android:value="@color/colorPrimaryDark" />
+                android:resource="@color/colorPrimaryDark" />
             <meta-data
                 android:name="android.support.customtabs.trusted.NAVIGATION_BAR_COLOR"
-                android:value="@color/navigationColor" />
+                android:resource="@color/navigationColor" />
             <meta-data
                 android:name="android.support.customtabs.trusted.NAVIGATION_BAR_DIVIDER_COLOR"
-                android:value="@color/navigationDividerColor" />
+                android:resource="@color/navigationDividerColor" />
 
             <!-- File provider for downloads -->
             <meta-data
