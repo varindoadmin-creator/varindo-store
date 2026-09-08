@@ -119,7 +119,6 @@ export default async function HargaLamitakPage() {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <a href={waUrl} target="_blank" rel="noreferrer" className="btn-ink justify-center">Tanya via WhatsApp</a>
-            <Link href="/request-quote" className="btn-ghost justify-center">Minta Penawaran</Link>
           </div>
         </section>
 

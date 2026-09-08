@@ -39,20 +39,18 @@ function isMeaningfulVisitorText(text: string): boolean {
   return true;
 }
 
-type RequestType = 'sample' | 'quote' | 'catalogue' | 'price-list';
+type RequestType = 'sample' | 'catalogue' | 'price-list';
 
 interface NotifyParams {
   type: RequestType;
   name?: string;
   phone?: string;
   address?: string;
-  items?: { code: string; qty: string }[];
   samples?: string[];
 }
 
 const LABEL: Record<RequestType, string> = {
   sample:      'Sample Request',
-  quote:       'Quote Request',
   catalogue:   'Catalogue Request',
   'price-list': 'Price List Download',
 };
@@ -61,13 +59,7 @@ function buildHtml(p: NotifyParams): string {
   const rows = (pairs: [string, string][]) =>
     pairs.map(([k, v]) => `<tr><td style="padding:6px 12px 6px 0;color:#6b6560;font-size:13px;white-space:nowrap">${escapeHtml(k)}</td><td style="padding:6px 0;font-size:13px;color:#1a1714">${escapeHtml(v)}</td></tr>`).join('');
 
-  const itemsHtml = p.type === 'quote' && p.items?.length
-    ? `<h3 style="margin:24px 0 8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#6b6560">Items</h3>
-       <table style="border-collapse:collapse;width:100%">
-         <tr style="background:#f5f3f0"><th style="padding:6px 8px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.1em">Code</th><th style="padding:6px 8px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.1em">Qty</th></tr>
-         ${p.items.map(i => `<tr style="border-top:1px solid #e8e4df"><td style="padding:6px 8px;font-size:13px">${escapeHtml(i.code)}</td><td style="padding:6px 8px;font-size:13px">${escapeHtml(i.qty)} lembar</td></tr>`).join('')}
-       </table>`
-    : p.type === 'sample' && p.samples?.length
+  const itemsHtml = p.type === 'sample' && p.samples?.length
     ? `<h3 style="margin:24px 0 8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#6b6560">Samples</h3>
        <ul style="margin:0;padding-left:18px">
          ${p.samples.map(s => `<li style="font-size:13px;padding:3px 0">${escapeHtml(s)}</li>`).join('')}

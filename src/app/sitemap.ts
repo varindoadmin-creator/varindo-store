@@ -19,7 +19,6 @@ const STATIC_PAGES: Array<{
   { path: '/about', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/contact', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/request-sample', changeFrequency: 'monthly', priority: 0.6 },
-  { path: '/request-quote', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/request-catalogue', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/price-list', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/harga-lamitak', changeFrequency: 'daily', priority: 0.8 },

@@ -132,7 +132,7 @@ export function PrivacyPageClient() {
                   ))}
                 </ul>
                 <p className="mt-4">
-                  This information is collected only through the Quote Request, Sample Request, and Catalogue Request forms, and is used solely to follow up on your request.
+                  This information is collected only through the Sample Request and Catalogue Request forms, and is used solely to follow up on your request.
                 </p>
               </section>
 
@@ -141,7 +141,7 @@ export function PrivacyPageClient() {
                 <p>Information you provide is used to:</p>
                 <ul className="mt-3 space-y-2 list-none pl-0">
                   {[
-                    'Process and follow up on quote, sample, or catalogue requests',
+                    'Process and follow up on sample or catalogue requests',
                     'Contact you regarding your submitted request',
                     'Deliver products or catalogues to your provided address'
                   ].map((item) => (

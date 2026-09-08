@@ -6,19 +6,24 @@ export const dynamic = 'force-dynamic';
 const SUPABASE_URL      = process.env.SUPABASE_URL;
 const SUPABASE_KEY      = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
+// Sample and Catalogue requests now go to VIABooks (via-corporate), the
+// business's own accounting system, instead of the old via-project
+// Supabase table — matched by the org id VIABooks uses for CV. Varindo
+// Forma Hutama. Price List downloads are unaffected and still go to
+// Supabase; nothing else on this site reads from VIABooks.
+const VIABOOKS_API_URL = process.env.VIABOOKS_API_URL || 'https://viabooks-601025884976.asia-southeast2.run.app';
+const VIABOOKS_ORGANIZATION_ID = process.env.VIABOOKS_ORGANIZATION_ID || 'cmts823pu000jt761mx48ltsq';
+
 type RequestBody = {
-  type: 'catalogue' | 'quote' | 'sample' | 'price-list';
+  type: 'catalogue' | 'sample' | 'price-list';
   name?: string;
   address?: string;
   phone?: string;
-  // Quote: array of { code, qty }
-  items?: { code: string; qty: string }[];
   // Sample: array of codes
   samples?: string[];
 };
 
 const MAX_TEXT_LENGTH = 500;
-const MAX_QUOTE_ITEMS = 10;
 const MAX_SAMPLE_ITEMS = 5;
 
 function cleanText(value: unknown, maxLength = MAX_TEXT_LENGTH) {
@@ -43,15 +48,26 @@ async function insertRows(rows: Record<string, unknown> | Record<string, unknown
   }
 }
 
-export async function POST(req: NextRequest) {
-  if (!SUPABASE_URL || !SUPABASE_KEY) {
-    console.error('[submit-request] Supabase env vars not set');
-    return NextResponse.json(
-      { success: false, error: 'Submission service is not configured.' },
-      { status: 503 }
-    );
-  }
+async function submitToViabooks(payload: {
+  requestType: 'sample' | 'catalogue';
+  customerName?: string;
+  phone?: string;
+  address?: string;
+  itemCode?: string;
+}) {
+  const res = await fetch(`${VIABOOKS_API_URL}/api/public/requests/${VIABOOKS_ORGANIZATION_ID}`, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(payload),
+  });
 
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`VIABooks error ${res.status}: ${err}`);
+  }
+}
+
+export async function POST(req: NextRequest) {
   let body: RequestBody;
   try {
     body = await req.json();
@@ -64,7 +80,7 @@ export async function POST(req: NextRequest) {
   const address = cleanText(body.address);
   const phone = cleanText(body.phone, 40);
 
-  if (!type || !['catalogue', 'quote', 'sample', 'price-list'].includes(type)) {
+  if (!type || !['catalogue', 'sample', 'price-list'].includes(type)) {
     return NextResponse.json({ success: false, error: 'Invalid request type.' }, { status: 400 });
   }
 
@@ -75,56 +91,22 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let notificationItems: { code: string; qty: string }[] | undefined;
+  if (type === 'price-list' && (!SUPABASE_URL || !SUPABASE_KEY)) {
+    console.error('[submit-request] Supabase env vars not set');
+    return NextResponse.json(
+      { success: false, error: 'Submission service is not configured.' },
+      { status: 503 }
+    );
+  }
+
   let notificationSamples: string[] | undefined;
 
   try {
     if (type === 'catalogue') {
-      // One row per catalogue request
-      await insertRows({
-        request_type:  'catalogue',
-        status:        'new',
-        customer_name: name || null,
-        address:       address || null,
-        phone:         phone || null,
-        source:        'website',
-        raw_data:      { name, address, phone },
-      });
-
-    } else if (type === 'quote') {
-      // One row per product item
-      const items = Array.isArray(body.items)
-        ? body.items.slice(0, MAX_QUOTE_ITEMS).map((item) => ({
-            code: cleanText(item?.code, 80),
-            qty: cleanText(item?.qty, 20),
-          }))
-        : [];
-      const invalidItem = items.some((item) => {
-        const quantity = Number(item.qty);
-        return !item.code || !Number.isFinite(quantity) || quantity <= 0;
-      });
-      if (items.length === 0 || invalidItem || (body.items?.length || 0) > MAX_QUOTE_ITEMS) {
-        return NextResponse.json({ success: false, error: 'Invalid quote items.' }, { status: 400 });
-      }
-      notificationItems = items;
-
-      // Insert the whole request in one PostgREST statement so a network/database
-      // failure cannot leave only some quote lines persisted.
-      await insertRows(items.map((item) => ({
-          request_type:  'quote',
-          status:        'new',
-          customer_name: name || null,
-          address:       address || null,
-          phone:         phone || null,
-          item_code:     item.code || null,
-          quantity:      Number(item.qty),
-          unit:          'lembar',
-          source:        'website',
-          raw_data:      { name, address, phone, item },
-        })));
+      await submitToViabooks({ requestType: 'catalogue', customerName: name, phone, address });
 
     } else if (type === 'price-list') {
-      // One row per price list download request
+      // One row per price list download request — unaffected by the VIABooks move.
       await insertRows({
         request_type:  'price-list',
         status:        'new',
@@ -135,7 +117,6 @@ export async function POST(req: NextRequest) {
       });
 
     } else if (type === 'sample') {
-      // One row per sample code
       const samples = Array.isArray(body.samples)
         ? body.samples.slice(0, MAX_SAMPLE_ITEMS).map((code) => cleanText(code, 80)).filter(Boolean)
         : [];
@@ -144,28 +125,21 @@ export async function POST(req: NextRequest) {
       }
       notificationSamples = samples;
 
-      // As above, keep a multi-sample request atomic.
-      await insertRows(samples.map((code) => ({
-          request_type:  'sample',
-          status:        'new',
-          customer_name: name || null,
-          address:       address || null,
-          phone:         phone || null,
-          item_code:     code,
-          unit:          'pcs',
-          source:        'website',
-          raw_data:      { name, address, phone, code },
-        })));
+      // One request per sample code, matching VIABooks' one-row-per-request
+      // contract — run together so one failure doesn't silently drop the rest.
+      await Promise.all(
+        samples.map((code) => submitToViabooks({ requestType: 'sample', customerName: name, phone, address, itemCode: code }))
+      );
     }
 
     // Send email notification (non-blocking — don't fail the response if email errors)
-    sendRequestNotification({ type, name, phone, address, items: notificationItems, samples: notificationSamples })
+    sendRequestNotification({ type, name, phone, address, samples: notificationSamples })
       .catch((e) => console.error('[submit-request] Email notification failed:', e));
 
     return NextResponse.json({ success: true });
 
   } catch (err) {
-    console.error('[submit-request] Supabase insert failed:', err);
+    console.error('[submit-request] Insert failed:', err);
     return NextResponse.json(
       { success: false, error: 'Could not save request. Please try again.' },
       { status: 500 }

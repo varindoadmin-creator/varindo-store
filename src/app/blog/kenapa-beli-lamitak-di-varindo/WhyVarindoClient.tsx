@@ -46,8 +46,8 @@ export function WhyVarindoClient({ post }: { post: BlogPost }) {
     {
       title: lang === 'id' ? 'Dukungan Sampel & Proyek' : 'Sample & Project Support',
       body: lang === 'id'
-        ? 'Anda dapat meminta sampel fisik gratis, mengajukan permintaan penawaran untuk banyak kode sekaligus, atau meminta katalog cetak — semua dapat diproses langsung oleh tim kami tanpa perantara tambahan.'
-        : 'You can request free physical samples, submit a quote request for multiple product codes at once, or request a printed catalogue — all processed directly by our team with no additional middleman.'
+        ? 'Anda dapat meminta sampel fisik gratis atau meminta katalog cetak — semua dapat diproses langsung oleh tim kami tanpa perantara tambahan.'
+        : 'You can request free physical samples or request a printed catalogue — all processed directly by our team with no additional middleman.'
     }
   ];
 
@@ -145,10 +145,7 @@ export function WhyVarindoClient({ post }: { post: BlogPost }) {
             </p>
           </div>
           <div className="flex flex-wrap gap-3 shrink-0">
-            <Link href="/request-quote" className="btn-ink justify-center">
-              {lang === 'id' ? 'Minta Penawaran' : 'Request a Quote'}
-            </Link>
-            <a href={waUrl} target="_blank" rel="noreferrer" className="btn-ghost justify-center">
+            <a href={waUrl} target="_blank" rel="noreferrer" className="btn-ink justify-center">
               {lang === 'id' ? 'Tanya via WhatsApp' : 'Ask via WhatsApp'}
             </a>
           </div>

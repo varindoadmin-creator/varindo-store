@@ -391,7 +391,6 @@ export const translations = {
     aboutLink:    { id: 'Tentang Varindo', en: 'About Varindo' },
     contactLink:  { id: 'Kontak', en: 'Contact' },
     catalogueLink:{ id: 'Permintaan Katalog', en: 'Request Catalogue' },
-    quoteLink:    { id: 'Permintaan Penawaran', en: 'Request Quote' },
     sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
     priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
     blogLink:     { id: 'Artikel', en: 'Articles' },
@@ -442,30 +441,6 @@ export const translations = {
       en: 'Thank you, {name}. Our team will arrange the catalogue and contact you at {phone} within 1 business day.'
     },
     catalogueSuccessTitle: { id: 'Permintaan katalog terkirim.', en: 'Catalogue request submitted.' },
-
-    // Quote form
-    quoteBadge:       { id: 'Permintaan Penawaran', en: 'Quote Request' },
-    quoteTitle:       { id: 'Permintaan Penawaran', en: 'Request a Quote' },
-    quoteSubtitle:    {
-      id: 'Isi data Anda dan cari kode atau nama desain yang dibutuhkan. Permintaan akan dikirim langsung ke tim kami.',
-      en: 'Fill in your details and search for the product codes or design names you need. Your request will be sent directly to our team.'
-    },
-    quoteSuccessTitle:{ id: 'Permintaan penawaran terkirim.', en: 'Quote request submitted.' },
-    quoteSuccessBody: {
-      id: 'Permintaan Anda telah dicatat. Tim kami akan meninjau pesanan dan menghubungi Anda di {phone} dalam 1 hari kerja.',
-      en: 'Your request has been recorded. Our team will review your order and contact you at {phone} within 1 business day.'
-    },
-    productListTitle: { id: 'Daftar Produk', en: 'Product List' },
-    itemsAdded:       { id: '{n} item ditambahkan', en: '{n} items added' },
-    codeColumnHeader: { id: 'Kode atau Nama Desain', en: 'Code or Design Name' },
-    qtyColumnHeader:  { id: 'Jml', en: 'Qty' },
-    codePlaceholder:  { id: 'Cari kode atau desain…', en: 'Search code or design…' },
-    qtyPlaceholder:   { id: 'cth. 10', en: 'e.g. 10' },
-    readyQuote:       { id: 'Siap — {n} produk dengan data Anda.', en: 'Ready — {n} products with your details.' },
-    fillProduct:      { id: 'Isi data dan minimal satu produk untuk melanjutkan.', en: 'Fill in your details and at least one product to continue.' },
-    qtyError:         { id: 'Mohon isi jumlah yang valid untuk semua baris yang terisi.', en: 'Please enter a valid quantity for all filled rows.' },
-    summaryProducts:  { id: 'produk', en: 'products' },
-    requestSummary:   { id: 'Ringkasan Permintaan', en: 'Request Summary' },
 
     // Sample form
     sampleBadge:      { id: 'Permintaan Sampel', en: 'Sample Request' },
