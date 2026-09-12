@@ -8,35 +8,34 @@ import { ProductImage } from './ProductImage';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
+/* Borderless, shadowless: a 28px-rounded image plate with the caption
+   sitting on open canvas beneath it. The laminate provides the colour. */
 export function ProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
   const { lang } = useLang();
 
   return (
-    <article className="group bg-white border border-varindo-line transition-all duration-300 hover:border-varindo-400 hover:shadow-card-hover">
+    <article className="group">
       <Link href={`/products/${product.slug}`} aria-label={product.name} className="block">
-        <div className="relative aspect-square overflow-hidden bg-varindo-50">
+        <div className="relative aspect-square overflow-hidden rounded-card bg-varindo-canvas">
           <ProductImage src={product.imageUrl || ''} imageUrls={product.imageUrlCandidates || []} alt={buildProductImageAlt(product)} priority={priority} />
-          <div className="absolute inset-0 bg-varindo-ink/0 transition-colors duration-300 group-hover:bg-varindo-ink/[0.04]" />
         </div>
       </Link>
 
-      <div className="px-4 py-4">
+      <div className="px-1 pt-4">
         {product.code && (
-          <p className="text-[10px] font-medium tracking-[0.18em] uppercase text-varindo-500 mb-1">{product.code}</p>
+          <p className="mb-1 text-[12px] tracking-[-0.01em] text-varindo-mid">{product.code}</p>
         )}
         <Link href={`/products/${product.slug}`}
-          className="block text-[13px] font-medium leading-[1.45] text-varindo-ink hover:text-varindo-gold transition-colors line-clamp-2 min-h-[38px]">
+          className="block min-h-[44px] text-[17px] font-semibold leading-[1.3] tracking-[-0.022em] text-varindo-ink transition-colors line-clamp-2 group-hover:text-varindo-link">
           {product.name}
         </Link>
         {product.finish && (
-          <p className="mt-1.5 text-[10px] tracking-[0.12em] uppercase text-varindo-400">{product.finish}</p>
+          <p className="mt-1 text-[12px] tracking-[-0.01em] text-varindo-mid">{product.finish}</p>
         )}
-        <div className="mt-3 pt-3 border-t border-varindo-line/60">
-          <span className="text-[13px] font-semibold text-varindo-ink">{formatIDR(product.price)}</span>
-          <p className="mt-0.5 text-[10px] tracking-[0.12em] uppercase text-varindo-400">
-            {t('card', 'inclTax', lang)}
-          </p>
-        </div>
+        <p className="mt-3 text-[17px] tracking-[-0.022em] text-varindo-ink">
+          {formatIDR(product.price)}
+          <span className="ml-1.5 text-[12px] text-varindo-mid">{t('card', 'inclTax', lang)}</span>
+        </p>
       </div>
     </article>
   );

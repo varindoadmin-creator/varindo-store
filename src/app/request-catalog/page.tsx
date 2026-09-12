@@ -21,10 +21,10 @@ export default function RequestCatalogPage() {
 
   return (
     <div>
-      <div className="bg-varindo-ink text-white border-b border-varindo-800">
+      <div className="bg-white">
         <div className="shell py-14 sm:py-20">
-          <p className="label text-varindo-400 mb-4">Catalog Request</p>
-          <h1 className="display text-white text-5xl sm:text-6xl lg:text-7xl">
+          <p className="label mb-4">Catalog Request</p>
+          <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px]">
             Request the<br />Lamitak Catalog
           </h1>
         </div>
@@ -33,24 +33,24 @@ export default function RequestCatalogPage() {
       <div className="shell py-12 sm:py-16">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start max-w-5xl">
           <div>
-            <p className="text-[14px] leading-8 text-varindo-500 max-w-md">
+            <p className="text-[17px] leading-8 text-varindo-mid max-w-md">
               Request Lamitak catalog information from Varindo through WhatsApp. Admin Varindo will help provide the most relevant product information based on your needs.
             </p>
           </div>
-          <div className="border border-varindo-line bg-white">
-            <div className="border-b border-varindo-line px-6 py-4 bg-varindo-50">
-              <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-700">Recommended Details</p>
+          <div className="rounded-card bg-varindo-canvas">
+            <div className="px-7 pt-7 pb-1">
+              <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">Recommended Details</p>
             </div>
-            <div className="p-6 grid gap-px bg-varindo-line border border-varindo-line sm:grid-cols-2 mb-6">
+            <div className="p-6 grid gap-5 sm:grid-cols-2 mb-6">
               {[
                 'Name or company name',
                 'City / project location',
                 'Product usage or project type',
                 'Preferred designs or product codes, if any'
               ].map((item) => (
-                <div key={item} className="bg-white p-4">
-                  <div className="w-4 h-[1.5px] bg-varindo-gold mb-2" />
-                  <p className="text-[12px] font-medium text-varindo-700">{item}</p>
+                <div key={item} className="rounded-xl2 bg-varindo-canvas p-5">
+                  <div className="w-4 h-[1.5px] bg-varindo-link mb-2" />
+                  <p className="text-[14px] font-medium text-varindo-deep">{item}</p>
                 </div>
               ))}
             </div>

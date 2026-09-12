@@ -40,7 +40,7 @@
                 android:name="android.support.customtabs.trusted.DEFAULT_URL"
                 android:value="https://varindo.co.id/" />
 
-            <!-- Splash screen color matches varindo-paper background -->
+            <!-- Splash screen colour matches the site's white canvas -->
             <meta-data
                 android:name="android.support.customtabs.trusted.SPLASH_IMAGE_DRAWABLE"
                 android:value="@drawable/splash_icon" />
@@ -51,18 +51,39 @@
                 android:name="android.support.customtabs.trusted.SPLASH_SCREEN_FADE_OUT_DURATION"
                 android:value="300" />
 
-            <!-- Status bar and navigation bar -->
+            <!--
+                System bars inside the Trusted Web Activity — the colours Chrome
+                paints once it takes over from the splash activity. Chrome picks
+                each bar's icon tint from the colour's own luminance, so white
+                bars get dark icons without any extra flag.
+
+                The _DARK entries apply when the device is in dark mode. They
+                point at the same white as the light ones on purpose: the site
+                itself is light-only, so ink bars in dark mode would frame a
+                white page.
+
+                The divider keys really are spelled "androix" — that typo is in
+                androidbrowserhelper's own LauncherActivityMetadata constants
+                (checked against 2.5.0), and the correctly spelled key is read
+                by nothing.
+            -->
             <meta-data
                 android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR"
-                android:resource="@color/colorPrimary" />
+                android:resource="@color/statusBarColor" />
             <meta-data
                 android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR_DARK"
-                android:resource="@color/colorPrimaryDark" />
+                android:resource="@color/statusBarColor" />
             <meta-data
                 android:name="android.support.customtabs.trusted.NAVIGATION_BAR_COLOR"
                 android:resource="@color/navigationColor" />
             <meta-data
-                android:name="android.support.customtabs.trusted.NAVIGATION_BAR_DIVIDER_COLOR"
+                android:name="android.support.customtabs.trusted.NAVIGATION_BAR_COLOR_DARK"
+                android:resource="@color/navigationColor" />
+            <meta-data
+                android:name="androix.browser.trusted.NAVIGATION_BAR_DIVIDER_COLOR"
+                android:resource="@color/navigationDividerColor" />
+            <meta-data
+                android:name="androix.browser.trusted.NAVIGATION_BAR_DIVIDER_COLOR_DARK"
                 android:resource="@color/navigationDividerColor" />
 
             <!-- File provider for downloads -->

@@ -53,19 +53,19 @@ export function WhyVarindoClient({ post }: { post: BlogPost }) {
 
   return (
     <div>
-      <div className="bg-varindo-ink text-white border-b border-varindo-800">
+      <div className="bg-white">
         <div className="shell py-14 sm:py-20">
-          <Link href="/blog" className="text-[11px] font-semibold tracking-[0.14em] uppercase text-varindo-400 hover:text-white transition-colors">
+          <Link href="/blog" className="text-[12px] font-semibold tracking-[-0.016em] text-varindo-mid hover:text-varindo-ink transition-colors">
             {t('blog', 'backToBlog', lang)}
           </Link>
-          <p className="label text-varindo-400 mt-6 mb-4">{post.category[lang]}</p>
-          <h1 className="display text-white text-4xl sm:text-5xl lg:text-6xl mb-5 max-w-3xl">
+          <p className="label mt-6 mb-4">{post.category[lang]}</p>
+          <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] lg:text-[56px] mb-5 max-w-3xl">
             {post.title[lang]}
           </h1>
-          <p className="text-[14px] leading-7 text-varindo-400 max-w-2xl mb-4">
+          <p className="text-[17px] leading-7 text-varindo-mid max-w-2xl mb-4">
             {post.excerpt[lang]}
           </p>
-          <p className="text-[11px] text-varindo-500">
+          <p className="text-[12px] text-varindo-mid">
             {t('blog', 'publishedOn', lang)}{' '}
             <time dateTime={post.date}>{formatDate(post.date, lang)}</time>
           </p>
@@ -75,8 +75,8 @@ export function WhyVarindoClient({ post }: { post: BlogPost }) {
       <div className="shell py-12 sm:py-16 max-w-3xl space-y-12">
 
         <section>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8">
-            <p className="text-[14px] leading-8 text-varindo-600">
+          <div className="rounded-card bg-varindo-canvas p-6 sm:p-8">
+            <p className="text-[17px] leading-8 text-varindo-mid">
               {lang === 'id'
                 ? 'Semakin populer sebuah merek, semakin banyak pula penjual tidak resmi yang ikut menjualnya — sering kali tanpa jaminan keaslian, harga yang jelas, atau dukungan purna jual. Untuk HPL Lamitak, dari mana Anda membeli sama pentingnya dengan merek yang Anda pilih. Berikut alasan mengapa membeli melalui Varindo, dealer resmi Lamitak di Indonesia, adalah pilihan yang lebih aman.'
                 : "The more popular a brand becomes, the more unauthorized sellers start offering it too — often without a genuine authenticity guarantee, clear pricing, or after-sales support. For Lamitak HPL, where you buy from matters just as much as the brand you choose. Here's why buying through Varindo, an authorized Lamitak dealer in Indonesia, is the safer choice."}
@@ -85,18 +85,18 @@ export function WhyVarindoClient({ post }: { post: BlogPost }) {
         </section>
 
         <section>
-          <p className="label text-varindo-gold mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'Lima Alasan Utama' : 'Five Key Reasons'}
           </p>
           <div className="space-y-4">
             {reasons.map((reason, i) => (
-              <div key={reason.title} className="border border-varindo-line bg-white p-6 sm:p-8 flex gap-5">
-                <span className="font-display text-3xl font-light text-varindo-gold shrink-0 leading-none">
+              <div key={reason.title} className="rounded-card bg-varindo-canvas p-6 sm:p-8 flex gap-5">
+                <span className="display text-[32px] text-varindo-link shrink-0 leading-none">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
                   <p className="text-[15px] font-semibold text-varindo-ink mb-2">{reason.title}</p>
-                  <p className="text-[14px] leading-7 text-varindo-600">{reason.body}</p>
+                  <p className="text-[17px] leading-7 text-varindo-mid">{reason.body}</p>
                 </div>
               </div>
             ))}
@@ -104,11 +104,11 @@ export function WhyVarindoClient({ post }: { post: BlogPost }) {
         </section>
 
         <section>
-          <p className="label text-varindo-gold mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'Melayani Berbagai Wilayah di Indonesia' : 'Serving Multiple Regions Across Indonesia'}
           </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8">
-            <p className="text-[14px] leading-8 text-varindo-600">
+          <div className="rounded-card bg-varindo-canvas p-6 sm:p-8">
+            <p className="text-[17px] leading-8 text-varindo-mid">
               {lang === 'id'
                 ? 'Varindo beroperasi dari Kantor Utama di Tangerang, Kantor Terdaftar di Bandung, dan Hub Medan, melayani kebutuhan HPL Lamitak untuk desainer interior, arsitek, dan kontraktor di berbagai wilayah — termasuk Jakarta, Tangerang, Bandung, dan Surabaya.'
                 : 'Varindo operates from a Head Office in Tangerang, a Registered Office in Bandung, and a Medan Hub, serving Lamitak HPL needs for interior designers, architects, and contractors across multiple regions — including Jakarta, Tangerang, Bandung, and Surabaya.'}
@@ -117,28 +117,28 @@ export function WhyVarindoClient({ post }: { post: BlogPost }) {
         </section>
 
         <section>
-          <p className="label text-varindo-gold mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'Baca Juga' : 'Related Reading'}
           </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8 flex flex-col gap-2">
-            <Link href="/blog/buyer-safeguard" className="text-[13px] text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">
+          <div className="rounded-card bg-varindo-canvas p-6 sm:p-8 flex flex-col gap-2">
+            <Link href="/blog/buyer-safeguard" className="text-[14px] text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors">
               {lang === 'id' ? 'Jaminan Pembeli Lamitak: Cara Memastikan Keaslian HPL Anda' : "Lamitak Buyer Safeguard: How to Verify Your Laminate's Authenticity"}
             </Link>
-            <Link href="/otorisasi" className="text-[13px] text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">
+            <Link href="/otorisasi" className="text-[14px] text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors">
               {lang === 'id' ? 'Verifikasi Keaslian Produk Lamitak' : 'Verify Lamitak Product Authenticity'}
             </Link>
-            <Link href="/harga-lamitak" className="text-[13px] text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">
+            <Link href="/harga-lamitak" className="text-[14px] text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors">
               {lang === 'id' ? 'Harga HPL Lamitak Terbaru' : 'Latest Lamitak HPL Prices'}
             </Link>
           </div>
         </section>
 
-        <section className="border border-varindo-line bg-varindo-50 px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <section className="rounded-card bg-varindo-canvas px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <p className="font-display text-2xl font-light text-varindo-ink mb-2">
+            <p className="display text-[28px] text-varindo-ink mb-2">
               {lang === 'id' ? 'Siap memesan HPL Lamitak asli?' : 'Ready to order genuine Lamitak HPL?'}
             </p>
-            <p className="text-[13px] text-varindo-600 max-w-lg">
+            <p className="text-[14px] text-varindo-mid max-w-lg">
               {lang === 'id'
                 ? 'Hubungi tim Varindo untuk penawaran, sampel, atau pertanyaan produk lainnya.'
                 : 'Contact the Varindo team for a quote, samples, or any other product questions.'}

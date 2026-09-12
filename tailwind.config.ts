@@ -13,36 +13,56 @@ const config: Config = {
         display: ['var(--font-display)']
       },
       colors: {
+        // Near-monochrome system: ink on paper, one gray band, one blue thread.
         varindo: {
-          cream: '#f8f4ee',
-          paper: '#faf8f5',
-          ink: '#1a1714',
-          muted: '#6b6159',
-          line: '#e4ddd4',
-          gold: '#a8763e',
-          sand: '#d4c9b8',
-          warm: '#ede8e1',
-          50: '#faf8f5',
-          100: '#f2ede5',
-          200: '#e4ddd4',
-          300: '#cec4b6',
-          400: '#b5a794',
-          500: '#9d8e7c',
-          600: '#7d6e5f',
-          700: '#5e5149',
-          800: '#3e3630',
-          900: '#1a1714',
+          ink: '#1d1d1f',
+          deep: '#474747',
+          mid: '#707070',
+          paper: '#ffffff',
+          canvas: '#f5f5f7',
+          wash: '#e8e8ed',
+          nav: '#fafafc',
+          line: '#d6d6d6',
+          blue: '#0071e3',   // filled CTA only
+          link: '#0066cc',   // inline link text
+          ember: '#b64400',  // "Baru" badge
+
+          // Legacy aliases — old markup lands on the new palette
+          cream: '#f5f5f7',
+          warm: '#f5f5f7',
+          sand: '#d6d6d6',
+          muted: '#707070',
+          gold: '#0066cc',
+
+          // Grayscale ramp
+          50:  '#f5f5f7',
+          100: '#f0f0f2',
+          200: '#e8e8ed',
+          300: '#d6d6d6',
+          400: '#86868b',
+          500: '#707070',
+          600: '#6e6e73',
+          700: '#474747',
+          800: '#333336',
+          900: '#1d1d1f'
         }
       },
+      borderRadius: {
+        card: '28px',
+        xl2: '18px',
+        pill: '980px'
+      },
       boxShadow: {
-        luxury: '0 32px 96px rgba(26, 23, 20, 0.09)',
-        card: '0 4px 24px rgba(26, 23, 20, 0.07)',
-        'card-hover': '0 16px 48px rgba(26, 23, 20, 0.12)',
-        'inset-top': 'inset 0 1px 0 rgba(255,255,255,0.1)',
+        // Cards and bands carry no elevation. Only floating overlays
+        // (menus, modals, the chat panel) get a whisper of depth.
+        luxury: '0 8px 30px rgba(0, 0, 0, 0.12)',
+        card: 'none',
+        'card-hover': 'none',
+        'inset-top': 'none'
       },
       letterSpacing: {
         'widest-xl': '0.25em',
-        'widest-2xl': '0.32em',
+        'widest-2xl': '0.32em'
       }
     }
   },

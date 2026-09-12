@@ -10,12 +10,11 @@ export function ProductGrid({ products }: { products: Product[] }) {
 
   if (products.length === 0) {
     return (
-      <div className="border border-dashed border-varindo-line bg-white py-16 px-8 text-center">
-        <p className="label mb-3">{t('explorer', 'noResults', lang)}</p>
-        <p className="font-display text-3xl font-light text-varindo-ink mb-3">
+      <div className="rounded-card bg-varindo-canvas px-8 py-20 text-center">
+        <h3 className="display mb-3 text-[32px] text-varindo-ink sm:text-[40px]">
           {t('explorer', 'noResultsTitle', lang)}
-        </p>
-        <p className="text-sm text-varindo-500 max-w-sm mx-auto leading-relaxed">
+        </h3>
+        <p className="copy mx-auto max-w-md">
           {t('explorer', 'noResultsBody', lang)}
         </p>
       </div>
@@ -23,7 +22,7 @@ export function ProductGrid({ products }: { products: Product[] }) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-px bg-varindo-line min-[480px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-x-5 gap-y-10 min-[480px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {products.map((product, i) => (
         <ProductCard key={product.slug} product={product} priority={i < 4} />
       ))}

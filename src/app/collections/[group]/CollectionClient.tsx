@@ -41,26 +41,26 @@ export function CollectionClient({ group, products }: Props) {
   return (
     <div>
       {/* Header */}
-      <div className="bg-varindo-ink text-white">
+      <div className="bg-white">
         <div className="shell py-12 sm:py-16">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-[11px] tracking-[0.12em] uppercase mb-8">
-            <Link href="/products" className="text-varindo-500 hover:text-varindo-300 transition-colors">
+          <div className="flex items-center gap-2 text-[12px] tracking-[-0.016em] mb-8">
+            <Link href="/products" className="text-varindo-mid hover:text-varindo-mid transition-colors">
               {t('collections', 'breadcrumbCatalog', lang)}
             </Link>
-            <span className="text-varindo-600">·</span>
-            <span className="text-varindo-400">{title}</span>
+            <span className="text-varindo-mid">·</span>
+            <span className="text-varindo-mid">{title}</span>
           </div>
 
           <div className="flex items-start justify-between gap-6 flex-wrap">
             <div>
-              {accent && <p className="label text-varindo-400 mb-4">{accent}</p>}
-              <h1 className="display text-white text-5xl sm:text-6xl lg:text-7xl mb-4">{title}</h1>
-              <p className="text-[14px] leading-7 text-varindo-400 max-w-xl">{desc}</p>
+              {accent && <p className="label mb-4">{accent}</p>}
+              <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px] mb-4">{title}</h1>
+              <p className="text-[17px] leading-7 text-varindo-mid max-w-xl">{desc}</p>
             </div>
-            <div className="border border-varindo-700 bg-varindo-800/40 px-6 py-4 text-center shrink-0">
-              <p className="font-display text-4xl font-light text-white">{products.length}</p>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-varindo-500 mt-1">
+            <div className="rounded-card bg-varindo-canvas px-6 py-4 text-center shrink-0">
+              <p className="display text-[40px] text-varindo-ink">{products.length}</p>
+              <p className="text-[12px] tracking-[-0.016em] text-varindo-mid mt-1">
                 {t('collections', 'products', lang)}
               </p>
             </div>
@@ -69,14 +69,14 @@ export function CollectionClient({ group, products }: Props) {
       </div>
 
       {/* Collection tabs */}
-      <div className="border-b border-varindo-line bg-white overflow-x-auto">
-        <div className="shell flex gap-0">
+      <div className="overflow-x-auto">
+        <div className="shell flex gap-2 pb-1">
           {tabOrder.filter(g => groupConfig[g]).map((g) => (
             <Link key={g} href={`/collections/${g}`}
-              className={`shrink-0 px-5 py-3.5 text-[10px] font-semibold tracking-[0.18em] uppercase transition-all border-b-2 ${
+              className={`shrink-0 rounded-pill px-4 py-2 text-[14px] tracking-[-0.016em] transition-colors ${
                 g === group
-                  ? 'border-varindo-ink text-varindo-ink'
-                  : 'border-transparent text-varindo-500 hover:text-varindo-ink hover:border-varindo-300'
+                  ? 'bg-varindo-ink text-white'
+                  : 'bg-varindo-canvas text-varindo-ink hover:bg-varindo-wash'
               }`}>
               {t('collections', groupConfig[g]!.titleKey, lang)}
             </Link>
@@ -86,7 +86,7 @@ export function CollectionClient({ group, products }: Props) {
 
       {/* SEO intro copy — server-rendered above the grid */}
       <div className="shell pt-10 sm:pt-12">
-        <p className="text-[13px] leading-7 text-varindo-600 max-w-3xl">{intro}</p>
+        <p className="text-[14px] leading-7 text-varindo-mid max-w-3xl">{intro}</p>
       </div>
 
       {/* Explorer */}

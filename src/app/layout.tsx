@@ -1,4 +1,5 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -7,6 +8,15 @@ import { LangProvider } from '@/lib/LangContext';
 import { AiChatLoader } from '@/components/AiChatLoader';
 import { GoogleAdsTag } from '@/components/GoogleAdsTag';
 import { buildOrganizationJsonLd, buildLocalBusinessJsonLd } from '@/lib/structured-data';
+
+// SF Pro is used where it exists (Apple hardware); Inter is the stand-in
+// everywhere else so the type keeps the same proportions and tracking.
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-inter'
+});
 
 export const metadata: Metadata = {
   title: {
@@ -21,7 +31,9 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: 'Varindo Lamitak',
-    statusBarStyle: 'black-translucent'
+    // 'default' keeps dark status bar text; 'black-translucent' would draw it
+    // white over the site's white canvas.
+    statusBarStyle: 'default'
   },
   openGraph: {
     title: 'Dealer Resmi HPL Lamitak Indonesia - Katalog & Harga 800 Produk | Varindo',
@@ -44,10 +56,15 @@ export const metadata: Metadata = {
   }
 };
 
+// Browser and PWA chrome follows the page canvas — white bar, dark icons.
+export const viewport: Viewport = {
+  themeColor: '#ffffff'
+};
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id">
-      <body className="min-h-screen font-sans antialiased">
+    <html lang="id" className={inter.variable}>
+      <body className="min-h-screen bg-white font-sans antialiased">
         <GoogleAdsTag />
         <JsonLd data={buildOrganizationJsonLd()} />
         <JsonLd data={buildLocalBusinessJsonLd()} />

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- API 27+: dark icons available on both bars, so both go white. -->
+    <style name="Theme.VarindoSplash" parent="Theme.Varindo.SplashBase">
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/navigationColor</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>

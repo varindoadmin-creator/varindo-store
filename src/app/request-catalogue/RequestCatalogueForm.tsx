@@ -39,7 +39,7 @@ export function RequestCatalogueForm() {
   /* ── Success ─────────────────────────────────────────────── */
   if (status === 'success') {
     return (
-      <div className="border border-varindo-line bg-white">
+      <div className="rounded-card bg-varindo-canvas">
         <div className="px-8 py-14 flex flex-col items-center text-center gap-6">
           <div className="w-16 h-16 border-2 border-varindo-gold flex items-center justify-center">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
@@ -47,17 +47,17 @@ export function RequestCatalogueForm() {
             </svg>
           </div>
           <div>
-            <p className="label text-varindo-gold mb-3">{t('forms', 'successLabel', lang)}</p>
-            <h2 className="display text-varindo-ink text-3xl sm:text-4xl mb-4">
+            <p className="label mb-3">{t('forms', 'successLabel', lang)}</p>
+            <h2 className="display text-varindo-ink text-[32px] sm:text-[40px] mb-4">
               {t('forms', 'catalogueSuccessTitle', lang)}
             </h2>
-            <p className="text-[14px] leading-7 text-varindo-500 max-w-sm mx-auto">
+            <p className="text-[17px] leading-7 text-varindo-mid max-w-sm mx-auto">
               {t('forms', 'catalogueSuccess', lang, { name, phone })}
             </p>
           </div>
-          <div className="w-full max-w-sm border border-varindo-line bg-varindo-50 text-left">
-            <div className="border-b border-varindo-line px-5 py-3 bg-white">
-              <p className="text-[11px] font-semibold tracking-[0.16em] uppercase text-varindo-700">
+          <div className="w-full max-w-sm rounded-card bg-varindo-canvas text-left">
+            <div className="px-6 pt-6 pb-1">
+              <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
                 {t('forms', 'yourDetails', lang)}
               </p>
             </div>
@@ -68,8 +68,8 @@ export function RequestCatalogueForm() {
                 [lang === 'id' ? 'Telepon' : 'Phone',  phone],
               ] as [string, string][]).map(([label, value]) => (
                 <div key={label} className="flex items-baseline gap-3 px-5 py-3">
-                  <span className="text-[10px] tracking-[0.14em] uppercase text-varindo-400 w-16 shrink-0">{label}</span>
-                  <span className="text-[13px] font-medium text-varindo-ink">{value}</span>
+                  <span className="text-[12px] tracking-[-0.016em] text-varindo-mid w-16 shrink-0">{label}</span>
+                  <span className="text-[14px] font-medium text-varindo-ink">{value}</span>
                 </div>
               ))}
             </div>
@@ -84,17 +84,17 @@ export function RequestCatalogueForm() {
 
   /* ── Form ────────────────────────────────────────────────── */
   return (
-    <div className="border border-varindo-line bg-white">
-      <div className="border-b border-varindo-line px-6 py-4 bg-varindo-50">
-        <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-700">
+    <div className="rounded-card bg-varindo-canvas">
+      <div className="px-7 pt-7 pb-1">
+        <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
           {t('forms', 'yourDetails', lang)}
         </p>
       </div>
 
       <div className="p-6 space-y-5">
         <label className="block">
-          <span className="label text-varindo-600 mb-2 block">
-            {t('forms', 'nameLabel', lang)} <span className="text-varindo-gold">*</span>
+          <span className="label mb-2 block">
+            {t('forms', 'nameLabel', lang)} <span className="text-varindo-ember">*</span>
           </span>
           <input
             type="text" value={name} onChange={(e) => setName(e.target.value)}
@@ -104,19 +104,19 @@ export function RequestCatalogueForm() {
         </label>
 
         <label className="block">
-          <span className="label text-varindo-600 mb-2 block">
-            {t('forms', 'addressLabel', lang)} <span className="text-varindo-gold">*</span>
+          <span className="label mb-2 block">
+            {t('forms', 'addressLabel', lang)} <span className="text-varindo-ember">*</span>
           </span>
           <textarea
             value={address} onChange={(e) => setAddress(e.target.value)}
             placeholder={t('forms', 'addressPlaceholder', lang)}
-            rows={3} className="field w-full resize-none py-3"
+            rows={3} className="field h-auto w-full resize-none py-3"
           />
         </label>
 
         <label className="block">
-          <span className="label text-varindo-600 mb-2 block">
-            {t('forms', 'phoneLabel', lang)} <span className="text-varindo-gold">*</span>
+          <span className="label mb-2 block">
+            {t('forms', 'phoneLabel', lang)} <span className="text-varindo-ember">*</span>
           </span>
           <input
             type="tel" value={phone} onChange={(e) => setPhone(e.target.value)}
@@ -128,12 +128,12 @@ export function RequestCatalogueForm() {
 
       {status === 'error' && (
         <div className="border-t border-red-200 bg-red-50 px-6 py-3">
-          <p className="text-[12px] font-medium text-red-700">{errMsg}</p>
+          <p className="text-[14px] font-medium text-red-700">{errMsg}</p>
         </div>
       )}
 
-      <div className="px-6 py-5 border-t border-varindo-line bg-varindo-50/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <p className="text-[11px] text-varindo-400">
+      <div className="px-6 py-5 border-t border-varindo-line/50 bg-varindo-50/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <p className="text-[12px] text-varindo-mid">
           {canSubmit ? t('forms', 'readyMsg', lang) : t('forms', 'fillAllMsg', lang)}
         </p>
         <button

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        API 23+ can draw dark status bar icons, so the status bar joins the
+        white canvas. The navigation bar has to wait for API 27, which is where
+        windowLightNavigationBar arrives.
+    -->
+    <style name="Theme.VarindoSplash" parent="Theme.Varindo.SplashBase">
+        <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+    </style>
+</resources>

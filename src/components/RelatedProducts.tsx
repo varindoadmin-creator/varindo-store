@@ -11,7 +11,7 @@ export function RelatedProducts({ products }: { products: Product[] }) {
 
   return (
     <section className="shell pb-14 sm:pb-20">
-      <p className="label text-varindo-gold mb-6">{t('detail', 'relatedTitle', lang)}</p>
+      <h2 className="section-title mb-8">{t('detail', 'relatedTitle', lang)}</h2>
       <ProductGrid products={products} />
     </section>
   );

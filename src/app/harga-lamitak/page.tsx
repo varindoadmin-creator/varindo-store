@@ -64,13 +64,13 @@ export default async function HargaLamitakPage() {
     <div>
       <JsonLd data={buildFaqPageJsonLd(FAQ)} />
 
-      <div className="bg-varindo-ink text-white border-b border-varindo-800">
+      <div className="bg-white">
         <div className="shell py-14 sm:py-20">
-          <p className="label text-varindo-400 mb-4">Harga Resmi Dealer</p>
-          <h1 className="display text-white text-4xl sm:text-5xl lg:text-6xl mb-5">
+          <p className="label mb-4">Harga Resmi Dealer</p>
+          <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] lg:text-[56px] mb-5">
             Harga HPL Lamitak Terbaru {YEAR} per Lembar
           </h1>
-          <p className="text-[14px] leading-7 text-varindo-400 max-w-2xl">
+          <p className="text-[17px] leading-7 text-varindo-mid max-w-2xl">
             Tabel harga di bawah ini dihitung langsung dari data produk aktif di katalog Varindo,
             sehingga selalu mengikuti harga terbaru — bukan daftar statis yang bisa kedaluwarsa.
             Semua harga sudah termasuk PPN dan berlaku untuk pembelian melalui dealer resmi Lamitak Indonesia.
@@ -81,41 +81,41 @@ export default async function HargaLamitakPage() {
       <div className="shell py-12 sm:py-16">
         {/* Price table */}
         <section className="mb-16">
-          <p className="label text-varindo-gold mb-4">Kisaran Harga per Seri &amp; Ukuran</p>
-          <div className="border border-varindo-line overflow-x-auto">
-            <table className="w-full text-left text-[13px]">
+          <p className="label mb-4">Kisaran Harga per Seri &amp; Ukuran</p>
+          <div className="rounded-xl2 bg-varindo-canvas overflow-x-auto">
+            <table className="w-full text-left text-[14px]">
               <thead>
-                <tr className="bg-varindo-50 border-b border-varindo-line">
-                  <th className="px-5 py-3 font-semibold tracking-[0.08em] uppercase text-varindo-700 text-[11px]">Koleksi</th>
-                  <th className="px-5 py-3 font-semibold tracking-[0.08em] uppercase text-varindo-700 text-[11px]">Ukuran</th>
-                  <th className="px-5 py-3 font-semibold tracking-[0.08em] uppercase text-varindo-700 text-[11px]">Kisaran Harga</th>
-                  <th className="px-5 py-3 font-semibold tracking-[0.08em] uppercase text-varindo-700 text-[11px]">Jumlah Motif</th>
+                <tr className="bg-varindo-50 border-b border-varindo-line/50">
+                  <th className="px-5 py-3 font-semibold tracking-[-0.016em] text-varindo-deep text-[12px]">Koleksi</th>
+                  <th className="px-5 py-3 font-semibold tracking-[-0.016em] text-varindo-deep text-[12px]">Ukuran</th>
+                  <th className="px-5 py-3 font-semibold tracking-[-0.016em] text-varindo-deep text-[12px]">Kisaran Harga</th>
+                  <th className="px-5 py-3 font-semibold tracking-[-0.016em] text-varindo-deep text-[12px]">Jumlah Motif</th>
                 </tr>
               </thead>
               <tbody>
                 {priceTable.map((row, i) => (
                   <tr key={`${row.collection}-${row.size}`} className={i !== priceTable.length - 1 ? 'border-b border-varindo-line/60' : ''}>
                     <td className="px-5 py-3.5 font-medium text-varindo-ink">{row.collection}</td>
-                    <td className="px-5 py-3.5 text-varindo-600">{row.size}</td>
+                    <td className="px-5 py-3.5 text-varindo-mid">{row.size}</td>
                     <td className="px-5 py-3.5 text-varindo-ink font-medium">
                       {formatPriceIDR(row.minPrice)} – {formatPriceIDR(row.maxPrice)}
                     </td>
-                    <td className="px-5 py-3.5 text-varindo-500">{row.count} motif</td>
+                    <td className="px-5 py-3.5 text-varindo-mid">{row.count} motif</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="mt-3 text-[11px] text-varindo-400">
+          <p className="mt-3 text-[12px] text-varindo-mid">
             Harga sudah termasuk PPN. Harga per kode produk dapat dilihat langsung di halaman detail masing-masing produk.
           </p>
         </section>
 
         {/* CTA */}
-        <section className="mb-16 border border-varindo-line bg-varindo-50 px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <section className="mb-16 rounded-card bg-varindo-canvas px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <p className="font-display text-2xl font-light text-varindo-ink mb-2">Butuh harga untuk kebutuhan proyek Anda?</p>
-            <p className="text-[13px] text-varindo-600 max-w-lg">Tim kami siap membantu memberikan penawaran sesuai kebutuhan, termasuk untuk pemesanan dalam jumlah besar.</p>
+            <p className="display text-[28px] text-varindo-ink mb-2">Butuh harga untuk kebutuhan proyek Anda?</p>
+            <p className="text-[14px] text-varindo-mid max-w-lg">Tim kami siap membantu memberikan penawaran sesuai kebutuhan, termasuk untuk pemesanan dalam jumlah besar.</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <a href={waUrl} target="_blank" rel="noreferrer" className="btn-ink justify-center">Tanya via WhatsApp</a>
@@ -124,8 +124,8 @@ export default async function HargaLamitakPage() {
 
         {/* Internal links */}
         <section className="mb-16">
-          <p className="label text-varindo-gold mb-4">Jelajahi Lebih Lanjut</p>
-          <div className="grid gap-px bg-varindo-line border border-varindo-line sm:grid-cols-2 lg:grid-cols-4">
+          <p className="label mb-4">Jelajahi Lebih Lanjut</p>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { href: '/products', label: 'Semua Produk' },
               { href: '/collections/woods', label: 'Koleksi Woods' },
@@ -137,7 +137,7 @@ export default async function HargaLamitakPage() {
               { href: '/lamitak-surabaya', label: 'Jual HPL Lamitak Surabaya' }
             ].map((item) => (
               <Link key={item.href} href={item.href}
-                className="bg-white px-5 py-4 text-[13px] font-medium text-varindo-ink hover:text-varindo-gold hover:bg-varindo-50 transition-colors">
+                className="bg-white px-5 py-4 text-[14px] font-medium text-varindo-ink hover:text-varindo-link hover:bg-varindo-50 transition-colors">
                 {item.label} →
               </Link>
             ))}
@@ -146,12 +146,12 @@ export default async function HargaLamitakPage() {
 
         {/* FAQ */}
         <section>
-          <p className="label text-varindo-gold mb-6">Pertanyaan Seputar Harga</p>
-          <div className="border border-varindo-line divide-y divide-varindo-line">
+          <p className="label mb-6">Pertanyaan Seputar Harga</p>
+          <div className="rounded-xl2 bg-varindo-canvas divide-y divide-varindo-line/60">
             {FAQ.map((entry) => (
               <div key={entry.question} className="px-6 py-5">
-                <p className="text-[14px] font-semibold text-varindo-ink mb-2">{entry.question}</p>
-                <p className="text-[13px] leading-7 text-varindo-600">{entry.answer}</p>
+                <p className="text-[17px] font-semibold text-varindo-ink mb-2">{entry.question}</p>
+                <p className="text-[14px] leading-7 text-varindo-mid">{entry.answer}</p>
               </div>
             ))}
           </div>

@@ -14,13 +14,13 @@ export function RequestSamplePage({ products, initialCode }: { products: Product
 
   return (
     <div>
-      <div className="bg-varindo-ink text-white border-b border-varindo-800">
+      <div className="bg-white">
         <div className="shell py-14 sm:py-20">
-          <p className="label text-varindo-400 mb-4">{t('forms', 'sampleBadge', lang)}</p>
-          <h1 className="display text-white text-5xl sm:text-6xl lg:text-7xl whitespace-pre-line">
+          <p className="label mb-4">{t('forms', 'sampleBadge', lang)}</p>
+          <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px] whitespace-pre-line">
             {t('forms', 'sampleTitle', lang)}
           </h1>
-          <p className="mt-5 text-[14px] leading-7 text-varindo-400 max-w-lg">
+          <p className="mt-5 text-[17px] leading-7 text-varindo-mid max-w-lg">
             {t('forms', 'sampleSubtitle', lang)}
           </p>
         </div>
@@ -30,22 +30,22 @@ export function RequestSamplePage({ products, initialCode }: { products: Product
         <div className="grid gap-8 lg:grid-cols-[1fr_1.6fr] lg:items-start">
 
           {/* Left — info panel */}
-          <div className="border border-varindo-line bg-white">
-            <div className="border-b border-varindo-line px-6 py-4 bg-varindo-50">
-              <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-700">
+          <div className="rounded-card bg-varindo-canvas">
+            <div className="px-7 pt-7 pb-1">
+              <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
                 {t('forms', 'sampleInfoTitle', lang)}
               </p>
             </div>
-            <div className="divide-y divide-varindo-line/50">
+            <div className="divide-y divide-varindo-line/60">
               {infoItems.map((item) => (
                 <div key={item} className="flex items-center gap-3 px-6 py-4">
-                  <div className="w-4 h-[1.5px] bg-varindo-gold shrink-0" />
-                  <p className="text-[13px] font-medium text-varindo-700">{item}</p>
+                  <div className="w-4 h-[1.5px] bg-varindo-link shrink-0" />
+                  <p className="text-[14px] font-medium text-varindo-deep">{item}</p>
                 </div>
               ))}
             </div>
-            <div className="px-6 py-5 border-t border-varindo-line bg-varindo-50/50">
-              <p className="text-[11px] text-varindo-400 leading-6">
+            <div className="px-6 py-5 border-t border-varindo-line/50 bg-varindo-50/50">
+              <p className="text-[12px] text-varindo-mid leading-6">
                 {t('forms', 'sampleMaxNote', lang)}
               </p>
             </div>

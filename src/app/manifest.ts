@@ -9,8 +9,10 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: '/',
     scope: '/',
     display: 'standalone',
-    background_color: '#faf8f5',
-    theme_color: '#1a1714',
+    background_color: '#ffffff',
+    // White system chrome to match the site's canvas; browsers derive the
+    // status bar icon tint from this colour's luminance.
+    theme_color: '#ffffff',
     orientation: 'portrait-primary',
     icons: [
       { src: '/icons/varindo-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },

@@ -19,13 +19,13 @@ export function BlogPageClient() {
 
   return (
     <div>
-      <div className="bg-varindo-ink text-white border-b border-varindo-800">
+      <div className="bg-white">
         <div className="shell py-14 sm:py-20">
-          <p className="label text-varindo-400 mb-4">{t('blog', 'badge', lang)}</p>
-          <h1 className="display text-white text-4xl sm:text-5xl lg:text-6xl mb-5">
+          <p className="label mb-4">{t('blog', 'badge', lang)}</p>
+          <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] lg:text-[56px] mb-5">
             {t('blog', 'title', lang)}
           </h1>
-          <p className="text-[14px] leading-7 text-varindo-400 max-w-2xl">
+          <p className="text-[17px] leading-7 text-varindo-mid max-w-2xl">
             {t('blog', 'subtitle', lang)}
           </p>
         </div>
@@ -37,18 +37,18 @@ export function BlogPageClient() {
             <Reveal key={post.slug} delay={i * 80}>
               <Link
                 href={post.href ?? `/blog/${post.slug}`}
-                className="group flex h-full flex-col border border-varindo-line bg-white p-6 sm:p-8 transition-all duration-300 hover:border-varindo-ink hover:shadow-luxury"
+                className="group flex h-full flex-col rounded-card bg-varindo-canvas p-6 sm:p-8 transition-all duration-300 hover:border-varindo-ink hover:shadow-luxury"
               >
                 <p className="label mb-4">{post.category[lang]}</p>
-                <h2 className="font-display text-2xl font-light leading-snug text-varindo-ink mb-3 group-hover:text-varindo-gold transition-colors">
+                <h2 className="display text-[28px] leading-snug text-varindo-ink mb-3 group-hover:text-varindo-link transition-colors">
                   {post.title[lang]}
                 </h2>
-                <p className="text-[13px] leading-7 text-varindo-500 mb-6 flex-1">
+                <p className="text-[14px] leading-7 text-varindo-mid mb-6 flex-1">
                   {post.excerpt[lang]}
                 </p>
-                <div className="flex items-center justify-between text-[11px] text-varindo-400">
+                <div className="flex items-center justify-between text-[12px] text-varindo-mid">
                   <time dateTime={post.date}>{formatDate(post.date, lang)}</time>
-                  <span className="font-semibold tracking-[0.1em] uppercase text-varindo-ink group-hover:text-varindo-gold transition-colors">
+                  <span className="font-semibold tracking-[-0.016em] text-varindo-ink group-hover:text-varindo-link transition-colors">
                     {t('blog', 'readMore', lang)}
                   </span>
                 </div>

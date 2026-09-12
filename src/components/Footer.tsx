@@ -11,52 +11,49 @@ const PLAY_BADGE_SRC: Record<Lang, string> = { id: '/play-badge-id.png', en: '/p
 // Google's official badge art is 646x250 (2.584:1) at every locale.
 const PLAY_BADGE_RATIO = 646 / 250;
 
+/* Footer is the page's quietest band: 12px grey fine print on canvas,
+   links in link-blue, separators only as faint hairlines. */
 export function Footer() {
   const { lang } = useLang();
   const year = new Date().getFullYear();
   const isTwa = useIsTwa();
 
+  const linkClass = 'text-[12px] leading-[1.33] text-varindo-mid transition-colors hover:text-varindo-ink hover:underline';
+  const headingClass = 'mb-4 text-[12px] font-semibold leading-[1.33] tracking-[-0.01em] text-varindo-ink';
+
   return (
-    <footer className="bg-varindo-ink text-varindo-200">
-      <div className="shell pt-14 pb-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+    <footer className="bg-varindo-canvas text-varindo-mid">
+      <div className="shell grid gap-10 pb-10 pt-14 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
 
         {/* Brand */}
         <div>
-          <div className="flex items-center gap-4 mb-6">
+          <div className="mb-6 flex items-center gap-4">
             <Image src="/varindo-logo-transparent.png" alt="Varindo" width={80} height={44}
-              style={{ filter: 'brightness(0) invert(1)' }}
-              className="h-auto object-contain opacity-80" />
-            <div className="h-8 w-px bg-white/15" />
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[8px] font-semibold tracking-[0.05em] text-varindo-400">
-                Authorized Dealer of
-              </span>
-              <Image src="/lamitak-logo-mark.png" alt="Lamitak" width={112} height={28}
-                style={{ filter: 'brightness(0) invert(1)' }}
-                className="w-auto object-contain opacity-80" />
+              className="h-auto w-[72px] object-contain" />
+            <div className="h-7 w-px bg-varindo-line" />
+            <div className="flex flex-col gap-1">
+              <span className="text-[9px] leading-none text-varindo-mid">Authorized Dealer of</span>
+              <Image src="/lamitak-logo-mark.png" alt="Lamitak" width={106} height={50}
+                className="h-[24px] w-auto max-w-none object-contain" />
             </div>
           </div>
-          <p className="text-[13px] leading-7 text-varindo-400 max-w-xs mb-5">
+          <p className="mb-5 max-w-xs text-[12px] leading-[1.6] text-varindo-mid">
             {t('footer', 'tagline', lang)}
           </p>
-          <address className="not-italic text-[13px] leading-7 text-varindo-400 max-w-xs">
-            <span className="block text-varindo-500 text-[10px] tracking-[0.16em] uppercase mb-1">
-              {t('contact', 'headOffice', lang)}
-            </span>
+          <address className="max-w-xs text-[12px] not-italic leading-[1.6] text-varindo-mid">
+            <span className={headingClass + ' mb-1 block'}>{t('contact', 'headOffice', lang)}</span>
             Branz BSD Tower A Unit 3310<br />
             Jl. BSD Boulevard Parcel 55-F<br />
             Tangerang 15339, Banten
-            <span className="block mt-3 text-varindo-500 text-[10px] tracking-[0.16em] uppercase mb-1">
-              {t('contact', 'hours', lang)}
-            </span>
+            <span className={headingClass + ' mb-1 mt-4 block'}>{t('contact', 'hours', lang)}</span>
             <span className="whitespace-pre-line">{t('contact', 'hoursValue', lang)}</span>
           </address>
         </div>
 
         {/* Collections */}
         <div>
-          <p className="label text-varindo-500 mb-5">{t('footer', 'collections', lang)}</p>
-          <ul className="space-y-3">
+          <p className={headingClass}>{t('footer', 'collections', lang)}</p>
+          <ul className="space-y-2.5">
             {[
               { href: '/collections/new-arrivals', id: 'Produk Terbaru',  en: 'New Arrivals' },
               { href: '/collections/best-sellers', id: 'Produk Terlaris', en: 'Best Sellers' },
@@ -65,9 +62,7 @@ export function Footer() {
               { href: '/collections/solids',       id: 'Solids',          en: 'Solids' },
             ].map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-[13px] text-varindo-400 hover:text-white transition-colors">
-                  {item[lang]}
-                </Link>
+                <Link href={item.href} className={linkClass}>{item[lang]}</Link>
               </li>
             ))}
           </ul>
@@ -75,8 +70,8 @@ export function Footer() {
 
         {/* Company */}
         <div>
-          <p className="label text-varindo-500 mb-5">{t('footer', 'company', lang)}</p>
-          <ul className="space-y-3">
+          <p className={headingClass}>{t('footer', 'company', lang)}</p>
+          <ul className="space-y-2.5">
             {[
               { href: '/about',              label: t('footer', 'aboutLink', lang) },
               { href: '/contact',            label: t('footer', 'contactLink', lang) },
@@ -88,9 +83,7 @@ export function Footer() {
               { href: '/privacy',            label: lang === 'id' ? 'Kebijakan Privasi' : 'Privacy Policy' },
             ].map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-[13px] text-varindo-400 hover:text-white transition-colors">
-                  {item.label}
-                </Link>
+                <Link href={item.href} className={linkClass}>{item.label}</Link>
               </li>
             ))}
           </ul>
@@ -98,48 +91,45 @@ export function Footer() {
 
         {/* Contact */}
         <div>
-          <p className="label text-varindo-500 mb-5">{t('footer', 'contact', lang)}</p>
-          <address className="not-italic space-y-3">
-            <p className="text-[13px] text-varindo-400">
-              <span className="block text-varindo-500 text-[10px] tracking-[0.16em] uppercase mb-1">
-                {t('footer', 'phone', lang)}
-              </span>
-              <a href="tel:+6281288885224" className="hover:text-white transition-colors">0812 8888 5224</a>
-              <br />
-              <a href="tel:+6281210015224" className="hover:text-white transition-colors">0812 1001 5224</a>
+          <p className={headingClass}>{t('footer', 'contact', lang)}</p>
+          <address className="space-y-3 not-italic">
+            <p className="text-[12px] leading-[1.6] text-varindo-mid">
+              <span className="mb-0.5 block text-varindo-ink">{t('footer', 'phone', lang)}</span>
+              <a href="tel:+6281288885224" className={linkClass}>0812 8888 5224</a><br />
+              <a href="tel:+6281210015224" className={linkClass}>0812 1001 5224</a>
             </p>
-            <p className="text-[13px] text-varindo-400">
+            <p>
               <a href="https://wa.me/6281288885224" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 hover:text-white transition-colors">
-                WhatsApp →
+                className="inline-flex items-center gap-1 text-[12px] text-varindo-link transition-colors hover:underline">
+                WhatsApp ›
               </a>
             </p>
-            <p className="text-[13px] text-varindo-400">
-              <span className="block text-varindo-500 text-[10px] tracking-[0.16em] uppercase mb-1">Email</span>
-              <a href="mailto:contact@varindo.co.id" className="hover:text-white transition-colors">contact@varindo.co.id</a>
+            <p className="text-[12px] leading-[1.6] text-varindo-mid">
+              <span className="mb-0.5 block text-varindo-ink">Email</span>
+              <a href="mailto:contact@varindo.co.id" className={linkClass}>contact@varindo.co.id</a>
             </p>
           </address>
         </div>
       </div>
 
       {!isTwa && (
-        <div className="border-t border-white/[0.07]">
-          <div className="shell py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-[13px] text-varindo-300 text-center sm:text-left">
+        <div className="border-t border-varindo-line/60">
+          <div className="shell flex flex-col items-center justify-between gap-4 py-6 sm:flex-row">
+            <p className="text-center text-[12px] leading-[1.33] text-varindo-mid sm:text-left">
               {t('footer', 'appTagline', lang)}
             </p>
             <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center shrink-0 opacity-90 hover:opacity-100 transition-opacity">
+              className="inline-flex shrink-0 items-center transition-opacity hover:opacity-70">
               <Image src={PLAY_BADGE_SRC[lang]} alt={t('footer', 'appLink', lang)}
-                width={Math.round(44 * PLAY_BADGE_RATIO)} height={44} className="h-11 w-auto" />
+                width={Math.round(40 * PLAY_BADGE_RATIO)} height={40} className="h-10 w-auto" />
             </a>
           </div>
         </div>
       )}
 
-      <div className="border-t border-white/[0.07]">
+      <div className="border-t border-varindo-line/60">
         <div className="shell py-5">
-          <p className="text-[11px] text-varindo-600">
+          <p className="text-[12px] leading-[1.33] text-varindo-mid">
             {t('footer', 'copyright', lang, { year })}
           </p>
         </div>

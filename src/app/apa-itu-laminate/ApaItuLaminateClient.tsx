@@ -145,15 +145,15 @@ export function ApaItuLaminateClient() {
 
   return (
     <div>
-      <div className="bg-varindo-ink text-white border-b border-varindo-800">
+      <div className="bg-white">
         <div className="shell py-14 sm:py-20">
-          <p className="label text-varindo-400 mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'Edukasi Produk' : 'Product Education'}
           </p>
-          <h1 className="display text-white text-4xl sm:text-5xl lg:text-6xl mb-5">
+          <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] lg:text-[56px] mb-5">
             {lang === 'id' ? 'Apa Itu HPL?' : 'What Are Laminates?'}
           </h1>
-          <p className="text-[14px] leading-7 text-varindo-400 max-w-2xl">
+          <p className="text-[17px] leading-7 text-varindo-mid max-w-2xl">
             {lang === 'id'
               ? 'Panduan Varindo seputar High-Pressure Laminate (HPL) Lamitak — mulai dari material, cara perawatan, kode finishing, hingga sertifikasi dan standar yang berlaku.'
               : "Varindo's guide to Lamitak High-Pressure Laminate (HPL) — the material, care instructions, finish codes, and the certifications and standards behind every sheet."}
@@ -164,11 +164,11 @@ export function ApaItuLaminateClient() {
       <div className="shell py-12 sm:py-16 max-w-3xl space-y-12">
 
         <section>
-          <p className="label text-varindo-gold mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'High-Pressure Laminate (HPL)' : 'High-Pressure Laminates'}
           </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8">
-            <p className="text-[14px] leading-8 text-varindo-600">
+          <div className="rounded-card bg-varindo-canvas p-6 sm:p-8">
+            <p className="text-[17px] leading-8 text-varindo-mid">
               {lang === 'id'
                 ? 'High-Pressure Laminate (HPL) adalah material komposit yang umum digunakan dalam desain interior dan konstruksi. HPL terdiri dari beberapa lapisan kertas kraft yang direndam resin, satu lapisan dekoratif, dan satu lapisan pelindung bening. Lapisan-lapisan ini direkatkan bersama di bawah tekanan dan suhu tinggi hingga membentuk material akhir yang kuat dan tahan lama.'
                 : 'High-Pressure Laminate (HPL) is a composite material widely used in interior design and construction. It is made up of multiple layers of kraft paper saturated with resin, a decorative layer, and a clear protective layer. These layers are bonded together under high pressure and temperature to form a strong, durable final product.'}
@@ -177,11 +177,11 @@ export function ApaItuLaminateClient() {
         </section>
 
         <section>
-          <p className="label text-varindo-gold mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'Fitur Anti-Bakteri' : 'Anti-Bacterial Protection'}
           </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8 space-y-4">
-            <p className="text-[14px] leading-8 text-varindo-600">
+          <div className="rounded-card bg-varindo-canvas p-6 sm:p-8 space-y-4">
+            <p className="text-[17px] leading-8 text-varindo-mid">
               {lang === 'id'
                 ? 'HPL dan edging Lamitak dilengkapi fitur anti-mikroba yang memberikan perlindungan berkelanjutan dengan menghambat pertumbuhan mikroba pada permukaannya — mikroorganisme yang terlalu kecil untuk dilihat dengan mata telanjang.'
                 : 'Lamitak laminates and edging solutions come with anti-microbial features that provide continuous protection by inhibiting the growth of microbes on the surface — microorganisms too small to see with the naked eye.'}
@@ -190,7 +190,7 @@ export function ApaItuLaminateClient() {
               {antiBacterialCerts.map((cert) => (
                 <li key={cert.href}>
                   <a href={cert.href} target="_blank" rel="noreferrer"
-                    className="text-[12px] text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">
+                    className="text-[14px] text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors">
                     {cert.label} (PDF) ↗
                   </a>
                 </li>
@@ -200,19 +200,19 @@ export function ApaItuLaminateClient() {
         </section>
 
         <section>
-          <p className="label text-varindo-gold mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'Panduan Penggunaan & Perawatan' : 'Use & Care Guide'}
           </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8 space-y-4">
-            <p className="text-[14px] leading-8 text-varindo-600">
+          <div className="rounded-card bg-varindo-canvas p-6 sm:p-8 space-y-4">
+            <p className="text-[17px] leading-8 text-varindo-mid">
               {lang === 'id'
                 ? 'HPL Lamitak tahan lama, tahan gesekan, dan tahan benturan dalam penggunaan normal. Agar HPL Anda lebih awet:'
                 : 'Lamitak laminates are durable, abrasion resistant, and impact resistant under normal use. To better care for your laminate:'}
             </p>
             <ul className="space-y-3">
               {careDonts.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-[13px] leading-7 text-varindo-600">
-                  <div className="w-4 h-[1.5px] bg-varindo-gold shrink-0 mt-3" />
+                <li key={item} className="flex items-start gap-3 text-[14px] leading-7 text-varindo-mid">
+                  <div className="w-4 h-[1.5px] bg-varindo-link shrink-0 mt-3" />
                   {item}
                 </li>
               ))}
@@ -221,19 +221,19 @@ export function ApaItuLaminateClient() {
         </section>
 
         <section>
-          <p className="label text-varindo-gold mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'Cara Membersihkan' : 'Cleaning'}
           </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8 space-y-4">
+          <div className="rounded-card bg-varindo-canvas p-6 sm:p-8 space-y-4">
             <ul className="space-y-3">
               {cleaningSteps.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-[13px] leading-7 text-varindo-600">
-                  <div className="w-4 h-[1.5px] bg-varindo-gold shrink-0 mt-3" />
+                <li key={item} className="flex items-start gap-3 text-[14px] leading-7 text-varindo-mid">
+                  <div className="w-4 h-[1.5px] bg-varindo-link shrink-0 mt-3" />
                   {item}
                 </li>
               ))}
             </ul>
-            <p className="text-[13px] leading-7 text-varindo-500">
+            <p className="text-[14px] leading-7 text-varindo-mid">
               {lang === 'id'
                 ? 'Untuk noda membandel, gunakan sedikit thinner pada kain bersih tidak abrasif untuk mengangkat noda secara perlahan, lalu bilas dengan kain lembap bersih. Hindari bahan pembersih yang mengandung asam, alkali, atau sodium hipoklorit karena dapat mengikis, memudarkan, atau merusak permukaan HPL.'
                 : 'For stubborn stains, apply a small amount of thinner on a clean, non-abrasive cloth to gently lift the stain, then rinse with another clean, damp cloth. Avoid cleaning agents containing acid, alkali, or sodium hypochlorite, as they may corrode, discolour, or damage the laminate surface.'}
@@ -242,20 +242,20 @@ export function ApaItuLaminateClient() {
         </section>
 
         <section>
-          <p className="label text-varindo-gold mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'Panduan Kode Finishing' : 'Finish Legend'}
           </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8">
-            <p className="text-[14px] leading-8 text-varindo-600 mb-6">
+          <div className="rounded-card bg-varindo-canvas p-6 sm:p-8">
+            <p className="text-[17px] leading-8 text-varindo-mid mb-6">
               {lang === 'id'
                 ? 'Kode finishing pada akhir setiap kode produk Lamitak menunjukkan jenis tekstur atau kilap permukaannya:'
                 : "The finish code at the end of every Lamitak product code indicates the surface's texture or sheen:"}
             </p>
-            <div className="grid gap-px bg-varindo-line border border-varindo-line sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {finishLegend.map((item) => (
-                <div key={item.code} className="bg-white p-4">
-                  <p className="text-[10px] font-semibold tracking-[0.12em] uppercase text-varindo-gold mb-1">{item.code}</p>
-                  <p className="text-[13px] text-varindo-ink">{item[lang]}</p>
+                <div key={item.code} className="rounded-xl2 bg-varindo-canvas p-5">
+                  <p className="text-[12px] font-semibold tracking-[-0.016em] text-varindo-link mb-1">{item.code}</p>
+                  <p className="text-[14px] text-varindo-ink">{item[lang]}</p>
                 </div>
               ))}
             </div>
@@ -263,26 +263,26 @@ export function ApaItuLaminateClient() {
         </section>
 
         <section>
-          <p className="label text-varindo-gold mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'Sertifikasi & Standar' : 'Certifications & Standards'}
           </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8 space-y-5">
-            <p className="text-[14px] leading-8 text-varindo-600">
+          <div className="rounded-card bg-varindo-canvas p-6 sm:p-8 space-y-5">
+            <p className="text-[17px] leading-8 text-varindo-mid">
               {lang === 'id'
                 ? 'Produk Lamitak diproduksi dengan berbagai sertifikasi internasional yang menjamin kualitas, keamanan, dan tanggung jawab lingkungan:'
                 : 'Lamitak products are manufactured against a range of international certifications covering quality, safety, and environmental responsibility:'}
             </p>
-            <div className="grid gap-px bg-varindo-line border border-varindo-line sm:grid-cols-2">
+            <div className="grid gap-5 sm:grid-cols-2">
               {certifications.map((cert) => (
-                <div key={cert.title} className="bg-white p-5">
-                  <p className="text-[13px] font-semibold text-varindo-ink mb-1.5">{cert.title}</p>
-                  <p className="text-[12px] leading-6 text-varindo-500 mb-3">{cert.body}</p>
+                <div key={cert.title} className="rounded-card bg-varindo-canvas p-6">
+                  <p className="text-[14px] font-semibold text-varindo-ink mb-1.5">{cert.title}</p>
+                  <p className="text-[14px] leading-6 text-varindo-mid mb-3">{cert.body}</p>
                   {cert.links.length > 0 && (
                     <ul className="space-y-1">
                       {cert.links.map((link) => (
                         <li key={link.href}>
                           <a href={link.href} target="_blank" rel="noreferrer"
-                            className="text-[11px] leading-5 text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">
+                            className="text-[12px] leading-5 text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors">
                             {link.label} (PDF) ↗
                           </a>
                         </li>
@@ -296,25 +296,25 @@ export function ApaItuLaminateClient() {
         </section>
 
         <section>
-          <p className="label text-varindo-gold mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'Spesifikasi Standar' : 'Standard Specifications'}
           </p>
-          <div className="border border-varindo-line divide-y divide-varindo-line bg-white">
+          <div className="rounded-xl2 bg-varindo-canvas divide-y divide-varindo-line/60">
             {specs.map((spec) => (
               <div key={spec.label} className="grid sm:grid-cols-[0.3fr_0.7fr] gap-2 sm:gap-6 px-6 py-5 sm:px-8">
-                <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-varindo-ink">{spec.label}</p>
-                <p className="text-[13px] leading-7 text-varindo-600">{spec.value}</p>
+                <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">{spec.label}</p>
+                <p className="text-[14px] leading-7 text-varindo-mid">{spec.value}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="border border-varindo-line bg-varindo-50 px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <section className="rounded-card bg-varindo-canvas px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <p className="font-display text-2xl font-light text-varindo-ink mb-2">
+            <p className="display text-[28px] text-varindo-ink mb-2">
               {lang === 'id' ? 'Butuh sampel fisik untuk cek langsung?' : 'Need a physical sample to check firsthand?'}
             </p>
-            <p className="text-[13px] text-varindo-600 max-w-lg">
+            <p className="text-[14px] text-varindo-mid max-w-lg">
               {lang === 'id'
                 ? 'Ajukan permintaan sampel HPL atau tanyakan spesifikasi produk kepada tim Varindo.'
                 : 'Request a laminate sample or ask the Varindo team about product specifications.'}

@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.VarindoSplash" parent="Theme.MaterialComponents.NoActionBar">
+    <!--
+        Everything the splash window needs except the system-bar colours, which
+        differ by API level: dark bar icons only exist from API 23 (status) and
+        API 27 (navigation), so the light bars live in the -v23/-v27/-v31 copies
+        of Theme.VarindoSplash below this one.
+    -->
+    <style name="Theme.Varindo.SplashBase" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">@color/splashScreenBackground</item>
         <item name="android:windowIsTranslucent">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--
+        API 21–22: no windowLightStatusBar, so white bars would render white
+        icons on white. These two levels keep ink bars with their light icons.
+    -->
+    <style name="Theme.VarindoSplash" parent="Theme.Varindo.SplashBase">
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
     </style>
 </resources>

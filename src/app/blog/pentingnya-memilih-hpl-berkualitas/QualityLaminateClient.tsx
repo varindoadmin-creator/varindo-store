@@ -47,19 +47,19 @@ export function QualityLaminateClient({ post }: { post: BlogPost }) {
 
   return (
     <div>
-      <div className="bg-varindo-ink text-white border-b border-varindo-800">
+      <div className="bg-white">
         <div className="shell py-14 sm:py-20">
-          <Link href="/blog" className="text-[11px] font-semibold tracking-[0.14em] uppercase text-varindo-400 hover:text-white transition-colors">
+          <Link href="/blog" className="text-[12px] font-semibold tracking-[-0.016em] text-varindo-mid hover:text-varindo-ink transition-colors">
             {t('blog', 'backToBlog', lang)}
           </Link>
-          <p className="label text-varindo-400 mt-6 mb-4">{post.category[lang]}</p>
-          <h1 className="display text-white text-4xl sm:text-5xl lg:text-6xl mb-5 max-w-3xl">
+          <p className="label mt-6 mb-4">{post.category[lang]}</p>
+          <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] lg:text-[56px] mb-5 max-w-3xl">
             {post.title[lang]}
           </h1>
-          <p className="text-[14px] leading-7 text-varindo-400 max-w-2xl mb-4">
+          <p className="text-[17px] leading-7 text-varindo-mid max-w-2xl mb-4">
             {post.excerpt[lang]}
           </p>
-          <p className="text-[11px] text-varindo-500">
+          <p className="text-[12px] text-varindo-mid">
             {t('blog', 'publishedOn', lang)}{' '}
             <time dateTime={post.date}>{formatDate(post.date, lang)}</time>
           </p>
@@ -69,8 +69,8 @@ export function QualityLaminateClient({ post }: { post: BlogPost }) {
       <div className="shell py-12 sm:py-16 max-w-3xl space-y-12">
 
         <section>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8">
-            <p className="text-[14px] leading-8 text-varindo-600">
+          <div className="rounded-card bg-varindo-canvas p-6 sm:p-8">
+            <p className="text-[17px] leading-8 text-varindo-mid">
               {lang === 'id'
                 ? 'HPL akan menempel di dinding, kabinet, atau furnitur Anda selama bertahun-tahun — bukan transaksi sekali pakai. Perbedaan antara HPL berkualitas dan HPL murah mungkin tidak terlihat di hari pemasangan, tapi akan sangat terasa dalam lima atau sepuluh tahun ke depan: pada tampilan yang tetap meyakinkan, warna yang tidak mudah pudar, dan permukaan yang tetap mudah dibersihkan. Berikut alasan mengapa investasi pada HPL berkualitas seperti Lamitak layak dipertimbangkan sejak awal.'
                 : "Laminate stays on your walls, cabinetry, or furniture for years — it's not a one-time transaction. The difference between quality laminate and cheap laminate rarely shows on installation day, but it becomes obvious five or ten years later: in whether the look still holds up, whether the colour has faded, and whether the surface is still easy to clean. Here's why investing in quality HPL like Lamitak is worth deciding on from the start."}
@@ -79,27 +79,27 @@ export function QualityLaminateClient({ post }: { post: BlogPost }) {
         </section>
 
         <section>
-          <p className="label text-varindo-gold mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'Empat Alasan Utama' : 'Four Key Reasons'}
           </p>
           <div className="space-y-4">
             {reasons.map((reason, i) => (
-              <div key={reason.title} className="border border-varindo-line bg-white p-6 sm:p-8 flex gap-5">
-                <span className="font-display text-3xl font-light text-varindo-gold shrink-0 leading-none">
+              <div key={reason.title} className="rounded-card bg-varindo-canvas p-6 sm:p-8 flex gap-5">
+                <span className="display text-[32px] text-varindo-link shrink-0 leading-none">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
                   <p className="text-[15px] font-semibold text-varindo-ink mb-2">{reason.title}</p>
-                  <p className="text-[14px] leading-7 text-varindo-600">{reason.body}</p>
+                  <p className="text-[17px] leading-7 text-varindo-mid">{reason.body}</p>
                 </div>
               </div>
             ))}
           </div>
-          <p className="mt-4 text-[13px] leading-7 text-varindo-500">
+          <p className="mt-4 text-[14px] leading-7 text-varindo-mid">
             {lang === 'id'
               ? 'Lihat spesifikasi teknis dan panduan perawatan lengkap di halaman '
               : 'See the full technical specifications and care guide on our '}
-            <Link href="/apa-itu-laminate" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">
+            <Link href="/apa-itu-laminate" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors">
               {lang === 'id' ? 'Apa Itu HPL?' : 'What Are Laminates?'}
             </Link>
             {lang === 'id' ? '.' : ' page.'}
@@ -107,18 +107,18 @@ export function QualityLaminateClient({ post }: { post: BlogPost }) {
         </section>
 
         <section>
-          <p className="label text-varindo-gold mb-4">
+          <p className="label mb-4">
             {lang === 'id' ? 'Biaya Sebenarnya dari Memilih yang Murah' : 'The Real Cost of Choosing Cheap'}
           </p>
-          <div className="border border-varindo-line bg-white p-6 sm:p-8 space-y-4">
-            <p className="text-[14px] leading-8 text-varindo-600">
+          <div className="rounded-card bg-varindo-canvas p-6 sm:p-8 space-y-4">
+            <p className="text-[17px] leading-8 text-varindo-mid">
               {lang === 'id'
                 ? 'HPL murah memang terlihat menghemat anggaran di awal, tapi sering kali harus diganti lebih cepat karena tergores, memudar, atau terkelupas — sehingga biaya material, tenaga kerja, dan waktu proyek justru dikeluarkan dua kali. HPL Lamitak dijual dengan kisaran harga transparan mulai dari sekitar Rp400 ribuan hingga sekitar Rp3,9 juta per lembar tergantung koleksi, motif, dan ukuran, sudah termasuk PPN — sehingga Anda dapat membandingkan nilai jangka panjangnya, bukan hanya harga di depan.'
                 : "Cheap laminate looks like it saves money upfront, but often needs replacing sooner due to scratching, fading, or delamination — so material, labour, and project time end up spent twice. Lamitak HPL is sold at a transparent price range of roughly Rp400,000 to around Rp3.9 million per sheet depending on collection, motif, and size, tax included — so you can compare long-term value, not just the sticker price."}
             </p>
-            <p className="text-[13px] leading-7 text-varindo-500">
+            <p className="text-[14px] leading-7 text-varindo-mid">
               {lang === 'id' ? 'Cek kisaran harga per koleksi dan ukuran di halaman ' : 'Check price ranges by collection and size on our '}
-              <Link href="/harga-lamitak" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-gold transition-colors">
+              <Link href="/harga-lamitak" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors">
                 {lang === 'id' ? 'Harga HPL Lamitak' : 'Lamitak HPL Price'}
               </Link>
               {lang === 'id' ? '.' : ' page.'}
@@ -126,12 +126,12 @@ export function QualityLaminateClient({ post }: { post: BlogPost }) {
           </div>
         </section>
 
-        <section className="border border-varindo-line bg-varindo-50 px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <section className="rounded-card bg-varindo-canvas px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <p className="font-display text-2xl font-light text-varindo-ink mb-2">
+            <p className="display text-[28px] text-varindo-ink mb-2">
               {lang === 'id' ? 'Ingin lihat dan meraba langsung materialnya?' : 'Want to see and feel the material yourself?'}
             </p>
-            <p className="text-[13px] text-varindo-600 max-w-lg">
+            <p className="text-[14px] text-varindo-mid max-w-lg">
               {lang === 'id'
                 ? 'Jelajahi koleksi lengkap Lamitak atau minta sampel fisik gratis sebelum menentukan pilihan.'
                 : "Browse the full Lamitak collection or request a free physical sample before you decide."}

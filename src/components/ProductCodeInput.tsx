@@ -75,9 +75,9 @@ export function ProductCodeInput({ products, value, onChange, placeholder, input
   if (value) {
     return (
       <div className={`flex items-center gap-2 h-10 px-3 bg-varindo-50 ${inputClassName ?? ''}`}>
-        <span className="text-[12px] font-semibold text-varindo-ink truncate flex-1">{value}</span>
+        <span className="text-[14px] font-semibold text-varindo-ink truncate flex-1">{value}</span>
         <button type="button" onClick={clear} aria-label="Hapus"
-          className="shrink-0 w-5 h-5 flex items-center justify-center text-varindo-400 hover:text-varindo-ink transition-colors">
+          className="shrink-0 w-5 h-5 flex items-center justify-center text-varindo-mid hover:text-varindo-ink transition-colors">
           <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
             <path d="M1 1l6 6M7 1L1 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
           </svg>
@@ -95,27 +95,27 @@ export function ProductCodeInput({ products, value, onChange, placeholder, input
         onFocus={() => { if (query) setOpen(true); }}
         onKeyDown={handleKeyDown}
         placeholder={ph}
-        className={`w-full h-10 px-3 text-[13px] text-varindo-ink bg-transparent outline-none placeholder:text-varindo-300 ${inputClassName ?? ''}`}
+        className={`w-full h-10 px-3 text-[14px] text-varindo-ink bg-transparent outline-none placeholder:text-varindo-mid ${inputClassName ?? ''}`}
       />
 
       {open && results.length > 0 && (
-        <div className="absolute left-0 right-0 top-full z-50 border border-varindo-line bg-white shadow-card-hover">
+        <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl2 bg-white shadow-luxury">
           <ul ref={listRef} role="listbox" className="max-h-[260px] overflow-y-auto divide-y divide-varindo-line/40">
             {results.map((p, i) => (
               <li key={p.code} role="option" aria-selected={i === cursor}
                 onMouseDown={(e) => { e.preventDefault(); commit(p); }}
                 onMouseEnter={() => setCursor(i)}
-                className={`flex items-baseline gap-3 px-4 py-2.5 cursor-pointer transition-colors ${i === cursor ? 'bg-varindo-50' : 'hover:bg-varindo-50/60'}`}>
-                <span className="text-[12px] font-semibold text-varindo-ink shrink-0">{p.code}</span>
-                <span className="text-[11px] text-varindo-500 truncate">{p.design || p.name}</span>
+                className={`flex items-baseline gap-3 px-4 py-2.5 cursor-pointer transition-colors ${i === cursor ? 'bg-varindo-canvas' : 'hover:bg-varindo-canvas/60'}`}>
+                <span className="text-[14px] font-semibold text-varindo-ink shrink-0">{p.code}</span>
+                <span className="text-[12px] text-varindo-mid truncate">{p.design || p.name}</span>
                 {p.collection && (
-                  <span className="ml-auto text-[10px] tracking-[0.1em] uppercase text-varindo-300 shrink-0">{p.collection}</span>
+                  <span className="ml-auto text-[12px] tracking-[-0.016em] text-varindo-mid shrink-0">{p.collection}</span>
                 )}
               </li>
             ))}
           </ul>
-          <div className="px-4 py-2 border-t border-varindo-line/40 bg-varindo-50/50">
-            <p className="text-[10px] text-varindo-400">
+          <div className="px-4 py-2 border-t border-varindo-line/40 bg-varindo-canvas">
+            <p className="text-[12px] text-varindo-mid">
               {t('autocomplete', 'hint', lang, { n: results.length, s: results.length !== 1 ? 's' : '' })}
             </p>
           </div>
@@ -123,11 +123,11 @@ export function ProductCodeInput({ products, value, onChange, placeholder, input
       )}
 
       {open && query.trim().length >= 2 && results.length === 0 && (
-        <div className="absolute left-0 right-0 top-full z-50 border border-varindo-line bg-white shadow-card-hover px-4 py-3">
-          <p className="text-[12px] text-varindo-400">
+        <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl2 bg-white shadow-luxury px-4 py-3">
+          <p className="text-[14px] text-varindo-mid">
             {t('autocomplete', 'noResults', lang)} <span className="font-medium text-varindo-ink">"{query}"</span>
           </p>
-          <p className="text-[11px] text-varindo-300 mt-0.5">{t('autocomplete', 'noResultsHint', lang)}</p>
+          <p className="text-[12px] text-varindo-mid mt-0.5">{t('autocomplete', 'noResultsHint', lang)}</p>
         </div>
       )}
     </div>

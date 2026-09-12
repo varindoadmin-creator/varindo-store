@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Splash screen shown while the TWA loads.
-    A centered Varindo "V" mark on the paper background.
-    Replace this with your actual logo SVG if desired.
+    Splash screen shown while the TWA loads: the Varindo mark centred on the
+    white canvas.
+
+    The mark is tinted ink here because @mipmap/ic_launcher_foreground is drawn
+    in pure white — it was made for the launcher icon's dark ink background, and
+    on this white splash it would otherwise be invisible.
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Background -->
     <item>
         <color android:color="@color/splashScreenBackground" />
     </item>
-    <!-- Centered logo mark — reuses the app icon's foreground mark -->
+    <!-- Centered logo mark — the app icon's foreground mark, tinted ink -->
     <item
         android:gravity="center"
         android:width="96dp"
-        android:height="96dp"
-        android:drawable="@mipmap/ic_launcher_foreground" />
+        android:height="96dp">
+        <bitmap
+            android:src="@mipmap/ic_launcher_foreground"
+            android:gravity="center"
+            android:tint="@color/colorPrimary" />
+    </item>
 </layer-list>

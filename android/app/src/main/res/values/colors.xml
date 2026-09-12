@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- varindo-ink: the dark header color used throughout the site -->
-    <color name="colorPrimary">#1a1714</color>
-    <color name="colorPrimaryDark">#1a1714</color>
-    <color name="colorAccent">#a8763e</color>
+    <!--
+        The site is a white canvas with ink text and has no dark theme
+        (globals.css pins color-scheme: light), so the system bars are white in
+        both colour schemes and their icons are drawn dark.
 
-    <!-- Navigation bar (bottom of screen) — matches ink -->
-    <color name="navigationColor">#1a1714</color>
-    <color name="navigationDividerColor">#1a1714</color>
+        Dark icons need windowLightStatusBar (API 23+) and
+        windowLightNavigationBar (API 27+), which is why Theme.VarindoSplash is
+        split across values/, values-v23/, values-v27/ and values-v31/ — API
+        21–22 has no way to darken bar icons, so it keeps ink bars. Inside the
+        Trusted Web Activity, Chrome derives the icon tint from the colour's own
+        luminance, so the white bars there need no extra flag.
+    -->
 
-    <!-- Splash screen background — matches varindo-paper -->
-    <color name="splashScreenBackground">#faf8f5</color>
+    <!-- Brand ink — Material's colorPrimary, and the API 21–22 bar colour -->
+    <color name="colorPrimary">#1d1d1f</color>
+    <color name="colorPrimaryDark">#1d1d1f</color>
+    <color name="colorAccent">#0071e3</color>
+
+    <!-- System bars -->
+    <color name="statusBarColor">#ffffff</color>
+    <color name="navigationColor">#ffffff</color>
+    <color name="navigationDividerColor">#d6d6d6</color>
+
+    <!-- Splash screen background — matches the site's white canvas -->
+    <color name="splashScreenBackground">#ffffff</color>
 </resources>

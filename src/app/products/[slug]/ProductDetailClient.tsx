@@ -42,25 +42,25 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
   return (
     <div>
       {/* Breadcrumb — mirrors the BreadcrumbList JSON-LD (Beranda › Katalog › Koleksi › Produk) */}
-      <div className="border-b border-varindo-line bg-varindo-50">
-        <nav aria-label="Breadcrumb" className="shell py-4 flex items-center gap-2 text-[11px] tracking-[0.12em] uppercase flex-wrap">
-          <Link href="/" className="text-varindo-500 hover:text-varindo-ink transition-colors">
+      <div className="bg-varindo-canvas">
+        <nav aria-label="Breadcrumb" className="shell flex flex-wrap items-center gap-2 py-4 text-[12px] tracking-[-0.012em]">
+          <Link href="/" className="text-varindo-mid transition-colors hover:text-varindo-ink">
             {t('detail', 'breadcrumbHome', lang)}
           </Link>
-          <span className="text-varindo-300">·</span>
-          <Link href="/products" className="text-varindo-500 hover:text-varindo-ink transition-colors">
+          <span className="text-varindo-mid">›</span>
+          <Link href="/products" className="text-varindo-mid transition-colors hover:text-varindo-ink">
             {t('detail', 'breadcrumbCatalog', lang)}
           </Link>
           {collectionLabel && (
             <>
-              <span className="text-varindo-300">·</span>
-              <Link href="/products" className="text-varindo-500 hover:text-varindo-ink transition-colors">
+              <span className="text-varindo-mid">›</span>
+              <Link href="/products" className="text-varindo-mid transition-colors hover:text-varindo-ink">
                 {collectionLabel}
               </Link>
             </>
           )}
-          <span className="text-varindo-300">·</span>
-          <span className="text-varindo-ink font-medium truncate max-w-xs">{product.name}</span>
+          <span className="text-varindo-mid">›</span>
+          <span className="max-w-xs truncate text-varindo-ink">{product.name}</span>
         </nav>
       </div>
 
@@ -75,17 +75,17 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
               imageUrls={product.imageUrlCandidates || []}
               alt={imageAlt}
             />
-            <div className="mt-4 border border-varindo-line/60 bg-varindo-50 px-5 py-4">
-              <p className="text-[11px] leading-6 text-varindo-500">{t('detail', 'colourNote', lang)}</p>
-            </div>
+            <p className="mt-5 max-w-md text-[12px] leading-[1.5] text-varindo-mid">
+              {t('detail', 'colourNote', lang)}
+            </p>
           </div>
 
           {/* Details */}
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <p className="label text-varindo-gold">{product.brand || 'Lamitak'}</p>
+              <p className="eyebrow text-varindo-mid">{product.brand || 'Lamitak'}</p>
               <Link href="/otorisasi"
-                className="inline-flex items-center gap-1 text-[10px] font-semibold tracking-[0.12em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors">
+                className="inline-flex items-center gap-1 text-[14px] tracking-[-0.016em] text-varindo-link transition-colors hover:underline">
                 <svg width="11" height="11" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <path d="M4 10.5L8 14.5L16 5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -93,17 +93,17 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
               </Link>
             </div>
             {/* Product name — NEVER translated */}
-            <h1 className="display text-varindo-ink text-4xl sm:text-5xl mb-6">{product.name}</h1>
+            <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] mb-6">{product.name}</h1>
 
-            <div className="border-t border-b border-varindo-line py-5 mb-7">
-              <span className="font-display text-3xl font-light text-varindo-ink">{formatIDR(product.price)}</span>
-              <p className="mt-2 text-[11px] tracking-[0.14em] uppercase text-varindo-400">
+            <div className="mb-8">
+              <span className="display text-[32px] text-varindo-ink">{formatIDR(product.price)}</span>
+              <p className="mt-1 text-[17px] tracking-[-0.022em] text-varindo-mid">
                 {t('detail', 'inclTax', lang)}
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-10">
-              <a href={enquiryUrl} target="_blank" rel="noreferrer" className="btn-ink">
+              <a href={enquiryUrl} target="_blank" rel="noreferrer" className="btn-blue">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.19 1.6 6L0 24l6.19-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22c-1.85 0-3.66-.5-5.23-1.43l-.37-.22-3.87 1.02 1.03-3.77-.24-.38A9.93 9.93 0 0 1 2 12C2 6.49 6.49 2 12 2s10 4.49 10 10-4.49 10-10 10z"/>
                 </svg>
@@ -115,39 +115,33 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
             </div>
 
             <div className="mb-10">
-              <Link href="/products" className="text-[11px] font-medium tracking-[0.12em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors">
+              <Link href="/products" className="link-arrow">
                 {t('detail', 'backCatalog', lang)}
               </Link>
             </div>
 
             {/* Description — deterministic per-product copy, always Bahasa Indonesia */}
-            <div className="border border-varindo-line mb-6">
-              <div className="border-b border-varindo-line px-5 py-3.5 bg-varindo-50">
-                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-700">
-                  {t('detail', 'descriptionTitle', lang)}
-                </p>
-              </div>
-              <div className="px-5 py-4">
-                <p className="text-[13px] leading-7 text-varindo-600">{descriptionParagraph}</p>
-                <p className="mt-3 text-[13px] leading-7 text-varindo-600">
-                  <span className="font-semibold text-varindo-ink">{t('detail', 'suitableFor', lang)}:</span> {suitableFor}.
-                </p>
-              </div>
+            <div className="mb-5 rounded-card bg-varindo-canvas p-7">
+              <h2 className="mb-3 text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+                {t('detail', 'descriptionTitle', lang)}
+              </h2>
+              <p className="copy">{descriptionParagraph}</p>
+              <p className="copy mt-3">
+                <span className="text-varindo-ink">{t('detail', 'suitableFor', lang)}:</span> {suitableFor}.
+              </p>
             </div>
 
             {/* Spec table */}
-            <div className="border border-varindo-line">
-              <div className="border-b border-varindo-line px-5 py-3.5 bg-varindo-50">
-                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-varindo-700">
-                  {t('detail', 'specsTitle', lang)}
-                </p>
-              </div>
+            <div className="rounded-card bg-varindo-canvas p-7">
+              <h2 className="mb-4 text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+                {t('detail', 'specsTitle', lang)}
+              </h2>
               <dl>
                 {specs.map(([label, value], i) => (
                   <div key={label}
-                    className={`flex items-start gap-4 px-5 py-3.5 ${i !== specs.length - 1 ? 'border-b border-varindo-line/60' : ''}`}>
-                    <dt className="text-[11px] tracking-[0.14em] uppercase text-varindo-400 w-28 shrink-0 pt-px">{label}</dt>
-                    <dd className="text-[13px] font-medium text-varindo-ink">{value}</dd>
+                    className={`flex items-start gap-4 py-3 ${i !== specs.length - 1 ? 'border-b border-varindo-line/50' : ''}`}>
+                    <dt className="w-32 shrink-0 text-[14px] tracking-[-0.016em] text-varindo-mid">{label}</dt>
+                    <dd className="text-[17px] tracking-[-0.022em] text-varindo-ink">{value}</dd>
                   </div>
                 ))}
               </dl>

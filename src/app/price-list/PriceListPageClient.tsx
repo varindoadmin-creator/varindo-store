@@ -8,13 +8,13 @@ export function PriceListPage() {
   const { lang } = useLang();
   return (
     <div>
-      <div className="bg-varindo-ink text-white border-b border-varindo-800">
+      <div className="bg-white">
         <div className="shell py-14 sm:py-20">
-          <p className="label text-varindo-400 mb-4">{t('forms', 'priceListBadge', lang)}</p>
-          <h1 className="display text-white text-5xl sm:text-6xl lg:text-7xl whitespace-pre-line">
+          <p className="label mb-4">{t('forms', 'priceListBadge', lang)}</p>
+          <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px] whitespace-pre-line">
             {t('forms', 'priceListTitle', lang)}
           </h1>
-          <p className="mt-5 text-[14px] leading-7 text-varindo-400 max-w-lg">
+          <p className="mt-5 text-[17px] leading-7 text-varindo-mid max-w-lg">
             {t('forms', 'priceListSubtitle', lang)}
           </p>
         </div>

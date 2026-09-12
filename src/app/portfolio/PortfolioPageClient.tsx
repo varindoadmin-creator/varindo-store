@@ -11,23 +11,23 @@ export function PortfolioPageClient() {
 
   return (
     <div>
-      <div className="bg-varindo-ink text-white border-b border-varindo-800">
+      <div className="bg-white">
         <div className="shell py-14 sm:py-20">
-          <p className="label text-varindo-400 mb-4">{t('home', 'portfolioLabel', lang)}</p>
-          <h1 className="display text-white text-4xl sm:text-5xl lg:text-6xl mb-5">
+          <p className="label mb-4">{t('home', 'portfolioLabel', lang)}</p>
+          <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] lg:text-[56px] mb-5">
             {t('home', 'portfolioTitle1', lang)}{' '}
-            <em className="text-varindo-300 not-italic">{t('home', 'portfolioTitle2', lang)}</em>
+            <em className="text-varindo-mid not-italic">{t('home', 'portfolioTitle2', lang)}</em>
           </h1>
-          <p className="text-[14px] leading-7 text-varindo-400 max-w-lg mb-6">{t('home', 'portfolioBody', lang)}</p>
+          <p className="text-[17px] leading-7 text-varindo-mid max-w-lg mb-6">{t('home', 'portfolioBody', lang)}</p>
           <a href={FLIPPINGBOOK_URL} target="_blank" rel="noreferrer"
-            className="text-[11px] font-semibold tracking-[0.14em] uppercase text-varindo-300 hover:text-white transition-colors">
+            className="text-[12px] font-semibold tracking-[-0.016em] text-varindo-mid hover:text-varindo-ink transition-colors">
             {t('home', 'portfolioOpenExternal', lang)}
           </a>
         </div>
       </div>
 
       <div className="shell py-10 sm:py-14">
-        <div className="border border-varindo-line bg-varindo-50 aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden">
+        <div className="rounded-card bg-varindo-canvas aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden">
           <iframe
             src={FLIPPINGBOOK_URL}
             title="Lamitak Portfolio"
@@ -39,7 +39,7 @@ export function PortfolioPageClient() {
         </div>
 
         <div className="mt-6">
-          <Link href="/" className="text-[11px] font-medium tracking-[0.12em] uppercase text-varindo-500 hover:text-varindo-ink transition-colors">
+          <Link href="/" className="text-[12px] font-medium tracking-[-0.016em] text-varindo-mid hover:text-varindo-ink transition-colors">
             {t('home', 'portfolioBack', lang)}
           </Link>
         </div>

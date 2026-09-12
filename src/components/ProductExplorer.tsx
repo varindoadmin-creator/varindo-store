@@ -24,12 +24,12 @@ type Props = { products: Product[]; filterOptions: FilterOptions; showCollection
 function SelectWrapper({ label, value, onChange, children }: { label: string; value: string; onChange: (v: string) => void; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="label text-varindo-600 mb-2 block">{label}</span>
+      <span className="label mb-2 block">{label}</span>
       <div className="relative">
         <select value={value} onChange={(e) => onChange(e.target.value)} className="field-select w-full">
           {children}
         </select>
-        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-varindo-400">
+        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-varindo-mid">
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
             <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -81,35 +81,32 @@ export function ProductExplorer({ products, showCollectionTabs = true }: Props) 
   return (
     <div className="space-y-0">
       {showCollectionTabs && (
-        <div className="flex gap-0 overflow-x-auto border-b border-varindo-line mb-8 scrollbar-none">
+        <div className="mb-8 flex gap-2 overflow-x-auto pb-1 scrollbar-none">
           {collectionTabs.map(({ label, href }) => (
             <Link key={href} href={href}
-              className="shrink-0 px-5 py-3 text-[10px] font-semibold tracking-[0.18em] uppercase text-varindo-600 border-b-2 border-transparent hover:text-varindo-ink hover:border-varindo-ink transition-all duration-150 whitespace-nowrap">
+              className="shrink-0 rounded-pill bg-varindo-canvas px-4 py-2 text-[14px] tracking-[-0.016em] text-varindo-ink whitespace-nowrap transition-colors hover:bg-varindo-wash">
               {label}
             </Link>
           ))}
         </div>
       )}
 
-      <div className="border border-varindo-line bg-white mb-8">
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-varindo-line">
-          <div className="flex items-center gap-2">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-varindo-500">
-              <path d="M1 3h12M3 7h8M5 11h4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-            </svg>
-            <span className="label text-varindo-700">{t('explorer', 'filterTitle', lang)}</span>
-          </div>
+      <div className="mb-10 rounded-card bg-varindo-canvas p-6 sm:p-7">
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <span className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+            {t('explorer', 'filterTitle', lang)}
+          </span>
           {hasFilters && (
-            <button onClick={clearFilters} className="text-[11px] font-medium tracking-[0.12em] uppercase text-varindo-gold hover:text-varindo-ink transition-colors">
+            <button onClick={clearFilters} className="link-arrow text-[14px]">
               {t('explorer', 'clearAll', lang)}
             </button>
           )}
         </div>
 
-        <div className="p-5">
+        <div>
           <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
             <label className="block">
-              <span className="label text-varindo-600 mb-2 block">{t('explorer', 'searchLabel', lang)}</span>
+              <span className="label mb-2 block">{t('explorer', 'searchLabel', lang)}</span>
               <input value={query} onChange={(e) => setQuery(e.target.value)}
                 placeholder={t('explorer', 'searchPlaceholder', lang)}
                 className="field w-full" />
@@ -133,12 +130,12 @@ export function ProductExplorer({ products, showCollectionTabs = true }: Props) 
             </SelectWrapper>
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-varindo-500">
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-[14px] tracking-[-0.016em] text-varindo-mid">
             <p>
-              <span className="font-semibold text-varindo-ink">{filteredProducts.length}</span>
+              <span className="text-varindo-ink">{filteredProducts.length}</span>
               {' '}{filteredProducts.length === 1 ? t('explorer', 'productFound', lang) : t('explorer', 'productsFound', lang)}
               {filteredProducts.length > 0 && (
-                <span> · {t('explorer', 'showing', lang)} <span className="font-semibold text-varindo-ink">{startIndex + 1}–{Math.min(endIndex, filteredProducts.length)}</span></span>
+                <span> · {t('explorer', 'showing', lang)} <span className="text-varindo-ink">{startIndex + 1}–{Math.min(endIndex, filteredProducts.length)}</span></span>
               )}
             </p>
           </div>
@@ -148,16 +145,16 @@ export function ProductExplorer({ products, showCollectionTabs = true }: Props) 
       <ProductGrid products={paginated} />
 
       {filteredProducts.length > PRODUCTS_PER_PAGE && (
-        <div className="flex flex-wrap items-center justify-center gap-2 pt-10">
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-16">
           <button type="button" onClick={() => goToPage(safePage - 1)} disabled={safePage === 1}
-            className="btn-ghost disabled:opacity-40 disabled:cursor-not-allowed">
+            className="btn-soft disabled:cursor-not-allowed disabled:opacity-40">
             {t('explorer', 'previous', lang)}
           </button>
-          <span className="px-4 text-sm text-varindo-500">
-            {t('explorer', 'page', lang)} <span className="font-semibold text-varindo-ink">{safePage}</span> {t('explorer', 'of', lang)} {totalPages}
+          <span className="px-4 text-[14px] tracking-[-0.016em] text-varindo-mid">
+            {t('explorer', 'page', lang)} <span className="text-varindo-ink">{safePage}</span> {t('explorer', 'of', lang)} {totalPages}
           </span>
           <button type="button" onClick={() => goToPage(safePage + 1)} disabled={safePage === totalPages}
-            className="btn-ghost disabled:opacity-40 disabled:cursor-not-allowed">
+            className="btn-soft disabled:cursor-not-allowed disabled:opacity-40">
             {t('explorer', 'next', lang)}
           </button>
         </div>

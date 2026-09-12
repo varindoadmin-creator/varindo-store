@@ -3,27 +3,50 @@
 @tailwind utilities;
 
 /* ─── Design tokens ─────────────────────────────────────────── */
+/* Cathedral of white space: near-monochrome canvas, oversized type,
+   a single blue thread for anything interactive. Rhythm comes from
+   alternating #ffffff / #f5f5f7 bands — never from borders or shadows. */
 :root {
   color-scheme: light;
 
   /* Core palette */
-  --c-paper:    #faf8f5;
-  --c-warm:     #ede8e1;
-  --c-line:     #e4ddd4;
-  --c-sand:     #d4c9b8;
-  --c-ink:      #1a1714;
-  --c-ink-60:   rgba(26, 23, 20, 0.60);
-  --c-ink-30:   rgba(26, 23, 20, 0.30);
-  --c-gold:     #a8763e;
-  --c-gold-lt:  #f0e8dc;
+  --c-paper:    #ffffff;  /* primary canvas + card surfaces          */
+  --c-canvas:   #f5f5f7;  /* alternating band, footer, soft fills    */
+  --c-wash:     #e8e8ed;  /* hover state on light buttons            */
+  --c-nav:      #fafafc;  /* elevated nav surface on scroll          */
+  --c-line:     #d6d6d6;  /* hairline — used sparingly               */
+  --c-ink:      #1d1d1f;  /* headlines, body, button labels          */
+  --c-deep:     #474747;  /* nav + medium-emphasis text              */
+  --c-mid:      #707070;  /* secondary text, muted labels            */
+  --c-ink-60:   rgba(29, 29, 31, 0.60);
+  --c-ink-30:   rgba(29, 29, 31, 0.30);
+  --c-blue:     #0071e3;  /* filled CTA only — never as text colour  */
+  --c-link:     #0066cc;  /* inline links, arrow links               */
+  --c-ember:    #b64400;  /* "Baru" badge, at most once per page     */
   --c-white:    #ffffff;
 
-  /* Typography */
-  --font-display: 'Cormorant Garamond', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
-  --font-body:    'DM Sans', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Legacy aliases kept so older markup degrades into the new system */
+  --c-warm:     var(--c-canvas);
+  --c-sand:     var(--c-line);
+  --c-gold:     var(--c-link);
+  --c-gold-lt:  var(--c-canvas);
 
-  /* Spacing rhythm */
-  --space-section: clamp(3.5rem, 6vw, 6rem);
+  /* Typography — SF Pro on Apple hardware, Inter everywhere else */
+  --font-stack:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text',
+    var(--font-inter), Inter, ui-sans-serif, system-ui, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-display: var(--font-stack);
+  --font-body:    var(--font-stack);
+
+  /* Radii */
+  --r-card:   28px;
+  --r-inner:  18px;
+  --r-link:   10px;
+  --r-pill:   980px;
+
+  /* Spacing rhythm — 100–120px between content bands */
+  --space-section: clamp(4rem, 8vw, 7.5rem);
 }
 
 /* ─── Reset & base ──────────────────────────────────────────── */
@@ -41,6 +64,10 @@ body {
   background-color: var(--c-paper);
   color: var(--c-ink);
   font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.022em;
+  font-variant-numeric: tabular-nums;
 }
 
 ::selection {
@@ -52,77 +79,129 @@ img { -webkit-user-drag: none; }
 
 /* ─── Scrollbar (webkit) ────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--c-warm); }
-::-webkit-scrollbar-thumb { background: var(--c-sand); border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--c-canvas); }
+::-webkit-scrollbar-thumb { background: #c7c7cc; border-radius: 999px; }
 
-/* ─── Utility layer ─────────────────────────────────────────── */
+/* ─── Component layer ───────────────────────────────────────── */
 @layer components {
 
-  /* Layout shell */
+  /* Layout shell — 1200px of content inside a full-bleed band */
   .shell {
-    @apply mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-12;
+    @apply mx-auto w-full max-w-[1200px] px-5 sm:px-8 lg:px-10;
   }
 
-  /* Eyebrow label — the architectural small-caps identifier */
+  /* Content band — sections alternate paper / canvas, no dividers */
+  .band      { @apply bg-white; }
+  .band-alt  { @apply bg-varindo-canvas; }
+  .band-pad  { @apply py-[var(--space-section)]; }
+
+  /* Eyebrow — the quiet line that sits above a headline.
+     No small-caps, no letterspacing gymnastics: just calm grey text. */
   .label {
-    font-family: var(--font-body);
-    @apply text-[10px] font-semibold uppercase tracking-[0.28em] text-varindo-gold;
+    @apply text-[14px] font-normal tracking-[-0.016em] text-varindo-mid;
   }
 
-  /* Display headline — uses Cormorant */
+  .eyebrow {
+    @apply text-[17px] font-normal tracking-[-0.022em] text-varindo-ink;
+  }
+
+  /* Display headline — weight 600, tight negative tracking */
   .display {
     font-family: var(--font-display);
-    @apply font-light tracking-[-0.02em] leading-[1.05];
+    @apply font-semibold tracking-[-0.015em] leading-[1.06];
   }
 
-  /* Divider line — architectural rule */
+  /* Section heading — mid-size type opens up slightly, reads warmer */
+  .section-title {
+    font-family: var(--font-display);
+    @apply text-[28px] sm:text-[32px] font-semibold tracking-[0.007em] leading-[1.14] text-varindo-ink;
+  }
+
+  /* Body copy — the 17px workhorse */
+  .copy {
+    @apply text-[17px] leading-[1.47] tracking-[-0.022em] text-varindo-mid;
+  }
+
+  /* Divider — kept for legacy call sites, rendered as a whisper */
   .rule {
-    @apply border-t border-varindo-line;
+    @apply border-t border-varindo-line/60;
   }
 
-  /* Primary CTA — ink fill */
+  /* Primary CTA — the only chromatic button in the system */
+  .btn-blue {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill
+           bg-varindo-blue px-[18px] py-[11px]
+           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-white
+           transition-colors duration-200
+           hover:bg-[#0077ed] focus-visible:outline focus-visible:outline-2
+           focus-visible:outline-offset-2 focus-visible:outline-varindo-blue;
+  }
+
+  /* Ink fill — high emphasis where blue would be too loud */
   .btn-ink {
-    @apply inline-flex items-center justify-center gap-2
-           bg-varindo-ink text-white
-           px-6 py-3 text-[11px] font-semibold tracking-[0.18em] uppercase
-           transition-all duration-200
-           hover:bg-varindo-800;
+    @apply inline-flex items-center justify-center gap-2 rounded-pill
+           bg-varindo-ink px-[18px] py-[11px]
+           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-white
+           transition-colors duration-200
+           hover:bg-[#333336];
   }
 
-  /* Secondary CTA — ghost */
+  /* Ghost pill — medium emphasis on light ground */
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2
-           border border-varindo-ink text-varindo-ink
-           px-6 py-3 text-[11px] font-semibold tracking-[0.18em] uppercase
-           transition-all duration-200
-           hover:bg-varindo-ink hover:text-white;
+    @apply inline-flex items-center justify-center gap-2 rounded-pill
+           border border-varindo-ink/80 bg-transparent px-[18px] py-[11px]
+           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-varindo-ink
+           transition-colors duration-200
+           hover:bg-varindo-wash;
   }
 
-  /* White ghost */
+  /* Ghost pill on dark or photographic ground */
   .btn-ghost-white {
-    @apply inline-flex items-center justify-center gap-2
-           border border-white/60 text-white
-           px-6 py-3 text-[11px] font-semibold tracking-[0.18em] uppercase
-           transition-all duration-200
+    @apply inline-flex items-center justify-center gap-2 rounded-pill
+           border border-white/70 bg-transparent px-[18px] py-[11px]
+           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-white
+           transition-colors duration-200
            hover:bg-white hover:text-varindo-ink;
   }
 
-  /* Subtle product card */
-  .surface-card {
-    @apply bg-white border border-varindo-line transition-all duration-300;
+  /* Soft pill — low emphasis chip on canvas */
+  .btn-soft {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill
+           bg-varindo-wash px-[18px] py-[11px]
+           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-varindo-ink
+           transition-colors duration-200 hover:bg-[#dcdce2];
   }
 
-  /* Form control */
+  /* Inline directional link — colour and a chevron, never a box */
+  .link-arrow {
+    @apply inline-flex items-center gap-1 text-[17px] tracking-[-0.022em]
+           text-varindo-link transition-colors hover:underline;
+  }
+
+  .link-quiet {
+    @apply text-varindo-link transition-colors hover:underline;
+  }
+
+  /* Card — 28px radius, no stroke, no shadow */
+  .surface-card {
+    @apply rounded-card bg-white transition-colors duration-300;
+  }
+
+  .surface-card-alt {
+    @apply rounded-card bg-varindo-canvas transition-colors duration-300;
+  }
+
+  /* Form control — white plate, hairline edge, blue on focus */
   .field {
-    @apply h-11 w-full border border-varindo-line bg-white px-4
-           text-sm text-varindo-ink outline-none
+    @apply h-12 w-full rounded-xl2 border border-varindo-line/70 bg-white px-4
+           text-[17px] tracking-[-0.022em] text-varindo-ink outline-none
            transition-all duration-150
            placeholder:text-varindo-400
-           focus:border-varindo-ink focus:ring-0;
+           focus:border-varindo-blue focus:ring-0;
   }
 
   .field-select {
-    @apply field appearance-none bg-white pr-9;
+    @apply field appearance-none pr-10;
   }
 }
 
