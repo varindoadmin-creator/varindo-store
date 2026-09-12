@@ -7,6 +7,8 @@
 // component's interactivity silently breaks in `next dev` (confirmed: onClick handlers
 // stopped firing entirely under the strict policy). Production builds don't use eval
 // anywhere, so the production CSP stays fully strict.
+import { fileURLToPath } from 'node:url';
+
 const isDev = process.env.NODE_ENV !== 'production';
 const csp = [
   "default-src 'self'",
@@ -34,6 +36,16 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Cloud Run runs this as a container: 'standalone' emits .next/standalone
+  // with a self-contained server.js and only the traced dependencies, so the
+  // runtime image doesn't carry the full node_modules tree.
+  output: 'standalone',
+  // Pin the file-tracing root to this project. Without it Next walks up
+  // looking for a workspace root, finds the stray package.json in
+  // ~/Documents, and nests the standalone build under .next/standalone/
+  // varindo-tak/ — which puts server.js somewhere the container's CMD
+  // isn't looking.
+  outputFileTracingRoot: fileURLToPath(new URL('.', import.meta.url)),
   images: {
     remotePatterns: [
       {
