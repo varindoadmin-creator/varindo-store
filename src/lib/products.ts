@@ -1,7 +1,7 @@
 import { cache } from 'react';
 import { lamitakProductsFromCsv } from '@/data/lamitak-products-from-csv';
 import type { Product } from '@/types/product';
-import { getLamitakImageUrl, getLamitakImageUrlCandidates } from './cloudinary';
+import { getSwatchUrl, getSwatchUrlCandidates } from './productImages';
 import { normalizeCode, slugify, uniq } from './utils';
 
 export type CollectionGroup = 'new-arrivals' | 'new-collections' | 'best-sellers' | 'woods' | 'patterns' | 'solids';
@@ -15,13 +15,13 @@ function enrichProduct(product: Product): Product {
   const priceIncludingPpn = addPpn(product.price);
   const imageUrlCandidates = product.imageUrlCandidates?.length
     ? product.imageUrlCandidates
-    : getLamitakImageUrlCandidates(product.code);
+    : getSwatchUrlCandidates(product.design);
 
   return {
     ...product,
     price: priceIncludingPpn,
     slug: product.slug || slugify(`${product.code} ${product.name}`),
-    imageUrl: product.imageUrl || imageUrlCandidates[0] || getLamitakImageUrl(product.code),
+    imageUrl: product.imageUrl || imageUrlCandidates[0] || getSwatchUrl(product.design),
     imageUrlCandidates,
     taxIncluded: true,
     badges: product.badges || []

@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getProductBySlug, getRelatedProducts } from '@/lib/products';
-import { getOgImageUrl } from '@/lib/cloudinary';
 import { buildProductTitle, buildProductDescription, getProductUrl } from '@/lib/seo';
 import { buildProductDescriptionBlock, getFirstSentence } from '@/lib/productDescription';
 import { buildProductJsonLd, buildProductBreadcrumbJsonLd } from '@/lib/structured-data';
@@ -22,7 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const fallbackLead = hasCoreAttributes ? undefined : getFirstSentence(buildProductDescriptionBlock(product).paragraph);
   const description = buildProductDescription(product, fallbackLead);
   const url = getProductUrl(product.slug);
-  const ogImage = product.imageUrl ? getOgImageUrl(product.imageUrl) : undefined;
+  // Swatches are served as-is; social platforms crop to their own card ratios.
+  const ogImage = product.imageUrl || undefined;
 
   return {
     // Bypass the root layout's "%s | Varindo" title template — our title already ends in "| Varindo".
