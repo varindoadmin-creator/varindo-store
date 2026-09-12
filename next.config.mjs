@@ -55,6 +55,14 @@ const nextConfig = {
       }
     ]
   },
+  // Price List downloads were removed from the site; the path was in the
+  // sitemap, so send any remaining links and crawlers to the nearest
+  // equivalent rather than a 404.
+  async redirects() {
+    return [
+      { source: '/price-list', destination: '/request-catalogue', permanent: true }
+    ];
+  },
   async headers() {
     return [
       {

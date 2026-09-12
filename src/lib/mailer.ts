@@ -39,7 +39,7 @@ function isMeaningfulVisitorText(text: string): boolean {
   return true;
 }
 
-type RequestType = 'sample' | 'catalogue' | 'price-list';
+type RequestType = 'sample' | 'catalogue';
 
 interface NotifyParams {
   type: RequestType;
@@ -50,9 +50,8 @@ interface NotifyParams {
 }
 
 const LABEL: Record<RequestType, string> = {
-  sample:      'Sample Request',
-  catalogue:   'Catalogue Request',
-  'price-list': 'Price List Download',
+  sample:    'Sample Request',
+  catalogue: 'Catalogue Request',
 };
 
 function buildHtml(p: NotifyParams): string {

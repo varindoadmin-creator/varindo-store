@@ -3,8 +3,6 @@ import { sendRequestNotification } from '@/lib/mailer';
 
 export const dynamic = 'force-dynamic';
 
-const SUPABASE_URL      = process.env.SUPABASE_URL;
-const SUPABASE_KEY      = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 // Sample and Catalogue requests now go to VIABooks (via-corporate), the
 // business's own accounting system, instead of the old via-project
@@ -15,7 +13,7 @@ const VIABOOKS_API_URL = process.env.VIABOOKS_API_URL || 'https://viabooks-60102
 const VIABOOKS_ORGANIZATION_ID = process.env.VIABOOKS_ORGANIZATION_ID || 'cmts823pu000jt761mx48ltsq';
 
 type RequestBody = {
-  type: 'catalogue' | 'sample' | 'price-list';
+  type: 'catalogue' | 'sample';
   name?: string;
   address?: string;
   phone?: string;
@@ -28,24 +26,6 @@ const MAX_SAMPLE_ITEMS = 5;
 
 function cleanText(value: unknown, maxLength = MAX_TEXT_LENGTH) {
   return typeof value === 'string' ? value.trim().slice(0, maxLength) : '';
-}
-
-async function insertRows(rows: Record<string, unknown> | Record<string, unknown>[]) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/requests`, {
-    method: 'POST',
-    headers: {
-      'Content-Type':  'application/json',
-      'apikey':        SUPABASE_KEY!,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Prefer':        'return=minimal',
-    },
-    body: JSON.stringify(rows),
-  });
-
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Supabase error ${res.status}: ${err}`);
-  }
 }
 
 async function submitToViabooks(payload: {
@@ -80,22 +60,14 @@ export async function POST(req: NextRequest) {
   const address = cleanText(body.address);
   const phone = cleanText(body.phone, 40);
 
-  if (!type || !['catalogue', 'sample', 'price-list'].includes(type)) {
+  if (!type || !['catalogue', 'sample'].includes(type)) {
     return NextResponse.json({ success: false, error: 'Invalid request type.' }, { status: 400 });
   }
 
-  if (!name || !phone || (type !== 'price-list' && !address)) {
+  if (!name || !phone || !address) {
     return NextResponse.json(
       { success: false, error: 'Name, phone, and the required address must be provided.' },
       { status: 400 }
-    );
-  }
-
-  if (type === 'price-list' && (!SUPABASE_URL || !SUPABASE_KEY)) {
-    console.error('[submit-request] Supabase env vars not set');
-    return NextResponse.json(
-      { success: false, error: 'Submission service is not configured.' },
-      { status: 503 }
     );
   }
 
@@ -104,17 +76,6 @@ export async function POST(req: NextRequest) {
   try {
     if (type === 'catalogue') {
       await submitToViabooks({ requestType: 'catalogue', customerName: name, phone, address });
-
-    } else if (type === 'price-list') {
-      // One row per price list download request — unaffected by the VIABooks move.
-      await insertRows({
-        request_type:  'price-list',
-        status:        'new',
-        customer_name: name || null,
-        phone:         phone || null,
-        source:        'website',
-        raw_data:      { name, phone },
-      });
 
     } else if (type === 'sample') {
       const samples = Array.isArray(body.samples)
