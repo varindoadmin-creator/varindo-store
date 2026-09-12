@@ -13,7 +13,8 @@ const config: Config = {
         display: ['var(--font-display)']
       },
       colors: {
-        // Near-monochrome system: ink on paper, one gray band, one blue thread.
+        // Near-monochrome system: ink on paper, one gray band, and a single
+        // accent taken from the Varindo logo for anything interactive.
         varindo: {
           ink: '#1d1d1f',
           deep: '#474747',
@@ -23,8 +24,9 @@ const config: Config = {
           wash: '#e8e8ed',
           nav: '#fafafc',
           line: '#d6d6d6',
-          blue: '#0071e3',   // filled CTA only
-          link: '#0066cc',   // inline link text
+          accent: '#282828', // the logo tone — every interactive surface
+          blue: '#282828',   // legacy name for the accent (filled CTAs)
+          link: '#282828',   // inline link text
           ember: '#b64400',  // "Baru" badge
 
           // Legacy aliases — old markup lands on the new palette
@@ -32,7 +34,7 @@ const config: Config = {
           warm: '#f5f5f7',
           sand: '#d6d6d6',
           muted: '#707070',
-          gold: '#0066cc',
+          gold: '#282828',
 
           // Grayscale ramp
           50:  '#f5f5f7',

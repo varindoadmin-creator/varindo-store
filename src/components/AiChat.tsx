@@ -169,9 +169,9 @@ export function AiChat() {
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill bg-varindo-canvas">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"
-                    fill="#0071e3"/>
-                  <circle cx="12" cy="12" r="10" stroke="#0071e3" strokeWidth="1.5" fill="none"/>
-                  <path d="M8 10h8M8 14h5" stroke="#0071e3" strokeWidth="1.5" strokeLinecap="round"/>
+                    fill="#282828"/>
+                  <circle cx="12" cy="12" r="10" stroke="#282828" strokeWidth="1.5" fill="none"/>
+                  <path d="M8 10h8M8 14h5" stroke="#282828" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
               </div>
               <div>
@@ -275,7 +275,7 @@ export function AiChat() {
               className="h-11 flex-1 rounded-pill bg-varindo-canvas px-4 text-[14px] tracking-[-0.016em] text-varindo-ink outline-none placeholder:text-varindo-400 disabled:opacity-50"
             />
             <button type="submit" disabled={!input.trim() || status === 'loading'}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-pill bg-varindo-blue text-white transition-colors hover:bg-[#0077ed] disabled:cursor-not-allowed disabled:opacity-40">
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-pill bg-varindo-blue text-white transition-colors hover:bg-[#3d3d3d] disabled:cursor-not-allowed disabled:opacity-40">
               <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                 <path d="M17.5 2.5L9.167 10.833M17.5 2.5L12.5 17.5l-3.333-6.667L2.5 7.5l15-5z"
                   stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -299,7 +299,7 @@ export function AiChat() {
         onClick={() => { if (open) sendTranscript(); setOpen(v => !v); }}
         aria-label={lang === 'id' ? 'Buka asisten AI' : 'Open AI assistant'}
         className={`fixed bottom-5 right-4 sm:right-6 z-[200] flex h-14 w-14 items-center justify-center rounded-pill shadow-luxury transition-colors duration-200 ${
-          open ? 'bg-varindo-ink' : 'bg-varindo-blue hover:bg-[#0077ed]'
+          open ? 'bg-varindo-ink' : 'bg-varindo-blue hover:bg-[#3d3d3d]'
         }`}>
         {open ? (
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -310,7 +310,7 @@ export function AiChat() {
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"
               stroke="white" strokeWidth="1.5"/>
             <path d="M8 10h8M8 14h5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-            <circle cx="19" cy="5" r="4" fill="#0071e3"/>
+            <circle cx="19" cy="5" r="4" fill="#282828"/>
             <path d="M17.5 5h3M19 3.5v3" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
           </svg>
         )}

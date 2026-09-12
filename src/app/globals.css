@@ -4,7 +4,8 @@
 
 /* ─── Design tokens ─────────────────────────────────────────── */
 /* Cathedral of white space: near-monochrome canvas, oversized type,
-   a single blue thread for anything interactive. Rhythm comes from
+   one accent tone, taken from the logo, for anything interactive.
+   Rhythm comes from
    alternating #ffffff / #f5f5f7 bands — never from borders or shadows. */
 :root {
   color-scheme: light;
@@ -20,8 +21,9 @@
   --c-mid:      #707070;  /* secondary text, muted labels            */
   --c-ink-60:   rgba(29, 29, 31, 0.60);
   --c-ink-30:   rgba(29, 29, 31, 0.30);
-  --c-blue:     #0071e3;  /* filled CTA only — never as text colour  */
-  --c-link:     #0066cc;  /* inline links, arrow links               */
+  --c-accent:   #282828;  /* the logo tone — filled CTAs and links   */
+  --c-blue:     var(--c-accent);  /* legacy name for the accent      */
+  --c-link:     var(--c-accent);  /* inline links, arrow links       */
   --c-ember:    #b64400;  /* "Baru" badge, at most once per page     */
   --c-white:    #ffffff;
 
@@ -127,23 +129,25 @@ img { -webkit-user-drag: none; }
     @apply border-t border-varindo-line/60;
   }
 
-  /* Primary CTA — the only chromatic button in the system */
+  /* Primary CTA — the accent fill, in the logo's own tone */
   .btn-blue {
     @apply inline-flex items-center justify-center gap-2 rounded-pill
            bg-varindo-blue px-[18px] py-[11px]
            text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-white
            transition-colors duration-200
-           hover:bg-[#0077ed] focus-visible:outline focus-visible:outline-2
-           focus-visible:outline-offset-2 focus-visible:outline-varindo-blue;
+           hover:bg-[#3d3d3d] focus-visible:outline focus-visible:outline-2
+           focus-visible:outline-offset-2 focus-visible:outline-varindo-accent;
   }
 
-  /* Ink fill — high emphasis where blue would be too loud */
+  /* Ink fill — the same accent, kept as its own name for older markup.
+     Both filled pills share one tone so no two CTAs sit a few shades
+     apart on the same page. */
   .btn-ink {
     @apply inline-flex items-center justify-center gap-2 rounded-pill
-           bg-varindo-ink px-[18px] py-[11px]
+           bg-varindo-blue px-[18px] py-[11px]
            text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-white
            transition-colors duration-200
-           hover:bg-[#333336];
+           hover:bg-[#3d3d3d];
   }
 
   /* Ghost pill — medium emphasis on light ground */
@@ -172,14 +176,18 @@ img { -webkit-user-drag: none; }
            transition-colors duration-200 hover:bg-[#dcdce2];
   }
 
-  /* Inline directional link — colour and a chevron, never a box */
+  /* Inline directional link — the chevron carries the affordance now
+     that the accent sits a few shades off the body ink */
   .link-arrow {
     @apply inline-flex items-center gap-1 text-[17px] tracking-[-0.022em]
            text-varindo-link transition-colors hover:underline;
   }
 
+  /* Inline body link — underlined always, since its colour no longer
+     sets it apart from the text around it */
   .link-quiet {
-    @apply text-varindo-link transition-colors hover:underline;
+    @apply text-varindo-link underline underline-offset-2 transition-colors
+           hover:text-varindo-ink;
   }
 
   /* Card — 28px radius, no stroke, no shadow */
@@ -191,7 +199,7 @@ img { -webkit-user-drag: none; }
     @apply rounded-card bg-varindo-canvas transition-colors duration-300;
   }
 
-  /* Form control — white plate, hairline edge, blue on focus */
+  /* Form control — white plate, hairline edge, accent on focus */
   .field {
     @apply h-12 w-full rounded-xl2 border border-varindo-line/70 bg-white px-4
            text-[17px] tracking-[-0.022em] text-varindo-ink outline-none

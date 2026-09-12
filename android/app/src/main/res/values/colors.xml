@@ -13,10 +13,11 @@
         luminance, so the white bars there need no extra flag.
     -->
 
-    <!-- Brand ink — Material's colorPrimary, and the API 21–22 bar colour -->
+    <!-- Brand ink — Material's colorPrimary, and the API 21–22 bar colour.
+         colorAccent is the logo tone the web UI uses for interactive surfaces. -->
     <color name="colorPrimary">#1d1d1f</color>
     <color name="colorPrimaryDark">#1d1d1f</color>
-    <color name="colorAccent">#0071e3</color>
+    <color name="colorAccent">#282828</color>
 
     <!-- System bars -->
     <color name="statusBarColor">#ffffff</color>
