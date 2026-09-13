@@ -31,7 +31,12 @@ const STATIC_PAGES: Array<{
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [products, allBlogPosts] = await Promise.all([getPublicProducts(), getAllBlogPosts(blogPosts)]);
+  // The sitemap still renders if VIABooks is unreachable, just without the
+  // article URLs until the next refresh.
+  const [products, allBlogPosts] = await Promise.all([
+    getPublicProducts(),
+    getAllBlogPosts(blogPosts).catch(() => blogPosts)
+  ]);
   const now = new Date();
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_PAGES.map(({ path, changeFrequency, priority }) => ({
@@ -64,9 +69,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5
   }));
 
-  // Hand-coded posts and articles published from VIABooks alike. Posts with a
-  // custom `href` live outside /blog/* and already have their own STATIC_PAGES
-  // entry above — skip them here to avoid a duplicate sitemap URL.
+  // Articles published from VIABooks. The guide entries carry a custom `href`
+  // outside /blog/* and already have their own STATIC_PAGES entry above — skip
+  // them here to avoid a duplicate sitemap URL.
   const blogEntries: MetadataRoute.Sitemap = allBlogPosts
     .filter((post) => !post.href)
     .map((post) => ({

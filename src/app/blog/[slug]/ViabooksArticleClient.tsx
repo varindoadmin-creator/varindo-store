@@ -15,9 +15,9 @@ function formatDate(iso: string, lang: 'id' | 'en') {
   });
 }
 
-// Same page structure as the hand-coded articles (e.g. buyer-safeguard): header
-// with category, title, excerpt and date; the body; and the WhatsApp call to
-// action. The body comes from VIABooks as Markdown in each language.
+// The article page: header with category, title, excerpt and date; the cover
+// and body; and the WhatsApp call to action. The body comes from VIABooks as
+// Markdown in each language.
 export function ViabooksArticleClient({ article }: { article: ViabooksArticle }) {
   const { lang } = useLang();
   const waUrl = buildWhatsAppUrl(`Halo Admin Varindo, saya membaca artikel "${article.title.id}" dan ingin bertanya.`);

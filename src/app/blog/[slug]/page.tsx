@@ -4,9 +4,7 @@ import { SITE_URL } from '@/lib/seo';
 import { getPublishedArticle } from '@/lib/viabooksArticles';
 import { ViabooksArticleClient } from './ViabooksArticleClient';
 
-// Articles published from VIABooks. The hand-coded posts each have their own
-// folder under /blog, and Next.js matches those static segments before this
-// dynamic one, so this route only ever serves VIABooks articles.
+// Every article on /blog, published from VIABooks (see src/lib/viabooksArticles.ts).
 export const revalidate = 600;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
