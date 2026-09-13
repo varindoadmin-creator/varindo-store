@@ -42,15 +42,19 @@ flags below on a fresh service.
 gcloud run deploy $SERVICE \
   --source . --region $REGION --project $PROJECT \
   --allow-unauthenticated \
-  --memory 1Gi --cpu 1 --min-instances 1 --max-instances 10 \
+  --memory 1Gi --cpu 1 --min-instances 0 --max-instances 10 \
   --set-env-vars "SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=contact@varindo.co.id,VIABOOKS_API_URL=https://viabooks-601025884976.asia-southeast2.run.app,VIABOOKS_ORGANIZATION_ID=cmtn75jst0001w12y30bcrr6h,SURFACE_MATCH_UPLOAD_BUCKET=varindo-surface-match-uploads" \
   --set-secrets "ANTHROPIC_API_KEY=ANTHROPIC_API_KEY:latest,SMTP_PASS=SMTP_PASS:latest,VOYAGE_API_KEY=VOYAGE_API_KEY:latest"
 ```
 
 - **`--memory 1Gi`** — `next/image` runs through sharp, and Cloud Run's
   filesystem is in-memory, so the ISR cache counts against this too.
-- **`--min-instances 1`** — a cold Next.js start is a second or two. This is the
-  main recurring cost.
+- **`--min-instances 0`** — scales to zero when idle, so an idle site costs
+  almost nothing (switched from 1 on 13 Sep 2026). The trade-off is a cold
+  start: the first request after a quiet spell waits a second or two, which
+  can land on an ad click or the Android app's first launch. Set it back to 1
+  with `gcloud run services update $SERVICE --min-instances 1` if that
+  matters more than the idle cost.
 
 `ANTHROPIC_API_KEY` and `SMTP_PASS` already exist in the project and are shared
 with the `via` and `viabooks` services; `VOYAGE_API_KEY` is this service's own
