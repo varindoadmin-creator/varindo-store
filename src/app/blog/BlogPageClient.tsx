@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
-import { blogPosts } from '@/data/blog-posts';
+import type { BlogPost } from '@/data/blog-posts';
 import { Reveal } from '@/components/Reveal';
 
 function formatDate(iso: string, lang: 'id' | 'en') {
@@ -14,7 +14,7 @@ function formatDate(iso: string, lang: 'id' | 'en') {
   });
 }
 
-export function BlogPageClient() {
+export function BlogPageClient({ posts }: { posts: BlogPost[] }) {
   const { lang } = useLang();
 
   return (
@@ -33,12 +33,21 @@ export function BlogPageClient() {
 
       <div className="shell py-12 sm:py-16">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {blogPosts.map((post, i) => (
+          {posts.map((post, i) => (
             <Reveal key={post.slug} delay={i * 80}>
               <Link
                 href={post.href ?? `/blog/${post.slug}`}
                 className="group flex h-full flex-col rounded-card bg-varindo-canvas p-6 sm:p-8 transition-all duration-300 hover:border-varindo-ink hover:shadow-luxury"
               >
+                {post.coverImageUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element -- covers are already sized, cached Cloud Storage objects
+                  <img
+                    src={post.coverImageUrl}
+                    alt=""
+                    loading="lazy"
+                    className="mb-5 aspect-[16/9] w-full rounded-xl object-cover"
+                  />
+                )}
                 <p className="label mb-4">{post.category[lang]}</p>
                 <h2 className="display text-[28px] leading-snug text-varindo-ink mb-3 group-hover:text-varindo-link transition-colors">
                   {post.title[lang]}

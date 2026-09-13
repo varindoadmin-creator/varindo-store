@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { SITE_URL } from '@/lib/seo';
+import { blogPosts } from '@/data/blog-posts';
+import { getAllBlogPosts } from '@/lib/viabooksArticles';
 import { BlogPageClient } from './BlogPageClient';
 
 export const revalidate = 600;
@@ -15,6 +17,7 @@ export const metadata: Metadata = {
   openGraph: { title, description, url: `${SITE_URL}/blog`, type: 'website' }
 };
 
-export default function BlogPage() {
-  return <BlogPageClient />;
+export default async function BlogPage() {
+  const posts = await getAllBlogPosts(blogPosts);
+  return <BlogPageClient posts={posts} />;
 }

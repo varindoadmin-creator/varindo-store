@@ -3,6 +3,7 @@ import { getPublicProducts } from '@/lib/products';
 import { SITE_URL } from '@/lib/seo';
 import { CITY_SLUGS } from '@/lib/cityContent';
 import { blogPosts } from '@/data/blog-posts';
+import { getAllBlogPosts } from '@/lib/viabooksArticles';
 
 // Only the 5 collection groups actually linked from the site nav/footer.
 // 'new-collections' exists as a route (alias of 'new-arrivals') but is never linked —
@@ -30,7 +31,7 @@ const STATIC_PAGES: Array<{
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const products = await getPublicProducts();
+  const [products, allBlogPosts] = await Promise.all([getPublicProducts(), getAllBlogPosts(blogPosts)]);
   const now = new Date();
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_PAGES.map(({ path, changeFrequency, priority }) => ({
@@ -63,9 +64,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5
   }));
 
-  // Posts with a custom `href` live outside /blog/* and already have their own
-  // STATIC_PAGES entry above — skip them here to avoid a duplicate sitemap URL.
-  const blogEntries: MetadataRoute.Sitemap = blogPosts
+  // Hand-coded posts and articles published from VIABooks alike. Posts with a
+  // custom `href` live outside /blog/* and already have their own STATIC_PAGES
+  // entry above — skip them here to avoid a duplicate sitemap URL.
+  const blogEntries: MetadataRoute.Sitemap = allBlogPosts
     .filter((post) => !post.href)
     .map((post) => ({
       url: `${SITE_URL}/blog/${post.slug}`,

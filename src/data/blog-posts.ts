@@ -13,6 +13,8 @@ export type BlogPost = {
   category: { id: string; en: string };
   title: { id: string; en: string };
   excerpt: { id: string; en: string };
+  /** Only set on articles published from VIABooks (see src/lib/viabooksArticles.ts). */
+  coverImageUrl?: string;
 };
 
 export const blogPosts: BlogPost[] = [
