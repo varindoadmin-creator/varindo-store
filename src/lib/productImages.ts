@@ -7,9 +7,19 @@
  * WY 5217D (4'x8') and WY 15217D (4'x10') are both HERMES MARCELLO WALNUT and
  * share one file. All 230 such size pairs in the catalogue agree on design, so
  * this needs no per-code special casing.
+ *
+ * Most files are Lamitak's `_crop` images. 43 designs publish no `_crop`, and
+ * their `_main` image is a room mock-up, so those use the flat `_image_1`
+ * instead (Iron Dri-Matt® and Rosy publish neither and are cropped from the
+ * panel in their render).
  */
 
 const BUCKET_BASE = 'https://storage.googleapis.com/varindo-product-images/swatches';
+
+// Swatch objects are served with a one-year immutable Cache-Control, so a file
+// replaced in place stays stale in browsers and Google's edge cache. Bump this
+// whenever swatches are replaced, to give every swatch URL a new cache key.
+const SWATCH_VERSION = '2';
 
 /**
  * Mirrors how Lamitak names its image files, which is not quite a plain
@@ -33,13 +43,13 @@ export function toSwatchSlug(design: string) {
 
 export function getSwatchUrl(design?: string | null) {
   const slug = design ? toSwatchSlug(design) : '';
-  return slug ? `${BUCKET_BASE}/${slug}.webp` : '';
+  return slug ? `${BUCKET_BASE}/${slug}.webp?v=${SWATCH_VERSION}` : '';
 }
 
 /**
  * One candidate per design. ProductImage still walks a list and falls back on
- * error, which now only matters for the two Dri-Matt® designs Lamitak has
- * never published artwork for — they land on the "image coming soon" tile.
+ * error, so a design whose swatch is ever missing lands on the "image coming
+ * soon" tile.
  */
 export function getSwatchUrlCandidates(design?: string | null) {
   const url = getSwatchUrl(design);

@@ -55,7 +55,9 @@ async function listSwatches() {
       swatches.push({
         slug: item.name.slice(PREFIX.length, -'.webp'.length),
         generation: item.generation,
-        url: `https://storage.googleapis.com/${BUCKET}/${item.name}`,
+        // Pin the generation: swatches are cached as immutable for a year, so a
+        // file replaced in place can come back stale from its plain URL.
+        url: `https://storage.googleapis.com/${BUCKET}/${item.name}?generation=${item.generation}`,
       });
     }
     pageToken = page.nextPageToken || '';
