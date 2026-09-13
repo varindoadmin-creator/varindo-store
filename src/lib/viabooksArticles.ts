@@ -1,12 +1,15 @@
 // ─────────────────────────────────────────────────────────────────
 //  Articles written and published in VIABooks (Digital Marketing →
-//  Website Articles). The hand-coded posts in src/data/blog-posts.ts
-//  stay as they are; /blog lists both, and /blog/[slug] renders the
-//  VIABooks ones. Pages refresh every ARTICLE_REVALIDATE_SECONDS, so a
-//  publish in VIABooks shows here within about ten minutes, no deploy.
+//  Website Articles) — every article on /blog. /blog lists them, then
+//  the guide links in src/data/blog-posts.ts; /blog/[slug] renders
+//  them. Pages refresh every ARTICLE_REVALIDATE_SECONDS, so a publish
+//  in VIABooks shows here within about ten minutes, no deploy.
 //
-//  Every fetch fails soft: if VIABooks is unreachable, /blog still
-//  shows the hand-coded posts instead of erroring.
+//  A failed request throws rather than returning nothing. When Next.js
+//  regenerates a page and that throws, it keeps serving the last good
+//  version — so a VIABooks outage leaves /blog and every article as
+//  they were, instead of caching an empty list or a 404 for ten
+//  minutes. Only "article not found" (a real 404) means not found.
 // ─────────────────────────────────────────────────────────────────
 
 import type { BlogPost } from '@/data/blog-posts';
@@ -31,36 +34,31 @@ export type ViabooksArticle = ViabooksArticleSummary & { body: Localized; update
 
 const baseUrl = `${VIABOOKS_API_URL}/api/public/articles/${VIABOOKS_ORGANIZATION_ID}`;
 
-export async function getPublishedArticles(): Promise<ViabooksArticleSummary[]> {
-  try {
-    const res = await fetch(baseUrl, { next: { revalidate: ARTICLE_REVALIDATE_SECONDS } });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return Array.isArray(data?.articles) ? data.articles : [];
-  } catch {
-    return [];
-  }
+/** The parsed response, or null for a 404. Throws on anything else. */
+async function fetchFromViabooks<T>(path: string): Promise<T | null> {
+  const res = await fetch(`${baseUrl}${path}`, { next: { revalidate: ARTICLE_REVALIDATE_SECONDS } });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`VIABooks articles request ${path || '/'} failed with ${res.status}`);
+  return (await res.json()) as T;
 }
 
-export async function getPublishedArticle(slug: string): Promise<ViabooksArticle | null> {
-  try {
-    const res = await fetch(`${baseUrl}/${encodeURIComponent(slug)}`, { next: { revalidate: ARTICLE_REVALIDATE_SECONDS } });
-    if (!res.ok) return null;
-    return (await res.json()) as ViabooksArticle;
-  } catch {
-    return null;
-  }
+export async function getPublishedArticles(): Promise<ViabooksArticleSummary[]> {
+  const data = await fetchFromViabooks<{ articles?: ViabooksArticleSummary[] }>('');
+  return Array.isArray(data?.articles) ? data.articles : [];
+}
+
+export function getPublishedArticle(slug: string): Promise<ViabooksArticle | null> {
+  return fetchFromViabooks<ViabooksArticle>(`/${encodeURIComponent(slug)}`);
 }
 
 /**
- * Hand-coded posts plus VIABooks articles for /blog: newest VIABooks articles
- * first, then the hand-coded posts in their existing order. A VIABooks article
- * whose slug a hand-coded page already owns is left out, since that page would
- * win the URL anyway (VIABooks refuses such slugs, so this is only a backstop).
+ * Everything /blog lists: VIABooks articles, newest first, then the guide
+ * links. An article whose slug matches a guide entry is left out so the list
+ * never holds the same slug twice.
  */
-export async function getAllBlogPosts(staticPosts: BlogPost[]): Promise<BlogPost[]> {
-  const taken = new Set(staticPosts.map((post) => post.slug));
-  const remote = (await getPublishedArticles())
+export async function getAllBlogPosts(guides: BlogPost[]): Promise<BlogPost[]> {
+  const taken = new Set(guides.map((post) => post.slug));
+  const articles = (await getPublishedArticles())
     .filter((article) => !taken.has(article.slug))
     .sort((a, b) => b.date.localeCompare(a.date))
     .map((article) => ({
@@ -71,5 +69,5 @@ export async function getAllBlogPosts(staticPosts: BlogPost[]): Promise<BlogPost
       excerpt: article.excerpt,
       coverImageUrl: article.coverImageUrl ?? undefined
     }));
-  return [...remote, ...staticPosts];
+  return [...articles, ...guides];
 }
