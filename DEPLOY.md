@@ -43,7 +43,7 @@ gcloud run deploy $SERVICE \
   --source . --region $REGION --project $PROJECT \
   --allow-unauthenticated \
   --memory 1Gi --cpu 1 --min-instances 1 --max-instances 10 \
-  --set-env-vars "SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=contact@varindo.co.id,VIABOOKS_API_URL=https://viabooks-601025884976.asia-southeast2.run.app,VIABOOKS_ORGANIZATION_ID=cmts823pu000jt761mx48ltsq,SURFACE_MATCH_UPLOAD_BUCKET=varindo-surface-match-uploads" \
+  --set-env-vars "SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=contact@varindo.co.id,VIABOOKS_API_URL=https://viabooks-601025884976.asia-southeast2.run.app,VIABOOKS_ORGANIZATION_ID=cmtn75jst0001w12y30bcrr6h,SURFACE_MATCH_UPLOAD_BUCKET=varindo-surface-match-uploads" \
   --set-secrets "ANTHROPIC_API_KEY=ANTHROPIC_API_KEY:latest,SMTP_PASS=SMTP_PASS:latest,VOYAGE_API_KEY=VOYAGE_API_KEY:latest"
 ```
 

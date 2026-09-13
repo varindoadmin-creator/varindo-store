@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 // Forma Hutama. Price List downloads are unaffected and still go to
 // Supabase; nothing else on this site reads from VIABooks.
 const VIABOOKS_API_URL = process.env.VIABOOKS_API_URL || 'https://viabooks-601025884976.asia-southeast2.run.app';
-const VIABOOKS_ORGANIZATION_ID = process.env.VIABOOKS_ORGANIZATION_ID || 'cmts823pu000jt761mx48ltsq';
+const VIABOOKS_ORGANIZATION_ID = process.env.VIABOOKS_ORGANIZATION_ID || 'cmtn75jst0001w12y30bcrr6h';
 
 type RequestBody = {
   type: 'catalogue' | 'sample';
