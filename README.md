@@ -59,7 +59,8 @@ cp .env.example .env.local
 ```
 
 Configure only the services used by the feature being tested: Supabase and SMTP
-for request forms and Anthropic for chat.
+for request forms, Anthropic for chat, and Voyage plus Anthropic for Surface
+Match (search by photo).
 See `.env.example` for the complete list.
 
 ## Important before publishing

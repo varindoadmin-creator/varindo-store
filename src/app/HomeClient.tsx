@@ -49,6 +49,9 @@ export function HomeClient({ allCount, newProducts, bestSellers }: Props) {
           </h1>
           <div className="animate-fade-up delay-100 mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
             <Link href="/products" className="btn-blue">{t('home', 'browseCta', lang)}</Link>
+            <Link href="/surface-match" className="link-arrow">
+              {t('home', 'surfaceMatchCta', lang)} <span aria-hidden="true">›</span>
+            </Link>
             <Link href="/request-sample" className="link-arrow">
               {t('detail', 'sampleCta', lang)} <span aria-hidden="true">›</span>
             </Link>

@@ -17,8 +17,8 @@ export function PrivacyPageClient() {
           </h1>
           <p className="mt-4 text-[14px] text-varindo-mid">
             {lang === 'id'
-              ? 'Terakhir diperbarui: Agustus 2026'
-              : 'Last updated: August 2026'}
+              ? 'Terakhir diperbarui: September 2026'
+              : 'Last updated: September 2026'}
           </p>
         </div>
       </div>
@@ -68,6 +68,13 @@ export function PrivacyPageClient() {
                     </li>
                   ))}
                 </ul>
+              </section>
+
+              <section>
+                <h2 className="display text-[28px] text-varindo-ink mb-4">Fitur Cari dari Foto (Surface Match)</h2>
+                <p>
+                  Fitur Cari dari Foto memungkinkan Anda mengunggah foto permukaan, contoh produk, atau halaman katalog untuk menemukan desain HPL Lamitak yang mirip. Foto yang Anda unggah diperkecil dan disimpan di Google Cloud Storage milik kami untuk meninjau dan meningkatkan akurasi pencocokan, lalu dihapus secara otomatis setelah 30 hari. Foto juga dikirim ke layanan AI pihak ketiga, yaitu Anthropic (Claude) untuk membaca kode produk yang terlihat dan Voyage AI untuk pencocokan visual, semata-mata untuk menghasilkan hasil pencarian. Hindari mengunggah foto yang memuat wajah atau informasi pribadi lainnya. Jika Anda ingin foto dihapus lebih awal, hubungi kami melalui email di bawah.
+                </p>
               </section>
 
               <section>
@@ -151,6 +158,13 @@ export function PrivacyPageClient() {
                     </li>
                   ))}
                 </ul>
+              </section>
+
+              <section>
+                <h2 className="display text-[28px] text-varindo-ink mb-4">Search by Photo (Surface Match)</h2>
+                <p>
+                  Search by Photo lets you upload a photo of a surface, a product sample, or a catalogue page to find similar Lamitak HPL designs. Uploaded photos are downscaled and stored in our Google Cloud Storage so we can review and improve match accuracy, and are deleted automatically after 30 days. Photos are also sent to third-party AI services, Anthropic (Claude) to read any visible product code and Voyage AI for visual matching, solely to produce search results. Please avoid uploading photos that contain faces or other personal information. If you'd like a photo deleted sooner, contact us at the email below.
+                </p>
               </section>
 
               <section>

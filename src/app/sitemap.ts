@@ -16,6 +16,7 @@ const STATIC_PAGES: Array<{
 }> = [
   { path: '', changeFrequency: 'daily', priority: 1 },
   { path: '/products', changeFrequency: 'daily', priority: 0.9 },
+  { path: '/surface-match', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/about', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/contact', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/request-sample', changeFrequency: 'monthly', priority: 0.6 },

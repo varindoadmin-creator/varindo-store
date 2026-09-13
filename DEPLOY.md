@@ -43,8 +43,8 @@ gcloud run deploy $SERVICE \
   --source . --region $REGION --project $PROJECT \
   --allow-unauthenticated \
   --memory 1Gi --cpu 1 --min-instances 1 --max-instances 10 \
-  --set-env-vars "SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=contact@varindo.co.id,VIABOOKS_API_URL=https://viabooks-601025884976.asia-southeast2.run.app,VIABOOKS_ORGANIZATION_ID=cmts823pu000jt761mx48ltsq" \
-  --set-secrets "ANTHROPIC_API_KEY=ANTHROPIC_API_KEY:latest,SMTP_PASS=SMTP_PASS:latest"
+  --set-env-vars "SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=contact@varindo.co.id,VIABOOKS_API_URL=https://viabooks-601025884976.asia-southeast2.run.app,VIABOOKS_ORGANIZATION_ID=cmts823pu000jt761mx48ltsq,SURFACE_MATCH_UPLOAD_BUCKET=varindo-surface-match-uploads" \
+  --set-secrets "ANTHROPIC_API_KEY=ANTHROPIC_API_KEY:latest,SMTP_PASS=SMTP_PASS:latest,VOYAGE_API_KEY=VOYAGE_API_KEY:latest"
 ```
 
 - **`--memory 1Gi`** — `next/image` runs through sharp, and Cloud Run's
@@ -52,9 +52,48 @@ gcloud run deploy $SERVICE \
 - **`--min-instances 1`** — a cold Next.js start is a second or two. This is the
   main recurring cost.
 
-Both secrets already exist in the project and are shared with the `via` and
-`viabooks` services. `NEXT_PUBLIC_*` values are inlined at build time and have
-in-code defaults matching production, so they need no build args.
+`ANTHROPIC_API_KEY` and `SMTP_PASS` already exist in the project and are shared
+with the `via` and `viabooks` services; `VOYAGE_API_KEY` is this service's own
+(see Surface Match below). `NEXT_PUBLIC_*` values are inlined at build time and
+have in-code defaults matching production, so they need no build args.
+
+## Surface Match (search by photo)
+
+`/surface-match` sends a photo to `/api/surface-match`, which reads any printed
+code with Claude and otherwise compares the photo against an embedding of every
+swatch. Two Cloud Storage objects are involved:
+
+- **The index** — `gs://varindo-product-images/embeddings/voyage-multimodal-3.5.json`,
+  public like the swatches beside it. The service fetches it at runtime and
+  refreshes hourly, so rebuilding it needs no deploy. Rebuild whenever swatches
+  change; the script prints the publish command:
+
+  ```bash
+  npm run embed:swatches
+  ```
+
+- **Uploads** — kept for 30 days in a private bucket so match quality can be
+  reviewed against real photos. The privacy policy states the 30 days, so the
+  lifecycle rule must stay in step with it. One-time setup:
+
+  ```bash
+  gcloud storage buckets create gs://varindo-surface-match-uploads \
+    --project $PROJECT --location $REGION --uniform-bucket-level-access --public-access-prevention
+  echo '{"rule":[{"action":{"type":"Delete"},"condition":{"age":30}}]}' > /tmp/lifecycle.json
+  gcloud storage buckets update gs://varindo-surface-match-uploads --lifecycle-file=/tmp/lifecycle.json
+
+  SA=$(gcloud run services describe $SERVICE --region $REGION --project $PROJECT \
+    --format='value(spec.template.spec.serviceAccountName)')
+  gcloud storage buckets add-iam-policy-binding gs://varindo-surface-match-uploads \
+    --member="serviceAccount:$SA" --role=roles/storage.objectCreator
+
+  printf '%s' "$VOYAGE_API_KEY" | gcloud secrets create VOYAGE_API_KEY --project $PROJECT --data-file=-
+  gcloud secrets add-iam-policy-binding VOYAGE_API_KEY --project $PROJECT \
+    --member="serviceAccount:$SA" --role=roles/secretmanager.secretAccessor
+  ```
+
+  If `SA` comes back empty the service runs as the Compute Engine default
+  account, `<project-number>-compute@developer.gserviceaccount.com`.
 
 ## DNS
 
@@ -121,6 +160,8 @@ done
       this migration and it **works** — `smtp.gmail.com:587` as
       `contact@varindo.co.id`, verified end to end on the live domain.
 - [ ] AI chat replies (`/api/chat` → Anthropic).
+- [ ] Surface Match returns matches for a swatch photo, and the upload appears
+      in `gs://varindo-surface-match-uploads/uploads/`.
 - [ ] Sample and Catalogue requests reach VIABooks.
 
 ## Notes
