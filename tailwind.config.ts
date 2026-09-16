@@ -10,59 +10,67 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-body)'],
-        display: ['var(--font-display)']
+        display: ['var(--font-display)'],
+        label: ['var(--font-label)']
       },
       colors: {
-        // Near-monochrome system: ink on paper, one gray band, and a single
-        // accent taken from the Varindo logo for anything interactive.
+        // Gallery wall, half lit: a near-monochrome system where the only
+        // colour is the laminate itself. Editorial rhythm comes from
+        // alternating paper-white and near-black full-bleed bands.
         varindo: {
-          ink: '#1d1d1f',
-          deep: '#474747',
-          mid: '#707070',
-          paper: '#ffffff',
-          canvas: '#f5f5f7',
-          wash: '#e8e8ed',
-          nav: '#fafafc',
-          line: '#d6d6d6',
-          accent: '#282828', // the logo tone — every interactive surface
-          blue: '#282828',   // legacy name for the accent (filled CTAs)
-          link: '#282828',   // inline link text
-          ember: '#b64400',  // "Baru" badge
+          ink: '#1a211e',      // Carbon Ink — headlines, body, hairlines
+          deep: '#363537',     // Slate — nav text on light surfaces
+          mid: '#606562',      // Graphite — muted body, metadata
+          paper: '#ffffff',    // Paper White — the canvas
+          canvas: '#eef1f0',   // Fog — soft card / alternating band
+          wash: '#e0e0e0',     // Mist — dividers, hover on light chips
+          nav: '#ffffff',
+          line: '#cccfcd',     // Ash Border — hairline inputs and rules
+          obsidian: '#0c0c0c', // Deep Panel — full-bleed dark sections
+          pewter: '#4e4e4e',   // supporting neutral, badge fills
+          accent: '#1a211e',   // no chromatic CTA — ink is the action tone
+          blue: '#1a211e',     // legacy name for the filled CTA
+          link: '#1a211e',     // inline link text
+          ember: '#cc2e39',    // Ember Red — once per viewport, at most
 
           // Legacy aliases — old markup lands on the new palette
-          cream: '#f5f5f7',
-          warm: '#f5f5f7',
-          sand: '#d6d6d6',
-          muted: '#707070',
-          gold: '#282828',
+          cream: '#eef1f0',
+          warm: '#eef1f0',
+          sand: '#cccfcd',
+          muted: '#606562',
+          gold: '#1a211e',
 
           // Grayscale ramp
-          50:  '#f5f5f7',
-          100: '#f0f0f2',
-          200: '#e8e8ed',
-          300: '#d6d6d6',
-          400: '#86868b',
-          500: '#707070',
-          600: '#6e6e73',
-          700: '#474747',
-          800: '#333336',
-          900: '#1d1d1f'
+          50:  '#eef1f0',
+          100: '#eef1f0',
+          200: '#e0e0e0',
+          300: '#cccfcd',
+          400: '#606562',
+          500: '#606562',
+          600: '#4e4e4e',
+          700: '#363537',
+          800: '#1a211e',
+          900: '#1a211e'
         }
       },
       borderRadius: {
-        card: '28px',
-        xl2: '18px',
-        pill: '980px'
+        // Two radii carry the whole system: 8 for cards and images,
+        // 4 for buttons, inputs and nav. Pills are badges and filter chips.
+        card: '8px',
+        xl2: '4px',
+        pill: '9999px'
       },
       boxShadow: {
-        // Cards and bands carry no elevation. Only floating overlays
-        // (menus, modals, the chat panel) get a whisper of depth.
-        luxury: '0 8px 30px rgba(0, 0, 0, 0.12)',
+        // There is no z-axis here. Only floating overlays (menus, the chat
+        // panel) get any depth at all, and even then it is a hairline.
+        luxury: '0 1px 0 rgba(26, 33, 30, 0.12), 0 8px 24px rgba(26, 33, 30, 0.08)',
         card: 'none',
         'card-hover': 'none',
         'inset-top': 'none'
       },
       letterSpacing: {
+        label: '0.038em',
+        'label-lg': '0.057em',
         'widest-xl': '0.25em',
         'widest-2xl': '0.32em'
       }

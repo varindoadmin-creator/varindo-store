@@ -30,14 +30,14 @@ export function CityLandingPage({ content, bestSellers }: { content: CityContent
         {/* Intro */}
         <section className="mb-12 space-y-4">
           {content.intro.map((paragraph, i) => (
-            <p key={i} className="text-[17px] leading-8 text-varindo-mid">{paragraph}</p>
+            <p key={i} className="text-[16px] leading-8 text-varindo-mid">{paragraph}</p>
           ))}
         </section>
 
         {/* Area layanan / cara order */}
         <section className="mb-14 rounded-card bg-varindo-canvas p-6 sm:p-8">
           <p className="label mb-4">Area Layanan &amp; Cara Order</p>
-          <p className="text-[17px] leading-8 text-varindo-mid">{content.areaLayanan}</p>
+          <p className="text-[16px] leading-8 text-varindo-mid">{content.areaLayanan}</p>
         </section>
 
         {/* FAQ */}
@@ -46,7 +46,7 @@ export function CityLandingPage({ content, bestSellers }: { content: CityContent
           <div className="rounded-xl2 bg-white divide-y divide-varindo-line/60">
             {content.faq.map((entry) => (
               <div key={entry.question} className="px-6 py-5">
-                <p className="text-[17px] font-semibold text-varindo-ink mb-2">{entry.question}</p>
+                <p className="text-[16px] font-semibold text-varindo-ink mb-2">{entry.question}</p>
                 <p className="text-[14px] leading-7 text-varindo-mid">{entry.answer}</p>
               </div>
             ))}
@@ -66,7 +66,7 @@ export function CityLandingPage({ content, bestSellers }: { content: CityContent
       <section className="shell pb-16 sm:pb-24">
         <div className="rounded-card bg-white px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <p className="display text-[28px] text-varindo-ink mb-2">
+            <p className="display text-[32px] text-varindo-ink mb-2">
               Butuh HPL Lamitak untuk proyek di {content.cityName}?
             </p>
             <p className="text-[14px] text-varindo-mid max-w-lg">

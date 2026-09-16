@@ -70,7 +70,7 @@ export default async function HargaLamitakPage() {
           <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] lg:text-[56px] mb-5">
             Harga HPL Lamitak Terbaru {YEAR} per Lembar
           </h1>
-          <p className="text-[17px] leading-7 text-varindo-mid max-w-2xl">
+          <p className="text-[16px] leading-7 text-varindo-mid max-w-2xl">
             Tabel harga di bawah ini dihitung langsung dari data produk aktif di katalog Varindo,
             sehingga selalu mengikuti harga terbaru — bukan daftar statis yang bisa kedaluwarsa.
             Semua harga sudah termasuk PPN dan berlaku untuk pembelian melalui dealer resmi Lamitak Indonesia.
@@ -86,10 +86,10 @@ export default async function HargaLamitakPage() {
             <table className="w-full text-left text-[14px]">
               <thead>
                 <tr className="bg-varindo-50 border-b border-varindo-line/50">
-                  <th className="px-5 py-3 font-semibold tracking-[-0.016em] text-varindo-deep text-[12px]">Koleksi</th>
-                  <th className="px-5 py-3 font-semibold tracking-[-0.016em] text-varindo-deep text-[12px]">Ukuran</th>
-                  <th className="px-5 py-3 font-semibold tracking-[-0.016em] text-varindo-deep text-[12px]">Kisaran Harga</th>
-                  <th className="px-5 py-3 font-semibold tracking-[-0.016em] text-varindo-deep text-[12px]">Jumlah Motif</th>
+                  <th className="px-5 py-3 font-semibold tracking-normal text-varindo-deep text-[12px]">Koleksi</th>
+                  <th className="px-5 py-3 font-semibold tracking-normal text-varindo-deep text-[12px]">Ukuran</th>
+                  <th className="px-5 py-3 font-semibold tracking-normal text-varindo-deep text-[12px]">Kisaran Harga</th>
+                  <th className="px-5 py-3 font-semibold tracking-normal text-varindo-deep text-[12px]">Jumlah Motif</th>
                 </tr>
               </thead>
               <tbody>
@@ -114,7 +114,7 @@ export default async function HargaLamitakPage() {
         {/* CTA */}
         <section className="mb-16 rounded-card bg-varindo-canvas px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <p className="display text-[28px] text-varindo-ink mb-2">Butuh harga untuk kebutuhan proyek Anda?</p>
+            <p className="display text-[32px] text-varindo-ink mb-2">Butuh harga untuk kebutuhan proyek Anda?</p>
             <p className="text-[14px] text-varindo-mid max-w-lg">Tim kami siap membantu memberikan penawaran sesuai kebutuhan, termasuk untuk pemesanan dalam jumlah besar.</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
@@ -137,7 +137,7 @@ export default async function HargaLamitakPage() {
               { href: '/lamitak-surabaya', label: 'Jual HPL Lamitak Surabaya' }
             ].map((item) => (
               <Link key={item.href} href={item.href}
-                className="bg-white px-5 py-4 text-[14px] font-medium text-varindo-ink hover:text-varindo-link hover:bg-varindo-50 transition-colors">
+                className="bg-white px-5 py-4 text-[14px] font-medium text-varindo-ink hover:opacity-60 hover:bg-varindo-50 transition-colors">
                 {item.label} →
               </Link>
             ))}
@@ -150,7 +150,7 @@ export default async function HargaLamitakPage() {
           <div className="rounded-xl2 bg-varindo-canvas divide-y divide-varindo-line/60">
             {FAQ.map((entry) => (
               <div key={entry.question} className="px-6 py-5">
-                <p className="text-[17px] font-semibold text-varindo-ink mb-2">{entry.question}</p>
+                <p className="text-[16px] font-semibold text-varindo-ink mb-2">{entry.question}</p>
                 <p className="text-[14px] leading-7 text-varindo-mid">{entry.answer}</p>
               </div>
             ))}

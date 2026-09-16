@@ -107,7 +107,6 @@ export const translations = {
       id: 'Coba "DXO 5338D", "Walnut", atau "Grey Marble"',
       en: 'Try "DXO 5338D", "Walnut", or "Grey Marble"'
     },
-    productCount: { id: 'produk aktif dalam katalog', en: 'active products in the catalogue' },
     stripDealer:  { id: 'Dealer Resmi', en: 'Authorized Dealer' },
 
     collectionsSectionLabel: { id: 'Koleksi', en: 'Collections' },

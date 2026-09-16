@@ -51,13 +51,13 @@ export function RequestCatalogueForm() {
             <h2 className="display text-varindo-ink text-[32px] sm:text-[40px] mb-4">
               {t('forms', 'catalogueSuccessTitle', lang)}
             </h2>
-            <p className="text-[17px] leading-7 text-varindo-mid max-w-sm mx-auto">
+            <p className="text-[16px] leading-7 text-varindo-mid max-w-sm mx-auto">
               {t('forms', 'catalogueSuccess', lang, { name, phone })}
             </p>
           </div>
           <div className="w-full max-w-sm rounded-card bg-varindo-canvas text-left">
             <div className="px-6 pt-6 pb-1">
-              <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+              <p className="section-title text-[24px] sm:text-[24px]">
                 {t('forms', 'yourDetails', lang)}
               </p>
             </div>
@@ -68,7 +68,7 @@ export function RequestCatalogueForm() {
                 [lang === 'id' ? 'Telepon' : 'Phone',  phone],
               ] as [string, string][]).map(([label, value]) => (
                 <div key={label} className="flex items-baseline gap-3 px-5 py-3">
-                  <span className="text-[12px] tracking-[-0.016em] text-varindo-mid w-16 shrink-0">{label}</span>
+                  <span className="text-[12px] tracking-normal text-varindo-mid w-16 shrink-0">{label}</span>
                   <span className="text-[14px] font-medium text-varindo-ink">{value}</span>
                 </div>
               ))}
@@ -86,7 +86,7 @@ export function RequestCatalogueForm() {
   return (
     <div className="rounded-card bg-varindo-canvas">
       <div className="px-7 pt-7 pb-1">
-        <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+        <p className="section-title text-[24px] sm:text-[24px]">
           {t('forms', 'yourDetails', lang)}
         </p>
       </div>
