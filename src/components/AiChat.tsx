@@ -175,10 +175,10 @@ export function AiChat() {
                 </svg>
               </div>
               <div>
-                <p className="text-[16px] font-semibold leading-tight tracking-normal text-varindo-ink">
+                <p className="text-[17px] font-semibold leading-tight tracking-[-0.022em] text-varindo-ink">
                   VIA
                 </p>
-                <p className="text-[12px] tracking-normal text-varindo-mid">
+                <p className="text-[12px] tracking-[-0.012em] text-varindo-mid">
                   Online
                 </p>
               </div>
@@ -186,7 +186,7 @@ export function AiChat() {
             <div className="flex items-center gap-2">
               {/* WhatsApp handoff */}
               <a href={waUrl} target="_blank" rel="noreferrer"
-                className="flex items-center gap-1.5 rounded-pill bg-varindo-canvas px-3 py-1.5 text-[12px] tracking-normal text-varindo-deep transition-colors hover:bg-varindo-wash">
+                className="flex items-center gap-1.5 rounded-pill bg-varindo-canvas px-3 py-1.5 text-[12px] tracking-[-0.012em] text-varindo-deep transition-colors hover:bg-varindo-wash">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.19 1.6 6L0 24l6.19-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52z"/>
                 </svg>
@@ -272,7 +272,7 @@ export function AiChat() {
               onKeyDown={handleKeyDown}
               placeholder={lang === 'id' ? 'Ketik pertanyaan Anda…' : 'Type your question…'}
               disabled={status === 'loading'}
-              className="h-11 flex-1 rounded-pill bg-varindo-canvas px-4 text-[14px] tracking-normal text-varindo-ink outline-none placeholder:text-varindo-400 disabled:opacity-50"
+              className="h-11 flex-1 rounded-pill bg-varindo-canvas px-4 text-[14px] tracking-[-0.016em] text-varindo-ink outline-none placeholder:text-varindo-400 disabled:opacity-50"
             />
             <button type="submit" disabled={!input.trim() || status === 'loading'}
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-pill bg-varindo-blue text-white transition-colors hover:bg-[#3d3d3d] disabled:cursor-not-allowed disabled:opacity-40">

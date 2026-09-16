@@ -24,7 +24,7 @@ export function ProductsClient({ products }: { products: Product[] }) {
           <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px] mb-4">
             {t('products', 'title', lang)}
           </h1>
-          <p className="text-[16px] leading-7 text-varindo-mid max-w-xl">
+          <p className="text-[17px] leading-7 text-varindo-mid max-w-xl">
             {t('products', 'subtitle', lang)}
           </p>
         </div>

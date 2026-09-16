@@ -18,9 +18,9 @@ export function PortfolioPageClient() {
             {t('home', 'portfolioTitle1', lang)}{' '}
             <em className="text-varindo-mid not-italic">{t('home', 'portfolioTitle2', lang)}</em>
           </h1>
-          <p className="text-[16px] leading-7 text-varindo-mid max-w-lg mb-6">{t('home', 'portfolioBody', lang)}</p>
+          <p className="text-[17px] leading-7 text-varindo-mid max-w-lg mb-6">{t('home', 'portfolioBody', lang)}</p>
           <a href={FLIPPINGBOOK_URL} target="_blank" rel="noreferrer"
-            className="text-[12px] font-semibold tracking-normal text-varindo-mid hover:text-varindo-ink transition-colors">
+            className="text-[12px] font-semibold tracking-[-0.016em] text-varindo-mid hover:text-varindo-ink transition-colors">
             {t('home', 'portfolioOpenExternal', lang)}
           </a>
         </div>
@@ -39,7 +39,7 @@ export function PortfolioPageClient() {
         </div>
 
         <div className="mt-6">
-          <Link href="/" className="text-[12px] font-medium tracking-normal text-varindo-mid hover:text-varindo-ink transition-colors">
+          <Link href="/" className="text-[12px] font-medium tracking-[-0.016em] text-varindo-mid hover:text-varindo-ink transition-colors">
             {t('home', 'portfolioBack', lang)}
           </Link>
         </div>

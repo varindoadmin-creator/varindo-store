@@ -25,7 +25,7 @@ export function BlogPageClient({ posts }: { posts: BlogPost[] }) {
           <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] lg:text-[56px] mb-5">
             {t('blog', 'title', lang)}
           </h1>
-          <p className="text-[16px] leading-7 text-varindo-mid max-w-2xl">
+          <p className="text-[17px] leading-7 text-varindo-mid max-w-2xl">
             {t('blog', 'subtitle', lang)}
           </p>
         </div>
@@ -49,7 +49,7 @@ export function BlogPageClient({ posts }: { posts: BlogPost[] }) {
                   />
                 )}
                 <p className="label mb-4">{post.category[lang]}</p>
-                <h2 className="display text-[32px] leading-snug text-varindo-ink mb-3 group-hover:opacity-60 transition-colors">
+                <h2 className="display text-[28px] leading-snug text-varindo-ink mb-3 group-hover:text-varindo-link transition-colors">
                   {post.title[lang]}
                 </h2>
                 <p className="text-[14px] leading-7 text-varindo-mid mb-6 flex-1">
@@ -57,7 +57,7 @@ export function BlogPageClient({ posts }: { posts: BlogPost[] }) {
                 </p>
                 <div className="flex items-center justify-between text-[12px] text-varindo-mid">
                   <time dateTime={post.date}>{formatDate(post.date, lang)}</time>
-                  <span className="font-semibold tracking-normal text-varindo-ink group-hover:opacity-60 transition-colors">
+                  <span className="font-semibold tracking-[-0.016em] text-varindo-ink group-hover:text-varindo-link transition-colors">
                     {t('blog', 'readMore', lang)}
                   </span>
                 </div>

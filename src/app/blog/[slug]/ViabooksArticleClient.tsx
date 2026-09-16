@@ -26,14 +26,14 @@ export function ViabooksArticleClient({ article }: { article: ViabooksArticle })
     <div>
       <div className="bg-white">
         <div className="shell py-14 sm:py-20">
-          <Link href="/blog" className="text-[12px] font-semibold tracking-normal text-varindo-mid hover:text-varindo-ink transition-colors">
+          <Link href="/blog" className="text-[12px] font-semibold tracking-[-0.016em] text-varindo-mid hover:text-varindo-ink transition-colors">
             {t('blog', 'backToBlog', lang)}
           </Link>
           <p className="label mt-6 mb-4">{article.category[lang]}</p>
           <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] lg:text-[56px] mb-5 max-w-3xl">
             {article.title[lang]}
           </h1>
-          <p className="text-[16px] leading-7 text-varindo-mid max-w-2xl mb-4">
+          <p className="text-[17px] leading-7 text-varindo-mid max-w-2xl mb-4">
             {article.excerpt[lang]}
           </p>
           <p className="text-[12px] text-varindo-mid">
@@ -52,7 +52,7 @@ export function ViabooksArticleClient({ article }: { article: ViabooksArticle })
 
         <section className="rounded-card bg-varindo-canvas px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <p className="display text-[32px] text-varindo-ink mb-2">
+            <p className="display text-[28px] text-varindo-ink mb-2">
               {lang === 'id' ? 'Ada pertanyaan seputar HPL?' : 'Questions about laminates?'}
             </p>
             <p className="text-[14px] text-varindo-mid max-w-lg">

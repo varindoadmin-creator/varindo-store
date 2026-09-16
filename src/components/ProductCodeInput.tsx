@@ -109,7 +109,7 @@ export function ProductCodeInput({ products, value, onChange, placeholder, input
                 <span className="text-[14px] font-semibold text-varindo-ink shrink-0">{p.code}</span>
                 <span className="text-[12px] text-varindo-mid truncate">{p.design || p.name}</span>
                 {p.collection && (
-                  <span className="ml-auto text-[12px] tracking-normal text-varindo-mid shrink-0">{p.collection}</span>
+                  <span className="ml-auto text-[12px] tracking-[-0.016em] text-varindo-mid shrink-0">{p.collection}</span>
                 )}
               </li>
             ))}

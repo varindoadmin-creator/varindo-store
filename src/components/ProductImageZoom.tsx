@@ -18,7 +18,7 @@ export function ProductImageZoom({ src, alt, imageUrls = [], downloadHref }: {
     return (
       <div className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-3 rounded-card bg-varindo-canvas p-8 text-center">
         <div className="h-16 w-16 rounded-xl2 bg-varindo-line/60" />
-        <p className="text-[12px] tracking-normal text-varindo-400">
+        <p className="text-[12px] tracking-[-0.016em] text-varindo-400">
           {t('imagePlaceholder', 'label', lang)}
         </p>
       </div>
@@ -34,7 +34,7 @@ export function ProductImageZoom({ src, alt, imageUrls = [], downloadHref }: {
           sizes="(min-width: 1024px) 48vw, 100vw"
           className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
           onError={() => setIndex((i) => i + 1)} />
-        <span className="absolute bottom-4 right-4 rounded-pill bg-white/90 px-4 py-1.5 text-[14px] tracking-normal text-varindo-ink opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100">
+        <span className="absolute bottom-4 right-4 rounded-pill bg-white/90 px-4 py-1.5 text-[14px] tracking-[-0.016em] text-varindo-ink opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100">
           {t('imageZoom', 'zoomLabel', lang)}
         </span>
       </button>
@@ -44,7 +44,7 @@ export function ProductImageZoom({ src, alt, imageUrls = [], downloadHref }: {
           role="dialog" aria-modal="true" onClick={() => setIsOpen(false)}>
           <div className="w-full max-w-5xl rounded-card bg-white p-5 shadow-luxury" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between px-2 py-2 mb-2">
-              <p className="line-clamp-1 text-[14px] tracking-normal text-varindo-mid">{alt}</p>
+              <p className="line-clamp-1 text-[14px] tracking-[-0.016em] text-varindo-mid">{alt}</p>
               <button type="button" onClick={() => setIsOpen(false)}
                 className="flex h-8 w-8 items-center justify-center rounded-pill bg-varindo-canvas text-varindo-ink transition-colors hover:bg-varindo-wash"
                 aria-label={t('imageZoom', 'closeLabel', lang)}>
@@ -61,7 +61,7 @@ export function ProductImageZoom({ src, alt, imageUrls = [], downloadHref }: {
               {/* Same-origin so `download` is honoured: the attribute is ignored on a
                   cross-origin Cloud Storage URL, which opened the file in a tab instead. */}
               <a href={downloadHref || currentSrc} download rel="noreferrer"
-                className="link-quiet text-[14px] tracking-normal">
+                className="link-quiet text-[14px] tracking-[-0.016em]">
                 {t('imageZoom', 'download', lang)}
               </a>
             </div>

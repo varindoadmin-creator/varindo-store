@@ -70,20 +70,20 @@ export function RequestSampleForm({ products, initialCode }: { products: Product
             <h2 className="display text-varindo-ink text-[32px] sm:text-[40px] mb-4">
               {t('forms', 'sampleSuccessTitle', lang)}
             </h2>
-            <p className="text-[16px] leading-7 text-varindo-mid max-w-sm mx-auto">
+            <p className="text-[17px] leading-7 text-varindo-mid max-w-sm mx-auto">
               {t('forms', 'sampleSuccessBody', lang, { n: filledCount, phone })}
             </p>
           </div>
           <div className="w-full max-w-sm rounded-card bg-varindo-canvas text-left">
             <div className="px-6 pt-6 pb-1">
-              <p className="section-title text-[24px] sm:text-[24px]">
+              <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
                 {t('forms', 'samplesRequested', lang)}
               </p>
             </div>
             <div className="divide-y divide-varindo-line/60">
               {filled.map((s, i) => (
                 <div key={i} className="flex items-baseline gap-3 px-5 py-3">
-                  <span className="text-[12px] tracking-normal text-varindo-mid w-4 shrink-0">{i + 1}</span>
+                  <span className="text-[12px] tracking-[-0.016em] text-varindo-mid w-4 shrink-0">{i + 1}</span>
                   <span className="text-[14px] font-medium text-varindo-ink">{s}</span>
                 </div>
               ))}
@@ -101,11 +101,11 @@ export function RequestSampleForm({ products, initialCode }: { products: Product
   return (
     <div className="rounded-card bg-varindo-canvas">
       <div className="px-7 pt-7 pb-1 flex items-center justify-between gap-4">
-        <p className="section-title text-[24px] sm:text-[24px]">
+        <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
           {t('forms', 'sampleFormTitle', lang)}
         </p>
         {filledCount > 0 && (
-          <span className="text-[12px] font-semibold tracking-normal text-varindo-link">
+          <span className="text-[12px] font-semibold tracking-[-0.016em] text-varindo-link">
             {t('forms', 'itemsOf', lang, { n: filledCount, max: MAX })}
           </span>
         )}

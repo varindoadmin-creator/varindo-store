@@ -20,7 +20,7 @@ export function RequestSamplePage({ products, initialCode }: { products: Product
           <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px] whitespace-pre-line">
             {t('forms', 'sampleTitle', lang)}
           </h1>
-          <p className="mt-5 text-[16px] leading-7 text-varindo-mid max-w-lg">
+          <p className="mt-5 text-[17px] leading-7 text-varindo-mid max-w-lg">
             {t('forms', 'sampleSubtitle', lang)}
           </p>
         </div>
@@ -32,7 +32,7 @@ export function RequestSamplePage({ products, initialCode }: { products: Product
           {/* Left — info panel */}
           <div className="rounded-card bg-varindo-canvas">
             <div className="px-7 pt-7 pb-1">
-              <p className="section-title text-[24px] sm:text-[24px]">
+              <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
                 {t('forms', 'sampleInfoTitle', lang)}
               </p>
             </div>

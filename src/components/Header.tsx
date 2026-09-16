@@ -33,14 +33,14 @@ const collectionLabels: Record<string, { id: string; en: string }> = {
 function LangSwitcher() {
   const { lang, setLang } = useLang();
   return (
-    <div className="flex shrink-0 items-center rounded-xl2 border border-varindo-line p-[3px]">
+    <div className="flex shrink-0 items-center rounded-pill bg-varindo-wash p-[3px]">
       {(['id', 'en'] as Lang[]).map((l) => (
         <button
           key={l}
           type="button"
           onClick={() => setLang(l)}
-          className={`rounded-[2px] px-3 py-1 text-[12px] font-bold uppercase tracking-label transition-colors ${
-            lang === l ? 'bg-varindo-ink text-white' : 'text-varindo-mid hover:text-varindo-ink'
+          className={`rounded-pill px-3 py-1 text-[12px] tracking-[-0.016em] transition-colors ${
+            lang === l ? 'bg-white text-varindo-ink' : 'text-varindo-mid hover:text-varindo-ink'
           }`}
         >
           {l === 'id' ? 'ID' : 'EN'}
@@ -65,8 +65,8 @@ function HeaderSearch({ onSearch, size = 'sm' }: { onSearch?: () => void; size?:
 
   return (
     <form onSubmit={handleSubmit} className="relative w-full">
-      <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-varindo-mid">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-varindo-400">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" strokeWidth="1.5" />
           <path d="M10.5 10.5L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
@@ -76,7 +76,7 @@ function HeaderSearch({ onSearch, size = 'sm' }: { onSearch?: () => void; size?:
         onChange={(e) => setSearch(e.target.value)}
         placeholder={t('nav', 'searchPlaceholder', lang)}
         aria-label={t('nav', 'searchPlaceholder', lang)}
-        className={`${size === 'lg' ? 'h-12 text-[16px]' : 'h-10 text-[14px]'} w-full rounded-xl2 border border-varindo-line bg-varindo-canvas pl-10 pr-4 tracking-normal text-varindo-ink outline-none transition-colors duration-150 placeholder:text-varindo-mid focus:border-varindo-ink focus:bg-white`}
+        className={`${size === 'lg' ? 'h-12 text-[17px]' : 'h-9 text-[14px]'} w-full rounded-pill border border-transparent bg-varindo-canvas pl-10 pr-4 tracking-[-0.016em] text-varindo-ink outline-none transition-colors duration-150 placeholder:text-varindo-400 focus:border-varindo-blue focus:bg-white`}
       />
       <button type="submit" className="sr-only">{t('nav', 'searchPlaceholder', lang)}</button>
     </form>
@@ -100,21 +100,23 @@ export function Header() {
 
   return (
     <>
-      {/* Promo ribbon — full-bleed carbon strip, white label voice */}
-      <div className="bg-varindo-ink px-4 py-2 text-center">
-        <p className="text-[12px] font-bold uppercase leading-[1.4] tracking-label-lg text-white sm:text-[14px]">
+      {/* Promo ribbon — one quiet line, ink on canvas */}
+      <div className="bg-varindo-canvas px-4 py-2.5 text-center">
+        <p className="text-[12px] tracking-[-0.012em] text-varindo-deep">
           {t('nav', 'announcementBar', lang)}
         </p>
       </div>
 
       {/* Global nav — frosted, borderless until you scroll */}
       <header
-        className={`sticky top-0 z-50 border-b bg-white transition-colors duration-300 ${
-          scrolled ? 'border-varindo-wash' : 'border-transparent'
+        className={`sticky top-0 z-50 transition-colors duration-300 ${
+          scrolled
+            ? 'bg-varindo-nav/80 backdrop-blur-[20px] shadow-[0_1px_0_rgba(0,0,0,0.06)]'
+            : 'bg-white'
         }`}
       >
         <div className="shell">
-          <div className="flex h-16 items-center justify-between gap-6">
+          <div className="flex h-[60px] items-center justify-between gap-6">
 
             {/* Logo + Lamitak authorized dealer badge */}
             <div className="flex shrink-0 items-center gap-3 lg:gap-4">
@@ -122,9 +124,9 @@ export function Header() {
                 <Image src="/varindo-logo-transparent.png" alt="CV. Varindo Forma Hutama"
                   width={88} height={48} className="h-auto w-[74px] object-contain transition-opacity hover:opacity-70" priority />
               </Link>
-              <div className="h-7 w-px bg-varindo-line" />
+              <div className="h-7 w-px bg-varindo-line/70" />
               <div className="flex shrink-0 flex-col justify-center gap-[3px]">
-                <span className="whitespace-nowrap text-[9px] leading-none tracking-normal text-varindo-mid">
+                <span className="whitespace-nowrap text-[9px] leading-none tracking-[-0.01em] text-varindo-mid">
                   Authorized Dealer of
                 </span>
                 <Image src="/lamitak-logo-mark.png" alt="Lamitak"
@@ -133,28 +135,28 @@ export function Header() {
             </div>
 
             {/* Desktop nav — 12px, weight 400, nothing shouting */}
-            <nav className="hidden items-center gap-7 text-[14px] font-bold uppercase tracking-label text-varindo-deep lg:flex">
+            <nav className="hidden items-center gap-7 text-[12px] tracking-[-0.01em] text-varindo-deep lg:flex">
               <Link href="/" className="transition-colors hover:text-varindo-ink">
                 {t('nav', 'home', lang)}
               </Link>
 
               <div className="group relative py-5">
-                <button className="flex cursor-pointer items-center gap-1 font-sans text-[14px] font-bold uppercase tracking-label text-varindo-deep transition-colors hover:text-varindo-ink">
+                <button className="flex cursor-pointer items-center gap-1 transition-colors hover:text-varindo-ink">
                   {t('nav', 'collections', lang)}
                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" className="translate-y-px">
                     <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
                 <div className="invisible absolute left-1/2 top-full z-[100] w-56 -translate-x-1/2 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100">
-                  <div className="mt-2 overflow-hidden rounded-xl2 border border-varindo-wash bg-white p-2">
+                  <div className="mt-2 overflow-hidden rounded-xl2 bg-white p-2 shadow-luxury">
                     {collectionItems.map((item) => (
                       <Link key={item.href} href={item.href}
-                        className="block rounded-xl2 px-4 py-2.5 text-[14px] font-normal normal-case tracking-normal text-varindo-deep transition-colors hover:bg-varindo-canvas hover:text-varindo-ink">
+                        className="block rounded-[10px] px-4 py-2.5 text-[14px] tracking-[-0.016em] text-varindo-deep transition-colors hover:bg-varindo-canvas hover:text-varindo-ink">
                         {collectionLabels[item.key][lang]}
                       </Link>
                     ))}
                     <Link href="/products"
-                      className="mt-1 block rounded-xl2 px-4 py-2.5 text-[14px] font-bold uppercase tracking-label text-varindo-ink transition-colors hover:bg-varindo-canvas">
+                      className="mt-1 block rounded-[10px] px-4 py-2.5 text-[14px] tracking-[-0.016em] text-varindo-link transition-colors hover:bg-varindo-canvas">
                       {t('nav', 'allProducts', lang)} ›
                     </Link>
                   </div>
@@ -205,7 +207,7 @@ export function Header() {
 
         {/* Mobile menu — a white sheet, generously spaced */}
         {isOpen && (
-          <div className="animate-fade-in border-t border-varindo-wash bg-white lg:hidden">
+          <div className="animate-fade-in bg-white lg:hidden">
             <div className="shell pb-6 pt-2">
               <HeaderSearch size="lg" onSearch={() => setIsOpen(false)} />
 
@@ -219,7 +221,7 @@ export function Header() {
                   { href: '/contact',  label: t('nav', 'contact', lang) },
                 ].map((item) => (
                   <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)}
-                    className="display block py-3 text-[32px] text-varindo-ink transition-opacity hover:opacity-60">
+                    className="block py-3 text-[24px] font-semibold tracking-[-0.02em] text-varindo-ink transition-colors hover:text-varindo-link">
                     {item.label}
                   </Link>
                 ))}
@@ -229,7 +231,7 @@ export function Header() {
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                 {collectionItems.map((item) => (
                   <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)}
-                    className="rounded-pill border border-varindo-line px-4 py-2.5 text-center text-[14px] font-bold uppercase tracking-label text-varindo-deep transition-colors hover:border-varindo-ink hover:text-varindo-ink">
+                    className="rounded-xl2 bg-varindo-canvas px-4 py-3 text-center text-[14px] tracking-[-0.016em] text-varindo-ink transition-colors hover:bg-varindo-wash">
                     {collectionLabels[item.key][lang]}
                   </Link>
                 ))}

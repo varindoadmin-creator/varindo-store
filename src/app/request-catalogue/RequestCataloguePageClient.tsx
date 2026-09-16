@@ -14,7 +14,7 @@ export function RequestCataloguePage() {
           <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px] whitespace-pre-line">
             {t('forms', 'catalogueTitle', lang)}
           </h1>
-          <p className="mt-5 text-[16px] leading-7 text-varindo-mid max-w-lg">
+          <p className="mt-5 text-[17px] leading-7 text-varindo-mid max-w-lg">
             {t('forms', 'catalogueSubtitle', lang)}
           </p>
         </div>
