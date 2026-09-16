@@ -73,6 +73,7 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
             <ProductImageZoom
               src={product.imageUrl || ''}
               imageUrls={product.imageUrlCandidates || []}
+              downloadHref={`/api/products/${product.slug}/image`}
               alt={imageAlt}
             />
             <p className="mt-5 max-w-md text-[12px] leading-[1.5] text-varindo-mid">

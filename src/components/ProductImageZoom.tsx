@@ -5,8 +5,8 @@ import { useMemo, useState } from 'react';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
-export function ProductImageZoom({ src, alt, imageUrls = [] }: {
-  src: string; alt: string; imageUrls?: string[];
+export function ProductImageZoom({ src, alt, imageUrls = [], downloadHref }: {
+  src: string; alt: string; imageUrls?: string[]; downloadHref?: string;
 }) {
   const { lang } = useLang();
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +32,7 @@ export function ProductImageZoom({ src, alt, imageUrls = [] }: {
         aria-label={t('imageZoom', 'zoomLabel', lang)}>
         <Image key={currentSrc} src={currentSrc} alt={alt} fill priority
           sizes="(min-width: 1024px) 48vw, 100vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
           onError={() => setIndex((i) => i + 1)} />
         <span className="absolute bottom-4 right-4 rounded-pill bg-white/90 px-4 py-1.5 text-[14px] tracking-[-0.016em] text-varindo-ink opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100">
           {t('imageZoom', 'zoomLabel', lang)}
@@ -58,7 +58,9 @@ export function ProductImageZoom({ src, alt, imageUrls = [] }: {
             </div>
             <div className="flex items-center justify-between px-2 py-2 mt-2">
               <p className="text-[12px] text-varindo-mid">{t('imageZoom', 'colourNote', lang)}</p>
-              <a href={currentSrc} download target="_blank" rel="noreferrer"
+              {/* Same-origin so `download` is honoured: the attribute is ignored on a
+                  cross-origin Cloud Storage URL, which opened the file in a tab instead. */}
+              <a href={downloadHref || currentSrc} download rel="noreferrer"
                 className="link-quiet text-[14px] tracking-[-0.016em]">
                 {t('imageZoom', 'download', lang)}
               </a>
