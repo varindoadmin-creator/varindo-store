@@ -109,7 +109,7 @@ export function SurfaceMatchClient() {
           <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px]">
             {t('surfaceMatch', 'heroTitle', lang)}
           </h1>
-          <p className="mt-5 max-w-xl text-[17px] leading-7 text-varindo-mid">
+          <p className="mt-5 max-w-xl text-[16px] leading-7 text-varindo-mid">
             {t('surfaceMatch', 'heroSub', lang)}
           </p>
 
@@ -151,7 +151,7 @@ export function SurfaceMatchClient() {
                 <div className="flex items-start gap-4 py-2">
                   <div className="mt-1 h-5 w-5 shrink-0 animate-spin rounded-full border-2 border-varindo-line border-t-varindo-ink" />
                   <div>
-                    <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">{t('surfaceMatch', 'searching', lang)}</p>
+                    <p className="section-title text-[24px] sm:text-[24px]">{t('surfaceMatch', 'searching', lang)}</p>
                     <p className="copy mt-1">{t('surfaceMatch', 'searchingSub', lang)}</p>
                   </div>
                 </div>
@@ -159,13 +159,13 @@ export function SurfaceMatchClient() {
 
               {phase === 'error' && (
                 <div className="rounded-card bg-varindo-canvas p-7">
-                  <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">{t(`surfaceMatch`, errorKey, lang)}</p>
+                  <p className="section-title text-[24px] sm:text-[24px]">{t(`surfaceMatch`, errorKey, lang)}</p>
                 </div>
               )}
 
               {phase === 'results' && result && totalMatches === 0 && (
                 <div className="rounded-card bg-varindo-canvas p-7">
-                  <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">{t('surfaceMatch', 'noMatchesTitle', lang)}</p>
+                  <p className="section-title text-[24px] sm:text-[24px]">{t('surfaceMatch', 'noMatchesTitle', lang)}</p>
                   <DetectedCodeNote group={result.groups[0]} lang={lang} />
                   <p className="copy mt-2">{t('surfaceMatch', 'noMatchesSub', lang)}</p>
                 </div>
@@ -210,7 +210,7 @@ function HowItWorks({ lang }: { lang: Lang }) {
           {steps.map((step, i) => (
             <div key={step.title} className="rounded-card bg-varindo-canvas p-7">
               <p className="label">{i + 1}</p>
-              <p className="mt-2 text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">{step.title}</p>
+              <p className="mt-2 section-title text-[24px] sm:text-[24px]">{step.title}</p>
               <p className="copy mt-2">{step.desc}</p>
             </div>
           ))}
@@ -218,7 +218,7 @@ function HowItWorks({ lang }: { lang: Lang }) {
       </div>
 
       <div className="max-w-xl">
-        <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">{t('surfaceMatch', 'tipsHeading', lang)}</p>
+        <p className="section-title text-[24px] sm:text-[24px]">{t('surfaceMatch', 'tipsHeading', lang)}</p>
         <ul className="mt-3 space-y-2">
           {tips.map((tip) => (
             <li key={tip} className="copy flex items-start gap-3">
@@ -227,7 +227,7 @@ function HowItWorks({ lang }: { lang: Lang }) {
             </li>
           ))}
         </ul>
-        <p className="mt-6 text-[14px] tracking-[-0.016em] text-varindo-mid">
+        <p className="mt-6 text-[14px] tracking-normal text-varindo-mid">
           {t('surfaceMatch', 'privacyNote', lang)}{' '}
           <Link href="/privacy" className="link-quiet">{t('surfaceMatch', 'privacyLink', lang)}</Link>
         </p>
@@ -239,7 +239,7 @@ function HowItWorks({ lang }: { lang: Lang }) {
 function DetectedCodeNote({ group, lang }: { group?: SurfaceMatchGroup; lang: Lang }) {
   if (!group?.detectedCode || group.matches[0]?.matchType === 'code') return null;
   return (
-    <p className="mb-6 text-[14px] tracking-[-0.016em] text-varindo-mid">
+    <p className="mb-6 text-[14px] tracking-normal text-varindo-mid">
       {t('surfaceMatch', 'codeDetectedNotFound', lang, { code: group.detectedCode })}
     </p>
   );
@@ -256,7 +256,7 @@ function GroupSection({ group, index, lang }: { group: SurfaceMatchGroup; index:
             {index + 1}
           </div>
         )}
-        <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+        <p className="section-title text-[24px] sm:text-[24px]">
           {t('surfaceMatch', 'itemLabel', lang, { n: index + 1 })}
         </p>
       </div>
@@ -289,7 +289,7 @@ function MatchCard({ match, lang }: { match: SurfaceMatch; lang: Lang }) {
         <div className="relative aspect-square overflow-hidden rounded-card bg-varindo-canvas">
           <ProductImage src={match.imageUrl} alt={match.design} />
           {match.matchType === 'code' && (
-            <span className="absolute left-3 top-3 rounded-pill bg-white/90 px-2.5 py-1 text-[12px] tracking-[-0.01em] text-varindo-ink">
+            <span className="absolute left-3 top-3 rounded-pill bg-white/90 px-2.5 py-1 text-[12px] tracking-normal text-varindo-ink">
               {t('surfaceMatch', 'codeMatchBadge', lang)}
             </span>
           )}
@@ -297,14 +297,14 @@ function MatchCard({ match, lang }: { match: SurfaceMatch; lang: Lang }) {
       </Link>
       <div className="px-1 pt-4">
         <Link href={href}
-          className="block text-[17px] font-semibold leading-[1.3] tracking-[-0.022em] text-varindo-ink transition-colors group-hover:text-varindo-link">
+          className="block text-[16px] font-semibold leading-[1.3] tracking-normal text-varindo-ink transition-colors group-hover:opacity-60">
           {match.design}
         </Link>
         <ul className="mt-1.5 space-y-1">
           {match.products.map((product) => (
             <li key={product.slug}>
               <Link href={`/products/${product.slug}`}
-                className="text-[14px] tracking-[-0.016em] text-varindo-mid transition-colors hover:text-varindo-ink">
+                className="text-[14px] tracking-normal text-varindo-mid transition-colors hover:text-varindo-ink">
                 {product.code}{product.size ? ` · ${product.size}` : ''}
               </Link>
             </li>

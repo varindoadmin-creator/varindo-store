@@ -43,7 +43,7 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
     <div>
       {/* Breadcrumb — mirrors the BreadcrumbList JSON-LD (Beranda › Katalog › Koleksi › Produk) */}
       <div className="bg-varindo-canvas">
-        <nav aria-label="Breadcrumb" className="shell flex flex-wrap items-center gap-2 py-4 text-[12px] tracking-[-0.012em]">
+        <nav aria-label="Breadcrumb" className="shell flex flex-wrap items-center gap-2 py-4 text-[12px] tracking-normal">
           <Link href="/" className="text-varindo-mid transition-colors hover:text-varindo-ink">
             {t('detail', 'breadcrumbHome', lang)}
           </Link>
@@ -86,7 +86,7 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
             <div className="flex items-center gap-3 mb-3">
               <p className="eyebrow text-varindo-mid">{product.brand || 'Lamitak'}</p>
               <Link href="/otorisasi"
-                className="inline-flex items-center gap-1 text-[14px] tracking-[-0.016em] text-varindo-link transition-colors hover:underline">
+                className="inline-flex items-center gap-1 text-[14px] tracking-normal text-varindo-link transition-colors hover:underline">
                 <svg width="11" height="11" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <path d="M4 10.5L8 14.5L16 5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -94,11 +94,11 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
               </Link>
             </div>
             {/* Product name — NEVER translated */}
-            <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] mb-6">{product.name}</h1>
+            <h1 className="mb-6 text-[32px] font-bold leading-[1.2] text-varindo-ink sm:text-[40px]">{product.name}</h1>
 
             <div className="mb-8">
-              <span className="display text-[32px] text-varindo-ink">{formatIDR(product.price)}</span>
-              <p className="mt-1 text-[17px] tracking-[-0.022em] text-varindo-mid">
+              <span className="text-[32px] font-bold leading-[1.2] text-varindo-ink">{formatIDR(product.price)}</span>
+              <p className="mt-1 text-[16px] tracking-normal text-varindo-mid">
                 {t('detail', 'inclTax', lang)}
               </p>
             </div>
@@ -123,7 +123,7 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
 
             {/* Description — deterministic per-product copy, always Bahasa Indonesia */}
             <div className="mb-5 rounded-card bg-varindo-canvas p-7">
-              <h2 className="mb-3 text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+              <h2 className="section-title mb-3 text-[24px] sm:text-[24px]">
                 {t('detail', 'descriptionTitle', lang)}
               </h2>
               <p className="copy">{descriptionParagraph}</p>
@@ -134,15 +134,15 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
 
             {/* Spec table */}
             <div className="rounded-card bg-varindo-canvas p-7">
-              <h2 className="mb-4 text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+              <h2 className="section-title mb-4 text-[24px] sm:text-[24px]">
                 {t('detail', 'specsTitle', lang)}
               </h2>
               <dl>
                 {specs.map(([label, value], i) => (
                   <div key={label}
                     className={`flex items-start gap-4 py-3 ${i !== specs.length - 1 ? 'border-b border-varindo-line/50' : ''}`}>
-                    <dt className="w-32 shrink-0 text-[14px] tracking-[-0.016em] text-varindo-mid">{label}</dt>
-                    <dd className="text-[17px] tracking-[-0.022em] text-varindo-ink">{value}</dd>
+                    <dt className="w-32 shrink-0 text-[14px] tracking-normal text-varindo-mid">{label}</dt>
+                    <dd className="text-[16px] tracking-normal text-varindo-ink">{value}</dd>
                   </div>
                 ))}
               </dl>

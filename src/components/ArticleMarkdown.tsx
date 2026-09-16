@@ -21,7 +21,7 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
     const link = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
     if (link) {
       const [, label, href] = link;
-      const className = 'text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors';
+      const className = 'text-varindo-ink underline underline-offset-2 hover:opacity-60 transition-colors';
       if (href.startsWith('/')) return <Link key={key} href={href} className={className}>{label}</Link>;
       if (/^https?:\/\//.test(href)) return <a key={key} href={href} target="_blank" rel="noopener noreferrer" className={className}>{label}</a>;
       return label;
@@ -82,20 +82,20 @@ export function ArticleMarkdown({ source }: { source: string }) {
         const key = String(i);
         switch (block.type) {
           case 'h2':
-            return <h2 key={key} className="display text-varindo-ink text-[28px] sm:text-[32px] leading-snug pt-6">{renderInline(block.text, key)}</h2>;
+            return <h2 key={key} className="display text-varindo-ink text-[32px] sm:text-[32px] leading-snug pt-6">{renderInline(block.text, key)}</h2>;
           case 'h3':
             return <h3 key={key} className="text-[19px] font-semibold text-varindo-ink pt-2">{renderInline(block.text, key)}</h3>;
           case 'ul':
           case 'ol': {
             const ListTag = block.type;
             return (
-              <ListTag key={key} className={`${block.type === 'ul' ? 'list-disc' : 'list-decimal'} pl-6 space-y-2 text-[17px] leading-8 text-varindo-mid`}>
+              <ListTag key={key} className={`${block.type === 'ul' ? 'list-disc' : 'list-decimal'} pl-6 space-y-2 text-[16px] leading-8 text-varindo-mid`}>
                 {block.items.map((item, j) => <li key={j}>{renderInline(item, `${key}-${j}`)}</li>)}
               </ListTag>
             );
           }
           default:
-            return <p key={key} className="text-[17px] leading-8 text-varindo-mid">{renderInline(block.text, key)}</p>;
+            return <p key={key} className="text-[16px] leading-8 text-varindo-mid">{renderInline(block.text, key)}</p>;
         }
       })}
     </div>

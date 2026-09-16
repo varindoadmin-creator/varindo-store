@@ -44,7 +44,7 @@ export function CollectionClient({ group, products }: Props) {
       <div className="bg-white">
         <div className="shell py-12 sm:py-16">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-[12px] tracking-[-0.016em] mb-8">
+          <div className="flex items-center gap-2 text-[12px] tracking-normal mb-8">
             <Link href="/products" className="text-varindo-mid hover:text-varindo-mid transition-colors">
               {t('collections', 'breadcrumbCatalog', lang)}
             </Link>
@@ -56,11 +56,11 @@ export function CollectionClient({ group, products }: Props) {
             <div>
               {accent && <p className="label mb-4">{accent}</p>}
               <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px] mb-4">{title}</h1>
-              <p className="text-[17px] leading-7 text-varindo-mid max-w-xl">{desc}</p>
+              <p className="text-[16px] leading-7 text-varindo-mid max-w-xl">{desc}</p>
             </div>
             <div className="rounded-card bg-varindo-canvas px-6 py-4 text-center shrink-0">
               <p className="display text-[40px] text-varindo-ink">{products.length}</p>
-              <p className="text-[12px] tracking-[-0.016em] text-varindo-mid mt-1">
+              <p className="text-[12px] tracking-normal text-varindo-mid mt-1">
                 {t('collections', 'products', lang)}
               </p>
             </div>
@@ -73,11 +73,7 @@ export function CollectionClient({ group, products }: Props) {
         <div className="shell flex gap-2 pb-1">
           {tabOrder.filter(g => groupConfig[g]).map((g) => (
             <Link key={g} href={`/collections/${g}`}
-              className={`shrink-0 rounded-pill px-4 py-2 text-[14px] tracking-[-0.016em] transition-colors ${
-                g === group
-                  ? 'bg-varindo-ink text-white'
-                  : 'bg-varindo-canvas text-varindo-ink hover:bg-varindo-wash'
-              }`}>
+              className={`shrink-0 whitespace-nowrap ${g === group ? 'btn-soft-active' : 'btn-soft'}`}>
               {t('collections', groupConfig[g]!.titleKey, lang)}
             </Link>
           ))}

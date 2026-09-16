@@ -153,7 +153,7 @@ export function ApaItuLaminateClient() {
           <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] lg:text-[56px] mb-5">
             {lang === 'id' ? 'Apa Itu HPL?' : 'What Are Laminates?'}
           </h1>
-          <p className="text-[17px] leading-7 text-varindo-mid max-w-2xl">
+          <p className="text-[16px] leading-7 text-varindo-mid max-w-2xl">
             {lang === 'id'
               ? 'Panduan Varindo seputar High-Pressure Laminate (HPL) Lamitak — mulai dari material, cara perawatan, kode finishing, hingga sertifikasi dan standar yang berlaku.'
               : "Varindo's guide to Lamitak High-Pressure Laminate (HPL) — the material, care instructions, finish codes, and the certifications and standards behind every sheet."}
@@ -168,7 +168,7 @@ export function ApaItuLaminateClient() {
             {lang === 'id' ? 'High-Pressure Laminate (HPL)' : 'High-Pressure Laminates'}
           </p>
           <div className="rounded-card bg-varindo-canvas p-6 sm:p-8">
-            <p className="text-[17px] leading-8 text-varindo-mid">
+            <p className="text-[16px] leading-8 text-varindo-mid">
               {lang === 'id'
                 ? 'High-Pressure Laminate (HPL) adalah material komposit yang umum digunakan dalam desain interior dan konstruksi. HPL terdiri dari beberapa lapisan kertas kraft yang direndam resin, satu lapisan dekoratif, dan satu lapisan pelindung bening. Lapisan-lapisan ini direkatkan bersama di bawah tekanan dan suhu tinggi hingga membentuk material akhir yang kuat dan tahan lama.'
                 : 'High-Pressure Laminate (HPL) is a composite material widely used in interior design and construction. It is made up of multiple layers of kraft paper saturated with resin, a decorative layer, and a clear protective layer. These layers are bonded together under high pressure and temperature to form a strong, durable final product.'}
@@ -181,7 +181,7 @@ export function ApaItuLaminateClient() {
             {lang === 'id' ? 'Fitur Anti-Bakteri' : 'Anti-Bacterial Protection'}
           </p>
           <div className="rounded-card bg-varindo-canvas p-6 sm:p-8 space-y-4">
-            <p className="text-[17px] leading-8 text-varindo-mid">
+            <p className="text-[16px] leading-8 text-varindo-mid">
               {lang === 'id'
                 ? 'HPL dan edging Lamitak dilengkapi fitur anti-mikroba yang memberikan perlindungan berkelanjutan dengan menghambat pertumbuhan mikroba pada permukaannya — mikroorganisme yang terlalu kecil untuk dilihat dengan mata telanjang.'
                 : 'Lamitak laminates and edging solutions come with anti-microbial features that provide continuous protection by inhibiting the growth of microbes on the surface — microorganisms too small to see with the naked eye.'}
@@ -190,7 +190,7 @@ export function ApaItuLaminateClient() {
               {antiBacterialCerts.map((cert) => (
                 <li key={cert.href}>
                   <a href={cert.href} target="_blank" rel="noreferrer"
-                    className="text-[14px] text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors">
+                    className="text-[14px] text-varindo-ink underline underline-offset-2 hover:opacity-60 transition-colors">
                     {cert.label} (PDF) ↗
                   </a>
                 </li>
@@ -204,7 +204,7 @@ export function ApaItuLaminateClient() {
             {lang === 'id' ? 'Panduan Penggunaan & Perawatan' : 'Use & Care Guide'}
           </p>
           <div className="rounded-card bg-varindo-canvas p-6 sm:p-8 space-y-4">
-            <p className="text-[17px] leading-8 text-varindo-mid">
+            <p className="text-[16px] leading-8 text-varindo-mid">
               {lang === 'id'
                 ? 'HPL Lamitak tahan lama, tahan gesekan, dan tahan benturan dalam penggunaan normal. Agar HPL Anda lebih awet:'
                 : 'Lamitak laminates are durable, abrasion resistant, and impact resistant under normal use. To better care for your laminate:'}
@@ -246,7 +246,7 @@ export function ApaItuLaminateClient() {
             {lang === 'id' ? 'Panduan Kode Finishing' : 'Finish Legend'}
           </p>
           <div className="rounded-card bg-varindo-canvas p-6 sm:p-8">
-            <p className="text-[17px] leading-8 text-varindo-mid mb-6">
+            <p className="text-[16px] leading-8 text-varindo-mid mb-6">
               {lang === 'id'
                 ? 'Kode finishing pada akhir setiap kode produk Lamitak menunjukkan jenis tekstur atau kilap permukaannya:'
                 : "The finish code at the end of every Lamitak product code indicates the surface's texture or sheen:"}
@@ -254,7 +254,7 @@ export function ApaItuLaminateClient() {
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {finishLegend.map((item) => (
                 <div key={item.code} className="rounded-xl2 bg-varindo-canvas p-5">
-                  <p className="text-[12px] font-semibold tracking-[-0.016em] text-varindo-link mb-1">{item.code}</p>
+                  <p className="text-[12px] font-semibold tracking-normal text-varindo-link mb-1">{item.code}</p>
                   <p className="text-[14px] text-varindo-ink">{item[lang]}</p>
                 </div>
               ))}
@@ -267,7 +267,7 @@ export function ApaItuLaminateClient() {
             {lang === 'id' ? 'Sertifikasi & Standar' : 'Certifications & Standards'}
           </p>
           <div className="rounded-card bg-varindo-canvas p-6 sm:p-8 space-y-5">
-            <p className="text-[17px] leading-8 text-varindo-mid">
+            <p className="text-[16px] leading-8 text-varindo-mid">
               {lang === 'id'
                 ? 'Produk Lamitak diproduksi dengan berbagai sertifikasi internasional yang menjamin kualitas, keamanan, dan tanggung jawab lingkungan:'
                 : 'Lamitak products are manufactured against a range of international certifications covering quality, safety, and environmental responsibility:'}
@@ -282,7 +282,7 @@ export function ApaItuLaminateClient() {
                       {cert.links.map((link) => (
                         <li key={link.href}>
                           <a href={link.href} target="_blank" rel="noreferrer"
-                            className="text-[12px] leading-5 text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors">
+                            className="text-[12px] leading-5 text-varindo-ink underline underline-offset-2 hover:opacity-60 transition-colors">
                             {link.label} (PDF) ↗
                           </a>
                         </li>
@@ -302,7 +302,7 @@ export function ApaItuLaminateClient() {
           <div className="rounded-xl2 bg-varindo-canvas divide-y divide-varindo-line/60">
             {specs.map((spec) => (
               <div key={spec.label} className="grid sm:grid-cols-[0.3fr_0.7fr] gap-2 sm:gap-6 px-6 py-5 sm:px-8">
-                <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">{spec.label}</p>
+                <p className="section-title text-[24px] sm:text-[24px]">{spec.label}</p>
                 <p className="text-[14px] leading-7 text-varindo-mid">{spec.value}</p>
               </div>
             ))}
@@ -311,7 +311,7 @@ export function ApaItuLaminateClient() {
 
         <section className="rounded-card bg-varindo-canvas px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <p className="display text-[28px] text-varindo-ink mb-2">
+            <p className="display text-[32px] text-varindo-ink mb-2">
               {lang === 'id' ? 'Butuh sampel fisik untuk cek langsung?' : 'Need a physical sample to check firsthand?'}
             </p>
             <p className="text-[14px] text-varindo-mid max-w-lg">

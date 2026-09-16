@@ -33,13 +33,13 @@ export default function RequestCatalogPage() {
       <div className="shell py-12 sm:py-16">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start max-w-5xl">
           <div>
-            <p className="text-[17px] leading-8 text-varindo-mid max-w-md">
+            <p className="text-[16px] leading-8 text-varindo-mid max-w-md">
               Request Lamitak catalog information from Varindo through WhatsApp. Admin Varindo will help provide the most relevant product information based on your needs.
             </p>
           </div>
           <div className="rounded-card bg-varindo-canvas">
             <div className="px-7 pt-7 pb-1">
-              <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">Recommended Details</p>
+              <p className="section-title text-[24px] sm:text-[24px]">Recommended Details</p>
             </div>
             <div className="p-6 grid gap-5 sm:grid-cols-2 mb-6">
               {[
