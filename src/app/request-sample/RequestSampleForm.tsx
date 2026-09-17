@@ -67,24 +67,24 @@ export function RequestSampleForm({ products, initialCode }: { products: Product
           </div>
           <div>
             <p className="label mb-3">{t('forms', 'successLabel', lang)}</p>
-            <h2 className="display text-varindo-ink text-[32px] sm:text-[40px] mb-4">
+            <h2 className="display text-varindo-ink text-[40px] mb-4">
               {t('forms', 'sampleSuccessTitle', lang)}
             </h2>
-            <p className="text-[17px] leading-7 text-varindo-mid max-w-sm mx-auto">
+            <p className="text-[16px] leading-7 text-varindo-mid max-w-sm mx-auto">
               {t('forms', 'sampleSuccessBody', lang, { n: filledCount, phone })}
             </p>
           </div>
           <div className="w-full max-w-sm rounded-card bg-varindo-canvas text-left">
             <div className="px-6 pt-6 pb-1">
-              <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+              <p className="text-[24px] font-normal tracking-[-0.01em] text-varindo-ink">
                 {t('forms', 'samplesRequested', lang)}
               </p>
             </div>
             <div className="divide-y divide-varindo-line/60">
               {filled.map((s, i) => (
                 <div key={i} className="flex items-baseline gap-3 px-5 py-3">
-                  <span className="text-[12px] tracking-[-0.016em] text-varindo-mid w-4 shrink-0">{i + 1}</span>
-                  <span className="text-[14px] font-medium text-varindo-ink">{s}</span>
+                  <span className="text-[12px] tracking-[-0.01em] text-varindo-mid w-4 shrink-0">{i + 1}</span>
+                  <span className="text-[16px] font-normal text-varindo-ink">{s}</span>
                 </div>
               ))}
             </div>
@@ -101,11 +101,11 @@ export function RequestSampleForm({ products, initialCode }: { products: Product
   return (
     <div className="rounded-card bg-varindo-canvas">
       <div className="px-7 pt-7 pb-1 flex items-center justify-between gap-4">
-        <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+        <p className="text-[24px] font-normal tracking-[-0.01em] text-varindo-ink">
           {t('forms', 'sampleFormTitle', lang)}
         </p>
         {filledCount > 0 && (
-          <span className="text-[12px] font-semibold tracking-[-0.016em] text-varindo-link">
+          <span className="text-[12px] font-normal tracking-[-0.01em] text-varindo-link">
             {t('forms', 'itemsOf', lang, { n: filledCount, max: MAX })}
           </span>
         )}
@@ -120,7 +120,7 @@ export function RequestSampleForm({ products, initialCode }: { products: Product
           <div className="overflow-hidden rounded-xl2 bg-white divide-y divide-varindo-line/60">
             {samples.map((val, i) => (
               <div key={i} className="flex items-center">
-                <span className="w-10 text-center text-[12px] font-medium text-varindo-mid shrink-0 border-r border-varindo-line/40 py-3">
+                <span className="w-10 text-center text-[12px] font-normal text-varindo-mid shrink-0 border-r border-varindo-line/40 py-3">
                   {i + 1}
                 </span>
                 <div className="flex-1 relative">
@@ -166,7 +166,7 @@ export function RequestSampleForm({ products, initialCode }: { products: Product
 
       {status === 'error' && (
         <div className="border-t border-red-200 bg-red-50 px-6 py-3">
-          <p className="text-[14px] font-medium text-red-700">{errMsg}</p>
+          <p className="text-[16px] font-normal text-red-700">{errMsg}</p>
         </div>
       )}
 

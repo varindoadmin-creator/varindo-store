@@ -11,19 +11,19 @@ const PLAY_BADGE_SRC: Record<Lang, string> = { id: '/play-badge-id.png', en: '/p
 // Google's official badge art is 646x250 (2.584:1) at every locale.
 const PLAY_BADGE_RATIO = 646 / 250;
 
-/* Footer is the page's quietest band: 12px grey fine print on canvas,
-   links in link-blue, separators only as faint hairlines. */
+/* Footer stays on the white page — no inverted block. 16px graphite
+   text, ink headings, and whitespace in place of dividers. */
 export function Footer() {
   const { lang } = useLang();
   const year = new Date().getFullYear();
   const isTwa = useIsTwa();
 
-  const linkClass = 'text-[12px] leading-[1.33] text-varindo-mid transition-colors hover:text-varindo-ink hover:underline';
-  const headingClass = 'mb-4 text-[12px] font-semibold leading-[1.33] tracking-[-0.01em] text-varindo-ink';
+  const linkClass = 'text-[16px] leading-[1.25] text-varindo-mid transition-colors hover:text-varindo-ink';
+  const headingClass = 'mb-4 text-[16px] font-normal leading-[1.25] tracking-[-0.01em] text-varindo-ink';
 
   return (
-    <footer className="bg-varindo-canvas text-varindo-mid">
-      <div className="shell grid gap-10 pb-10 pt-14 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+    <footer className="mt-16 bg-white text-varindo-mid">
+      <div className="shell grid gap-12 pb-16 pt-16 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
 
         {/* Brand */}
         <div>
@@ -37,10 +37,10 @@ export function Footer() {
                 className="h-[24px] w-auto max-w-none object-contain" />
             </div>
           </div>
-          <p className="mb-5 max-w-xs text-[12px] leading-[1.6] text-varindo-mid">
+          <p className="mb-6 max-w-xs text-[16px] leading-[1.25] text-varindo-mid">
             {t('footer', 'tagline', lang)}
           </p>
-          <address className="max-w-xs text-[12px] not-italic leading-[1.6] text-varindo-mid">
+          <address className="max-w-xs text-[16px] not-italic leading-[1.25] text-varindo-mid">
             <span className={headingClass + ' mb-1 block'}>{t('contact', 'headOffice', lang)}</span>
             Branz BSD Tower A Unit 3310<br />
             Jl. BSD Boulevard Parcel 55-F<br />
@@ -92,19 +92,19 @@ export function Footer() {
         <div>
           <p className={headingClass}>{t('footer', 'contact', lang)}</p>
           <address className="space-y-3 not-italic">
-            <p className="text-[12px] leading-[1.6] text-varindo-mid">
-              <span className="mb-0.5 block text-varindo-ink">{t('footer', 'phone', lang)}</span>
+            <p className="text-[16px] leading-[1.25] text-varindo-mid">
+              <span className="mb-1 block text-varindo-ink">{t('footer', 'phone', lang)}</span>
               <a href="tel:+6281288885224" className={linkClass}>0812 8888 5224</a><br />
               <a href="tel:+6281210015224" className={linkClass}>0812 1001 5224</a>
             </p>
             <p>
               <a href="https://wa.me/6281288885224" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[12px] text-varindo-link transition-colors hover:underline">
-                WhatsApp ›
+                className="link-arrow">
+                WhatsApp
               </a>
             </p>
-            <p className="text-[12px] leading-[1.6] text-varindo-mid">
-              <span className="mb-0.5 block text-varindo-ink">Email</span>
+            <p className="text-[16px] leading-[1.25] text-varindo-mid">
+              <span className="mb-1 block text-varindo-ink">Email</span>
               <a href="mailto:contact@varindo.co.id" className={linkClass}>contact@varindo.co.id</a>
             </p>
           </address>
@@ -112,9 +112,9 @@ export function Footer() {
       </div>
 
       {!isTwa && (
-        <div className="border-t border-varindo-line/60">
-          <div className="shell flex flex-col items-center justify-between gap-4 py-6 sm:flex-row">
-            <p className="text-center text-[12px] leading-[1.33] text-varindo-mid sm:text-left">
+        <div>
+          <div className="shell flex flex-col items-center justify-between gap-4 pb-8 sm:flex-row">
+            <p className="text-center text-[16px] leading-[1.25] text-varindo-mid sm:text-left">
               {t('footer', 'appTagline', lang)}
             </p>
             <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer"
@@ -126,9 +126,9 @@ export function Footer() {
         </div>
       )}
 
-      <div className="border-t border-varindo-line/60">
-        <div className="shell py-5">
-          <p className="text-[12px] leading-[1.33] text-varindo-mid">
+      <div>
+        <div className="shell pb-8">
+          <p className="text-[12px] leading-[1.2] text-varindo-mid">
             {t('footer', 'copyright', lang, { year })}
           </p>
         </div>

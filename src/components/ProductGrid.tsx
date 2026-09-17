@@ -11,7 +11,7 @@ export function ProductGrid({ products }: { products: Product[] }) {
   if (products.length === 0) {
     return (
       <div className="rounded-card bg-varindo-canvas px-8 py-20 text-center">
-        <h3 className="display mb-3 text-[32px] text-varindo-ink sm:text-[40px]">
+        <h3 className="display mb-3 text-[40px] text-varindo-ink">
           {t('explorer', 'noResultsTitle', lang)}
         </h3>
         <p className="copy mx-auto max-w-md">

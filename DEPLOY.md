@@ -28,13 +28,41 @@ anywhere and adds a CDN, at the cost of a fixed monthly charge.
 
 ## Deploying a change
 
+**Push to `main`.** Cloud Build trigger `varindo-catalog-deploy-main` builds
+the `Dockerfile` from the pushed commit and deploys it (`cloudbuild.yaml`).
+Pushes that only touch `android/` are ignored. Watch a build with:
+
+```bash
+gcloud builds list --region asia-southeast2 --project $PROJECT --limit 5
+```
+
+The trigger lives in `asia-southeast2` because that is where the GitHub
+connection (`viabooks-github`, shared with VIABooks) is; it deploys to the
+service in `$REGION`. It runs as the Compute Engine default service account,
+like the VIABooks trigger.
+
+A manual deploy still works, e.g. for a change you don't want to push yet:
+
 ```bash
 gcloud run deploy $SERVICE --source . --region $REGION --project $PROJECT
 ```
 
-`--source .` hands the repo to Cloud Build, which uses the `Dockerfile`.
+`--source .` hands the working tree to Cloud Build, which uses the `Dockerfile`.
 Environment variables and secrets persist across deploys; they only need the
-flags below on a fresh service.
+flags below on a fresh service. Never add `--set-env-vars`/`--set-secrets` to
+`cloudbuild.yaml` — they replace the whole set; use `--update-*` by hand.
+
+One-time setup, for reference (already done 17 Sep 2026):
+
+```bash
+gcloud builds repositories create varindo-catalog --region asia-southeast2 --project $PROJECT \
+  --connection viabooks-github --remote-uri https://github.com/varindoadmin-creator/varindo-catalog.git
+gcloud builds triggers create github --name varindo-catalog-deploy-main \
+  --region asia-southeast2 --project $PROJECT \
+  --repository projects/$PROJECT/locations/asia-southeast2/connections/viabooks-github/repositories/varindo-catalog \
+  --branch-pattern '^main$' --build-config cloudbuild.yaml --ignored-files 'android/**' \
+  --service-account projects/$PROJECT/serviceAccounts/601025884976-compute@developer.gserviceaccount.com
+```
 
 ## Service configuration
 

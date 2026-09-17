@@ -17,10 +17,10 @@ export function RequestSamplePage({ products, initialCode }: { products: Product
       <div className="bg-white">
         <div className="shell py-14 sm:py-20">
           <p className="label mb-4">{t('forms', 'sampleBadge', lang)}</p>
-          <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px] whitespace-pre-line">
+          <h1 className="display text-varindo-ink text-[40px] sm:text-[64px] whitespace-pre-line">
             {t('forms', 'sampleTitle', lang)}
           </h1>
-          <p className="mt-5 text-[17px] leading-7 text-varindo-mid max-w-lg">
+          <p className="mt-5 text-[16px] leading-7 text-varindo-mid max-w-lg">
             {t('forms', 'sampleSubtitle', lang)}
           </p>
         </div>
@@ -32,7 +32,7 @@ export function RequestSamplePage({ products, initialCode }: { products: Product
           {/* Left — info panel */}
           <div className="rounded-card bg-varindo-canvas">
             <div className="px-7 pt-7 pb-1">
-              <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+              <p className="text-[24px] font-normal tracking-[-0.01em] text-varindo-ink">
                 {t('forms', 'sampleInfoTitle', lang)}
               </p>
             </div>
@@ -40,7 +40,7 @@ export function RequestSamplePage({ products, initialCode }: { products: Product
               {infoItems.map((item) => (
                 <div key={item} className="flex items-center gap-3 px-6 py-4">
                   <div className="w-4 h-[1.5px] bg-varindo-link shrink-0" />
-                  <p className="text-[14px] font-medium text-varindo-deep">{item}</p>
+                  <p className="text-[16px] font-normal text-varindo-deep">{item}</p>
                 </div>
               ))}
             </div>
