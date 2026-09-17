@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sendRequestNotification } from '@/lib/mailer';
 
 export const dynamic = 'force-dynamic';
 
@@ -71,8 +70,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let notificationSamples: string[] | undefined;
-
   try {
     if (type === 'catalogue') {
       await submitToViabooks({ requestType: 'catalogue', customerName: name, phone, address });
@@ -84,7 +81,6 @@ export async function POST(req: NextRequest) {
       if (samples.length === 0 || (body.samples?.length || 0) > MAX_SAMPLE_ITEMS) {
         return NextResponse.json({ success: false, error: 'Invalid samples.' }, { status: 400 });
       }
-      notificationSamples = samples;
 
       // One request per sample code, matching VIABooks' one-row-per-request
       // contract — run together so one failure doesn't silently drop the rest.
@@ -92,10 +88,6 @@ export async function POST(req: NextRequest) {
         samples.map((code) => submitToViabooks({ requestType: 'sample', customerName: name, phone, address, itemCode: code }))
       );
     }
-
-    // Send email notification (non-blocking — don't fail the response if email errors)
-    sendRequestNotification({ type, name, phone, address, samples: notificationSamples })
-      .catch((e) => console.error('[submit-request] Email notification failed:', e));
 
     return NextResponse.json({ success: true });
 
