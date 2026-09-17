@@ -138,7 +138,7 @@ export function ProductCodeCombobox({ value, onChange, placeholder, rowIndex }: 
         aria-activedescendant={activeIdx >= 0 ? `${id}-option-${activeIdx}` : undefined}
         autoComplete="off"
         spellCheck={false}
-        className="w-full h-10 px-4 text-[14px] text-varindo-ink bg-transparent outline-none placeholder:text-varindo-mid focus:bg-varindo-50 transition-colors"
+        className="w-full h-10 px-4 text-[16px] text-varindo-ink bg-transparent outline-none placeholder:text-varindo-mid focus:bg-varindo-50 transition-colors"
       />
 
       {/* Dropdown */}
@@ -165,7 +165,7 @@ export function ProductCodeCombobox({ value, onChange, placeholder, rowIndex }: 
                     isActive ? 'bg-varindo-canvas' : 'hover:bg-varindo-canvas/60'
                   }`}
                 >
-                  <span className="text-[14px] font-semibold text-varindo-ink shrink-0">{entry.code}</span>
+                  <span className="text-[16px] font-normal text-varindo-ink shrink-0">{entry.code}</span>
                   {entry.design && (
                     <span className="text-[12px] text-varindo-mid truncate">{entry.design}</span>
                   )}
@@ -174,7 +174,7 @@ export function ProductCodeCombobox({ value, onChange, placeholder, rowIndex }: 
             })}
           </ul>
           <div className="px-4 py-2 border-t border-varindo-line/40 bg-varindo-canvas">
-            <p className="text-[12px] text-varindo-mid tracking-[-0.016em]">
+            <p className="text-[12px] text-varindo-mid tracking-[-0.01em]">
               {results.length === MAX_RESULTS ? `Showing top ${MAX_RESULTS} results` : `${results.length} result${results.length !== 1 ? 's' : ''}`}
               {' · '}Type to narrow
             </p>

@@ -48,16 +48,16 @@ export function RequestCatalogueForm() {
           </div>
           <div>
             <p className="label mb-3">{t('forms', 'successLabel', lang)}</p>
-            <h2 className="display text-varindo-ink text-[32px] sm:text-[40px] mb-4">
+            <h2 className="display text-varindo-ink text-[40px] mb-4">
               {t('forms', 'catalogueSuccessTitle', lang)}
             </h2>
-            <p className="text-[17px] leading-7 text-varindo-mid max-w-sm mx-auto">
+            <p className="text-[16px] leading-7 text-varindo-mid max-w-sm mx-auto">
               {t('forms', 'catalogueSuccess', lang, { name, phone })}
             </p>
           </div>
           <div className="w-full max-w-sm rounded-card bg-varindo-canvas text-left">
             <div className="px-6 pt-6 pb-1">
-              <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+              <p className="text-[24px] font-normal tracking-[-0.01em] text-varindo-ink">
                 {t('forms', 'yourDetails', lang)}
               </p>
             </div>
@@ -68,8 +68,8 @@ export function RequestCatalogueForm() {
                 [lang === 'id' ? 'Telepon' : 'Phone',  phone],
               ] as [string, string][]).map(([label, value]) => (
                 <div key={label} className="flex items-baseline gap-3 px-5 py-3">
-                  <span className="text-[12px] tracking-[-0.016em] text-varindo-mid w-16 shrink-0">{label}</span>
-                  <span className="text-[14px] font-medium text-varindo-ink">{value}</span>
+                  <span className="text-[12px] tracking-[-0.01em] text-varindo-mid w-16 shrink-0">{label}</span>
+                  <span className="text-[16px] font-normal text-varindo-ink">{value}</span>
                 </div>
               ))}
             </div>
@@ -86,7 +86,7 @@ export function RequestCatalogueForm() {
   return (
     <div className="rounded-card bg-varindo-canvas">
       <div className="px-7 pt-7 pb-1">
-        <p className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+        <p className="text-[24px] font-normal tracking-[-0.01em] text-varindo-ink">
           {t('forms', 'yourDetails', lang)}
         </p>
       </div>
@@ -128,7 +128,7 @@ export function RequestCatalogueForm() {
 
       {status === 'error' && (
         <div className="border-t border-red-200 bg-red-50 px-6 py-3">
-          <p className="text-[14px] font-medium text-red-700">{errMsg}</p>
+          <p className="text-[16px] font-normal text-red-700">{errMsg}</p>
         </div>
       )}
 

@@ -13,51 +13,52 @@ const config: Config = {
         display: ['var(--font-display)']
       },
       colors: {
-        // Near-monochrome system: ink on paper, one gray band, and a single
-        // accent taken from the Varindo logo for anything interactive.
+        // Achromatic system: ink on paper, Mist for banding, Fog hairlines.
+        // No accent hue — the laminate photography is the only colour.
         varindo: {
-          ink: '#1d1d1f',
-          deep: '#474747',
-          mid: '#707070',
+          ink: '#1a1a1a',
+          deep: '#262626',
+          mid: '#666666',
           paper: '#ffffff',
-          canvas: '#f5f5f7',
-          wash: '#e8e8ed',
-          nav: '#fafafc',
-          line: '#d6d6d6',
-          accent: '#282828', // the logo tone — every interactive surface
-          blue: '#282828',   // legacy name for the accent (filled CTAs)
-          link: '#282828',   // inline link text
-          ember: '#b64400',  // "Baru" badge
+          canvas: '#f2f2f2',
+          wash: '#e6e6e6',
+          nav: '#ffffff',
+          line: '#e6e6e6',
+          accent: '#262626', // Charcoal — every filled control
+          blue: '#262626',   // legacy name for the accent (filled CTAs)
+          link: '#1a1a1a',   // inline link text
+          ember: '#1a1a1a',  // legacy badge tone, now ink
 
           // Legacy aliases — old markup lands on the new palette
-          cream: '#f5f5f7',
-          warm: '#f5f5f7',
-          sand: '#d6d6d6',
-          muted: '#707070',
-          gold: '#282828',
+          cream: '#f2f2f2',
+          warm: '#f2f2f2',
+          sand: '#e6e6e6',
+          muted: '#666666',
+          gold: '#262626',
 
           // Grayscale ramp
-          50:  '#f5f5f7',
-          100: '#f0f0f2',
-          200: '#e8e8ed',
-          300: '#d6d6d6',
-          400: '#86868b',
-          500: '#707070',
-          600: '#6e6e73',
-          700: '#474747',
-          800: '#333336',
-          900: '#1d1d1f'
+          50:  '#f2f2f2',
+          100: '#f2f2f2',
+          200: '#e6e6e6',
+          300: '#e6e6e6',
+          400: '#999999',
+          500: '#666666',
+          600: '#666666',
+          700: '#262626',
+          800: '#262626',
+          900: '#1a1a1a'
         }
       },
       borderRadius: {
-        card: '28px',
-        xl2: '18px',
-        pill: '980px'
+        card: '12px',  // images and media plates
+        xl2: '8px',    // controls, menus
+        pill: '8px',   // buttons
+        nav: '16px'    // the hamburger container
       },
       boxShadow: {
-        // Cards and bands carry no elevation. Only floating overlays
-        // (menus, modals, the chat panel) get a whisper of depth.
-        luxury: '0 8px 30px rgba(0, 0, 0, 0.12)',
+        // Shadowless. Floating overlays (menus, modals, the chat panel)
+        // get a drawn Fog frame instead of blur-based elevation.
+        luxury: '0 0 0 1px #e6e6e6',
         card: 'none',
         'card-hover': 'none',
         'inset-top': 'none'

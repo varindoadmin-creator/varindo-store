@@ -11,10 +11,10 @@ export function RequestCataloguePage() {
       <div className="bg-white">
         <div className="shell py-14 sm:py-20">
           <p className="label mb-4">{t('forms', 'catalogueBadge', lang)}</p>
-          <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px] whitespace-pre-line">
+          <h1 className="display text-varindo-ink text-[40px] sm:text-[64px] whitespace-pre-line">
             {t('forms', 'catalogueTitle', lang)}
           </h1>
-          <p className="mt-5 text-[17px] leading-7 text-varindo-mid max-w-lg">
+          <p className="mt-5 text-[16px] leading-7 text-varindo-mid max-w-lg">
             {t('forms', 'catalogueSubtitle', lang)}
           </p>
         </div>

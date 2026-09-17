@@ -3,28 +3,31 @@
 @tailwind utilities;
 
 /* ─── Design tokens ─────────────────────────────────────────── */
-/* Cathedral of white space: near-monochrome canvas, oversized type,
-   one accent tone, taken from the logo, for anything interactive.
-   Rhythm comes from
-   alternating #ffffff / #f5f5f7 bands — never from borders or shadows. */
+/* White gallery walls around black-ink editorial type (Acolorbright
+   reference). Achromatic: every surface is paper or near-black, and the
+   laminate photography is the only colour on the page. One typeface at
+   weight 400 — hierarchy comes from size and space, never boldness.
+   No shadows; dividers are whitespace. */
 :root {
   color-scheme: light;
 
   /* Core palette */
-  --c-paper:    #ffffff;  /* primary canvas + card surfaces          */
-  --c-canvas:   #f5f5f7;  /* alternating band, footer, soft fills    */
-  --c-wash:     #e8e8ed;  /* hover state on light buttons            */
-  --c-nav:      #fafafc;  /* elevated nav surface on scroll          */
-  --c-line:     #d6d6d6;  /* hairline — used sparingly               */
-  --c-ink:      #1d1d1f;  /* headlines, body, button labels          */
-  --c-deep:     #474747;  /* nav + medium-emphasis text              */
-  --c-mid:      #707070;  /* secondary text, muted labels            */
-  --c-ink-60:   rgba(29, 29, 31, 0.60);
-  --c-ink-30:   rgba(29, 29, 31, 0.30);
-  --c-accent:   #282828;  /* the logo tone — filled CTAs and links   */
+  --c-paper:    #ffffff;  /* page canvas + card surfaces             */
+  --c-canvas:   #f2f2f2;  /* Mist — list banding, rare tinted panels */
+  --c-wash:     #e6e6e6;  /* hover state on light controls           */
+  --c-nav:      #ffffff;  /* nav stays on the page canvas            */
+  --c-line:     #e6e6e6;  /* Fog — hairlines, input outlines         */
+  --c-ink:      #1a1a1a;  /* all readable dark text                  */
+  --c-deep:     #262626;  /* Charcoal — filled buttons, dark UI      */
+  --c-mid:      #666666;  /* Graphite — body copy, secondary text    */
+  --c-ash:      #999999;  /* muted text, control outlines            */
+  --c-black:    #000000;  /* numbered section badges only            */
+  --c-ink-60:   rgba(26, 26, 26, 0.60);
+  --c-ink-30:   rgba(26, 26, 26, 0.30);
+  --c-accent:   var(--c-deep);  /* no chromatic CTA — charcoal fill  */
   --c-blue:     var(--c-accent);  /* legacy name for the accent      */
-  --c-link:     var(--c-accent);  /* inline links, arrow links       */
-  --c-ember:    #b64400;  /* "Baru" badge, at most once per page     */
+  --c-link:     var(--c-ink);     /* inline links, arrow links       */
+  --c-ember:    var(--c-ink);     /* legacy badge tone, now ink      */
   --c-white:    #ffffff;
 
   /* Legacy aliases kept so older markup degrades into the new system */
@@ -33,22 +36,23 @@
   --c-gold:     var(--c-link);
   --c-gold-lt:  var(--c-canvas);
 
-  /* Typography — SF Pro on Apple hardware, Inter everywhere else */
+  /* Typography — Inter Tight stands in for RiformaLLWeb */
   --font-stack:
-    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text',
-    var(--font-inter), Inter, ui-sans-serif, system-ui, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
+    var(--font-inter-tight), 'Inter Tight', ui-sans-serif, system-ui,
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   --font-display: var(--font-stack);
   --font-body:    var(--font-stack);
 
-  /* Radii */
-  --r-card:   28px;
-  --r-inner:  18px;
-  --r-link:   10px;
-  --r-pill:   980px;
+  /* Radii — images 12, buttons and controls 8, nav container 16 */
+  --r-card:   12px;
+  --r-inner:  8px;
+  --r-link:   8px;
+  --r-pill:   8px;
+  --r-nav:    16px;
 
-  /* Spacing rhythm — 100–120px between content bands */
-  --space-section: clamp(4rem, 8vw, 7.5rem);
+  /* Spacing rhythm — 64px minimum between chapters */
+  --space-section: clamp(4rem, 7vw, 6rem);
+  --space-hero:    clamp(4rem, 16vw, 16rem);   /* 256px at desktop */
 }
 
 /* ─── Reset & base ──────────────────────────────────────────── */
@@ -66,11 +70,18 @@ body {
   background-color: var(--c-paper);
   color: var(--c-ink);
   font-family: var(--font-body);
-  font-size: 17px;
-  line-height: 1.47;
-  letter-spacing: -0.022em;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  font-feature-settings: "liga" 0;
   font-variant-numeric: tabular-nums;
 }
+
+/* One weight across the whole system. Emphasis inside copy is carried by
+   ink against the graphite body, not by boldness. */
+h1, h2, h3, h4, h5, h6, b, strong, th { font-weight: 400; }
+b, strong { color: var(--c-ink); }
 
 ::selection {
   background: var(--c-ink);
@@ -82,134 +93,139 @@ img { -webkit-user-drag: none; }
 /* ─── Scrollbar (webkit) ────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--c-canvas); }
-::-webkit-scrollbar-thumb { background: #c7c7cc; border-radius: 999px; }
+::-webkit-scrollbar-thumb { background: var(--c-ash); border-radius: 999px; }
 
 /* ─── Component layer ───────────────────────────────────────── */
 @layer components {
 
-  /* Layout shell — 1200px of content inside a full-bleed band */
+  /* Layout shell — 1200px of content, 32px gutters on desktop */
   .shell {
-    @apply mx-auto w-full max-w-[1200px] px-5 sm:px-8 lg:px-10;
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-8;
   }
 
-  /* Content band — sections alternate paper / canvas, no dividers */
+  /* Content band — every band sits on the same white page; chapters are
+     separated by whitespace alone */
   .band      { @apply bg-white; }
-  .band-alt  { @apply bg-varindo-canvas; }
+  .band-alt  { @apply bg-white; }
   .band-pad  { @apply py-[var(--space-section)]; }
 
-  /* Eyebrow — the quiet line that sits above a headline.
-     No small-caps, no letterspacing gymnastics: just calm grey text. */
+  /* Caption — the quiet 12px line above or below a heading */
   .label {
-    @apply text-[14px] font-normal tracking-[-0.016em] text-varindo-mid;
+    @apply text-[12px] font-normal leading-[1.2] tracking-[-0.01em] text-varindo-mid;
   }
 
   .eyebrow {
-    @apply text-[17px] font-normal tracking-[-0.022em] text-varindo-ink;
+    @apply text-[16px] font-normal leading-[1.25] tracking-[-0.01em] text-varindo-ink;
   }
 
-  /* Display headline — weight 600, tight negative tracking */
+  /* Display headline — size and tracking carry it, never weight */
   .display {
     font-family: var(--font-display);
-    @apply font-semibold tracking-[-0.015em] leading-[1.06];
+    @apply font-normal tracking-[-0.01em] leading-[1.1];
   }
 
-  /* Section heading — mid-size type opens up slightly, reads warmer */
+  /* Section heading — the 40px chapter title */
   .section-title {
     font-family: var(--font-display);
-    @apply text-[28px] sm:text-[32px] font-semibold tracking-[0.007em] leading-[1.14] text-varindo-ink;
+    @apply text-[24px] sm:text-[40px] font-normal tracking-[-0.01em] leading-[1.1] text-varindo-ink;
   }
 
-  /* Body copy — the 17px workhorse */
+  /* Numbered chapter badge — 32px solid black circle, white numeral.
+     The serial 1–5 rhythm is the page's spine. */
+  .chapter-badge {
+    @apply inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full
+           bg-black text-[18px] font-normal leading-none tracking-[-0.01em] text-white;
+  }
+
+  /* Body copy — 18px graphite, single column */
   .copy {
-    @apply text-[17px] leading-[1.47] tracking-[-0.022em] text-varindo-mid;
+    @apply text-[18px] leading-[1.25] tracking-[-0.01em] text-varindo-mid;
   }
 
-  /* Divider — kept for legacy call sites, rendered as a whisper */
+  /* Divider — kept for legacy call sites, rendered as a Fog hairline */
   .rule {
-    @apply border-t border-varindo-line/60;
+    @apply border-t border-varindo-line;
   }
 
-  /* Primary CTA — the accent fill, in the logo's own tone */
+  /* Filled dark button — Charcoal, 8px corners, compact */
   .btn-blue {
     @apply inline-flex items-center justify-center gap-2 rounded-pill
-           bg-varindo-blue px-[18px] py-[11px]
-           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-white
+           bg-varindo-blue px-4 py-3
+           text-[16px] font-normal leading-[1.25] tracking-[-0.01em] text-white
            transition-colors duration-200
-           hover:bg-[#3d3d3d] focus-visible:outline focus-visible:outline-2
-           focus-visible:outline-offset-2 focus-visible:outline-varindo-accent;
+           hover:bg-varindo-ink focus-visible:outline focus-visible:outline-2
+           focus-visible:outline-offset-2 focus-visible:outline-varindo-ink;
   }
 
-  /* Ink fill — the same accent, kept as its own name for older markup.
-     Both filled pills share one tone so no two CTAs sit a few shades
-     apart on the same page. */
+  /* Same fill, kept as its own name for older markup */
   .btn-ink {
-    @apply inline-flex items-center justify-center gap-2 rounded-pill
-           bg-varindo-blue px-[18px] py-[11px]
-           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-white
-           transition-colors duration-200
-           hover:bg-[#3d3d3d];
+    @apply btn-blue;
   }
 
-  /* Ghost pill — medium emphasis on light ground */
+  /* Outlined light button — Fog hairline, ink label */
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 rounded-pill
-           border border-varindo-ink/80 bg-transparent px-[18px] py-[11px]
-           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-varindo-ink
+           border border-varindo-line bg-transparent px-4 py-3
+           text-[16px] font-normal leading-[1.25] tracking-[-0.01em] text-varindo-ink
            transition-colors duration-200
-           hover:bg-varindo-wash;
+           hover:border-varindo-400;
   }
 
-  /* Ghost pill on dark or photographic ground */
+  /* Outlined button on dark or photographic ground */
   .btn-ghost-white {
     @apply inline-flex items-center justify-center gap-2 rounded-pill
-           border border-white/70 bg-transparent px-[18px] py-[11px]
-           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-white
+           border border-white/70 bg-transparent px-4 py-3
+           text-[16px] font-normal leading-[1.25] tracking-[-0.01em] text-white
            transition-colors duration-200
            hover:bg-white hover:text-varindo-ink;
   }
 
-  /* Soft pill — low emphasis chip on canvas */
+  /* Soft chip — same outline as the ghost button */
   .btn-soft {
-    @apply inline-flex items-center justify-center gap-2 rounded-pill
-           bg-varindo-wash px-[18px] py-[11px]
-           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-varindo-ink
-           transition-colors duration-200 hover:bg-[#dcdce2];
+    @apply btn-ghost;
   }
 
-  /* Inline directional link — the chevron carries the affordance now
-     that the accent sits a few shades off the body ink */
+  /* Inline directional link */
   .link-arrow {
-    @apply inline-flex items-center gap-1 text-[17px] tracking-[-0.022em]
-           text-varindo-link transition-colors hover:underline;
+    @apply inline-flex items-center gap-1 text-[16px] tracking-[-0.01em]
+           text-varindo-link underline decoration-varindo-line underline-offset-4
+           transition-colors hover:decoration-varindo-ink;
   }
 
-  /* Inline body link — underlined always, since its colour no longer
-     sets it apart from the text around it */
+  /* Inline body link — underlined, since it shares the text's ink */
   .link-quiet {
-    @apply text-varindo-link underline underline-offset-2 transition-colors
-           hover:text-varindo-ink;
+    @apply text-varindo-link underline decoration-varindo-400 underline-offset-2
+           transition-colors hover:decoration-varindo-ink;
   }
 
-  /* Card — 28px radius, no stroke, no shadow */
+  /* Card — no stroke, no shadow, no fill: the page is the surface */
   .surface-card {
-    @apply rounded-card bg-white transition-colors duration-300;
+    @apply bg-white;
   }
 
   .surface-card-alt {
-    @apply rounded-card bg-varindo-canvas transition-colors duration-300;
+    @apply bg-white;
   }
 
-  /* Form control — white plate, hairline edge, accent on focus */
+  /* Form control — white plate, Fog outline, ink on focus */
   .field {
-    @apply h-12 w-full rounded-xl2 border border-varindo-line/70 bg-white px-4
-           text-[17px] tracking-[-0.022em] text-varindo-ink outline-none
-           transition-all duration-150
+    @apply h-12 w-full rounded-xl2 border border-varindo-line bg-white px-4
+           text-[16px] tracking-[-0.01em] text-varindo-ink outline-none
+           transition-colors duration-150
            placeholder:text-varindo-400
-           focus:border-varindo-blue focus:ring-0;
+           focus:border-varindo-ink focus:ring-0;
   }
 
   .field-select {
     @apply field appearance-none pr-10;
+  }
+
+  /* List row — zebra banding is the only separator */
+  .list-band > * {
+    @apply px-4 py-4 sm:px-6;
+  }
+  .list-band > *:nth-child(odd) {
+    @apply bg-varindo-canvas;
   }
 }
 
