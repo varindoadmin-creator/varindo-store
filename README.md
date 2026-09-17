@@ -4,8 +4,9 @@ A responsive Node.js / Next.js catalog for Varindo's Lamitak-focused public prod
 
 ## Design direction
 
-- System font stacks for deterministic, network-independent builds
-- Premium interior-product visual style
+- Achromatic editorial system (Acolorbright reference): paper-white and
+  near-black only, one typeface (Inter Tight) at weight 400, no shadows,
+  12px image radii, 8px buttons, numbered chapters on the home page
 - Responsive mobile, tablet, and desktop layouts
 - Clean product cards: product image, exact product name, and price only
 - WhatsApp-first enquiry flow instead of cart checkout
@@ -32,16 +33,9 @@ npm run build
 npm run start
 ```
 
-## Hostinger Node.js Web App settings
+## Deploying
 
-Recommended settings:
-
-```text
-Install command: npm install
-Build command: npm run build
-Start command: npm run start
-Node.js version: 20.x or 22.x
-```
+Pushing to `main` deploys to Cloud Run automatically. See `DEPLOY.md`.
 
 ## Product database
 
@@ -78,7 +72,3 @@ base prices. `src/lib/products.ts` adds 11% PPN for display.
 
 Promo and badge collections come from the corresponding columns in the catalogue CSV.
 
-
-## Typography
-
-This version uses Manrope as the primary website font for a modern, premium interior-product catalog feel.
