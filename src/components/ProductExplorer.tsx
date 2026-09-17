@@ -84,7 +84,7 @@ export function ProductExplorer({ products, showCollectionTabs = true }: Props) 
         <div className="mb-8 flex gap-2 overflow-x-auto pb-1 scrollbar-none">
           {collectionTabs.map(({ label, href }) => (
             <Link key={href} href={href}
-              className="shrink-0 rounded-pill bg-varindo-canvas px-4 py-2 text-[16px] tracking-[-0.01em] text-varindo-ink whitespace-nowrap transition-colors hover:bg-varindo-wash">
+              className="shrink-0 rounded-pill bg-varindo-canvas px-4 py-2 text-[14px] tracking-[-0.016em] text-varindo-ink whitespace-nowrap transition-colors hover:bg-varindo-wash">
               {label}
             </Link>
           ))}
@@ -93,11 +93,11 @@ export function ProductExplorer({ products, showCollectionTabs = true }: Props) 
 
       <div className="mb-10 rounded-card bg-varindo-canvas p-6 sm:p-7">
         <div className="mb-5 flex items-center justify-between gap-4">
-          <span className="text-[24px] font-normal tracking-[-0.01em] text-varindo-ink">
+          <span className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
             {t('explorer', 'filterTitle', lang)}
           </span>
           {hasFilters && (
-            <button onClick={clearFilters} className="link-arrow text-[16px]">
+            <button onClick={clearFilters} className="link-arrow text-[14px]">
               {t('explorer', 'clearAll', lang)}
             </button>
           )}
@@ -130,7 +130,7 @@ export function ProductExplorer({ products, showCollectionTabs = true }: Props) 
             </SelectWrapper>
           </div>
 
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-[16px] tracking-[-0.01em] text-varindo-mid">
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-[14px] tracking-[-0.016em] text-varindo-mid">
             <p>
               <span className="text-varindo-ink">{filteredProducts.length}</span>
               {' '}{filteredProducts.length === 1 ? t('explorer', 'productFound', lang) : t('explorer', 'productsFound', lang)}
@@ -150,7 +150,7 @@ export function ProductExplorer({ products, showCollectionTabs = true }: Props) 
             className="btn-soft disabled:cursor-not-allowed disabled:opacity-40">
             {t('explorer', 'previous', lang)}
           </button>
-          <span className="px-4 text-[16px] tracking-[-0.01em] text-varindo-mid">
+          <span className="px-4 text-[14px] tracking-[-0.016em] text-varindo-mid">
             {t('explorer', 'page', lang)} <span className="text-varindo-ink">{safePage}</span> {t('explorer', 'of', lang)} {totalPages}
           </span>
           <button type="button" onClick={() => goToPage(safePage + 1)} disabled={safePage === totalPages}

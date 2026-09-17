@@ -175,10 +175,10 @@ export function AiChat() {
                 </svg>
               </div>
               <div>
-                <p className="text-[16px] font-normal leading-tight tracking-[-0.01em] text-varindo-ink">
+                <p className="text-[17px] font-semibold leading-tight tracking-[-0.022em] text-varindo-ink">
                   VIA
                 </p>
-                <p className="text-[12px] tracking-[-0.01em] text-varindo-mid">
+                <p className="text-[12px] tracking-[-0.012em] text-varindo-mid">
                   Online
                 </p>
               </div>
@@ -186,7 +186,7 @@ export function AiChat() {
             <div className="flex items-center gap-2">
               {/* WhatsApp handoff */}
               <a href={waUrl} target="_blank" rel="noreferrer"
-                className="flex items-center gap-1.5 rounded-pill bg-varindo-canvas px-3 py-1.5 text-[12px] tracking-[-0.01em] text-varindo-deep transition-colors hover:bg-varindo-wash">
+                className="flex items-center gap-1.5 rounded-pill bg-varindo-canvas px-3 py-1.5 text-[12px] tracking-[-0.012em] text-varindo-deep transition-colors hover:bg-varindo-wash">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.19 1.6 6L0 24l6.19-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52z"/>
                 </svg>
@@ -208,10 +208,10 @@ export function AiChat() {
               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {msg.role === 'assistant' && (
                   <div className="mr-2 mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-pill bg-varindo-ink">
-                    <span className="text-[12px] font-normal text-white">V</span>
+                    <span className="text-[10px] font-semibold text-white">V</span>
                   </div>
                 )}
-                <div className={`max-w-[82%] rounded-xl2 px-4 py-2.5 text-[16px] leading-6 ${
+                <div className={`max-w-[82%] rounded-[18px] px-4 py-2.5 text-[14px] leading-6 ${
                   msg.role === 'user'
                     ? 'bg-varindo-blue text-white'
                     : 'bg-white text-varindo-ink'
@@ -225,9 +225,9 @@ export function AiChat() {
             {status === 'loading' && (
               <div className="flex justify-start">
                 <div className="mr-2 mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-pill bg-varindo-ink">
-                  <span className="text-[12px] font-normal text-white">V</span>
+                  <span className="text-[10px] font-semibold text-white">V</span>
                 </div>
-                <div className="rounded-xl2 bg-white">
+                <div className="rounded-[18px] bg-white">
                   <TypingDots />
                 </div>
               </div>
@@ -236,7 +236,7 @@ export function AiChat() {
             {/* Error */}
             {status === 'error' && (
               <div className="flex justify-start">
-                <div className="rounded-xl2 bg-white px-4 py-2.5 text-[16px] text-varindo-ember">
+                <div className="rounded-[18px] bg-white px-4 py-2.5 text-[14px] text-varindo-ember">
                   {lang === 'id'
                     ? 'Maaf, terjadi kesalahan. Silakan coba lagi atau hubungi tim kami.'
                     : 'Sorry, something went wrong. Please try again or contact our team.'}
@@ -272,10 +272,10 @@ export function AiChat() {
               onKeyDown={handleKeyDown}
               placeholder={lang === 'id' ? 'Ketik pertanyaan Anda…' : 'Type your question…'}
               disabled={status === 'loading'}
-              className="h-11 flex-1 rounded-pill bg-varindo-canvas px-4 text-[16px] tracking-[-0.01em] text-varindo-ink outline-none placeholder:text-varindo-400 disabled:opacity-50"
+              className="h-11 flex-1 rounded-pill bg-varindo-canvas px-4 text-[14px] tracking-[-0.016em] text-varindo-ink outline-none placeholder:text-varindo-400 disabled:opacity-50"
             />
             <button type="submit" disabled={!input.trim() || status === 'loading'}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-pill bg-varindo-blue text-white transition-colors hover:bg-varindo-ink disabled:cursor-not-allowed disabled:opacity-40">
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-pill bg-varindo-blue text-white transition-colors hover:bg-[#3d3d3d] disabled:cursor-not-allowed disabled:opacity-40">
               <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                 <path d="M17.5 2.5L9.167 10.833M17.5 2.5L12.5 17.5l-3.333-6.667L2.5 7.5l15-5z"
                   stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -299,7 +299,7 @@ export function AiChat() {
         onClick={() => { if (open) sendTranscript(); setOpen(v => !v); }}
         aria-label={lang === 'id' ? 'Buka asisten AI' : 'Open AI assistant'}
         className={`fixed bottom-5 right-4 sm:right-6 z-[200] flex h-14 w-14 items-center justify-center rounded-pill shadow-luxury transition-colors duration-200 ${
-          open ? 'bg-varindo-ink' : 'bg-varindo-blue hover:bg-varindo-ink'
+          open ? 'bg-varindo-ink' : 'bg-varindo-blue hover:bg-[#3d3d3d]'
         }`}>
         {open ? (
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">

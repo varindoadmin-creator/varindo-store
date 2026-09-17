@@ -4,9 +4,8 @@ A responsive Node.js / Next.js catalog for Varindo's Lamitak-focused public prod
 
 ## Design direction
 
-- Achromatic editorial system (Acolorbright reference): paper-white and
-  near-black only, one typeface (Inter Tight) at weight 400, no shadows,
-  12px image radii, 8px buttons, numbered chapters on the home page
+- Near-monochrome, Apple-leaning canvas: white and #f5f5f7 bands, SF Pro
+  with Inter as the fallback, 28px card radii, pill buttons, centred hero
 - Responsive mobile, tablet, and desktop layouts
 - Clean product cards: product image, exact product name, and price only
 - WhatsApp-first enquiry flow instead of cart checkout

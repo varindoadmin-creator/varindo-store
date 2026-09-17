@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter_Tight } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -9,13 +9,13 @@ import { AiChatLoader } from '@/components/AiChatLoader';
 import { GoogleAdsTag } from '@/components/GoogleAdsTag';
 import { buildOrganizationJsonLd, buildLocalBusinessJsonLd } from '@/lib/structured-data';
 
-// Inter Tight stands in for the reference's RiformaLLWeb. One weight only:
-// hierarchy comes from size and tracking, never boldness.
-const interTight = Inter_Tight({
+// SF Pro is used where it exists (Apple hardware); Inter is the stand-in
+// everywhere else so the type keeps the same proportions and tracking.
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['400'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
-  variable: '--font-inter-tight'
+  variable: '--font-inter'
 });
 
 export const metadata: Metadata = {
@@ -63,7 +63,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id" className={interTight.variable}>
+    <html lang="id" className={inter.variable}>
       <body className="min-h-screen bg-white font-sans antialiased">
         <GoogleAdsTag />
         <JsonLd data={buildOrganizationJsonLd()} />
