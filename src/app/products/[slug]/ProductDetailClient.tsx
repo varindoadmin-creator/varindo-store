@@ -42,8 +42,8 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
   return (
     <div>
       {/* Breadcrumb — mirrors the BreadcrumbList JSON-LD (Beranda › Katalog › Koleksi › Produk) */}
-      <div className="bg-varindo-canvas">
-        <nav aria-label="Breadcrumb" className="shell flex flex-wrap items-center gap-2 py-4 text-[12px] tracking-[-0.012em]">
+      <div className="border-b border-varindo-line bg-varindo-canvas">
+        <nav aria-label="Breadcrumb" className="mono shell flex flex-wrap items-center gap-2 py-3 text-[11px] uppercase tracking-[0.06em]">
           <Link href="/" className="text-varindo-mid transition-colors hover:text-varindo-ink">
             {t('detail', 'breadcrumbHome', lang)}
           </Link>
@@ -64,29 +64,32 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
         </nav>
       </div>
 
-      {/* Main */}
-      <div className="shell py-10 sm:py-14">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:items-start">
+      {/* Main. The swatch is the reference the whole page is about, so on
+          desktop it stays pinned while the description and the spec table
+          scroll past it — you can read a dimension without losing sight of
+          the surface it belongs to. */}
+      <div className="shell py-8 sm:py-12">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-14">
 
           {/* Image */}
-          <div>
+          <div className="lg:sticky lg:top-24">
             <ProductImageZoom
               src={product.imageUrl || ''}
               imageUrls={product.imageUrlCandidates || []}
               downloadHref={`/api/products/${product.slug}/image`}
               alt={imageAlt}
             />
-            <p className="mt-5 max-w-md text-[12px] leading-[1.5] text-varindo-mid">
+            <p className="mt-4 max-w-md text-[13px] leading-[1.5] text-varindo-mid">
               {t('detail', 'colourNote', lang)}
             </p>
           </div>
 
           {/* Details */}
           <div>
-            <div className="flex items-center gap-3 mb-3">
+            <div className="mb-3 flex items-center gap-4">
               <p className="eyebrow text-varindo-mid">{product.brand || 'Lamitak'}</p>
               <Link href="/otorisasi"
-                className="inline-flex items-center gap-1 text-[14px] tracking-[-0.016em] text-varindo-link transition-colors hover:underline">
+                className="mono inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.06em] text-varindo-link transition-colors hover:underline">
                 <svg width="11" height="11" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <path d="M4 10.5L8 14.5L16 5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -94,16 +97,28 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
               </Link>
             </div>
             {/* Product name — NEVER translated */}
-            <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] mb-6">{product.name}</h1>
+            {/* Product names arrive from the catalogue in full caps. Fraunces
+                at 42px and -0.012em tracking turned that into a wall; caps
+                need a little air, and a lower optical size keeps the strokes
+                from going hairline-thin. */}
+            <h1 className="display mb-4 text-[26px] leading-[1.15] tracking-[0.004em] text-varindo-ink [font-variation-settings:'opsz'_40,'SOFT'_12,'WONK'_0] sm:text-[34px]">{product.name}</h1>
 
-            <div className="mb-8">
-              <span className="display text-[32px] text-varindo-ink">{formatIDR(product.price)}</span>
-              <p className="mt-1 text-[17px] tracking-[-0.022em] text-varindo-mid">
+            {/* The article code is what gets written on an order, so it sits
+                with the price rather than buried mid-way down the spec table. */}
+            {product.code && (
+              <p className="mono mb-5 inline-flex items-center rounded-ctl border border-varindo-line bg-varindo-canvas px-2.5 py-1 text-[12px] font-medium uppercase tracking-[0.08em] text-varindo-clay-ink">
+                {product.code}
+              </p>
+            )}
+
+            <div className="mb-7 border-y border-varindo-line py-5">
+              <span className="mono text-[28px] font-medium text-varindo-ink">{formatIDR(product.price)}</span>
+              <p className="mono mt-1 text-[12px] uppercase tracking-[0.06em] text-varindo-mid">
                 {t('detail', 'inclTax', lang)}
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 mb-10">
+            <div className="mb-8 flex flex-col gap-3 sm:flex-row">
               <a href={enquiryUrl} target="_blank" rel="noreferrer" className="btn-blue">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.19 1.6 6L0 24l6.19-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22c-1.85 0-3.66-.5-5.23-1.43l-.37-.22-3.87 1.02 1.03-3.77-.24-.38A9.93 9.93 0 0 1 2 12C2 6.49 6.49 2 12 2s10 4.49 10 10-4.49 10-10 10z"/>
@@ -115,34 +130,37 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
               </Link>
             </div>
 
-            <div className="mb-10">
+            <div className="mb-9">
               <Link href="/products" className="link-arrow">
                 {t('detail', 'backCatalog', lang)}
               </Link>
             </div>
 
             {/* Description — deterministic per-product copy, always Bahasa Indonesia */}
-            <div className="mb-5 rounded-card bg-varindo-canvas p-7">
-              <h2 className="mb-3 text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+            <div className="mb-4 rounded-card border border-varindo-line bg-varindo-canvas p-6">
+              <h2 className="label-marked mb-3">
                 {t('detail', 'descriptionTitle', lang)}
               </h2>
-              <p className="copy">{descriptionParagraph}</p>
-              <p className="copy mt-3">
-                <span className="text-varindo-ink">{t('detail', 'suitableFor', lang)}:</span> {suitableFor}.
+              <p className="copy text-[15px]">{descriptionParagraph}</p>
+              <p className="copy mt-3 text-[15px]">
+                <span className="font-medium text-varindo-ink">{t('detail', 'suitableFor', lang)}:</span> {suitableFor}.
               </p>
             </div>
 
             {/* Spec table */}
-            <div className="rounded-card bg-varindo-canvas p-7">
-              <h2 className="mb-4 text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+            {/* Every value is mono: these are the numbers a specifier
+                copies into a drawing, and tabular figures keep the column
+                aligned instead of drifting with the digit widths. */}
+            <div className="rounded-card border border-varindo-line bg-varindo-canvas p-6">
+              <h2 className="label-marked mb-4">
                 {t('detail', 'specsTitle', lang)}
               </h2>
               <dl>
                 {specs.map(([label, value], i) => (
                   <div key={label}
-                    className={`flex items-start gap-4 py-3 ${i !== specs.length - 1 ? 'border-b border-varindo-line/50' : ''}`}>
-                    <dt className="w-32 shrink-0 text-[14px] tracking-[-0.016em] text-varindo-mid">{label}</dt>
-                    <dd className="text-[17px] tracking-[-0.022em] text-varindo-ink">{value}</dd>
+                    className={`flex flex-col gap-0.5 py-2.5 sm:flex-row sm:items-baseline sm:gap-4 ${i !== specs.length - 1 ? 'border-b border-varindo-line' : ''}`}>
+                    <dt className="text-[13px] text-varindo-mid sm:w-36 sm:shrink-0">{label}</dt>
+                    <dd className="mono break-words text-[14px] text-varindo-ink">{value}</dd>
                   </div>
                 ))}
               </dl>

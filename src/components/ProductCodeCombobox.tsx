@@ -143,7 +143,7 @@ export function ProductCodeCombobox({ value, onChange, placeholder, rowIndex }: 
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl2 bg-white shadow-luxury">
+        <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl2 bg-varindo-paper shadow-luxury">
           <ul
             id={listboxId}
             ref={listRef}
@@ -174,7 +174,7 @@ export function ProductCodeCombobox({ value, onChange, placeholder, rowIndex }: 
             })}
           </ul>
           <div className="px-4 py-2 border-t border-varindo-line/40 bg-varindo-canvas">
-            <p className="text-[12px] text-varindo-mid tracking-[-0.016em]">
+            <p className="text-[12px] text-varindo-mid">
               {results.length === MAX_RESULTS ? `Showing top ${MAX_RESULTS} results` : `${results.length} result${results.length !== 1 ? 's' : ''}`}
               {' · '}Type to narrow
             </p>

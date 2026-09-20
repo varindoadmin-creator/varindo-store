@@ -9,7 +9,7 @@ export function ContactPageClient() {
 
   return (
     <div>
-      <div className="bg-white">
+      <div className="bg-varindo-paper">
         <div className="shell py-14 sm:py-20">
           <p className="label mb-4">{t('contact', 'badge', lang)}</p>
           <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px]">{t('contact', 'title', lang)}</h1>
@@ -19,7 +19,7 @@ export function ContactPageClient() {
       <div className="shell py-12 sm:py-16">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div>
-            <p className="text-[17px] leading-7 text-varindo-mid max-w-lg mb-10">{t('contact', 'intro', lang)}</p>
+            <p className="text-[16px] leading-7 text-varindo-mid max-w-lg mb-10">{t('contact', 'intro', lang)}</p>
             <div>
               <div className="mb-5">
                 <p className="label">{t('contact', 'companyLabel', lang)}</p>
@@ -60,11 +60,11 @@ export function ContactPageClient() {
               <div className="mt-5 grid gap-5 sm:grid-cols-2">
                 <div className="rounded-card bg-varindo-canvas p-6">
                   <p className="label mb-2">{t('contact', 'hours', lang)}</p>
-                  <p className="whitespace-pre-line text-[17px] tracking-[-0.022em] text-varindo-deep">{t('contact', 'hoursValue', lang)}</p>
+                  <p className="whitespace-pre-line text-[16px] text-varindo-deep">{t('contact', 'hoursValue', lang)}</p>
                 </div>
                 <div className="rounded-card bg-varindo-canvas p-6">
                   <p className="label mb-2">{t('contact', 'email', lang)}</p>
-                  <a href="mailto:contact@varindo.co.id" className="link-quiet text-[17px] tracking-[-0.022em]">
+                  <a href="mailto:contact@varindo.co.id" className="link-quiet text-[16px]">
                     contact@varindo.co.id
                   </a>
                 </div>
@@ -75,7 +75,7 @@ export function ContactPageClient() {
           <aside className="rounded-card bg-varindo-canvas p-8">
             <p className="label mb-4">WhatsApp</p>
             <h2 className="display text-varindo-ink text-[32px] sm:text-[40px] mb-5">{t('contact', 'waTitle', lang)}</h2>
-            <p className="text-[17px] leading-7 text-varindo-mid mb-8">{t('contact', 'waBody', lang)}</p>
+            <p className="text-[16px] leading-7 text-varindo-mid mb-8">{t('contact', 'waBody', lang)}</p>
             <a href="https://wa.me/6281288885224" target="_blank" rel="noopener noreferrer"
               className="btn-blue mb-3 w-full justify-center">
               Chat → 0812 8888 5224

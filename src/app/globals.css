@@ -2,29 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design tokens ─────────────────────────────────────────── */
-/* Cathedral of white space: near-monochrome canvas, oversized type,
-   one accent tone, taken from the logo, for anything interactive.
-   Rhythm comes from
-   alternating #ffffff / #f5f5f7 bands — never from borders or shadows. */
+/* ─── Design tokens ─────────────────────────────────────────────
+   A material-forward specification tool, not a product showcase.
+
+   The catalogue is 787 laminates and the people reading it are
+   specifiers comparing surfaces. So the interface owns no colour of
+   its own beyond warm paper and one clay accent: every hue on screen
+   should be coming off a swatch. Structure is carried by hairlines
+   and a tight vertical rhythm rather than by 120px of empty band, and
+   anything a specifier writes down — code, price, size, thickness —
+   is set in mono so it reads as data, not as prose.               */
 :root {
   color-scheme: light;
 
-  /* Core palette */
-  --c-paper:    #ffffff;  /* primary canvas + card surfaces          */
-  --c-canvas:   #f5f5f7;  /* alternating band, footer, soft fills    */
-  --c-wash:     #e8e8ed;  /* hover state on light buttons            */
-  --c-nav:      #fafafc;  /* elevated nav surface on scroll          */
-  --c-line:     #d6d6d6;  /* hairline — used sparingly               */
-  --c-ink:      #1d1d1f;  /* headlines, body, button labels          */
-  --c-deep:     #474747;  /* nav + medium-emphasis text              */
-  --c-mid:      #707070;  /* secondary text, muted labels            */
-  --c-ink-60:   rgba(29, 29, 31, 0.60);
-  --c-ink-30:   rgba(29, 29, 31, 0.30);
-  --c-accent:   #282828;  /* the logo tone — filled CTAs and links   */
-  --c-blue:     var(--c-accent);  /* legacy name for the accent      */
-  --c-link:     var(--c-accent);  /* inline links, arrow links       */
-  --c-ember:    #b64400;  /* "Baru" badge, at most once per page     */
+  /* Warm neutrals — paper, not screen-white. The swatches are
+     photographed on warm grounds and read yellow against #ffffff. */
+  --c-paper:    #fbfaf8;  /* primary canvas + card surfaces          */
+  --c-canvas:   #f2efe9;  /* recessed band, footer, soft fills       */
+  --c-wash:     #e7e2d7;  /* hover on light fills, active chips      */
+  --c-nav:      #fbfaf8;  /* nav surface (alpha applied at use site) */
+  --c-line:     #ded7c8;  /* hairline — now load-bearing, used often */
+  --c-line-firm:#c9c0ad;  /* the heavier rule that opens a section   */
+  --c-ink:      #17150f;  /* headlines, body, spec values            */
+  --c-deep:     #4a453a;  /* nav links, medium-emphasis text         */
+  --c-mid:      #78715f;  /* secondary text, captions, labels        */
+  --c-ink-60:   rgba(23, 21, 15, 0.60);
+  --c-ink-30:   rgba(23, 21, 15, 0.30);
+
+  /* Clay — the one accent. Two tones of a single hue: the fill tone
+     for solid CTAs (white on it clears AA at 5.1:1) and a darker ink
+     tone for links and icons on light ground, which the fill tone
+     alone would leave at 4.4:1 against the recessed band. */
+  --c-clay:      #b0532a;  /* filled CTAs, badges, active indicators */
+  --c-clay-deep: #8e411f;  /* hover / pressed on filled clay         */
+  --c-clay-ink:  #99461f;  /* link text + icons on paper or canvas   */
+  --c-clay-wash: #f7ede6;  /* tinted chip, selected filter row       */
+
+  --c-accent:   var(--c-clay);
+  --c-blue:     var(--c-clay);      /* legacy name for the accent    */
+  --c-link:     var(--c-clay-ink);  /* inline links, arrow links     */
+  --c-ember:    var(--c-clay);      /* "Baru" badge                  */
   --c-white:    #ffffff;
 
   /* Legacy aliases kept so older markup degrades into the new system */
@@ -33,22 +50,33 @@
   --c-gold:     var(--c-link);
   --c-gold-lt:  var(--c-canvas);
 
-  /* Typography — SF Pro on Apple hardware, Inter everywhere else */
-  --font-stack:
-    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text',
-    var(--font-inter), Inter, ui-sans-serif, system-ui, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
-  --font-display: var(--font-stack);
-  --font-body:    var(--font-stack);
+  /* Typography
+     Fraunces  — display. A variable serif with optical sizing, so
+                 headlines get real contrast instead of a heavier sans.
+     Instrument Sans — UI and body. A grotesque that sits at its own
+                 natural tracking; the old -0.022em Apple tracking is
+                 gone with the typeface that needed it.
+     JetBrains Mono — codes, prices, dimensions. Tabular by design, so
+                 spec tables and price columns align down the page. */
+  --font-display: var(--font-fraunces), 'Fraunces', ui-serif, Georgia,
+                  'Times New Roman', serif;
+  --font-body:    var(--font-instrument), 'Instrument Sans', ui-sans-serif,
+                  system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:    var(--font-jetbrains), 'JetBrains Mono', ui-monospace,
+                  SFMono-Regular, Menlo, monospace;
+  --font-stack:   var(--font-body);  /* legacy name */
 
-  /* Radii */
-  --r-card:   28px;
-  --r-inner:  18px;
-  --r-link:   10px;
-  --r-pill:   980px;
+  /* Radii — 8 / 12 / 16. Nothing on this site is a lozenge any more
+     except the genuinely circular controls (chat launcher, avatars). */
+  --r-card:   16px;
+  --r-inner:  12px;
+  --r-ctl:     8px;
+  --r-link:    8px;
+  --r-pill:  980px;
 
-  /* Spacing rhythm — 100–120px between content bands */
-  --space-section: clamp(4rem, 8vw, 7.5rem);
+  /* Spacing rhythm — 64–72px between bands, down from 100–120.
+     The catalogue is dense; the chrome around it should be too. */
+  --space-section: clamp(4rem, 6vw, 4.5rem);
 }
 
 /* ─── Reset & base ──────────────────────────────────────────── */
@@ -66,15 +94,14 @@ body {
   background-color: var(--c-paper);
   color: var(--c-ink);
   font-family: var(--font-body);
-  font-size: 17px;
-  line-height: 1.47;
-  letter-spacing: -0.022em;
-  font-variant-numeric: tabular-nums;
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: 0;
 }
 
 ::selection {
-  background: var(--c-ink);
-  color: white;
+  background: var(--c-clay);
+  color: #fff;
 }
 
 img { -webkit-user-drag: none; }
@@ -82,130 +109,167 @@ img { -webkit-user-drag: none; }
 /* ─── Scrollbar (webkit) ────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--c-canvas); }
-::-webkit-scrollbar-thumb { background: #c7c7cc; border-radius: 999px; }
+::-webkit-scrollbar-thumb { background: var(--c-line-firm); border-radius: 999px; }
 
 /* ─── Component layer ───────────────────────────────────────── */
 @layer components {
 
-  /* Layout shell — 1200px of content inside a full-bleed band */
+  /* Layout shell — 1240px of content inside a full-bleed band */
   .shell {
-    @apply mx-auto w-full max-w-[1200px] px-5 sm:px-8 lg:px-10;
+    @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10;
   }
 
-  /* Content band — sections alternate paper / canvas, no dividers */
-  .band      { @apply bg-white; }
+  /* Content bands. Paper is the default ground; canvas recesses a
+     band. A hairline at the top of a band does the work the old
+     120px of padding was doing, at a fifth of the scroll distance. */
+  .band      { @apply bg-varindo-paper; }
   .band-alt  { @apply bg-varindo-canvas; }
   .band-pad  { @apply py-[var(--space-section)]; }
+  .band-line { @apply border-t border-varindo-line; }
 
-  /* Eyebrow — the quiet line that sits above a headline.
-     No small-caps, no letterspacing gymnastics: just calm grey text. */
+  /* Eyebrow / label — the spec-sheet motif. Mono, uppercase, wide.
+     This is the single strongest signal that the page is a technical
+     document, and it costs one line of type per section. */
   .label {
-    @apply text-[14px] font-normal tracking-[-0.016em] text-varindo-mid;
+    font-family: var(--font-mono);
+    @apply text-[11px] font-medium uppercase leading-none tracking-[0.12em] text-varindo-mid;
   }
 
   .eyebrow {
-    @apply text-[17px] font-normal tracking-[-0.022em] text-varindo-ink;
+    font-family: var(--font-mono);
+    @apply text-[11px] font-medium uppercase leading-none tracking-[0.12em] text-varindo-mid;
   }
 
-  /* Display headline — weight 600, tight negative tracking */
+  /* A label with the clay tick that marks the start of a section */
+  .label-marked {
+    @apply label flex items-center gap-2 before:block before:h-[7px] before:w-[7px]
+           before:bg-varindo-clay before:content-[''];
+  }
+
+  /* Display headline — Fraunces, optical size pushed up so the
+     serifs stay crisp at headline sizes rather than thickening. */
   .display {
     font-family: var(--font-display);
-    @apply font-semibold tracking-[-0.015em] leading-[1.06];
+    font-variation-settings: 'opsz' 96, 'SOFT' 12, 'WONK' 0;
+    @apply font-semibold leading-[1.04] tracking-[-0.012em];
   }
 
-  /* Section heading — mid-size type opens up slightly, reads warmer */
+  /* Section heading — same face, lower optical size, opens up */
   .section-title {
     font-family: var(--font-display);
-    @apply text-[28px] sm:text-[32px] font-semibold tracking-[0.007em] leading-[1.14] text-varindo-ink;
+    font-variation-settings: 'opsz' 40, 'SOFT' 12, 'WONK' 0;
+    @apply text-[26px] font-semibold leading-[1.14] tracking-[-0.008em] text-varindo-ink sm:text-[32px];
   }
 
-  /* Body copy — the 17px workhorse */
+  /* Body copy — 16px workhorse, natural tracking */
   .copy {
-    @apply text-[17px] leading-[1.47] tracking-[-0.022em] text-varindo-mid;
+    @apply text-[16px] leading-[1.6] text-varindo-mid;
   }
 
-  /* Divider — kept for legacy call sites, rendered as a whisper */
+  /* Spec data — every code, price, dimension and thickness. Tabular
+     figures so a column of prices lines up on the decimal. */
+  .mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    @apply tracking-[-0.01em];
+  }
+
+  /* Divider */
   .rule {
-    @apply border-t border-varindo-line/60;
+    @apply border-t border-varindo-line;
   }
 
-  /* Primary CTA — the accent fill, in the logo's own tone */
+  /* Primary CTA — the clay fill */
   .btn-blue {
-    @apply inline-flex items-center justify-center gap-2 rounded-pill
-           bg-varindo-blue px-[18px] py-[11px]
-           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-white
+    @apply inline-flex items-center justify-center gap-2 rounded-ctl
+           bg-varindo-clay px-5 py-[11px]
+           text-[15px] font-medium leading-[1.3] text-white
            transition-colors duration-200
-           hover:bg-[#3d3d3d] focus-visible:outline focus-visible:outline-2
-           focus-visible:outline-offset-2 focus-visible:outline-varindo-accent;
+           hover:bg-varindo-clay-deep focus-visible:outline focus-visible:outline-2
+           focus-visible:outline-offset-2 focus-visible:outline-varindo-clay;
   }
 
-  /* Ink fill — the same accent, kept as its own name for older markup.
-     Both filled pills share one tone so no two CTAs sit a few shades
-     apart on the same page. */
+  /* Ink fill — the dark counterpart, for a second CTA on a band that
+     already carries a clay one. Kept as its own name for old markup. */
   .btn-ink {
-    @apply inline-flex items-center justify-center gap-2 rounded-pill
-           bg-varindo-blue px-[18px] py-[11px]
-           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-white
+    @apply inline-flex items-center justify-center gap-2 rounded-ctl
+           bg-varindo-ink px-5 py-[11px]
+           text-[15px] font-medium leading-[1.3] text-white
            transition-colors duration-200
-           hover:bg-[#3d3d3d];
+           hover:bg-varindo-deep focus-visible:outline focus-visible:outline-2
+           focus-visible:outline-offset-2 focus-visible:outline-varindo-ink;
   }
 
-  /* Ghost pill — medium emphasis on light ground */
+  /* Ghost — medium emphasis on light ground, hairline edge */
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-pill
-           border border-varindo-ink/80 bg-transparent px-[18px] py-[11px]
-           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-varindo-ink
+    @apply inline-flex items-center justify-center gap-2 rounded-ctl
+           border border-varindo-line-firm bg-transparent px-5 py-[11px]
+           text-[15px] font-medium leading-[1.3] text-varindo-ink
            transition-colors duration-200
-           hover:bg-varindo-wash;
+           hover:border-varindo-ink hover:bg-varindo-wash;
   }
 
-  /* Ghost pill on dark or photographic ground */
+  /* Ghost on dark or photographic ground */
   .btn-ghost-white {
-    @apply inline-flex items-center justify-center gap-2 rounded-pill
-           border border-white/70 bg-transparent px-[18px] py-[11px]
-           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-white
+    @apply inline-flex items-center justify-center gap-2 rounded-ctl
+           border border-white/70 bg-transparent px-5 py-[11px]
+           text-[15px] font-medium leading-[1.3] text-white
            transition-colors duration-200
            hover:bg-white hover:text-varindo-ink;
   }
 
-  /* Soft pill — low emphasis chip on canvas */
+  /* Soft — low emphasis chip on canvas */
   .btn-soft {
-    @apply inline-flex items-center justify-center gap-2 rounded-pill
-           bg-varindo-wash px-[18px] py-[11px]
-           text-[17px] font-normal leading-[1.24] tracking-[-0.022em] text-varindo-ink
-           transition-colors duration-200 hover:bg-[#dcdce2];
+    @apply inline-flex items-center justify-center gap-2 rounded-ctl
+           bg-varindo-wash px-5 py-[11px]
+           text-[15px] font-medium leading-[1.3] text-varindo-ink
+           transition-colors duration-200 hover:bg-varindo-line;
   }
 
-  /* Inline directional link — the chevron carries the affordance now
-     that the accent sits a few shades off the body ink */
+  /* Filter chip — the catalogue rail's unit. Mono, so the filter
+     vocabulary reads in the same voice as the spec data it filters. */
+  .chip {
+    font-family: var(--font-mono);
+    @apply inline-flex shrink-0 items-center gap-1.5 rounded-ctl border border-varindo-line
+           bg-varindo-paper px-3 py-2 text-[12px] font-medium uppercase
+           tracking-[0.06em] text-varindo-deep transition-colors duration-150
+           hover:border-varindo-line-firm hover:bg-varindo-canvas;
+  }
+
+  .chip-on {
+    @apply chip border-varindo-clay bg-varindo-clay-wash text-varindo-clay-ink
+           hover:border-varindo-clay hover:bg-varindo-clay-wash;
+  }
+
+  /* Inline directional link — clay, so a link reads as a link */
   .link-arrow {
-    @apply inline-flex items-center gap-1 text-[17px] tracking-[-0.022em]
-           text-varindo-link transition-colors hover:underline;
+    @apply inline-flex items-center gap-1 text-[15px] font-medium text-varindo-link
+           transition-colors hover:text-varindo-clay-deep hover:underline
+           underline-offset-[3px];
   }
 
-  /* Inline body link — underlined always, since its colour no longer
-     sets it apart from the text around it */
+  /* Inline body link */
   .link-quiet {
-    @apply text-varindo-link underline underline-offset-2 transition-colors
-           hover:text-varindo-ink;
+    @apply text-varindo-link underline underline-offset-[3px] transition-colors
+           hover:text-varindo-clay-deep;
   }
 
-  /* Card — 28px radius, no stroke, no shadow */
+  /* Card — 16px radius, hairline edge instead of a shadow */
   .surface-card {
-    @apply rounded-card bg-white transition-colors duration-300;
+    @apply rounded-card border border-varindo-line bg-varindo-paper transition-colors duration-200;
   }
 
   .surface-card-alt {
-    @apply rounded-card bg-varindo-canvas transition-colors duration-300;
+    @apply rounded-card border border-varindo-line bg-varindo-canvas transition-colors duration-200;
   }
 
-  /* Form control — white plate, hairline edge, accent on focus */
+  /* Form control */
   .field {
-    @apply h-12 w-full rounded-xl2 border border-varindo-line/70 bg-white px-4
-           text-[17px] tracking-[-0.022em] text-varindo-ink outline-none
-           transition-all duration-150
-           placeholder:text-varindo-400
-           focus:border-varindo-blue focus:ring-0;
+    @apply h-11 w-full rounded-ctl border border-varindo-line bg-varindo-paper px-3.5
+           text-[15px] text-varindo-ink outline-none
+           transition-colors duration-150
+           placeholder:text-varindo-mid
+           focus:border-varindo-clay focus:ring-0;
   }
 
   .field-select {
@@ -214,8 +278,11 @@ img { -webkit-user-drag: none; }
 }
 
 /* ─── Animations ────────────────────────────────────────────── */
+/* The reveal is now a 10px lift over 0.4s. At 16px and 0.55s, with
+   sections 120px apart, the page read as a sequence of empty screens
+   waiting to be filled in. */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -224,12 +291,12 @@ img { -webkit-user-drag: none; }
   to   { opacity: 1; }
 }
 
-.animate-fade-up   { animation: fade-up  0.55s ease both; }
-.animate-fade-in   { animation: fade-in  0.4s  ease both; }
-.delay-100 { animation-delay: 0.10s; }
-.delay-200 { animation-delay: 0.20s; }
-.delay-300 { animation-delay: 0.30s; }
-.delay-400 { animation-delay: 0.40s; }
+.animate-fade-up   { animation: fade-up  0.4s  cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fade-in   { animation: fade-in  0.3s  ease both; }
+.delay-100 { animation-delay: 0.06s; }
+.delay-200 { animation-delay: 0.12s; }
+.delay-300 { animation-delay: 0.18s; }
+.delay-400 { animation-delay: 0.24s; }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-up, .animate-fade-in {

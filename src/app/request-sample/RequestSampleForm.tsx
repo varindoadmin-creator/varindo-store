@@ -70,7 +70,7 @@ export function RequestSampleForm({ products, initialCode }: { products: Product
             <h2 className="display text-varindo-ink text-[32px] sm:text-[40px] mb-4">
               {t('forms', 'sampleSuccessTitle', lang)}
             </h2>
-            <p className="text-[17px] leading-7 text-varindo-mid max-w-sm mx-auto">
+            <p className="text-[16px] leading-7 text-varindo-mid max-w-sm mx-auto">
               {t('forms', 'sampleSuccessBody', lang, { n: filledCount, phone })}
             </p>
           </div>
@@ -83,7 +83,7 @@ export function RequestSampleForm({ products, initialCode }: { products: Product
             <div className="divide-y divide-varindo-line/60">
               {filled.map((s, i) => (
                 <div key={i} className="flex items-baseline gap-3 px-5 py-3">
-                  <span className="text-[12px] tracking-[-0.016em] text-varindo-mid w-4 shrink-0">{i + 1}</span>
+                  <span className="text-[12px] text-varindo-mid w-4 shrink-0">{i + 1}</span>
                   <span className="text-[14px] font-medium text-varindo-ink">{s}</span>
                 </div>
               ))}
@@ -105,7 +105,7 @@ export function RequestSampleForm({ products, initialCode }: { products: Product
           {t('forms', 'sampleFormTitle', lang)}
         </p>
         {filledCount > 0 && (
-          <span className="text-[12px] font-semibold tracking-[-0.016em] text-varindo-link">
+          <span className="text-[12px] font-semibold text-varindo-link">
             {t('forms', 'itemsOf', lang, { n: filledCount, max: MAX })}
           </span>
         )}
@@ -117,7 +117,7 @@ export function RequestSampleForm({ products, initialCode }: { products: Product
           <span className="label mb-3 block">
             {t('forms', 'sampleSlotLabel', lang)} <span className="text-varindo-ember">*</span>
           </span>
-          <div className="overflow-hidden rounded-xl2 bg-white divide-y divide-varindo-line/60">
+          <div className="overflow-hidden rounded-xl2 bg-varindo-paper divide-y divide-varindo-line/60">
             {samples.map((val, i) => (
               <div key={i} className="flex items-center">
                 <span className="w-10 text-center text-[12px] font-medium text-varindo-mid shrink-0 border-r border-varindo-line/40 py-3">

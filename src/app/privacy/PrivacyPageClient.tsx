@@ -7,7 +7,7 @@ export function PrivacyPageClient() {
 
   return (
     <div>
-      <div className="bg-white">
+      <div className="bg-varindo-paper">
         <div className="shell py-14 sm:py-20">
           <p className="label mb-4">
             {lang === 'id' ? 'Legal' : 'Legal'}
@@ -24,7 +24,7 @@ export function PrivacyPageClient() {
       </div>
 
       <div className="shell py-12 sm:py-16 max-w-3xl">
-        <div className="prose-varindo space-y-8 text-[17px] leading-8 text-varindo-mid">
+        <div className="prose-varindo space-y-8 text-[16px] leading-8 text-varindo-mid">
 
           {lang === 'id' ? (
             <>

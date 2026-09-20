@@ -25,7 +25,12 @@ export function Reveal({
           observer.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      // A tall section only crossed 15% of its own height once it was
+      // most of the way up the viewport, so grids and section heads sat
+      // invisible until well after they had scrolled into view. Fire on
+      // first contact instead, with a margin that starts the animation
+      // just before the element's top edge arrives.
+      { threshold: 0, rootMargin: '0px 0px -80px 0px' }
     );
 
     observer.observe(el);

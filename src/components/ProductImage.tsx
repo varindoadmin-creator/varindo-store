@@ -16,8 +16,8 @@ export function ProductImage({ src, alt, priority = false, imageUrls = [] }: {
   if (!currentSrc || index >= candidates.length) {
     return (
       <div className="flex h-full min-h-[220px] w-full flex-col items-center justify-center bg-varindo-canvas p-8 text-center gap-2">
-        <div className="mb-2 h-12 w-12 rounded-[10px] bg-varindo-line/60" />
-        <p className="text-[14px] tracking-[-0.016em] text-varindo-mid">
+        <div className="mb-2 h-12 w-12 rounded-ctl bg-varindo-line" />
+        <p className="mono text-[11px] uppercase tracking-[0.06em] text-varindo-mid">
           {t('imagePlaceholder', 'label', lang)}
         </p>
       </div>

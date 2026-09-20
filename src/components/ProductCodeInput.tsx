@@ -99,7 +99,7 @@ export function ProductCodeInput({ products, value, onChange, placeholder, input
       />
 
       {open && results.length > 0 && (
-        <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl2 bg-white shadow-luxury">
+        <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl2 bg-varindo-paper shadow-luxury">
           <ul ref={listRef} role="listbox" className="max-h-[260px] overflow-y-auto divide-y divide-varindo-line/40">
             {results.map((p, i) => (
               <li key={p.code} role="option" aria-selected={i === cursor}
@@ -109,7 +109,7 @@ export function ProductCodeInput({ products, value, onChange, placeholder, input
                 <span className="text-[14px] font-semibold text-varindo-ink shrink-0">{p.code}</span>
                 <span className="text-[12px] text-varindo-mid truncate">{p.design || p.name}</span>
                 {p.collection && (
-                  <span className="ml-auto text-[12px] tracking-[-0.016em] text-varindo-mid shrink-0">{p.collection}</span>
+                  <span className="ml-auto text-[12px] text-varindo-mid shrink-0">{p.collection}</span>
                 )}
               </li>
             ))}
@@ -123,7 +123,7 @@ export function ProductCodeInput({ products, value, onChange, placeholder, input
       )}
 
       {open && query.trim().length >= 2 && results.length === 0 && (
-        <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl2 bg-white shadow-luxury px-4 py-3">
+        <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl2 bg-varindo-paper shadow-luxury px-4 py-3">
           <p className="text-[14px] text-varindo-mid">
             {t('autocomplete', 'noResults', lang)} <span className="font-medium text-varindo-ink">"{query}"</span>
           </p>

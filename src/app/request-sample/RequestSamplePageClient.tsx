@@ -14,13 +14,13 @@ export function RequestSamplePage({ products, initialCode }: { products: Product
 
   return (
     <div>
-      <div className="bg-white">
+      <div className="bg-varindo-paper">
         <div className="shell py-14 sm:py-20">
           <p className="label mb-4">{t('forms', 'sampleBadge', lang)}</p>
           <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px] whitespace-pre-line">
             {t('forms', 'sampleTitle', lang)}
           </h1>
-          <p className="mt-5 text-[17px] leading-7 text-varindo-mid max-w-lg">
+          <p className="mt-5 text-[16px] leading-7 text-varindo-mid max-w-lg">
             {t('forms', 'sampleSubtitle', lang)}
           </p>
         </div>

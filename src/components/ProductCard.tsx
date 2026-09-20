@@ -8,33 +8,37 @@ import { ProductImage } from './ProductImage';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
-/* Borderless, shadowless: a 28px-rounded image plate with the caption
-   sitting on open canvas beneath it. The laminate provides the colour. */
+/* A specimen card, not a shop tile: the swatch is square and full-bleed
+   inside a hairline plate, and everything a specifier writes down — the
+   article code, the price — is mono. The code sits above the name because
+   it is what gets typed into an order; the name is how you recognise it. */
 export function ProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
   const { lang } = useLang();
 
   return (
     <article className="group">
       <Link href={`/products/${product.slug}`} aria-label={product.name} className="block">
-        <div className="relative aspect-square overflow-hidden rounded-card bg-varindo-canvas">
+        <div className="relative aspect-square overflow-hidden rounded-card border border-varindo-line bg-varindo-canvas transition-colors duration-200 group-hover:border-varindo-line-firm">
           <ProductImage src={product.imageUrl || ''} imageUrls={product.imageUrlCandidates || []} alt={buildProductImageAlt(product)} priority={priority} />
         </div>
       </Link>
 
-      <div className="px-1 pt-4">
+      <div className="pt-3.5">
         {product.code && (
-          <p className="mb-1 text-[12px] tracking-[-0.01em] text-varindo-mid">{product.code}</p>
+          <p className="mono mb-1.5 text-[11px] font-medium uppercase tracking-[0.08em] text-varindo-clay-ink">
+            {product.code}
+          </p>
         )}
         <Link href={`/products/${product.slug}`}
-          className="block min-h-[44px] text-[17px] font-semibold leading-[1.3] tracking-[-0.022em] text-varindo-ink transition-colors line-clamp-2 group-hover:text-varindo-link">
+          className="block min-h-[42px] text-[15px] font-semibold leading-[1.35] text-varindo-ink transition-colors line-clamp-2 group-hover:text-varindo-link">
           {product.name}
         </Link>
         {product.finish && (
-          <p className="mt-1 text-[12px] tracking-[-0.01em] text-varindo-mid">{product.finish}</p>
+          <p className="mt-1 text-[13px] text-varindo-mid">{product.finish}</p>
         )}
-        <p className="mt-3 text-[17px] tracking-[-0.022em] text-varindo-ink">
+        <p className="mono mt-2.5 flex items-baseline gap-1.5 text-[15px] text-varindo-ink">
           {formatIDR(product.price)}
-          <span className="ml-1.5 text-[12px] text-varindo-mid">{t('card', 'inclTax', lang)}</span>
+          <span className="text-[11px] font-normal text-varindo-mid">{t('card', 'inclTax', lang)}</span>
         </p>
       </div>
     </article>
