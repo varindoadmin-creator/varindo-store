@@ -173,7 +173,8 @@ export function ProductExplorer({ products, showCollectionTabs = true }: Props) 
       <div className="lg:grid lg:grid-cols-[228px_minmax(0,1fr)] lg:gap-10">
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="mb-4 flex items-center justify-between gap-3 border-b border-varindo-line pb-3">
+          {/* Desktop: a static header over an always-open rail. */}
+          <div className="mb-4 hidden items-center justify-between gap-3 border-b border-varindo-line pb-3 lg:flex">
             <span className="label">
               {t('explorer', 'filterTitle', lang)}
               {activeCount > 0 && <span className="ml-2 text-varindo-clay-ink">[{activeCount}]</span>}
@@ -186,19 +187,34 @@ export function ProductExplorer({ products, showCollectionTabs = true }: Props) 
           </div>
 
           {/* Below lg the rail collapses behind a disclosure so the grid
-              still starts in the first screenful on a phone. */}
+              still starts in the first screenful on a phone. The disclosure
+              IS the header here — carrying the same title and active count
+              as the desktop label, which would otherwise print twice. */}
           <button type="button" onClick={() => setRailOpen((v) => !v)}
             aria-expanded={railOpen}
             className="btn-ghost mb-4 w-full justify-between lg:hidden">
-            {t('explorer', 'filterTitle', lang)}
-            <span aria-hidden="true" className={`transition-transform ${railOpen ? 'rotate-180' : ''}`}>⌄</span>
+            <span>
+              {t('explorer', 'filterTitle', lang)}
+              {activeCount > 0 && <span className="mono ml-2 text-varindo-clay-ink">[{activeCount}]</span>}
+            </span>
+            <svg width="12" height="12" viewBox="0 0 10 10" fill="none" aria-hidden="true"
+              className={`transition-transform duration-200 ${railOpen ? 'rotate-180' : ''}`}>
+              <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
 
-          <div className={`${railOpen ? 'block' : 'hidden'} lg:block`}>{rail}</div>
+          <div className={`${railOpen ? 'block' : 'hidden'} lg:block`}>
+            {rail}
+            {hasFilters && (
+              <button onClick={clearFilters} className="link-arrow mt-6 lg:hidden">
+                {t('explorer', 'clearAll', lang)}
+              </button>
+            )}
+          </div>
         </aside>
 
         <div className="mt-8 lg:mt-0">
-          <p className="mono mb-5 border-b border-varindo-line pb-3 text-[13px] text-varindo-mid">
+          <p className="mono mb-5 border-b border-varindo-line pb-3 pr-16 text-[13px] leading-[1.5] text-varindo-mid sm:pr-0">
             <span className="text-varindo-ink">{filteredProducts.length}</span>
             {' '}{filteredProducts.length === 1 ? t('explorer', 'productFound', lang) : t('explorer', 'productsFound', lang)}
             {filteredProducts.length > 0 && (

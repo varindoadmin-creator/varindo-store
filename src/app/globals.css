@@ -111,6 +111,20 @@ img { -webkit-user-drag: none; }
 ::-webkit-scrollbar-track { background: var(--c-canvas); }
 ::-webkit-scrollbar-thumb { background: var(--c-line-firm); border-radius: 999px; }
 
+/* ─── Utilities ─────────────────────────────────────────────── */
+@layer utilities {
+  /* `scrollbar-none` was used on the horizontal tab strips but never
+     existed — Tailwind has no such class and this project loads no
+     scrollbar plugin, so it had always been a no-op. Harmless while the
+     scrollbar was the browser default; once the strips gained an
+     underline the styled 6px bar sat right on top of it. */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+}
+
 /* ─── Component layer ───────────────────────────────────────── */
 @layer components {
 
