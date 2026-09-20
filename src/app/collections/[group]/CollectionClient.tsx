@@ -69,7 +69,7 @@ export function CollectionClient({ group, products }: Props) {
       </div>
 
       {/* Collection tabs */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto scrollbar-none">
         <div className="shell flex gap-6 border-b border-varindo-line">
           {tabOrder.filter(g => groupConfig[g]).map((g) => (
             <Link key={g} href={`/collections/${g}`}
