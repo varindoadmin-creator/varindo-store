@@ -49,8 +49,11 @@ function ChipGroup({
     <div>
       <p className="label mb-2.5">{label}</p>
       <div className="flex flex-wrap gap-1.5">
+        {/* "All" is the absence of a filter, so it never wears clay — see
+            .chip-current. Once a real option is picked it drops to a plain
+            chip, because then it is the way back out. */}
         <button type="button" onClick={() => onChange('')}
-          className={value === '' ? 'chip-on' : 'chip'} aria-pressed={value === ''}>
+          className={value === '' ? 'chip-current' : 'chip'} aria-pressed={value === ''}>
           {allLabel}
         </button>
         {options.map((option) => (

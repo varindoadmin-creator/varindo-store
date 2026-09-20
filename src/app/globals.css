@@ -250,9 +250,21 @@ img { -webkit-user-drag: none; }
            hover:border-varindo-line-firm hover:bg-varindo-canvas;
   }
 
+  /* Clay means exactly one thing: this axis is narrowed. That is what the
+     [n] badge counts, so nothing else may wear it. */
   .chip-on {
     @apply chip border-varindo-clay bg-varindo-clay-wash text-varindo-clay-ink
            hover:border-varindo-clay hover:bg-varindo-clay-wash;
+  }
+
+  /* The resting state of an "All …" chip — current, but not a filter.
+     Given clay it read as a third active selection beside the two real
+     ones and contradicted the count next to the rail's title. Ink-weight
+     border on the recessed ground says "this is where you are" without
+     claiming the axis has been narrowed. */
+  .chip-current {
+    @apply chip border-varindo-line-firm bg-varindo-canvas text-varindo-ink
+           hover:border-varindo-ink hover:bg-varindo-wash;
   }
 
   /* Inline directional link — clay, so a link reads as a link */
