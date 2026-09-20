@@ -558,6 +558,19 @@ export const translations = {
     label: { id: 'Gambar segera hadir', en: 'Image coming soon' }
   },
 
+  // ── 404 ───────────────────────────────────────────────────────
+  notFound: {
+    code:  { id: 'Error 404', en: 'Error 404' },
+    title: { id: 'Halaman tidak ditemukan', en: 'Page not found' },
+    body: {
+      id: 'Tautan ini sudah tidak berlaku, atau kode produknya keliru. Coba cari lagi dari katalog.',
+      en: 'This link is no longer valid, or the product code is wrong. Try searching the catalogue again.'
+    },
+    searchLabel: { id: 'Cari produk', en: 'Search products' },
+    browseCta:   { id: 'Lihat Katalog', en: 'Browse Catalogue' },
+    homeCta:     { id: 'Kembali ke Beranda', en: 'Back to Home' }
+  },
+
 } as const;
 
 export type TranslationKey = keyof typeof translations;

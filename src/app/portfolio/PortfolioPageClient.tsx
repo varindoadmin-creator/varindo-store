@@ -11,16 +11,16 @@ export function PortfolioPageClient() {
 
   return (
     <div>
-      <div className="bg-white">
+      <div className="bg-varindo-paper">
         <div className="shell py-14 sm:py-20">
           <p className="label mb-4">{t('home', 'portfolioLabel', lang)}</p>
           <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] lg:text-[56px] mb-5">
             {t('home', 'portfolioTitle1', lang)}{' '}
             <em className="text-varindo-mid not-italic">{t('home', 'portfolioTitle2', lang)}</em>
           </h1>
-          <p className="text-[17px] leading-7 text-varindo-mid max-w-lg mb-6">{t('home', 'portfolioBody', lang)}</p>
+          <p className="text-[16px] leading-7 text-varindo-mid max-w-lg mb-6">{t('home', 'portfolioBody', lang)}</p>
           <a href={FLIPPINGBOOK_URL} target="_blank" rel="noreferrer"
-            className="text-[12px] font-semibold tracking-[-0.016em] text-varindo-mid hover:text-varindo-ink transition-colors">
+            className="text-[12px] font-semibold text-varindo-mid hover:text-varindo-ink transition-colors">
             {t('home', 'portfolioOpenExternal', lang)}
           </a>
         </div>
@@ -39,7 +39,7 @@ export function PortfolioPageClient() {
         </div>
 
         <div className="mt-6">
-          <Link href="/" className="text-[12px] font-medium tracking-[-0.016em] text-varindo-mid hover:text-varindo-ink transition-colors">
+          <Link href="/" className="text-[12px] font-medium text-varindo-mid hover:text-varindo-ink transition-colors">
             {t('home', 'portfolioBack', lang)}
           </Link>
         </div>

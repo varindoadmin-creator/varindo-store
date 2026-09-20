@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import type { Product } from '@/types/product';
 import { searchProducts } from '@/lib/products';
 import { ProductGrid } from './ProductGrid';
@@ -13,6 +13,15 @@ const PRODUCTS_PER_PAGE = 24;
 
 const SIZE_OPTIONS = ["4'x8' / 1220 x 2440mm", "4'x10' / 1220 x 3050mm"];
 const CATEGORY_OPTIONS = ['Patterns','Protak','Protak Core','Saville','Solid Core','Solids','Solids+','Woods','Bookmatched'];
+const COLLECTION_OPTIONS = ['Woods', 'Patterns', 'Solids'];
+
+// The size strings carry both the imperial and the metric name. The rail is
+// 240px wide, so the chips show the imperial half and the metric stays in
+// the title attribute, where a specifier checking dimensions can reach it.
+const SIZE_SHORT: Record<string, string> = {
+  "4'x8' / 1220 x 2440mm":  "4' × 8'",
+  "4'x10' / 1220 x 3050mm": "4' × 10'",
+};
 
 function normalizeText(v?: string | null) { return (v || '').toLowerCase().trim(); }
 function matchesSize(p: Product, s: string) { return !s || normalizeText(p.size) === normalizeText(s); }
@@ -21,32 +30,51 @@ function matchesCategory(p: Product, c: string) { return !c || normalizeText(p.c
 type FilterOptions = { collections: string[]; categories: string[]; finishes: string[]; sizes: string[]; colorFamilies: string[] };
 type Props = { products: Product[]; filterOptions: FilterOptions; showCollectionTabs?: boolean; };
 
-function SelectWrapper({ label, value, onChange, children }: { label: string; value: string; onChange: (v: string) => void; children: React.ReactNode }) {
+/* One filter group in the rail: a mono label and a wrapped set of chips.
+   Chips rather than selects because a specifier scanning 787 laminates
+   needs to see which axes are already narrowed without opening anything,
+   and because a chip can show its own on/off state where a <select>
+   collapses every unchosen option out of sight. */
+function ChipGroup({
+  label, options, value, onChange, allLabel, titleFor,
+}: {
+  label: string;
+  options: string[];
+  value: string;
+  onChange: (v: string) => void;
+  allLabel: string;
+  titleFor?: (o: string) => string;
+}) {
   return (
-    <label className="block">
-      <span className="label mb-2 block">{label}</span>
-      <div className="relative">
-        <select value={value} onChange={(e) => onChange(e.target.value)} className="field-select w-full">
-          {children}
-        </select>
-        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-varindo-mid">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
+    <div>
+      <p className="label mb-2.5">{label}</p>
+      <div className="flex flex-wrap gap-1.5">
+        <button type="button" onClick={() => onChange('')}
+          className={value === '' ? 'chip-on' : 'chip'} aria-pressed={value === ''}>
+          {allLabel}
+        </button>
+        {options.map((option) => (
+          <button key={option} type="button" onClick={() => onChange(value === option ? '' : option)}
+            title={titleFor?.(option)}
+            className={value === option ? 'chip-on' : 'chip'} aria-pressed={value === option}>
+            {SIZE_SHORT[option] || option}
+          </button>
+        ))}
       </div>
-    </label>
+    </div>
   );
 }
 
 export function ProductExplorer({ products, showCollectionTabs = true }: Props) {
   const { lang } = useLang();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [query, setQuery]       = useState(searchParams.get('search') || '');
   const [collection, setCollection] = useState('');
   const [category, setCategory] = useState('');
   const [size, setSize]         = useState('');
   const [page, setPage]         = useState(1);
+  const [railOpen, setRailOpen] = useState(false);
 
   useEffect(() => { setQuery(searchParams.get('search') || ''); setPage(1); }, [searchParams]);
   useEffect(() => { setPage(1); }, [query, collection, category, size]);
@@ -64,101 +92,139 @@ export function ProductExplorer({ products, showCollectionTabs = true }: Props) 
   const startIndex = (safePage - 1) * PRODUCTS_PER_PAGE;
   const endIndex   = startIndex + PRODUCTS_PER_PAGE;
   const paginated  = filteredProducts.slice(startIndex, endIndex);
-  const hasFilters = Boolean(query || collection || category || size);
+  const activeCount = [query, collection, category, size].filter(Boolean).length;
+  const hasFilters = activeCount > 0;
 
   const clearFilters = () => { setQuery(''); setCollection(''); setCategory(''); setSize(''); setPage(1); };
   const goToPage = (n: number) => { setPage(Math.min(Math.max(n, 1), totalPages)); window.scrollTo({ top: 0, behavior: 'smooth' }); };
 
+  // Woods / Patterns / Solids used to sit here as links to their own pages
+  // as well as in the filter rail. Two controls, side by side, that looked
+  // identical and behaved differently — one navigated away, one filtered in
+  // place. The rail owns collection now; this strip keeps only the views
+  // that really are separate pages.
   const collectionTabs = [
     { label: t('explorer', 'tabAll', lang),         href: '/products' },
     { label: t('explorer', 'tabNewArrivals', lang),  href: '/collections/new-arrivals' },
     { label: t('explorer', 'tabBestSellers', lang),  href: '/collections/best-sellers' },
-    { label: 'Woods',                                href: '/collections/woods' },
-    { label: 'Patterns',                             href: '/collections/patterns' },
-    { label: 'Solids',                               href: '/collections/solids' },
   ];
 
+  const rail = (
+    <div className="space-y-6">
+      <label className="block">
+        <span className="label mb-2.5 block">{t('explorer', 'searchLabel', lang)}</span>
+        <input value={query} onChange={(e) => setQuery(e.target.value)}
+          placeholder={t('explorer', 'searchPlaceholder', lang)}
+          className="field w-full" />
+      </label>
+
+      <ChipGroup
+        label={t('explorer', 'collectionLabel', lang)}
+        options={COLLECTION_OPTIONS}
+        value={collection}
+        onChange={setCollection}
+        allLabel={t('explorer', 'allCollections', lang)}
+      />
+
+      <ChipGroup
+        label={t('explorer', 'categoryLabel', lang)}
+        options={CATEGORY_OPTIONS}
+        value={category}
+        onChange={setCategory}
+        allLabel={t('explorer', 'allCategories', lang)}
+      />
+
+      <ChipGroup
+        label={t('explorer', 'sizeLabel', lang)}
+        options={SIZE_OPTIONS}
+        value={size}
+        onChange={setSize}
+        allLabel={t('explorer', 'allSizes', lang)}
+        titleFor={(o) => o}
+      />
+    </div>
+  );
+
   return (
-    <div className="space-y-0">
+    <div>
       {showCollectionTabs && (
-        <div className="mb-8 flex gap-2 overflow-x-auto pb-1 scrollbar-none">
-          {collectionTabs.map(({ label, href }) => (
-            <Link key={href} href={href}
-              className="shrink-0 rounded-pill bg-varindo-canvas px-4 py-2 text-[14px] tracking-[-0.016em] text-varindo-ink whitespace-nowrap transition-colors hover:bg-varindo-wash">
-              {label}
-            </Link>
-          ))}
+        <div className="mb-7 flex gap-6 overflow-x-auto border-b border-varindo-line scrollbar-none">
+          {collectionTabs.map(({ label, href }) => {
+            const active = pathname === href;
+            return (
+              <Link key={href} href={href}
+                aria-current={active ? 'page' : undefined}
+                className={`mono -mb-px shrink-0 whitespace-nowrap border-b-2 pb-2.5 text-[12px] font-medium uppercase tracking-[0.08em] transition-colors ${
+                  active
+                    ? 'border-varindo-clay text-varindo-ink'
+                    : 'border-transparent text-varindo-mid hover:border-varindo-line-firm hover:text-varindo-ink'
+                }`}>
+                {label}
+              </Link>
+            );
+          })}
         </div>
       )}
 
-      <div className="mb-10 rounded-card bg-varindo-canvas p-6 sm:p-7">
-        <div className="mb-5 flex items-center justify-between gap-4">
-          <span className="text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink">
+      {/* Rail beside the grid, not a filter block stacked on top of it.
+          At 787 products the filters are the primary instrument, and a
+          stacked block pushed every result below the fold and scrolled
+          away the moment you started comparing swatches. */}
+      <div className="lg:grid lg:grid-cols-[228px_minmax(0,1fr)] lg:gap-10">
+
+        <aside className="lg:sticky lg:top-24 lg:self-start">
+          <div className="mb-4 flex items-center justify-between gap-3 border-b border-varindo-line pb-3">
+            <span className="label">
+              {t('explorer', 'filterTitle', lang)}
+              {activeCount > 0 && <span className="ml-2 text-varindo-clay-ink">[{activeCount}]</span>}
+            </span>
+            {hasFilters && (
+              <button onClick={clearFilters} className="link-arrow text-[13px]">
+                {t('explorer', 'clearAll', lang)}
+              </button>
+            )}
+          </div>
+
+          {/* Below lg the rail collapses behind a disclosure so the grid
+              still starts in the first screenful on a phone. */}
+          <button type="button" onClick={() => setRailOpen((v) => !v)}
+            aria-expanded={railOpen}
+            className="btn-ghost mb-4 w-full justify-between lg:hidden">
             {t('explorer', 'filterTitle', lang)}
-          </span>
-          {hasFilters && (
-            <button onClick={clearFilters} className="link-arrow text-[14px]">
-              {t('explorer', 'clearAll', lang)}
-            </button>
+            <span aria-hidden="true" className={`transition-transform ${railOpen ? 'rotate-180' : ''}`}>⌄</span>
+          </button>
+
+          <div className={`${railOpen ? 'block' : 'hidden'} lg:block`}>{rail}</div>
+        </aside>
+
+        <div className="mt-8 lg:mt-0">
+          <p className="mono mb-5 border-b border-varindo-line pb-3 text-[13px] text-varindo-mid">
+            <span className="text-varindo-ink">{filteredProducts.length}</span>
+            {' '}{filteredProducts.length === 1 ? t('explorer', 'productFound', lang) : t('explorer', 'productsFound', lang)}
+            {filteredProducts.length > 0 && (
+              <span> · {t('explorer', 'showing', lang)} <span className="text-varindo-ink">{startIndex + 1}–{Math.min(endIndex, filteredProducts.length)}</span></span>
+            )}
+          </p>
+
+          <ProductGrid products={paginated} />
+
+          {filteredProducts.length > PRODUCTS_PER_PAGE && (
+            <div className="mt-12 flex flex-wrap items-center justify-center gap-3 border-t border-varindo-line pt-8">
+              <button type="button" onClick={() => goToPage(safePage - 1)} disabled={safePage === 1}
+                className="btn-ghost disabled:cursor-not-allowed disabled:opacity-40">
+                {t('explorer', 'previous', lang)}
+              </button>
+              <span className="mono px-3 text-[13px] text-varindo-mid">
+                {t('explorer', 'page', lang)} <span className="text-varindo-ink">{safePage}</span> {t('explorer', 'of', lang)} {totalPages}
+              </span>
+              <button type="button" onClick={() => goToPage(safePage + 1)} disabled={safePage === totalPages}
+                className="btn-ghost disabled:cursor-not-allowed disabled:opacity-40">
+                {t('explorer', 'next', lang)}
+              </button>
+            </div>
           )}
         </div>
-
-        <div>
-          <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
-            <label className="block">
-              <span className="label mb-2 block">{t('explorer', 'searchLabel', lang)}</span>
-              <input value={query} onChange={(e) => setQuery(e.target.value)}
-                placeholder={t('explorer', 'searchPlaceholder', lang)}
-                className="field w-full" />
-            </label>
-
-            <SelectWrapper label={t('explorer', 'collectionLabel', lang)} value={collection} onChange={setCollection}>
-              <option value="">{t('explorer', 'allCollections', lang)}</option>
-              <option value="Woods">Woods</option>
-              <option value="Patterns">Patterns</option>
-              <option value="Solids">Solids</option>
-            </SelectWrapper>
-
-            <SelectWrapper label={t('explorer', 'categoryLabel', lang)} value={category} onChange={setCategory}>
-              <option value="">{t('explorer', 'allCategories', lang)}</option>
-              {CATEGORY_OPTIONS.map((item) => <option key={item} value={item}>{item}</option>)}
-            </SelectWrapper>
-
-            <SelectWrapper label={t('explorer', 'sizeLabel', lang)} value={size} onChange={setSize}>
-              <option value="">{t('explorer', 'allSizes', lang)}</option>
-              {SIZE_OPTIONS.map((item) => <option key={item} value={item}>{item}</option>)}
-            </SelectWrapper>
-          </div>
-
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-[14px] tracking-[-0.016em] text-varindo-mid">
-            <p>
-              <span className="text-varindo-ink">{filteredProducts.length}</span>
-              {' '}{filteredProducts.length === 1 ? t('explorer', 'productFound', lang) : t('explorer', 'productsFound', lang)}
-              {filteredProducts.length > 0 && (
-                <span> · {t('explorer', 'showing', lang)} <span className="text-varindo-ink">{startIndex + 1}–{Math.min(endIndex, filteredProducts.length)}</span></span>
-              )}
-            </p>
-          </div>
-        </div>
       </div>
-
-      <ProductGrid products={paginated} />
-
-      {filteredProducts.length > PRODUCTS_PER_PAGE && (
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-16">
-          <button type="button" onClick={() => goToPage(safePage - 1)} disabled={safePage === 1}
-            className="btn-soft disabled:cursor-not-allowed disabled:opacity-40">
-            {t('explorer', 'previous', lang)}
-          </button>
-          <span className="px-4 text-[14px] tracking-[-0.016em] text-varindo-mid">
-            {t('explorer', 'page', lang)} <span className="text-varindo-ink">{safePage}</span> {t('explorer', 'of', lang)} {totalPages}
-          </span>
-          <button type="button" onClick={() => goToPage(safePage + 1)} disabled={safePage === totalPages}
-            className="btn-soft disabled:cursor-not-allowed disabled:opacity-40">
-            {t('explorer', 'next', lang)}
-          </button>
-        </div>
-      )}
     </div>
   );
 }

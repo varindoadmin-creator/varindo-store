@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Fraunces, Instrument_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -9,13 +9,32 @@ import { AiChatLoader } from '@/components/AiChatLoader';
 import { GoogleAdsTag } from '@/components/GoogleAdsTag';
 import { buildOrganizationJsonLd, buildLocalBusinessJsonLd } from '@/lib/structured-data';
 
-// SF Pro is used where it exists (Apple hardware); Inter is the stand-in
-// everywhere else so the type keeps the same proportions and tracking.
-const inter = Inter({
+// Three faces, each with one job.
+//   Fraunces        display headlines — a variable serif whose optical-size
+//                   axis keeps the serifs crisp at 48px+ instead of clotting.
+//   Instrument Sans UI and body copy.
+//   JetBrains Mono  every code, price, dimension and section label. Tabular
+//                   figures are what make the spec tables and price columns
+//                   line up, which is the whole point of the redesign.
+// next/font self-hosts all three out of /_next/static, so the strict
+// `font-src 'self' data:` CSP in next.config.mjs needs no Google origins.
+const fraunces = Fraunces({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
   display: 'swap',
-  variable: '--font-inter'
+  axes: ['SOFT', 'WONK', 'opsz'],
+  variable: '--font-fraunces'
+});
+
+const instrument = Instrument_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-instrument'
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jetbrains'
 });
 
 export const metadata: Metadata = {
@@ -56,15 +75,15 @@ export const metadata: Metadata = {
   }
 };
 
-// Browser and PWA chrome follows the page canvas — white bar, dark icons.
+// Browser and PWA chrome follows the page canvas — warm paper, dark icons.
 export const viewport: Viewport = {
-  themeColor: '#ffffff'
+  themeColor: '#fbfaf8'
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id" className={inter.variable}>
-      <body className="min-h-screen bg-white font-sans antialiased">
+    <html lang="id" className={`${fraunces.variable} ${instrument.variable} ${jetbrains.variable}`}>
+      <body className="min-h-screen bg-varindo-paper font-sans antialiased">
         <GoogleAdsTag />
         <JsonLd data={buildOrganizationJsonLd()} />
         <JsonLd data={buildLocalBusinessJsonLd()} />

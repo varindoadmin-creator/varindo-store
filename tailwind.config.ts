@@ -10,54 +10,68 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-body)'],
-        display: ['var(--font-display)']
+        display: ['var(--font-display)'],
+        mono: ['var(--font-mono)']
       },
       colors: {
-        // Near-monochrome system: ink on paper, one gray band, and a single
-        // accent taken from the Varindo logo for anything interactive.
+        // Warm neutrals plus one clay accent. The interface owns no
+        // other hue — every colour on screen should be a laminate.
         varindo: {
-          ink: '#1d1d1f',
-          deep: '#474747',
-          mid: '#707070',
-          paper: '#ffffff',
-          canvas: '#f5f5f7',
-          wash: '#e8e8ed',
-          nav: '#fafafc',
-          line: '#d6d6d6',
-          accent: '#282828', // the logo tone — every interactive surface
-          blue: '#282828',   // legacy name for the accent (filled CTAs)
-          link: '#282828',   // inline link text
-          ember: '#b64400',  // "Baru" badge
+          ink: '#17150f',
+          deep: '#4a453a',
+          mid: '#78715f',
+          paper: '#fbfaf8',
+          canvas: '#f2efe9',
+          wash: '#e7e2d7',
+          nav: '#fbfaf8',
+          line: '#ded7c8',
+          'line-firm': '#c9c0ad',
+
+          // Clay, in two tones of one hue: the fill tone carries white
+          // at 5.1:1, the ink tone carries link text on the recessed
+          // band at 5.6:1 where the fill tone would only reach 4.4:1.
+          clay: '#b0532a',
+          'clay-deep': '#8e411f',
+          'clay-ink': '#99461f',
+          'clay-wash': '#f7ede6',
+
+          accent: '#b0532a',
+          blue: '#b0532a',   // legacy name for the accent (filled CTAs)
+          link: '#99461f',   // inline link text
+          ember: '#b0532a',  // "Baru" badge
 
           // Legacy aliases — old markup lands on the new palette
-          cream: '#f5f5f7',
-          warm: '#f5f5f7',
-          sand: '#d6d6d6',
-          muted: '#707070',
-          gold: '#282828',
+          cream: '#f2efe9',
+          warm: '#f2efe9',
+          sand: '#ded7c8',
+          muted: '#78715f',
+          gold: '#99461f',
 
-          // Grayscale ramp
-          50:  '#f5f5f7',
-          100: '#f0f0f2',
-          200: '#e8e8ed',
-          300: '#d6d6d6',
-          400: '#86868b',
-          500: '#707070',
-          600: '#6e6e73',
-          700: '#474747',
-          800: '#333336',
-          900: '#1d1d1f'
+          // Warm grayscale ramp. 400 matches `mid` rather than sitting
+          // lighter: its only call sites are placeholder text and small
+          // captions, and a lighter step there fails AA on paper.
+          50:  '#f6f4ef',
+          100: '#f2efe9',
+          200: '#e7e2d7',
+          300: '#ded7c8',
+          400: '#78715f',
+          500: '#78715f',
+          600: '#5f594b',
+          700: '#4a453a',
+          800: '#2d2a21',
+          900: '#17150f'
         }
       },
       borderRadius: {
-        card: '28px',
-        xl2: '18px',
+        card: '16px',
+        xl2: '12px',
+        ctl: '8px',
         pill: '980px'
       },
       boxShadow: {
-        // Cards and bands carry no elevation. Only floating overlays
-        // (menus, modals, the chat panel) get a whisper of depth.
-        luxury: '0 8px 30px rgba(0, 0, 0, 0.12)',
+        // Structure is hairlines, not elevation. Only genuinely
+        // floating overlays (menus, modals, the chat panel) lift.
+        luxury: '0 12px 32px rgba(23, 21, 15, 0.14)',
         card: 'none',
         'card-hover': 'none',
         'inset-top': 'none'

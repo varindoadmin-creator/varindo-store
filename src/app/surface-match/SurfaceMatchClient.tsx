@@ -103,13 +103,13 @@ export function SurfaceMatchClient() {
 
   return (
     <div>
-      <div className="bg-white">
+      <div className="bg-varindo-paper">
         <div className="shell py-14 sm:py-20">
           <p className="label mb-4">{t('surfaceMatch', 'heroLabel', lang)}</p>
           <h1 className="display text-varindo-ink text-[40px] sm:text-[56px] lg:text-[80px]">
             {t('surfaceMatch', 'heroTitle', lang)}
           </h1>
-          <p className="mt-5 max-w-xl text-[17px] leading-7 text-varindo-mid">
+          <p className="mt-5 max-w-xl text-[16px] leading-7 text-varindo-mid">
             {t('surfaceMatch', 'heroSub', lang)}
           </p>
 
@@ -227,7 +227,7 @@ function HowItWorks({ lang }: { lang: Lang }) {
             </li>
           ))}
         </ul>
-        <p className="mt-6 text-[14px] tracking-[-0.016em] text-varindo-mid">
+        <p className="mt-6 text-[14px] text-varindo-mid">
           {t('surfaceMatch', 'privacyNote', lang)}{' '}
           <Link href="/privacy" className="link-quiet">{t('surfaceMatch', 'privacyLink', lang)}</Link>
         </p>
@@ -239,7 +239,7 @@ function HowItWorks({ lang }: { lang: Lang }) {
 function DetectedCodeNote({ group, lang }: { group?: SurfaceMatchGroup; lang: Lang }) {
   if (!group?.detectedCode || group.matches[0]?.matchType === 'code') return null;
   return (
-    <p className="mb-6 text-[14px] tracking-[-0.016em] text-varindo-mid">
+    <p className="mb-6 text-[14px] text-varindo-mid">
       {t('surfaceMatch', 'codeDetectedNotFound', lang, { code: group.detectedCode })}
     </p>
   );
@@ -297,14 +297,14 @@ function MatchCard({ match, lang }: { match: SurfaceMatch; lang: Lang }) {
       </Link>
       <div className="px-1 pt-4">
         <Link href={href}
-          className="block text-[17px] font-semibold leading-[1.3] tracking-[-0.022em] text-varindo-ink transition-colors group-hover:text-varindo-link">
+          className="block text-[16px] font-semibold leading-[1.3] text-varindo-ink transition-colors group-hover:text-varindo-link">
           {match.design}
         </Link>
         <ul className="mt-1.5 space-y-1">
           {match.products.map((product) => (
             <li key={product.slug}>
               <Link href={`/products/${product.slug}`}
-                className="text-[14px] tracking-[-0.016em] text-varindo-mid transition-colors hover:text-varindo-ink">
+                className="text-[14px] text-varindo-mid transition-colors hover:text-varindo-ink">
                 {product.code}{product.size ? ` · ${product.size}` : ''}
               </Link>
             </li>

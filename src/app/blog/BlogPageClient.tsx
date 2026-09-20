@@ -19,13 +19,13 @@ export function BlogPageClient({ posts }: { posts: BlogPost[] }) {
 
   return (
     <div>
-      <div className="bg-white">
+      <div className="bg-varindo-paper">
         <div className="shell py-14 sm:py-20">
           <p className="label mb-4">{t('blog', 'badge', lang)}</p>
           <h1 className="display text-varindo-ink text-[36px] sm:text-[48px] lg:text-[56px] mb-5">
             {t('blog', 'title', lang)}
           </h1>
-          <p className="text-[17px] leading-7 text-varindo-mid max-w-2xl">
+          <p className="text-[16px] leading-7 text-varindo-mid max-w-2xl">
             {t('blog', 'subtitle', lang)}
           </p>
         </div>
@@ -57,7 +57,7 @@ export function BlogPageClient({ posts }: { posts: BlogPost[] }) {
                 </p>
                 <div className="flex items-center justify-between text-[12px] text-varindo-mid">
                   <time dateTime={post.date}>{formatDate(post.date, lang)}</time>
-                  <span className="font-semibold tracking-[-0.016em] text-varindo-ink group-hover:text-varindo-link transition-colors">
+                  <span className="font-semibold text-varindo-ink group-hover:text-varindo-link transition-colors">
                     {t('blog', 'readMore', lang)}
                   </span>
                 </div>

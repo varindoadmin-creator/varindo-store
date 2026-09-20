@@ -160,11 +160,11 @@ export function AiChat() {
     <>
       {/* Chat panel */}
       {open && (
-        <div className="fixed bottom-24 right-4 sm:right-6 z-[200] flex w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-card bg-white shadow-luxury animate-fade-up"
+        <div className="fixed bottom-24 right-4 sm:right-6 z-[200] flex w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-card bg-varindo-paper shadow-luxury animate-fade-up"
           style={{ height: 'min(560px, calc(100vh - 120px))' }}>
 
           {/* Header */}
-          <div className="flex shrink-0 items-center justify-between bg-white px-5 py-4">
+          <div className="flex shrink-0 items-center justify-between bg-varindo-paper px-5 py-4">
             <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill bg-varindo-canvas">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -175,10 +175,10 @@ export function AiChat() {
                 </svg>
               </div>
               <div>
-                <p className="text-[17px] font-semibold leading-tight tracking-[-0.022em] text-varindo-ink">
+                <p className="text-[16px] font-semibold leading-tight text-varindo-ink">
                   VIA
                 </p>
-                <p className="text-[12px] tracking-[-0.012em] text-varindo-mid">
+                <p className="text-[12px] text-varindo-mid">
                   Online
                 </p>
               </div>
@@ -186,7 +186,7 @@ export function AiChat() {
             <div className="flex items-center gap-2">
               {/* WhatsApp handoff */}
               <a href={waUrl} target="_blank" rel="noreferrer"
-                className="flex items-center gap-1.5 rounded-pill bg-varindo-canvas px-3 py-1.5 text-[12px] tracking-[-0.012em] text-varindo-deep transition-colors hover:bg-varindo-wash">
+                className="flex items-center gap-1.5 rounded-pill bg-varindo-canvas px-3 py-1.5 text-[12px] text-varindo-deep transition-colors hover:bg-varindo-wash">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.19 1.6 6L0 24l6.19-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52z"/>
                 </svg>
@@ -214,7 +214,7 @@ export function AiChat() {
                 <div className={`max-w-[82%] rounded-[18px] px-4 py-2.5 text-[14px] leading-6 ${
                   msg.role === 'user'
                     ? 'bg-varindo-blue text-white'
-                    : 'bg-white text-varindo-ink'
+                    : 'bg-varindo-paper text-varindo-ink'
                 }`}>
                   {formatMessage(msg.content)}
                 </div>
@@ -227,7 +227,7 @@ export function AiChat() {
                 <div className="mr-2 mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-pill bg-varindo-ink">
                   <span className="text-[10px] font-semibold text-white">V</span>
                 </div>
-                <div className="rounded-[18px] bg-white">
+                <div className="rounded-[18px] bg-varindo-paper">
                   <TypingDots />
                 </div>
               </div>
@@ -236,7 +236,7 @@ export function AiChat() {
             {/* Error */}
             {status === 'error' && (
               <div className="flex justify-start">
-                <div className="rounded-[18px] bg-white px-4 py-2.5 text-[14px] text-varindo-ember">
+                <div className="rounded-[18px] bg-varindo-paper px-4 py-2.5 text-[14px] text-varindo-ember">
                   {lang === 'id'
                     ? 'Maaf, terjadi kesalahan. Silakan coba lagi atau hubungi tim kami.'
                     : 'Sorry, something went wrong. Please try again or contact our team.'}
@@ -252,7 +252,7 @@ export function AiChat() {
               <div className="pt-1 flex flex-wrap gap-2">
                 {quickReplies.map((qr) => (
                   <button key={qr} onClick={() => handleQuickReply(qr)}
-                    className="rounded-pill bg-white px-3.5 py-2 text-left text-[12px] text-varindo-deep transition-colors hover:bg-varindo-wash">
+                    className="rounded-pill bg-varindo-paper px-3.5 py-2 text-left text-[12px] text-varindo-deep transition-colors hover:bg-varindo-wash">
                     {qr}
                   </button>
                 ))}
@@ -264,7 +264,7 @@ export function AiChat() {
 
           {/* Input */}
           <form onSubmit={handleSubmit}
-            className="flex shrink-0 items-center gap-2 bg-white px-3 py-3">
+            className="flex shrink-0 items-center gap-2 bg-varindo-paper px-3 py-3">
             <input
               ref={inputRef}
               value={input}
@@ -272,7 +272,7 @@ export function AiChat() {
               onKeyDown={handleKeyDown}
               placeholder={lang === 'id' ? 'Ketik pertanyaan Anda…' : 'Type your question…'}
               disabled={status === 'loading'}
-              className="h-11 flex-1 rounded-pill bg-varindo-canvas px-4 text-[14px] tracking-[-0.016em] text-varindo-ink outline-none placeholder:text-varindo-400 disabled:opacity-50"
+              className="h-11 flex-1 rounded-pill bg-varindo-canvas px-4 text-[14px] text-varindo-ink outline-none placeholder:text-varindo-400 disabled:opacity-50"
             />
             <button type="submit" disabled={!input.trim() || status === 'loading'}
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-pill bg-varindo-blue text-white transition-colors hover:bg-[#3d3d3d] disabled:cursor-not-allowed disabled:opacity-40">
@@ -284,7 +284,7 @@ export function AiChat() {
           </form>
 
           {/* Footer note */}
-          <div className="shrink-0 bg-white px-4 pb-3 shrink-0">
+          <div className="shrink-0 bg-varindo-paper px-4 pb-3 shrink-0">
             <p className="text-center text-[12px] text-varindo-mid">
               {lang === 'id'
                 ? 'AI dapat membuat kesalahan. Untuk konfirmasi resmi, hubungi tim kami.'

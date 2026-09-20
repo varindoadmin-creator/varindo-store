@@ -89,13 +89,13 @@ export function ArticleMarkdown({ source }: { source: string }) {
           case 'ol': {
             const ListTag = block.type;
             return (
-              <ListTag key={key} className={`${block.type === 'ul' ? 'list-disc' : 'list-decimal'} pl-6 space-y-2 text-[17px] leading-8 text-varindo-mid`}>
+              <ListTag key={key} className={`${block.type === 'ul' ? 'list-disc' : 'list-decimal'} pl-6 space-y-2 text-[16px] leading-8 text-varindo-mid`}>
                 {block.items.map((item, j) => <li key={j}>{renderInline(item, `${key}-${j}`)}</li>)}
               </ListTag>
             );
           }
           default:
-            return <p key={key} className="text-[17px] leading-8 text-varindo-mid">{renderInline(block.text, key)}</p>;
+            return <p key={key} className="text-[16px] leading-8 text-varindo-mid">{renderInline(block.text, key)}</p>;
         }
       })}
     </div>
