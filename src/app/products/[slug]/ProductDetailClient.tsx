@@ -25,6 +25,7 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
 
   const collectionLabel = product.collection || product.category;
   const sampleUrl = `/request-sample?code=${encodeURIComponent(product.code)}`;
+  const quoteUrl = `/request-quote?code=${encodeURIComponent(product.code)}`;
 
   const specs = [
     [t('detail', 'specCode', lang),          product.code],
@@ -127,6 +128,9 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
               </a>
               <Link href={sampleUrl} className="btn-ghost">
                 {t('detail', 'sampleCta', lang)}
+              </Link>
+              <Link href={quoteUrl} className="btn-ghost">
+                {t('detail', 'quoteCta', lang)}
               </Link>
             </div>
 
