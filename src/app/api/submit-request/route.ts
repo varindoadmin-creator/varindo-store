@@ -1,18 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { PRICE_LIST_COOKIE, PRICE_LIST_TTL_MS, mintPriceListToken } from '@/lib/priceListToken';
 
 export const dynamic = 'force-dynamic';
 
 
-// Sample, Catalogue and Quote requests go to VIABooks (via-corporate), the
-// business's own accounting system, instead of the old via-project
-// Supabase table — matched by the org id VIABooks uses for CV. Varindo
-// Forma Hutama. Price List downloads are unaffected and still go to
-// Supabase; nothing else on this site reads from VIABooks.
+// Every request form on the site — Sample, Catalogue, Quote and Price List —
+// goes to VIABooks (via-corporate), the business's own accounting system,
+// instead of the old via-project Supabase table, matched by the org id
+// VIABooks uses for CV. Varindo Forma Hutama.
 const VIABOOKS_API_URL = process.env.VIABOOKS_API_URL || 'https://viabooks-601025884976.asia-southeast2.run.app';
 const VIABOOKS_ORGANIZATION_ID = process.env.VIABOOKS_ORGANIZATION_ID || 'cmtn75jst0001w12y30bcrr6h';
 
 type RequestBody = {
-  type: 'catalogue' | 'sample' | 'quote';
+  type: 'catalogue' | 'sample' | 'quote' | 'price-list';
   name?: string;
   address?: string;
   phone?: string;
@@ -31,7 +31,7 @@ function cleanText(value: unknown, maxLength = MAX_TEXT_LENGTH) {
 }
 
 async function submitToViabooks(payload: {
-  requestType: 'sample' | 'catalogue' | 'quote';
+  requestType: 'sample' | 'catalogue' | 'quote' | 'price-list';
   customerName?: string;
   phone?: string;
   address?: string;
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
   const address = cleanText(body.address);
   const phone = cleanText(body.phone, 40);
 
-  if (!type || !['catalogue', 'sample', 'quote'].includes(type)) {
+  if (!type || !['catalogue', 'sample', 'quote', 'price-list'].includes(type)) {
     return NextResponse.json({ success: false, error: 'Invalid request type.' }, { status: 400 });
   }
 
@@ -72,6 +72,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       { success: false, error: 'Name, phone, and the required address must be provided.' },
       { status: 400 }
+    );
+  }
+
+  // The price list is given in exchange for these details, so the token that
+  // opens /api/price-list is minted here and nowhere else. Checked before the
+  // request is filed rather than after: with no secret configured the download
+  // cannot be delivered whatever happens next, and a request recorded for a
+  // price list the customer never received is worse than an honest failure.
+  const priceListToken = type === 'price-list' ? mintPriceListToken() : null;
+  if (type === 'price-list' && !priceListToken) {
+    console.error('[submit-request] PRICE_LIST_TOKEN_SECRET is not set — the price list cannot be released.');
+    return NextResponse.json(
+      { success: false, error: 'The price list is temporarily unavailable. Please contact us on WhatsApp.' },
+      { status: 500 }
     );
   }
 
@@ -117,9 +131,33 @@ export async function POST(req: NextRequest) {
           submitToViabooks({ requestType: 'quote', customerName: name, phone, address, itemCode: item.code, quantity: item.qty })
         )
       );
+
+    } else if (type === 'price-list') {
+      // One row, like a catalogue — there is nothing to itemise. What the
+      // customer gets back is the download, not a promise to be contacted.
+      await submitToViabooks({ requestType: 'price-list', customerName: name, phone, address });
     }
 
-    return NextResponse.json({ success: true });
+    const res = NextResponse.json({ success: true });
+
+    if (priceListToken) {
+      // httpOnly, so the token is not something a page can read out and pass
+      // around, and the download page and /api/price-list both simply find it
+      // on the request. lax rather than strict: the customer arrives at the
+      // download page by a client navigation, but a browser that treats the
+      // form post as a fresh top-level visit still has to bring it along.
+      res.cookies.set({
+        name:     PRICE_LIST_COOKIE,
+        value:    priceListToken,
+        httpOnly: true,
+        sameSite: 'lax',
+        secure:   process.env.NODE_ENV === 'production',
+        path:     '/',
+        maxAge:   Math.floor(PRICE_LIST_TTL_MS / 1000),
+      });
+    }
+
+    return res;
 
   } catch (err) {
     console.error('[submit-request] Insert failed:', err);

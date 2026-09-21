@@ -46,6 +46,14 @@ const nextConfig = {
   // varindo-tak/ — which puts server.js somewhere the container's CMD
   // isn't looking.
   outputFileTracingRoot: fileURLToPath(new URL('.', import.meta.url)),
+  // The price list PDF is deliberately not in public/ — it is released by
+  // /api/price-list and only to a browser holding a token the form minted.
+  // Nothing imports it, so tracing would never find it on its own and the
+  // standalone build would ship without it: working locally, 500ing in
+  // production. Naming it here is what puts it in the container.
+  outputFileTracingIncludes: {
+    '/api/price-list': ['./private/price-list/**']
+  },
   images: {
     remotePatterns: [
       {
@@ -55,12 +63,15 @@ const nextConfig = {
       }
     ]
   },
-  // Price List downloads were removed from the site; the path was in the
-  // sitemap, so send any remaining links and crawlers to the nearest
-  // equivalent rather than a 404.
+  // /price-list was the old download URL, retired when the feature was, and
+  // pointed at the catalogue form as the nearest thing left. There is a price
+  // list again, so it points at the real one — along with the English spelling
+  // and the bare Indonesian word, both of which people type.
   async redirects() {
     return [
-      { source: '/price-list', destination: '/request-catalogue', permanent: true }
+      { source: '/price-list', destination: '/request-price-list', permanent: true },
+      { source: '/request-price-lists', destination: '/request-price-list', permanent: true },
+      { source: '/daftar-harga', destination: '/request-price-list', permanent: true }
     ];
   },
   async headers() {

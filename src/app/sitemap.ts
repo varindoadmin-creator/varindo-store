@@ -23,6 +23,7 @@ const STATIC_PAGES: Array<{
   { path: '/request-sample', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/request-catalogue', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/request-quote', changeFrequency: 'monthly', priority: 0.6 },
+  { path: '/request-price-list', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/harga-lamitak', changeFrequency: 'daily', priority: 0.8 },
   { path: '/apa-itu-laminate', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/blog', changeFrequency: 'weekly', priority: 0.6 },

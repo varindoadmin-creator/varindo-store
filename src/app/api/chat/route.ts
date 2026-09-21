@@ -127,6 +127,7 @@ PANDUAN MENJAWAB:
 - Untuk permintaan sampel → /request-sample
 - Untuk katalog → /request-catalogue
 - Untuk permintaan penawaran harga (daftar produk beserta jumlahnya) → /request-quote
+- Untuk daftar harga resmi Lamitak dalam bentuk PDF (harga lembaran dan edging) → /request-price-list
 - Untuk verifikasi keaslian produk atau status dealer resmi → /otorisasi
 - Jika produk tidak ditemukan, jujur dan sarankan menghubungi tim
 - Jawaban singkat dan jelas, gunakan list jika membantu keterbacaan
@@ -233,6 +234,7 @@ RESPONSE GUIDELINES:
 - For sample requests → /request-sample
 - For catalogue → /request-catalogue
 - For price quote requests (a product list with quantities) → /request-quote
+- For the official Lamitak price list as a PDF (sheet and edging prices) → /request-price-list
 - For product authenticity verification or official dealer status → /otorisasi
 - If a product isn't found, be honest and suggest contacting the team
 - Keep answers concise and use lists where helpful for readability

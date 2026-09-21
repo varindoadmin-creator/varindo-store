@@ -452,6 +452,7 @@ export const translations = {
     catalogueLink:{ id: 'Permintaan Katalog', en: 'Request Catalogue' },
     sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
     quoteLink:    { id: 'Permintaan Penawaran', en: 'Request Quote' },
+    priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
     blogLink:     { id: 'Artikel', en: 'Articles' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
     appTagline:   {
@@ -557,7 +558,45 @@ export const translations = {
     samplesRequested: { id: 'Sampel yang Diminta', en: 'Samples Requested' },
     readySample:      { id: 'Siap — {n} sampel dengan data Anda.', en: 'Ready — {n} samples with your details.' },
     fillSample:       { id: 'Isi minimal satu produk dan data kontak.', en: 'Fill in at least one product and your contact details.' },
-    itemsOf:          { id: '{n} / {max} item', en: '{n} / {max} items' }
+    itemsOf:          { id: '{n} / {max} item', en: '{n} / {max} items' },
+
+    // Price list form
+    priceListBadge:   { id: 'Daftar Harga', en: 'Price List' },
+    priceListTitle:   { id: 'Daftar Harga\nLamitak', en: 'The Lamitak\nPrice List' },
+    priceListSubtitle:{
+      id: 'Isi data Anda dan daftar harga Lamitak langsung dapat diunduh — harga lembaran dan harga edging dalam satu dokumen.',
+      en: 'Fill in your details and the Lamitak price list downloads straight away — sheet prices and edging prices in one document.'
+    },
+    priceListInfoTitle: { id: 'Isi Daftar Harga', en: 'What the Price List Covers' },
+    priceListInfo:    {
+      id: ['Harga lembaran HPL Lamitak per ketebalan', 'Harga edging Lamitak', 'Berlaku sejak Juli 2025', 'Dalam Rupiah, belum termasuk PPN'],
+      en: ['Lamitak HPL sheet prices by thickness', 'Lamitak edging prices', 'In effect from July 2025', 'In Rupiah, excluding PPN']
+    },
+    priceListSubmitBtn: { id: 'Buka Daftar Harga', en: 'Get the Price List' },
+    priceListNote:    {
+      id: 'Harga dapat berubah sewaktu-waktu tanpa pemberitahuan. Untuk harga proyek atau pemesanan jumlah besar, tim kami akan menyiapkan penawaran tersendiri.',
+      en: 'Prices are subject to change without notice. For project pricing or bulk orders, our team will prepare a separate quotation.'
+    },
+
+    // Price list download page
+    priceListReadyLabel: { id: 'Siap Diunduh', en: 'Ready to Download' },
+    priceListReadyTitle: { id: 'Daftar harga Anda siap.', en: 'Your price list is ready.' },
+    priceListReadyBody:  {
+      id: 'Daftar harga Lamitak berlaku sejak Juli 2025, dalam Rupiah, dan belum termasuk PPN. Harga dapat berubah sewaktu-waktu.',
+      en: 'The Lamitak price list is in effect from July 2025, in Rupiah, and excludes PPN. Prices are subject to change.'
+    },
+    priceListDownloadBtn: { id: 'Unduh Daftar Harga (PDF)', en: 'Download the Price List (PDF)' },
+    priceListExpiredTitle:{ id: 'Tautan unduhan sudah berakhir.', en: 'This download has expired.' },
+    priceListExpiredBody: {
+      id: 'Tautan unduhan berlaku satu jam sejak permintaan dikirim. Isi kembali formulir dan daftar harga akan langsung tersedia.',
+      en: 'A download stays open for one hour after the form is submitted. Fill the form in again and the price list is available straight away.'
+    },
+    priceListRequestAgain:{ id: 'Isi Formulir Lagi', en: 'Fill the Form In Again' },
+    priceListQuoteNudge:  {
+      id: 'Butuh harga untuk proyek tertentu?',
+      en: 'Need pricing for a specific project?'
+    },
+    priceListQuoteLink:   { id: 'Minta penawaran', en: 'Request a quote' }
 
   },
 
@@ -604,6 +643,13 @@ export const translations = {
 } as const;
 
 export type TranslationKey = keyof typeof translations;
+
+/** A translated list, for the entries whose value is an array of lines. */
+export function tList(section: keyof typeof translations, key: string, lang: Lang): string[] {
+  const sectionObj = translations[section] as Record<string, { id: string; en: string } | { id: string[]; en: string[] }>;
+  const value = sectionObj?.[key]?.[lang];
+  return Array.isArray(value) ? value : [];
+}
 
 /** Get a translated string. Interpolates {key} placeholders. */
 export function t(
