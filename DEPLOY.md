@@ -72,7 +72,7 @@ gcloud run deploy $SERVICE \
   --allow-unauthenticated \
   --memory 1Gi --cpu 1 --min-instances 0 --max-instances 10 \
   --set-env-vars "SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=contact@varindo.co.id,VIABOOKS_API_URL=https://viabooks-601025884976.asia-southeast2.run.app,VIABOOKS_ORGANIZATION_ID=cmtn75jst0001w12y30bcrr6h,SURFACE_MATCH_UPLOAD_BUCKET=varindo-surface-match-uploads" \
-  --set-secrets "ANTHROPIC_API_KEY=ANTHROPIC_API_KEY:latest,SMTP_PASS=SMTP_PASS:latest,VOYAGE_API_KEY=VOYAGE_API_KEY:latest"
+  --set-secrets "ANTHROPIC_API_KEY=ANTHROPIC_API_KEY:latest,SMTP_PASS=SMTP_PASS:latest,VOYAGE_API_KEY=VOYAGE_API_KEY:latest,PRICE_LIST_TOKEN_SECRET=PRICE_LIST_TOKEN_SECRET:latest"
 ```
 
 - **`--memory 1Gi`** — `next/image` runs through sharp, and Cloud Run's
@@ -85,9 +85,46 @@ gcloud run deploy $SERVICE \
   matters more than the idle cost.
 
 `ANTHROPIC_API_KEY` and `SMTP_PASS` already exist in the project and are shared
-with the `via` and `viabooks` services; `VOYAGE_API_KEY` is this service's own
-(see Surface Match below). `NEXT_PUBLIC_*` values are inlined at build time and
-have in-code defaults matching production, so they need no build args.
+with the `via` and `viabooks` services; `VOYAGE_API_KEY` and
+`PRICE_LIST_TOKEN_SECRET` are this service's own (see Surface Match and Price
+List below). `NEXT_PUBLIC_*` values are inlined at build time and have in-code
+defaults matching production, so they need no build args.
+
+## Price list (`PRICE_LIST_TOKEN_SECRET`)
+
+The Lamitak price list is committed at `private/price-list/`, outside `public/`,
+and is served only by `/api/price-list` to a browser carrying a token that
+submitting `/request-price-list` minted. The tokens are signed with this
+secret and stored nowhere, so any instance can verify what another minted —
+which is what makes the gate work on a service that scales to several
+containers.
+
+There is no fallback value: without the secret the form refuses to submit and
+says so, rather than releasing the file to everyone. **It must exist before the
+website deploys**, or the feature is broken from its first request:
+
+```bash
+SA=$(gcloud run services describe $SERVICE --region $REGION --project $PROJECT \
+  --format='value(spec.template.spec.serviceAccountName)')
+
+openssl rand -base64 48 | tr -d '\n' \
+  | gcloud secrets create PRICE_LIST_TOKEN_SECRET --project $PROJECT --data-file=-
+gcloud secrets add-iam-policy-binding PRICE_LIST_TOKEN_SECRET --project $PROJECT \
+  --member="serviceAccount:$SA" --role=roles/secretmanager.secretAccessor
+
+gcloud run services update $SERVICE --region $REGION --project $PROJECT \
+  --update-secrets PRICE_LIST_TOKEN_SECRET=PRICE_LIST_TOKEN_SECRET:latest
+```
+
+Rotating it is safe and costs nothing but the tokens in flight: add a new
+secret version, redeploy, and anyone mid-download fills the short form in
+again.
+
+Replacing the PDF is a commit to `private/price-list/` — the filename is read
+by `src/app/api/price-list/route.ts`, and `next.config.mjs` copies the folder
+into the standalone build through `outputFileTracingIncludes`. Nothing traces
+a file nobody imports, so a new folder there needs that entry updated too or
+the container ships without it.
 
 ## Surface Match (search by photo)
 

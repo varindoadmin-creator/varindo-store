@@ -115,10 +115,11 @@ export default async function HargaLamitakPage() {
         <section className="mb-16 rounded-card bg-varindo-canvas px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
             <p className="display text-[28px] text-varindo-ink mb-2">Butuh harga untuk kebutuhan proyek Anda?</p>
-            <p className="text-[14px] text-varindo-mid max-w-lg">Tim kami siap membantu memberikan penawaran sesuai kebutuhan, termasuk untuk pemesanan dalam jumlah besar.</p>
+            <p className="text-[14px] text-varindo-mid max-w-lg">Tim kami siap membantu memberikan penawaran sesuai kebutuhan, termasuk untuk pemesanan dalam jumlah besar. Daftar harga resmi Lamitak — harga lembaran dan edging, belum termasuk PPN — dapat diunduh dalam bentuk PDF.</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <a href={waUrl} target="_blank" rel="noreferrer" className="btn-ink justify-center">Tanya via WhatsApp</a>
+            <Link href="/request-price-list" className="btn-ghost justify-center">Unduh Daftar Harga</Link>
           </div>
         </section>
 
