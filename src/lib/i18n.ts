@@ -284,6 +284,7 @@ export const translations = {
     specColourFamily:  { id: 'Famili Warna', en: 'Colour Family' },
     breadcrumbHome:    { id: 'Beranda', en: 'Home' },
     sampleCta:         { id: 'Minta Sampel Gratis', en: 'Request Free Sample' },
+    quoteCta:          { id: 'Minta Penawaran', en: 'Request Quote' },
     relatedTitle:      { id: 'Produk Serupa', en: 'Related Products' },
     descriptionTitle:  { id: 'Deskripsi Produk', en: 'Product Description' },
     suitableFor:       { id: 'Cocok untuk', en: 'Suitable for' }
@@ -450,6 +451,7 @@ export const translations = {
     contactLink:  { id: 'Kontak', en: 'Contact' },
     catalogueLink:{ id: 'Permintaan Katalog', en: 'Request Catalogue' },
     sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
+    quoteLink:    { id: 'Permintaan Penawaran', en: 'Request Quote' },
     blogLink:     { id: 'Artikel', en: 'Articles' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
     appTagline:   {
@@ -498,6 +500,34 @@ export const translations = {
       en: 'Thank you, {name}. Our team will arrange the catalogue and contact you at {phone} within 1 business day.'
     },
     catalogueSuccessTitle: { id: 'Permintaan katalog terkirim.', en: 'Catalogue request submitted.' },
+
+    // Quote form
+    quoteBadge:       { id: 'Permintaan Penawaran', en: 'Quote Request' },
+    quoteTitle:       { id: 'Permintaan\nPenawaran Harga', en: 'Request a\nPrice Quote' },
+    quoteSubtitle:    {
+      id: 'Isi data Anda, lalu cari kode atau nama desain yang dibutuhkan beserta jumlahnya. Tim kami akan menyiapkan penawaran harga untuk Anda.',
+      en: 'Fill in your details, then search for the codes or design names you need and how many of each. Our team will prepare a price quote for you.'
+    },
+    quoteInfoTitle:   { id: 'Informasi yang Perlu Disiapkan', en: 'Information to Prepare' },
+    quoteSuccessTitle:{ id: 'Permintaan penawaran terkirim.', en: 'Quote request submitted.' },
+    quoteSuccessBody: {
+      id: 'Permintaan Anda telah dicatat. Tim kami akan meninjau daftar produk dan menghubungi Anda di {phone} dalam 1 hari kerja.',
+      en: 'Your request has been recorded. Our team will review your product list and contact you at {phone} within 1 business day.'
+    },
+    productListTitle: { id: 'Daftar Produk', en: 'Product List' },
+    codeColumnHeader: { id: 'Kode atau Nama Desain', en: 'Code or Design Name' },
+    qtyColumnHeader:  { id: 'Jml', en: 'Qty' },
+    codePlaceholder:  { id: 'Cari kode atau desain…', en: 'Search code or design…' },
+    qtyPlaceholder:   { id: 'cth. 10', en: 'e.g. 10' },
+    quoteMaxLabel:    { id: 'Maksimal {n} produk per permintaan.', en: 'Maximum {n} products per request.' },
+    quoteMaxNote:     {
+      id: 'Maksimal 10 produk per permintaan. Harga final dikonfirmasi oleh tim kami sebelum pemesanan.',
+      en: 'Maximum 10 products per request. Final pricing is confirmed by our team before ordering.'
+    },
+    readyQuote:       { id: 'Siap — {n} produk dengan data Anda.', en: 'Ready — {n} products with your details.' },
+    fillProduct:      { id: 'Isi data dan minimal satu produk dengan jumlahnya.', en: 'Fill in your details and at least one product with its quantity.' },
+    qtyError:         { id: 'Mohon isi jumlah yang valid untuk setiap produk yang terisi.', en: 'Please enter a valid quantity for every product you have filled in.' },
+    requestSummary:   { id: 'Ringkasan Permintaan', en: 'Request Summary' },
 
     // Sample form
     sampleBadge:      { id: 'Permintaan Sampel', en: 'Sample Request' },
