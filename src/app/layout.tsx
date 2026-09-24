@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer';
 import { JsonLd } from '@/components/JsonLd';
 import { LangProvider } from '@/lib/LangContext';
 import { AiChatLoader } from '@/components/AiChatLoader';
-import { GoogleAdsTag } from '@/components/GoogleAdsTag';
+import { GoogleTag } from '@/components/GoogleTag';
 import { buildOrganizationJsonLd, buildLocalBusinessJsonLd } from '@/lib/structured-data';
 
 // Three faces, each with one job.
@@ -84,7 +84,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="id" className={`${fraunces.variable} ${instrument.variable} ${jetbrains.variable}`}>
       <body className="min-h-screen bg-varindo-paper font-sans antialiased">
-        <GoogleAdsTag />
+        <GoogleTag />
         <JsonLd data={buildOrganizationJsonLd()} />
         <JsonLd data={buildLocalBusinessJsonLd()} />
         <LangProvider>
