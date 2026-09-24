@@ -1,6 +1,6 @@
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import type { Metadata } from 'next';
-import { getProductBySlug, getRelatedProducts } from '@/lib/products';
+import { getProductBySlug, getProductByLegacySlug, getRelatedProducts } from '@/lib/products';
 import { buildProductTitle, buildProductDescription, getProductUrl } from '@/lib/seo';
 import { buildProductDescriptionBlock, getFirstSentence } from '@/lib/productDescription';
 import { buildProductJsonLd, buildProductBreadcrumbJsonLd } from '@/lib/structured-data';
@@ -11,9 +11,20 @@ import { ProductDetailClient } from './ProductDetailClient';
 export const dynamic = 'force-dynamic';
 export const revalidate = 600;
 
+// The product for a slug, or, for an address from the old Shopify store, a
+// permanent redirect to that product's current address, so search engines
+// swap the old URL for the new one and keep its ranking.
+async function findProduct(slug: string) {
+  const product = await getProductBySlug(slug);
+  if (product) return product;
+  const moved = await getProductByLegacySlug(slug);
+  if (moved) permanentRedirect(`/products/${moved.slug}`);
+  return undefined;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const product = await getProductBySlug(slug);
+  const product = await findProduct(slug);
   if (!product) return { title: 'Produk Tidak Ditemukan' };
 
   const title = buildProductTitle(product);
@@ -47,7 +58,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = await getProductBySlug(slug);
+  const product = await findProduct(slug);
   if (!product) notFound();
   const related = await getRelatedProducts(product);
   const { paragraph, suitableFor } = buildProductDescriptionBlock(product);

@@ -207,3 +207,61 @@ export async function getPriceTable(): Promise<PriceTableRow[]> {
     }))
     .sort((a, b) => a.collection.localeCompare(b.collection) || a.size.localeCompare(b.size));
 }
+
+// ─── Old product addresses ──────────────────────────────────────────────────
+// Before this site, varindo.co.id was a Shopify store whose product addresses
+// read `<code>-hpl-<brand>-<name>` (`/products/dxp-1375k-hpl-lamitak-beige-escher`).
+// Search engines still crawl them, and people still arrive from old results,
+// so a slug that matches nothing is read for the product code it starts with.
+
+// Up to this many leading slug words can make up a code ("mba-2013-c" is three).
+const MAX_CODE_WORDS = 4;
+
+/**
+ * The live product an old address pointed at, when its leading words spell a
+ * current product code exactly (punctuation aside). Longest match wins, so
+ * "dxp-1375k-…" is DXP 1375K and never a shorter code that happens to prefix it.
+ */
+export async function getProductByLegacySlug(slug: string) {
+  const products = await getAllProducts();
+  const byCode = new Map(products.map((product) => [normalizeCode(product.code), product]));
+  const words = slug.toLowerCase().split('-');
+  let match: Product | undefined;
+  for (let n = 1; n <= Math.min(MAX_CODE_WORDS, words.length); n += 1) {
+    match = byCode.get(words.slice(0, n).join('')) ?? match;
+  }
+  return match ? toPublicProduct(match) : undefined;
+}
+
+// Words in an old address that say nothing about which design it was: brands
+// the old store sold, the product type, sheet sizes and finishes.
+const NON_DESIGN_WORDS = new Set([
+  'hpl', 'lamitak', 'edl', 'aica', 'mb', 'carta', 'grasmerino', 'newedge', 'abs', 'edge',
+  'type', 'meter', 'mm', 'ft', 'matt', 'gloss', 'high', 'pro', 'dri', 'the', 'and', 'oembed'
+]);
+
+/**
+ * Products to offer on the not-found page for a product address that no longer
+ * resolves: designs sharing a name word with it first, then the same code
+ * series (the letters before the number, "SCA" for sca-1135d). Empty when
+ * nothing is close; the page then shows only its search.
+ */
+export async function getSuggestionsForMissingSlug(slug: string, count = 8) {
+  const products = await getAllProducts();
+  const words = slug.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+  const series = /^[a-z]+/.exec(words[0] || '')?.[0];
+  const nameWords = words.filter((w) => !/\d/.test(w) && w.length > 2 && !NON_DESIGN_WORDS.has(w));
+
+  const scored = products
+    .map((product) => {
+      const design = (product.design || product.name).toLowerCase().split(/[^a-z0-9]+/);
+      const nameScore = nameWords.filter((w) => design.includes(w)).length;
+      const productSeries = /^[a-z]+/.exec(product.code.toLowerCase())?.[0];
+      const seriesScore = series && productSeries === series ? 1 : 0;
+      return { product, score: nameScore * 2 + seriesScore };
+    })
+    .filter((entry) => entry.score > 0)
+    .sort((a, b) => b.score - a.score || a.product.code.localeCompare(b.product.code, undefined, { numeric: true }));
+
+  return toPublicProducts(scored.slice(0, count).map((entry) => entry.product));
+}

@@ -637,7 +637,8 @@ export const translations = {
     },
     searchLabel: { id: 'Cari produk', en: 'Search products' },
     browseCta:   { id: 'Lihat Katalog', en: 'Browse Catalogue' },
-    homeCta:     { id: 'Kembali ke Beranda', en: 'Back to Home' }
+    homeCta:     { id: 'Kembali ke Beranda', en: 'Back to Home' },
+    suggestionsTitle: { id: 'Mungkin yang Anda cari', en: 'Perhaps you were looking for' }
   },
 
 } as const;
