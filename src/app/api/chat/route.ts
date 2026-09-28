@@ -44,7 +44,7 @@ TENTANG VARINDO:
 - Kantor utama: Branz BSD Tower A Unit 3310, Tangerang
 - Kantor terdaftar: Ruko Pasar Modern Batununggal, Bandung
 - Hub Medan: House of HPL, Jl. S. Parman No.28, Petisah Tengah, Kec. Medan Petisah, Kota Medan 20112, Sumatera Utara — Telepon 0852 1020 9968 / 0852 0076 9968
-- Telepon: 0812 8888 5224 dan 0812 1001 5224
+- Telepon: 0812 1001 5224
 - Email: contact@varindo.co.id
 - Jam operasional: Senin–Jumat, 09.00–17.00 WIB
 - Website: varindo.co.id
@@ -151,7 +151,7 @@ ABOUT VARINDO:
 - Head office: Branz BSD Tower A Unit 3310, Tangerang
 - Registered office: Ruko Pasar Modern Batununggal, Bandung
 - Medan Hub: House of HPL, Jl. S. Parman No.28, Petisah Tengah, Kec. Medan Petisah, Kota Medan 20112, Sumatera Utara — Phone 0852 1020 9968 / 0852 0076 9968
-- Phone: 0812 8888 5224 and 0812 1001 5224
+- Phone: 0812 1001 5224
 - Email: contact@varindo.co.id
 - Operating hours: Monday–Friday, 09:00–17:00 WIB
 - Website: varindo.co.id
