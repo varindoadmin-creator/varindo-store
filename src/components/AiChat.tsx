@@ -152,7 +152,7 @@ export function AiChat() {
     }).catch(() => {});
   };
 
-  const waUrl = `https://wa.me/6281288885224?text=${encodeURIComponent(
+  const waUrl = `https://wa.me/6281210015224?text=${encodeURIComponent(
     lang === 'id' ? 'Halo Admin Varindo, saya ingin bertanya mengenai produk Lamitak.' : 'Hello Varindo team, I would like to ask about Lamitak products.'
   )}`;
 
