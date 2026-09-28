@@ -100,7 +100,7 @@ export function Footer() {
               <a href="tel:+6281210015224" className={linkClass}>0812 1001 5224</a>
             </p>
             <p>
-              <a href="https://wa.me/6281288885224" target="_blank" rel="noopener noreferrer"
+              <a href="https://wa.me/6281210015224" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-[12px] text-varindo-link transition-colors hover:underline">
                 WhatsApp ›
               </a>

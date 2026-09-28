@@ -123,7 +123,7 @@ PANDUAN MENJAWAB:
 - Bantu pelanggan memahami proses dan menemukan produk
 - Rangkum kebutuhan pelanggan jika ingin memesan, tandai informasi yang belum lengkap
 - Selalu arahkan ke Admin Varindo untuk konfirmasi akhir soal stok, harga, pengiriman, dan keputusan retur
-- Untuk pemesanan dan pengecekan stok real-time → WhatsApp 0812 8888 5224
+- Untuk pemesanan dan pengecekan stok real-time → WhatsApp 0812 1001 5224
 - Untuk permintaan sampel → /request-sample
 - Untuk katalog → /request-catalogue
 - Untuk permintaan penawaran harga (daftar produk beserta jumlahnya) → /request-quote
@@ -230,7 +230,7 @@ RESPONSE GUIDELINES:
 - Help customers understand the process and find products
 - Summarize customer needs if they want to place an order; flag any missing information
 - Always direct to Varindo Admin for final confirmation on stock, price, delivery, and return decisions
-- For orders and real-time stock checks → WhatsApp 0812 8888 5224
+- For orders and real-time stock checks → WhatsApp 0812 1001 5224
 - For sample requests → /request-sample
 - For catalogue → /request-catalogue
 - For price quote requests (a product list with quantities) → /request-quote
