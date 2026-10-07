@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { buildWhatsAppUrl } from '@/lib/whatsapp';
+import { buildEnquiryWhatsAppUrl } from '@/lib/whatsapp';
 
 export const metadata: Metadata = {
   title: 'Request Lamitak Catalog',
@@ -17,7 +17,7 @@ export default function RequestCatalogPage() {
     'Terima kasih.'
   ].join('\n');
 
-  const whatsappUrl = buildWhatsAppUrl(message);
+  const whatsappUrl = buildEnquiryWhatsAppUrl(message);
 
   return (
     <div>

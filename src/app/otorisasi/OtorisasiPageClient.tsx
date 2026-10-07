@@ -4,11 +4,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
-import { buildWhatsAppUrl } from '@/lib/whatsapp';
+import { buildEnquiryWhatsAppUrl } from '@/lib/whatsapp';
 
 export function OtorisasiPageClient() {
   const { lang } = useLang();
-  const waUrl = buildWhatsAppUrl('Halo Admin Varindo, saya ingin memverifikasi apakah produk Lamitak yang saya lihat adalah produk resmi.');
+  const waUrl = buildEnquiryWhatsAppUrl('Halo Admin Varindo, saya ingin memverifikasi apakah produk Lamitak yang saya lihat adalah produk resmi.');
 
   const buyerSafeguardItems = [
     { title: t('home', 'safeguard1Title', lang), body: t('home', 'safeguard1Body', lang) },
@@ -182,7 +182,7 @@ export function OtorisasiPageClient() {
                 Jl. BSD Boulevard Parcel 55-F<br />
                 Tangerang 15339, Banten, Indonesia<br />
                 <span className="block mt-3">
-                  {lang === 'id' ? 'Telepon / WhatsApp' : 'Phone / WhatsApp'}: <a href="tel:+6281210015224" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors">0812 1001 5224</a><br />
+                  {lang === 'id' ? 'Telepon / WhatsApp' : 'Phone / WhatsApp'}: <a href="tel:+6281288885224" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors">0812 8888 5224</a><br />
                   Email: <a href="mailto:contact@varindo.co.id" className="text-varindo-ink underline underline-offset-2 hover:text-varindo-link transition-colors">contact@varindo.co.id</a>
                 </span>
               </address>

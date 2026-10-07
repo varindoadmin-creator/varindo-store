@@ -76,8 +76,12 @@ export function ContactPageClient() {
             <p className="label mb-4">WhatsApp</p>
             <h2 className="display text-varindo-ink text-[32px] sm:text-[40px] mb-5">{t('contact', 'waTitle', lang)}</h2>
             <p className="text-[16px] leading-7 text-varindo-mid mb-8">{t('contact', 'waBody', lang)}</p>
-            <a href="https://wa.me/6281210015224" target="_blank" rel="noopener noreferrer"
+            <a href="https://wa.me/6281288885224" target="_blank" rel="noopener noreferrer"
               className="btn-blue w-full justify-center">
+              Chat → 0812 8888 5224
+            </a>
+            <a href="https://wa.me/6281210015224" target="_blank" rel="noopener noreferrer"
+              className="btn-ghost mt-3 w-full justify-center">
               Chat → 0812 1001 5224
             </a>
             <div className="mt-8 pt-6 border-t border-varindo-line/50">

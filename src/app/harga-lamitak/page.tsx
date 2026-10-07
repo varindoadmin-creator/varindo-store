@@ -4,7 +4,7 @@ import { getPriceTable } from '@/lib/products';
 import { SITE_URL, formatPriceIDR } from '@/lib/seo';
 import { buildFaqPageJsonLd, type FaqEntry } from '@/lib/structured-data';
 import { JsonLd } from '@/components/JsonLd';
-import { buildWhatsAppUrl } from '@/lib/whatsapp';
+import { buildEnquiryWhatsAppUrl } from '@/lib/whatsapp';
 
 const YEAR = new Date().getFullYear();
 
@@ -58,7 +58,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HargaLamitakPage() {
   const priceTable = await getPriceTable();
-  const waUrl = buildWhatsAppUrl('Halo Admin Varindo, saya ingin tanya harga HPL Lamitak terbaru untuk kebutuhan proyek saya.');
+  const waUrl = buildEnquiryWhatsAppUrl('Halo Admin Varindo, saya ingin tanya harga HPL Lamitak terbaru untuk kebutuhan proyek saya.');
 
   return (
     <div>

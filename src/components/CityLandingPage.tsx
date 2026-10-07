@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import type { Product } from '@/types/product';
 import type { CityContent } from '@/lib/cityContent';
-import { buildWhatsAppUrl, buildCityEnquiryMessage } from '@/lib/whatsapp';
+import { buildEnquiryWhatsAppUrl, buildCityEnquiryMessage } from '@/lib/whatsapp';
 import { buildFaqPageJsonLd } from '@/lib/structured-data';
 import { JsonLd } from '@/components/JsonLd';
 import { ProductGrid } from '@/components/ProductGrid';
 
 export function CityLandingPage({ content, bestSellers }: { content: CityContent; bestSellers: Product[] }) {
-  const waUrl = buildWhatsAppUrl(buildCityEnquiryMessage(content.cityName));
+  const waUrl = buildEnquiryWhatsAppUrl(buildCityEnquiryMessage(content.cityName));
 
   return (
     <div>

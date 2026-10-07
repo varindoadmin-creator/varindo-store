@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
+import { buildEnquiryWhatsAppUrl } from '@/lib/whatsapp';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -152,9 +153,9 @@ export function AiChat() {
     }).catch(() => {});
   };
 
-  const waUrl = `https://wa.me/6281210015224?text=${encodeURIComponent(
+  const waUrl = buildEnquiryWhatsAppUrl(
     lang === 'id' ? 'Halo Admin Varindo, saya ingin bertanya mengenai produk Lamitak.' : 'Hello Varindo team, I would like to ask about Lamitak products.'
-  )}`;
+  );
 
   return (
     <>

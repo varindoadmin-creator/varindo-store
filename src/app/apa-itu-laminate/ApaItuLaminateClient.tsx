@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
-import { buildWhatsAppUrl } from '@/lib/whatsapp';
+import { buildEnquiryWhatsAppUrl } from '@/lib/whatsapp';
 
 export function ApaItuLaminateClient() {
   const { lang } = useLang();
-  const waUrl = buildWhatsAppUrl('Halo Admin Varindo, saya ingin bertanya seputar spesifikasi produk HPL Lamitak.');
+  const waUrl = buildEnquiryWhatsAppUrl('Halo Admin Varindo, saya ingin bertanya seputar spesifikasi produk HPL Lamitak.');
 
   const careDonts = lang === 'id'
     ? [

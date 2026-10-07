@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import type { Product } from '@/types/product';
 import { ProductImageZoom } from '@/components/ProductImageZoom';
-import { buildProductEnquiryMessage, buildWhatsAppUrl } from '@/lib/whatsapp';
+import { buildProductEnquiryMessage, buildEnquiryWhatsAppUrl } from '@/lib/whatsapp';
 import { formatIDR } from '@/lib/utils';
 import { buildProductImageAlt } from '@/lib/seo';
 import { useLang } from '@/lib/LangContext';
@@ -20,7 +20,7 @@ type Props = {
 
 export function ProductDetailClient({ product, descriptionParagraph, suitableFor }: Props) {
   const { lang } = useLang();
-  const enquiryUrl = buildWhatsAppUrl(buildProductEnquiryMessage(product));
+  const enquiryUrl = buildEnquiryWhatsAppUrl(buildProductEnquiryMessage(product));
   const imageAlt = buildProductImageAlt(product);
 
   const collectionLabel = product.collection || product.category;
