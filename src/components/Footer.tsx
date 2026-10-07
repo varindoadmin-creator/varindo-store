@@ -96,10 +96,11 @@ export function Footer() {
           <address className="space-y-3 not-italic">
             <p className="text-[12px] leading-[1.6] text-varindo-mid">
               <span className="mb-0.5 block text-varindo-ink">{t('footer', 'phone', lang)}</span>
+              <a href="tel:+6281288885224" className={linkClass}>0812 8888 5224</a><br />
               <a href="tel:+6281210015224" className={linkClass}>0812 1001 5224</a>
             </p>
             <p>
-              <a href="https://wa.me/6281210015224" target="_blank" rel="noopener noreferrer"
+              <a href="https://wa.me/6281288885224" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-[12px] text-varindo-link transition-colors hover:underline">
                 WhatsApp ›
               </a>

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
-import { buildWhatsAppUrl } from '@/lib/whatsapp';
+import { buildEnquiryWhatsAppUrl } from '@/lib/whatsapp';
 import { ArticleMarkdown } from '@/components/ArticleMarkdown';
 import type { ViabooksArticle } from '@/lib/viabooksArticles';
 
@@ -20,7 +20,7 @@ function formatDate(iso: string, lang: 'id' | 'en') {
 // Markdown in each language.
 export function ViabooksArticleClient({ article }: { article: ViabooksArticle }) {
   const { lang } = useLang();
-  const waUrl = buildWhatsAppUrl(`Halo Admin Varindo, saya membaca artikel "${article.title.id}" dan ingin bertanya.`);
+  const waUrl = buildEnquiryWhatsAppUrl(`Halo Admin Varindo, saya membaca artikel "${article.title.id}" dan ingin bertanya.`);
 
   return (
     <div>

@@ -44,7 +44,7 @@ TENTANG VARINDO:
 - Kantor utama: Branz BSD Tower A Unit 3310, Tangerang
 - Kantor terdaftar: Ruko Pasar Modern Batununggal, Bandung
 - Hub Medan: House of HPL, Jl. S. Parman No.28, Petisah Tengah, Kec. Medan Petisah, Kota Medan 20112, Sumatera Utara — Telepon 0852 1020 9968 / 0852 0076 9968
-- Telepon: 0812 1001 5224
+- Telepon: 0812 8888 5224 / 0812 1001 5224
 - Email: contact@varindo.co.id
 - Jam operasional: Senin–Jumat, 09.00–17.00 WIB
 - Website: varindo.co.id
@@ -123,7 +123,7 @@ PANDUAN MENJAWAB:
 - Bantu pelanggan memahami proses dan menemukan produk
 - Rangkum kebutuhan pelanggan jika ingin memesan, tandai informasi yang belum lengkap
 - Selalu arahkan ke Admin Varindo untuk konfirmasi akhir soal stok, harga, pengiriman, dan keputusan retur
-- Untuk pemesanan dan pengecekan stok real-time → WhatsApp 0812 1001 5224
+- Untuk pemesanan dan pengecekan stok real-time → WhatsApp 0812 8888 5224
 - Untuk permintaan sampel → /request-sample
 - Untuk katalog → /request-catalogue
 - Untuk permintaan penawaran harga (daftar produk beserta jumlahnya) → /request-quote
@@ -151,7 +151,7 @@ ABOUT VARINDO:
 - Head office: Branz BSD Tower A Unit 3310, Tangerang
 - Registered office: Ruko Pasar Modern Batununggal, Bandung
 - Medan Hub: House of HPL, Jl. S. Parman No.28, Petisah Tengah, Kec. Medan Petisah, Kota Medan 20112, Sumatera Utara — Phone 0852 1020 9968 / 0852 0076 9968
-- Phone: 0812 1001 5224
+- Phone: 0812 8888 5224 / 0812 1001 5224
 - Email: contact@varindo.co.id
 - Operating hours: Monday–Friday, 09:00–17:00 WIB
 - Website: varindo.co.id
@@ -230,7 +230,7 @@ RESPONSE GUIDELINES:
 - Help customers understand the process and find products
 - Summarize customer needs if they want to place an order; flag any missing information
 - Always direct to Varindo Admin for final confirmation on stock, price, delivery, and return decisions
-- For orders and real-time stock checks → WhatsApp 0812 1001 5224
+- For orders and real-time stock checks → WhatsApp 0812 8888 5224
 - For sample requests → /request-sample
 - For catalogue → /request-catalogue
 - For price quote requests (a product list with quantities) → /request-quote
