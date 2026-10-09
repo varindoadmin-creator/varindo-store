@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
-import { FormEvent, useState, useEffect } from 'react';
+import { FormEvent, useState, useEffect, useRef } from 'react';
 import { useLang } from '@/lib/LangContext';
 import { t, type Lang } from '@/lib/i18n';
 
@@ -49,21 +49,85 @@ function LangSwitcher() {
 
 /* Search is a hairline field with the glyph inside it. It squares off with
    the rest of the controls; the catalogue is the point of the site, so this
-   is the one place the chrome is allowed to take up width. */
+   is the one place the chrome is allowed to take up width. An X clears it in
+   one tap, and the last few searches drop down under it on focus — kept in
+   this browser only, since a code looked up yesterday is often looked up
+   again today. */
+const RECENT_KEY = 'varindo-recent-searches';
+const RECENT_MAX = 6;
+
+function readRecent(): string[] {
+  try {
+    const stored = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
+    return Array.isArray(stored) ? stored.filter((s): s is string => typeof s === 'string').slice(0, RECENT_MAX) : [];
+  } catch {
+    return [];
+  }
+}
+
+function writeRecent(list: string[]) {
+  try { localStorage.setItem(RECENT_KEY, JSON.stringify(list)); } catch { /* private mode: nothing kept */ }
+}
+
 function HeaderSearch({ onSearch, size = 'sm' }: { onSearch?: () => void; size?: 'sm' | 'lg' }) {
   const router = useRouter();
   const { lang } = useLang();
   const [search, setSearch] = useState('');
+  const [recent, setRecent] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const query = search.trim();
+  useEffect(() => { setRecent(readRecent()); }, []);
+
+  // Close the dropdown on a tap anywhere else.
+  useEffect(() => {
+    if (!open) return;
+    const away = (e: PointerEvent) => {
+      if (formRef.current && !formRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('pointerdown', away);
+    return () => document.removeEventListener('pointerdown', away);
+  }, [open]);
+
+  const go = (raw: string) => {
+    const query = raw.trim();
+    if (query) {
+      // Newest first, once each, whatever the case it was typed in.
+      const next = [query, ...readRecent().filter((r) => r.toLowerCase() !== query.toLowerCase())].slice(0, RECENT_MAX);
+      writeRecent(next);
+      setRecent(next);
+    }
+    setOpen(false);
+    inputRef.current?.blur();
     router.push(query ? `/products?search=${encodeURIComponent(query)}` : '/products');
     onSearch?.();
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    go(search);
+  };
+
+  const remove = (item: string) => {
+    const next = recent.filter((r) => r !== item);
+    writeRecent(next);
+    setRecent(next);
+  };
+
+  const clearAll = () => {
+    writeRecent([]);
+    setRecent([]);
+    setOpen(false);
+  };
+
+  // While typing, only the recent searches that match what is typed.
+  const typed = search.trim().toLowerCase();
+  const shown = typed ? recent.filter((r) => r.toLowerCase().includes(typed) && r.toLowerCase() !== typed) : recent;
+  const lg = size === 'lg';
+
   return (
-    <form onSubmit={handleSubmit} className="relative w-full">
+    <form ref={formRef} onSubmit={handleSubmit} className="relative w-full">
       <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-varindo-mid">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" strokeWidth="1.5" />
@@ -71,13 +135,69 @@ function HeaderSearch({ onSearch, size = 'sm' }: { onSearch?: () => void; size?:
         </svg>
       </span>
       <input
+        ref={inputRef}
+        type="search"
+        enterKeyHint="search"
+        autoComplete="off"
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => { setSearch(e.target.value); setOpen(true); }}
+        onFocus={() => setOpen(true)}
+        onKeyDown={(e) => { if (e.key === 'Escape') setOpen(false); }}
         placeholder={t('nav', 'searchPlaceholder', lang)}
         aria-label={t('nav', 'searchPlaceholder', lang)}
-        className={`${size === 'lg' ? 'h-12 text-[16px]' : 'h-10 text-[14px]'} w-full rounded-ctl border border-varindo-line bg-varindo-canvas pl-9 pr-3 text-varindo-ink outline-none transition-colors duration-150 placeholder:text-varindo-mid focus:border-varindo-clay focus:bg-varindo-paper`}
+        className={`${lg ? 'h-12 text-[16px] pr-12' : 'h-10 text-[14px] pr-10'} w-full rounded-ctl border border-varindo-line bg-varindo-canvas pl-9 text-varindo-ink outline-none transition-colors duration-150 placeholder:text-varindo-mid focus:border-varindo-clay focus:bg-varindo-paper [&::-webkit-search-cancel-button]:appearance-none`}
       />
+      {search && (
+        <button
+          type="button"
+          onClick={() => { setSearch(''); setOpen(true); inputRef.current?.focus(); }}
+          aria-label={t('nav', 'clearSearch', lang)}
+          className={`absolute right-1 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-full text-varindo-mid transition-colors hover:text-varindo-ink ${lg ? 'h-10 w-10' : 'h-8 w-8'}`}
+        >
+          <svg width={lg ? 16 : 14} height={lg ? 16 : 14} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
+      )}
       <button type="submit" className="sr-only">{t('nav', 'searchPlaceholder', lang)}</button>
+
+      {open && shown.length > 0 && (
+        <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-ctl border border-varindo-line bg-varindo-paper shadow-[0_8px_24px_rgba(23,21,15,0.08)]">
+          <div className="flex items-center justify-between px-3 pb-1 pt-2.5">
+            <span className="label">{t('nav', 'recentSearches', lang)}</span>
+            <button type="button" onClick={clearAll} className="text-[12px] text-varindo-mid transition-colors hover:text-varindo-clay">
+              {t('nav', 'clearRecent', lang)}
+            </button>
+          </div>
+          <ul>
+            {shown.map((item) => (
+              <li key={item} className="flex items-center">
+                <button
+                  type="button"
+                  onClick={() => { setSearch(item); go(item); }}
+                  className={`flex min-w-0 flex-1 items-center gap-2.5 px-3 text-left text-varindo-ink transition-colors hover:bg-varindo-canvas ${lg ? 'py-3 text-[16px]' : 'py-2 text-[14px]'}`}
+                >
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0 text-varindo-mid">
+                    <circle cx="8" cy="8" r="6.25" stroke="currentColor" strokeWidth="1.5" />
+                    <path d="M8 4.5V8L10.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                  <span className="truncate">{item}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => remove(item)}
+                  aria-label={`${t('nav', 'removeRecent', lang)}: ${item}`}
+                  className={`flex shrink-0 items-center justify-center text-varindo-mid transition-colors hover:text-varindo-ink ${lg ? 'h-11 w-11' : 'h-9 w-9'}`}
+                >
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </form>
   );
 }
