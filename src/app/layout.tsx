@@ -39,11 +39,11 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Dealer Resmi HPL Lamitak Indonesia - Katalog & Harga 800 Produk | Varindo',
+    default: 'Varindo — Trusted Dealer Lamitak, Gratis Ongkir Jawa & Bali',
     template: '%s | Varindo'
   },
   description:
-    'Dealer resmi Lamitak di Indonesia. 800 produk, harga transparan termasuk PPN, sampel gratis, gudang Tangerang & Bandung. Cek katalog & harga sekarang.',
+    'Varindo, Authorized Dealer Lamitak dengan layanan pelanggan terbaik. Harga yang kompetitif dan gratis ongkir ke seluruh Jawa dan Bali.',
   metadataBase: new URL('https://varindo.co.id'),
   manifest: '/manifest.webmanifest',
   applicationName: 'Varindo Lamitak',
@@ -55,9 +55,9 @@ export const metadata: Metadata = {
     statusBarStyle: 'default'
   },
   openGraph: {
-    title: 'Dealer Resmi HPL Lamitak Indonesia - Katalog & Harga 800 Produk | Varindo',
+    title: 'Varindo — Trusted Dealer Lamitak, Gratis Ongkir Jawa & Bali',
     description:
-      'Dealer resmi Lamitak di Indonesia. 800 produk, harga transparan termasuk PPN, sampel gratis, gudang Tangerang & Bandung. Cek katalog & harga sekarang.',
+      'Varindo, Authorized Dealer Lamitak dengan layanan pelanggan terbaik. Harga yang kompetitif dan gratis ongkir ke seluruh Jawa dan Bali.',
     url: 'https://varindo.co.id',
     siteName: 'Varindo',
     locale: 'id_ID',
