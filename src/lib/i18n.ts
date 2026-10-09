@@ -455,6 +455,8 @@ export const translations = {
     priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
     blogLink:     { id: 'Artikel', en: 'Articles' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
+    resources:    { id: 'Unduhan', en: 'Resources' },
+    swatchZipLink:{ id: 'Semua Swatch Lamitak (ZIP, ±86 MB)', en: 'All Lamitak Swatches (ZIP, ~86 MB)' },
     appTagline:   {
       id: 'Unduh Aplikasi Varindo',
       en: 'Download the Varindo App'
