@@ -3,20 +3,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLang } from '@/lib/LangContext';
-import { t, type Lang } from '@/lib/i18n';
-import { useIsTwa } from '@/lib/useIsTwa';
+import { t } from '@/lib/i18n';
 
-const PLAY_STORE_URL = 'https://play.google.com/apps/testing/co.varindo.catalog';
-const PLAY_BADGE_SRC: Record<Lang, string> = { id: '/play-badge-id.png', en: '/play-badge-en.png' };
-// Google's official badge art is 646x250 (2.584:1) at every locale.
-const PLAY_BADGE_RATIO = 646 / 250;
+// The "Download the Varindo App" band is left off until the app is published;
+// its badge art (public/play-badge-*.png) and text (i18n footer.appTagline,
+// footer.appLink) are kept for then.
 
 /* Footer is the page's quietest band: 12px grey fine print on canvas,
    links in link-blue, separators only as faint hairlines. */
 export function Footer() {
   const { lang } = useLang();
   const year = new Date().getFullYear();
-  const isTwa = useIsTwa();
 
   const linkClass = 'text-[12px] leading-[1.33] text-varindo-mid transition-colors hover:text-varindo-ink hover:underline';
   const headingClass = 'mb-4 text-[12px] font-semibold leading-[1.33] tracking-[-0.01em] text-varindo-ink';
@@ -112,21 +109,6 @@ export function Footer() {
           </address>
         </div>
       </div>
-
-      {!isTwa && (
-        <div className="border-t border-varindo-line/60">
-          <div className="shell flex flex-col items-center justify-between gap-4 py-6 sm:flex-row">
-            <p className="text-center text-[12px] leading-[1.33] text-varindo-mid sm:text-left">
-              {t('footer', 'appTagline', lang)}
-            </p>
-            <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center transition-opacity hover:opacity-70">
-              <Image src={PLAY_BADGE_SRC[lang]} alt={t('footer', 'appLink', lang)}
-                width={Math.round(40 * PLAY_BADGE_RATIO)} height={40} className="h-10 w-auto" />
-            </a>
-          </div>
-        </div>
-      )}
 
       <div className="border-t border-varindo-line/60">
         <div className="shell py-5">
