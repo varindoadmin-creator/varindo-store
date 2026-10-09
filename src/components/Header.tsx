@@ -6,12 +6,9 @@ import { useRouter, usePathname } from 'next/navigation';
 import { FormEvent, useState, useEffect } from 'react';
 import { useLang } from '@/lib/LangContext';
 import { t, type Lang } from '@/lib/i18n';
-import { useIsTwa } from '@/lib/useIsTwa';
 
-const PLAY_STORE_URL = 'https://play.google.com/apps/testing/co.varindo.catalog';
-const PLAY_BADGE_SRC: Record<Lang, string> = { id: '/play-badge-id.png', en: '/play-badge-en.png' };
-// Google's official badge art is 646x250 (2.584:1) at every locale.
-const PLAY_BADGE_RATIO = 646 / 250;
+// The Google Play badge is left off until the Varindo app is published; its
+// art (public/play-badge-*.png) and text (i18n nav.getApp) are kept for then.
 
 const collectionItems = [
   { key: 'new-arrivals', href: '/collections/new-arrivals' },
@@ -90,7 +87,6 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const isTwa = useIsTwa();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 8);
@@ -187,13 +183,6 @@ export function Header() {
 
             {/* Right controls */}
             <div className="hidden shrink-0 items-center gap-3 sm:flex">
-              {!isTwa && (
-                <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex shrink-0 items-center transition-opacity hover:opacity-70">
-                  <Image src={PLAY_BADGE_SRC[lang]} alt={t('nav', 'getApp', lang)}
-                    width={Math.round(30 * PLAY_BADGE_RATIO)} height={30} className="h-[30px] w-auto" />
-                </a>
-              )}
               <LangSwitcher />
             </div>
 
@@ -249,14 +238,6 @@ export function Header() {
                     {t('nav', 'chatWithUs', lang)}
                   </a>
                 </div>
-                {!isTwa && (
-                  <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer"
-                    onClick={() => setIsOpen(false)}
-                    className="inline-flex items-center justify-center">
-                    <Image src={PLAY_BADGE_SRC[lang]} alt={t('nav', 'getApp', lang)}
-                      width={Math.round(40 * PLAY_BADGE_RATIO)} height={40} className="h-10 w-auto" />
-                  </a>
-                )}
               </div>
             </div>
           </div>
