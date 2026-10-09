@@ -26,6 +26,10 @@ export const translations = {
       id: 'Cari kode, desain, finishing...',
       en: 'Search by code, design, finish...'
     },
+    clearSearch:    { id: 'Hapus pencarian', en: 'Clear search' },
+    recentSearches: { id: 'Pencarian Terakhir', en: 'Recent Searches' },
+    clearRecent:    { id: 'Hapus semua', en: 'Clear all' },
+    removeRecent:   { id: 'Hapus dari riwayat', en: 'Remove from history' },
     announcementBar: {
       id: 'Authorized Dealer of Lamitak - Indonesia',
       en: 'Authorized Dealer of Lamitak - Indonesia'
