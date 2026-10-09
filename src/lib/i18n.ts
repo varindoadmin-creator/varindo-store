@@ -92,11 +92,11 @@ export const translations = {
   // ── Homepage ──────────────────────────────────────────────────
   home: {
     heroBadge:    { id: 'Dealer Resmi Lamitak', en: 'Authorized Lamitak Dealer' },
-    // Varindo first, as the dealer to rely on for Lamitak: promoting the brand
+    // Varindo first, as the trusted dealer for Lamitak: promoting the brand
     // itself is the principal's job, not this site's.
-    heroLine1:    { id: 'Dealer HPL Lamitak', en: 'Your Lamitak HPL' },
-    heroLine2:    { id: 'yang Bisa', en: 'Dealer You' },
-    heroLine3:    { id: 'Diandalkan', en: 'Can Rely On' },
+    heroLine1:    { id: 'Dealer HPL Lamitak', en: 'Your Trusted' },
+    heroLine2:    { id: 'yang', en: 'Lamitak HPL' },
+    heroLine3:    { id: 'Terpercaya', en: 'Dealer' },
     heroBody:     {
       id: 'Kami fokus pada HPL, jadi kami lebih tanggap dan melayani Anda lebih cepat — dengan harga bersaing dan gratis ongkir ke seluruh Jawa dan Bali. Cari berdasarkan kode, nama desain, ukuran, atau ketebalan.',
       en: 'We focus on HPL alone, so we respond faster and serve you better — at competitive prices, with free shipping across Java and Bali. Search by code, design name, size or thickness.'
