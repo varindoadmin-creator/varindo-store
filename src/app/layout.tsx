@@ -39,7 +39,7 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Varindo — Dealer Resmi HPL Lamitak, Gratis Ongkir Jawa & Bali',
+    default: 'Varindo — Trusted Dealer Lamitak, Gratis Ongkir Jawa & Bali',
     template: '%s | Varindo'
   },
   description:
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     statusBarStyle: 'default'
   },
   openGraph: {
-    title: 'Varindo — Dealer Resmi HPL Lamitak, Gratis Ongkir Jawa & Bali',
+    title: 'Varindo — Trusted Dealer Lamitak, Gratis Ongkir Jawa & Bali',
     description:
       'Varindo, Authorized Dealer Lamitak dengan layanan pelanggan terbaik. Harga yang kompetitif dan gratis ongkir ke seluruh Jawa dan Bali.',
     url: 'https://varindo.co.id',
