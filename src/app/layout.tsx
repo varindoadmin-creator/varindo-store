@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     template: '%s | Varindo'
   },
   description:
-    'Varindo, dealer resmi HPL Lamitak yang fokus dan tanggap. Harga bersaing termasuk PPN, gratis ongkir ke seluruh Jawa & Bali, gudang Tangerang & Bandung.',
+    'Varindo, Authorized Dealer Lamitak dengan layanan pelanggan terbaik. Harga yang kompetitif dan gratis ongkir ke seluruh Jawa dan Bali.',
   metadataBase: new URL('https://varindo.co.id'),
   manifest: '/manifest.webmanifest',
   applicationName: 'Varindo Lamitak',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Varindo — Dealer Resmi HPL Lamitak, Gratis Ongkir Jawa & Bali',
     description:
-      'Varindo, dealer resmi HPL Lamitak yang fokus dan tanggap. Harga bersaing termasuk PPN, gratis ongkir ke seluruh Jawa & Bali, gudang Tangerang & Bandung.',
+      'Varindo, Authorized Dealer Lamitak dengan layanan pelanggan terbaik. Harga yang kompetitif dan gratis ongkir ke seluruh Jawa dan Bali.',
     url: 'https://varindo.co.id',
     siteName: 'Varindo',
     locale: 'id_ID',
