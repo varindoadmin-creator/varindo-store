@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import { SURFACE_MATCH_ENABLED } from '@/lib/features';
 import { SITE_URL } from '@/lib/seo';
 import { SurfaceMatchClient } from './SurfaceMatchClient';
 
@@ -29,5 +31,7 @@ export const metadata: Metadata = {
 };
 
 export default function SurfaceMatchPage() {
+  // Paused: anyone with an old link lands on the home page.
+  if (!SURFACE_MATCH_ENABLED) redirect('/');
   return <SurfaceMatchClient />;
 }
