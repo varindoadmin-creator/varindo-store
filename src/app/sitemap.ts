@@ -3,6 +3,7 @@ import { getPublicProducts } from '@/lib/products';
 import { SITE_URL } from '@/lib/seo';
 import { CITY_SLUGS } from '@/lib/cityContent';
 import { blogPosts } from '@/data/blog-posts';
+import { SURFACE_MATCH_ENABLED } from '@/lib/features';
 import { getAllBlogPosts } from '@/lib/viabooksArticles';
 
 // Only the 5 collection groups actually linked from the site nav/footer.
@@ -17,7 +18,9 @@ const STATIC_PAGES: Array<{
 }> = [
   { path: '', changeFrequency: 'daily', priority: 1 },
   { path: '/products', changeFrequency: 'daily', priority: 0.9 },
-  { path: '/surface-match', changeFrequency: 'monthly', priority: 0.6 },
+  ...(SURFACE_MATCH_ENABLED
+    ? [{ path: '/surface-match', changeFrequency: 'monthly' as const, priority: 0.6 }]
+    : []),
   { path: '/about', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/contact', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/request-sample', changeFrequency: 'monthly', priority: 0.6 },

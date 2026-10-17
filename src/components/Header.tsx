@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { FormEvent, useState, useEffect, useRef } from 'react';
 import { useLang } from '@/lib/LangContext';
+import { SURFACE_MATCH_ENABLED } from '@/lib/features';
 import { t, type Lang } from '@/lib/i18n';
 
 // The Google Play badge is left off until the Varindo app is published; its
@@ -282,9 +283,11 @@ export function Header() {
                 </div>
               </div>
 
-              <Link href="/surface-match" className="transition-colors hover:text-varindo-ink">
-                {t('nav', 'surfaceMatch', lang)}
-              </Link>
+              {SURFACE_MATCH_ENABLED && (
+                <Link href="/surface-match" className="transition-colors hover:text-varindo-ink">
+                  {t('nav', 'surfaceMatch', lang)}
+                </Link>
+              )}
               <Link href="/blog" className="transition-colors hover:text-varindo-ink">
                 {t('nav', 'blog', lang)}
               </Link>
@@ -327,7 +330,7 @@ export function Header() {
                 {[
                   { href: '/',         label: t('nav', 'home', lang) },
                   { href: '/products', label: t('nav', 'allProducts', lang) },
-                  { href: '/surface-match', label: t('nav', 'surfaceMatch', lang) },
+                  ...(SURFACE_MATCH_ENABLED ? [{ href: '/surface-match', label: t('nav', 'surfaceMatch', lang) }] : []),
                   { href: '/blog',     label: t('nav', 'blog', lang) },
                   { href: '/about',    label: t('nav', 'about', lang) },
                   { href: '/contact',  label: t('nav', 'contact', lang) },

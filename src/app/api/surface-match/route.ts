@@ -6,6 +6,7 @@ import sharp from 'sharp';
 import { getPublicProducts } from '@/lib/products';
 import { getSwatchUrl, toSwatchSlug } from '@/lib/productImages';
 import { embedImage, getSwatchIndex, nearestSwatches, type SwatchIndex } from '@/lib/swatchIndex';
+import { SURFACE_MATCH_ENABLED } from '@/lib/features';
 import { normalizeCode } from '@/lib/utils';
 import type { Product } from '@/types/product';
 import type { SurfaceMatch, SurfaceMatchGroup, SurfaceMatchResponse } from '@/types/surfaceMatch';
@@ -299,6 +300,10 @@ async function matchItem(item: DetectedItem, ctx: MatchContext): Promise<Surface
 }
 
 export async function POST(req: NextRequest) {
+  // Paused: no photo is read and nothing reaches Claude or Voyage.
+  if (!SURFACE_MATCH_ENABLED) {
+    return NextResponse.json({ error: 'paused' }, { status: 503 });
+  }
   if (isRateLimited(getClientIp(req))) {
     return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
   }

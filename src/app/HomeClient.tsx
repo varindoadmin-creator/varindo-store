@@ -5,6 +5,7 @@ import type { Product } from '@/types/product';
 import { ProductGrid } from '@/components/ProductGrid';
 import { Reveal } from '@/components/Reveal';
 import { useLang } from '@/lib/LangContext';
+import { SURFACE_MATCH_ENABLED } from '@/lib/features';
 import { t } from '@/lib/i18n';
 
 type Props = {
@@ -108,9 +109,11 @@ export function HomeClient({ newProducts, bestSellers }: Props) {
 
               <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3">
                 <Link href="/products" className="btn-blue">{t('home', 'browseCta', lang)}</Link>
-                <Link href="/surface-match" className="link-arrow">
-                  {t('home', 'surfaceMatchCta', lang)} <span aria-hidden="true">›</span>
-                </Link>
+                {SURFACE_MATCH_ENABLED && (
+                  <Link href="/surface-match" className="link-arrow">
+                    {t('home', 'surfaceMatchCta', lang)} <span aria-hidden="true">›</span>
+                  </Link>
+                )}
                 <Link href="/request-sample" className="link-arrow">
                   {t('detail', 'sampleCta', lang)} <span aria-hidden="true">›</span>
                 </Link>
