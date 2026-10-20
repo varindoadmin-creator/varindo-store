@@ -547,18 +547,7 @@ export const translations = {
     serverError:      {
       id: 'Terjadi kesalahan. Silakan coba lagi.',
       en: 'Something went wrong. Please try again.'
-    },
-
-    // Catalogue form
-
-    // Quote form
-
-    // Sample form
-
-    // Price list form
-
-    // Price list download page
-
+    }
   },
 
   // ── Image zoom ────────────────────────────────────────────────

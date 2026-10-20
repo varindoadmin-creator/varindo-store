@@ -22,7 +22,7 @@ const FAQ: FaqEntry[] = [
   {
     question: 'Apakah bisa nego harga untuk kebutuhan proyek dalam jumlah besar?',
     answer:
-      'Untuk kebutuhan proyek dengan jumlah pemesanan besar, Anda dapat menghubungi tim kami via WhatsApp atau mengajukan Permintaan Penawaran agar tim Varindo dapat membantu memberikan penawaran yang sesuai.'
+      'Untuk kebutuhan proyek dengan jumlah pemesanan besar, Anda dapat menghubungi tim kami via WhatsApp agar tim Varindo dapat membantu memberikan penawaran yang sesuai.'
   },
   {
     question: 'Apakah harga di website ini sama dengan harga di marketplace?',
@@ -32,12 +32,12 @@ const FAQ: FaqEntry[] = [
   {
     question: 'Bagaimana cara memesan HPL Lamitak melalui Varindo?',
     answer:
-      'Anda dapat menghubungi tim kami langsung via WhatsApp, atau mengisi formulir Permintaan Penawaran maupun Permintaan Katalog di website ini. Tim kami akan membantu proses pemesanan dan pengiriman.'
+      'Tambahkan produk ke keranjang dari halaman produk, lalu bayar di halaman checkout melalui transfer bank / virtual account, QRIS, e-wallet, atau kartu kredit. Pengiriman gratis ke seluruh Jawa dan Bali. Anda juga dapat memesan langsung via WhatsApp.'
   },
   {
     question: 'Apakah saya bisa meminta sampel sebelum membeli?',
     answer:
-      'Ya, Anda dapat mengajukan Permintaan Sampel gratis melalui website ini untuk memastikan warna dan tekstur sesuai kebutuhan sebelum melakukan pemesanan dalam jumlah besar.'
+      'Ya, hubungi tim kami via WhatsApp untuk meminta sampel, agar warna dan tekstur bisa dipastikan sesuai kebutuhan sebelum melakukan pemesanan dalam jumlah besar.'
   }
 ];
 
