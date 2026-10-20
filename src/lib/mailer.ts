@@ -85,3 +85,53 @@ export async function sendChatTranscript(messages: ChatMessage[], lang: string):
     html,
   });
 }
+
+export interface PaidOrderSummary {
+  id: string;
+  total: number;
+  paymentType?: string;
+  lines: { code: string; name: string; price: number; quantity: number }[];
+  customer: { name: string; phone: string; email?: string; address: string; city: string; province: string; postalCode: string; notes?: string };
+}
+
+/** Tells the team an order has been paid and is ready to pack and ship. */
+export async function sendOrderPaidNotification(order: PaidOrderSummary): Promise<void> {
+  const transporter = getTransporter();
+  if (!transporter) return;
+
+  const rp = (n: number) => `Rp ${n.toLocaleString('id-ID')}`;
+  const rows = order.lines
+    .map((l) => `<tr style="border-top:1px solid #e8e4df">
+        <td style="padding:8px 12px;font-size:13px">${escapeHtml(l.code)}<br><span style="color:#6b6560">${escapeHtml(l.name)}</span></td>
+        <td style="padding:8px 12px;font-size:13px;text-align:right;white-space:nowrap">${l.quantity} × ${rp(l.price)}</td>
+        <td style="padding:8px 12px;font-size:13px;text-align:right;white-space:nowrap">${rp(l.price * l.quantity)}</td>
+      </tr>`)
+    .join('');
+  const c = order.customer;
+  const address = [c.address, c.city, c.province, c.postalCode].map(escapeHtml).join(', ');
+
+  const html = `
+<div style="font-family:'Helvetica Neue',Arial,sans-serif;max-width:620px;margin:0 auto;color:#1a1714">
+  <div style="background:#1a1714;padding:20px 28px">
+    <p style="margin:0;color:#a8763e;font-size:11px;letter-spacing:.18em;text-transform:uppercase">Varindo Store — Paid Order</p>
+    <h1 style="margin:4px 0 0;color:#fff;font-size:22px;font-weight:300">${escapeHtml(order.id)} · ${rp(order.total)}</h1>
+  </div>
+  <div style="border:1px solid #e8e4df;border-top:none;padding:16px 20px;font-size:13px;line-height:1.7">
+    <b>${escapeHtml(c.name)}</b> · ${escapeHtml(c.phone)}${c.email ? ` · ${escapeHtml(c.email)}` : ''}<br>
+    ${address}
+    ${c.notes ? `<br><i>Catatan: ${escapeHtml(c.notes)}</i>` : ''}
+    <br>Pembayaran: ${escapeHtml(order.paymentType || '-')}
+  </div>
+  <table style="border-collapse:collapse;width:100%;border:1px solid #e8e4df;border-top:none">${rows}
+    <tr style="border-top:1px solid #e8e4df"><td colspan="2" style="padding:10px 12px;font-size:13px;font-weight:600">Total (termasuk PPN, gratis ongkir)</td>
+    <td style="padding:10px 12px;font-size:13px;font-weight:600;text-align:right;white-space:nowrap">${rp(order.total)}</td></tr>
+  </table>
+</div>`;
+
+  await transporter.sendMail({
+    from:    `"Varindo Store" <${process.env.SMTP_USER}>`,
+    to:      NOTIFY_TO,
+    subject: `[Pesanan Dibayar] ${order.id} — ${c.name} — ${rp(order.total)}`,
+    html,
+  });
+}

@@ -37,6 +37,41 @@ gcloud beta run domain-mappings create --service varindo-store --domain store.va
 # then add the CNAME it prints (store -> ghs.googlehosted.com.) to Cloud DNS zone varindo-co-id
 ```
 
+## Online payment (Midtrans)
+
+Cart checkout creates an order, saves it to `ORDERS_BUCKET`, and sends the
+buyer to Midtrans Snap to pay. Midtrans then calls
+`/api/midtrans/notification`; the store checks the signature, reads the
+status back from Midtrans, and marks the order paid. A paid order emails
+`contact@varindo.co.id`.
+
+One-time setup, not yet done:
+
+```bash
+# Orders bucket — private, same region as the service
+gcloud storage buckets create gs://varindo-store-orders --project via-production-504006 \
+  --location asia-southeast1 --uniform-bucket-level-access --public-access-prevention
+gcloud storage buckets add-iam-policy-binding gs://varindo-store-orders \
+  --member serviceAccount:601025884976-compute@developer.gserviceaccount.com \
+  --role roles/storage.objectAdmin
+
+# Midtrans server key as a secret (start with the sandbox key)
+printf %s 'SB-Mid-server-...' | gcloud secrets create MIDTRANS_SERVER_KEY --data-file=- --project via-production-504006
+
+gcloud run services update varindo-store --region asia-southeast1 --project via-production-504006 \
+  --update-env-vars ORDERS_BUCKET=varindo-store-orders,STORE_URL=https://store.varindo.co.id \
+  --update-secrets MIDTRANS_SERVER_KEY=MIDTRANS_SERVER_KEY:latest
+```
+
+In the Midtrans dashboard, set Settings → Payment → Notification URL to
+`https://store.varindo.co.id/api/midtrans/notification` (each transaction
+also sends it in `X-Override-Notification`, but the dashboard setting covers
+retries), and turn on the payment methods to offer.
+
+Going live: replace the secret with the production server key and add
+`MIDTRANS_IS_PRODUCTION=true` with `--update-env-vars`. Sandbox and production
+keys only work against their own environment.
+
 Surface Match's upload bucket is left off the store for now, so store uploads
 are not mixed in with the live site's. Request forms still land in the same
 VIABooks organisation and `contact@varindo.co.id` inbox as the live site's.
