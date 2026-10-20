@@ -292,9 +292,6 @@ export function OtorisasiPageClient() {
                       </li>
                     ))}
                   </ul>
-                  <Link href="/blog/buyer-safeguard" className="inline-block mt-6 text-[21px] font-semibold tracking-[-0.01em] text-varindo-ink hover:text-varindo-link transition-colors">
-                    {t('blog', 'readMore', lang)}
-                  </Link>
                 </div>
               </div>
             </div>

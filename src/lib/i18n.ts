@@ -16,7 +16,6 @@ export const translations = {
     home:         { id: 'Beranda',    en: 'Home' },
     collections:  { id: 'Koleksi',   en: 'Collections' },
     allProducts:  { id: 'Semua Produk', en: 'All Products' },
-    blog:         { id: 'Artikel',   en: 'Articles' },
     about:        { id: 'Tentang',   en: 'About' },
     contact:      { id: 'Kontak',    en: 'Contact' },
     chatWithUs:   { id: 'Hubungi Kami', en: 'Chat with Us' },
@@ -289,8 +288,6 @@ export const translations = {
     specThickness:     { id: 'Ketebalan', en: 'Thickness' },
     specColourFamily:  { id: 'Famili Warna', en: 'Colour Family' },
     breadcrumbHome:    { id: 'Beranda', en: 'Home' },
-    sampleCta:         { id: 'Minta Sampel Gratis', en: 'Request Free Sample' },
-    quoteCta:          { id: 'Minta Penawaran', en: 'Request Quote' },
     relatedTitle:      { id: 'Produk Serupa', en: 'Related Products' },
     descriptionTitle:  { id: 'Deskripsi Produk', en: 'Product Description' },
     suitableFor:       { id: 'Cocok untuk', en: 'Suitable for' }
@@ -437,19 +434,6 @@ export const translations = {
     }
   },
 
-  // ── Blog / Articles ─────────────────────────────────────────
-  blog: {
-    badge:       { id: 'Artikel', en: 'Articles' },
-    title:       { id: 'Artikel & Edukasi', en: 'Articles & Education' },
-    subtitle:    {
-      id: 'Panduan dan wawasan seputar HPL secara umum maupun khusus produk Lamitak — ditulis oleh tim Varindo untuk membantu Anda memilih dan merawat material dengan tepat.',
-      en: "Guides and insights on laminates in general and Lamitak's products specifically — written by the Varindo team to help you choose and care for your material with confidence."
-    },
-    readMore:    { id: 'Baca Selengkapnya →', en: 'Read More →' },
-    backToBlog:  { id: '← Kembali ke Artikel', en: '← Back to Articles' },
-    publishedOn: { id: 'Dipublikasikan', en: 'Published' }
-  },
-
   // ── About page ───────────────────────────────────────────────
   about: {
     badge:        { id: 'Perusahaan', en: 'Company' },
@@ -541,11 +525,6 @@ export const translations = {
     phone:        { id: 'Telepon', en: 'Phone' },
     aboutLink:    { id: 'Tentang Varindo', en: 'About Varindo' },
     contactLink:  { id: 'Kontak', en: 'Contact' },
-    catalogueLink:{ id: 'Permintaan Katalog', en: 'Request Catalogue' },
-    sampleLink:   { id: 'Permintaan Sampel', en: 'Request Sample' },
-    quoteLink:    { id: 'Permintaan Penawaran', en: 'Request Quote' },
-    priceListLink:{ id: 'Daftar Harga', en: 'Price List' },
-    blogLink:     { id: 'Artikel', en: 'Articles' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
     resources:    { id: 'Unduhan', en: 'Resources' },
     swatchZipLink:{ id: 'File Gambar Lamitak (ZIP, ±86 MB)', en: 'Lamitak Images (ZIP, ~86 MB)' },
@@ -561,16 +540,8 @@ export const translations = {
   forms: {
     nameLabel:        { id: 'Nama / Perusahaan', en: 'Name or Company Name' },
     namePlaceholder:  { id: 'cth. PT. Maju Jaya Interior', en: 'e.g. PT. Maju Jaya Interior' },
-    addressLabel:     { id: 'Alamat Pengiriman', en: 'Delivery Address' },
-    addressPlaceholder:{ id: 'Jalan, kota, provinsi', en: 'Street, city, province' },
     phoneLabel:       { id: 'Nomor Telepon', en: 'Phone Number' },
     phonePlaceholder: { id: 'cth. 0812 3456 7890', en: 'e.g. 0812 3456 7890' },
-    required:         { id: 'wajib', en: 'required' },
-    submitBtn:        { id: 'Kirim Permintaan', en: 'Submit Request' },
-    submitting:       { id: 'Mengirim…', en: 'Submitting…' },
-    yourDetails:      { id: 'Data Anda', en: 'Your Details' },
-    successLabel:     { id: 'Permintaan Diterima', en: 'Request Received' },
-    submitAnother:    { id: 'Kirim permintaan lain', en: 'Submit another request' },
     networkError:     {
       id: 'Koneksi bermasalah. Periksa jaringan Anda dan coba lagi.',
       en: 'Network error. Please check your connection and try again.'
@@ -579,130 +550,17 @@ export const translations = {
       id: 'Terjadi kesalahan. Silakan coba lagi.',
       en: 'Something went wrong. Please try again.'
     },
-    readyMsg:         { id: 'Siap — klik Kirim untuk mengirim permintaan.', en: 'Ready — click Submit to send your request.' },
-    fillAllMsg:       { id: 'Mohon isi semua kolom yang wajib diisi.', en: 'Please fill in all fields to continue.' },
-    contactNote:      {
-      id: 'Permintaan akan dicatat dan tim kami akan menghubungi Anda dalam 1 hari kerja.',
-      en: 'Your request will be logged and our team will contact you within 1 business day.'
-    },
 
     // Catalogue form
-    catalogueBadge:   { id: 'Permintaan Katalog', en: 'Catalogue Request' },
-    catalogueTitle:   { id: 'Permintaan Katalog\nLamitak', en: 'Request a\nLamitak Catalogue' },
-    catalogueSubtitle:{ id: 'Isi data Anda dan tim kami akan mengatur katalog produk Lamitak untuk Anda.', en: 'Fill in your details and our team will arrange the Lamitak product catalogue for you.' },
-    catalogueSuccess: {
-      id: 'Terima kasih, {name}. Tim kami akan mengatur katalog dan menghubungi Anda di {phone} dalam 1 hari kerja.',
-      en: 'Thank you, {name}. Our team will arrange the catalogue and contact you at {phone} within 1 business day.'
-    },
-    catalogueSuccessTitle: { id: 'Permintaan katalog terkirim.', en: 'Catalogue request submitted.' },
 
     // Quote form
-    quoteBadge:       { id: 'Permintaan Penawaran', en: 'Quote Request' },
-    quoteTitle:       { id: 'Permintaan\nPenawaran Harga', en: 'Request a\nPrice Quote' },
-    quoteSubtitle:    {
-      id: 'Isi data Anda, lalu cari kode atau nama desain yang dibutuhkan beserta jumlahnya. Tim kami akan menyiapkan penawaran harga untuk Anda.',
-      en: 'Fill in your details, then search for the codes or design names you need and how many of each. Our team will prepare a price quote for you.'
-    },
-    quoteInfoTitle:   { id: 'Informasi yang Perlu Disiapkan', en: 'Information to Prepare' },
-    quoteSuccessTitle:{ id: 'Permintaan penawaran terkirim.', en: 'Quote request submitted.' },
-    quoteSuccessBody: {
-      id: 'Permintaan Anda telah dicatat. Tim kami akan meninjau daftar produk dan menghubungi Anda di {phone} dalam 1 hari kerja.',
-      en: 'Your request has been recorded. Our team will review your product list and contact you at {phone} within 1 business day.'
-    },
-    productListTitle: { id: 'Daftar Produk', en: 'Product List' },
-    codeColumnHeader: { id: 'Kode atau Nama Desain', en: 'Code or Design Name' },
-    qtyColumnHeader:  { id: 'Jml', en: 'Qty' },
-    codePlaceholder:  { id: 'Cari kode atau desain…', en: 'Search code or design…' },
-    qtyPlaceholder:   { id: 'cth. 10', en: 'e.g. 10' },
-    quoteMaxLabel:    { id: 'Maksimal {n} produk per permintaan.', en: 'Maximum {n} products per request.' },
-    quoteMaxNote:     {
-      id: 'Maksimal 10 produk per permintaan. Harga final dikonfirmasi oleh tim kami sebelum pemesanan.',
-      en: 'Maximum 10 products per request. Final pricing is confirmed by our team before ordering.'
-    },
-    readyQuote:       { id: 'Siap — {n} produk dengan data Anda.', en: 'Ready — {n} products with your details.' },
-    fillProduct:      { id: 'Isi data dan minimal satu produk dengan jumlahnya.', en: 'Fill in your details and at least one product with its quantity.' },
-    qtyError:         { id: 'Mohon isi jumlah yang valid untuk setiap produk yang terisi.', en: 'Please enter a valid quantity for every product you have filled in.' },
-    requestSummary:   { id: 'Ringkasan Permintaan', en: 'Request Summary' },
 
     // Sample form
-    sampleBadge:      { id: 'Permintaan Sampel', en: 'Sample Request' },
-    sampleTitle:      { id: 'Permintaan\nSampel Lamitak', en: 'Request\nLamitak Samples' },
-    sampleSubtitle:   {
-      id: 'Pelanggan dapat meminta hingga 5 sampel Lamitak per permintaan. Siapkan kode produk atau nama desain agar tim kami dapat menindaklanjuti dengan tepat.',
-      en: 'Customers may request up to 5 Lamitak sample pieces per request. Please prepare product codes or design names so our team can follow up accurately.'
-    },
-    sampleInfoTitle:  { id: 'Informasi yang Perlu Disiapkan', en: 'Information to Prepare' },
-    sampleInfo:       {
-      id: ['Kode produk atau nama desain', 'Nama / perusahaan', 'Alamat pengiriman', 'Nomor telepon'],
-      en: ['Product code or design name', 'Name or company name', 'Delivery address', 'Phone number']
-    },
-    sampleMaxNote:    {
-      id: 'Maksimal 5 sampel per permintaan. Permintaan akan membuka WhatsApp dengan pesan yang sudah terisi.',
-      en: 'Maximum 5 sample pieces per request. Your request will open WhatsApp with a pre-filled message.'
-    },
-    sampleFormTitle:  { id: 'Form Permintaan Sampel', en: 'Sample Request Form' },
-    sampleSlotLabel:  { id: 'Kode Produk atau Nama Desain', en: 'Product Codes or Design Names' },
-    sampleSlotPlaceholder: { id: 'Cari kode atau nama desain…', en: 'Search code or design name…' },
-    sampleMaxLabel:   { id: 'Maksimal {n} sampel per permintaan.', en: 'Maximum {n} sample pieces per request.' },
-    sampleSuccessTitle: { id: 'Permintaan sampel terkirim.', en: 'Sample request submitted.' },
-    sampleSuccessBody: {
-      id: 'Permintaan {n} sampel Anda telah dicatat. Tim kami akan menghubungi Anda di {phone} dalam 1 hari kerja.',
-      en: 'Your request for {n} samples has been recorded. Our team will contact you at {phone} within 1 business day.'
-    },
-    samplesRequested: { id: 'Sampel yang Diminta', en: 'Samples Requested' },
-    readySample:      { id: 'Siap — {n} sampel dengan data Anda.', en: 'Ready — {n} samples with your details.' },
-    fillSample:       { id: 'Isi minimal satu produk dan data kontak.', en: 'Fill in at least one product and your contact details.' },
-    itemsOf:          { id: '{n} / {max} item', en: '{n} / {max} items' },
 
     // Price list form
-    priceListBadge:   { id: 'Daftar Harga', en: 'Price List' },
-    priceListTitle:   { id: 'Daftar Harga\nLamitak', en: 'The Lamitak\nPrice List' },
-    priceListSubtitle:{
-      id: 'Isi data Anda dan daftar harga Lamitak langsung dapat diunduh — harga lembaran dan harga edging dalam satu dokumen.',
-      en: 'Fill in your details and the Lamitak price list downloads straight away — sheet prices and edging prices in one document.'
-    },
-    priceListInfoTitle: { id: 'Isi Daftar Harga', en: 'What the Price List Covers' },
-    priceListInfo:    {
-      id: ['Harga lembaran HPL Lamitak per ketebalan', 'Harga edging Lamitak', 'Berlaku sejak Juli 2025', 'Dalam Rupiah, belum termasuk PPN'],
-      en: ['Lamitak HPL sheet prices by thickness', 'Lamitak edging prices', 'In effect from July 2025', 'In Rupiah, excluding PPN']
-    },
-    priceListSubmitBtn: { id: 'Buka Daftar Harga', en: 'Get the Price List' },
-    priceListNote:    {
-      id: 'Harga dapat berubah sewaktu-waktu tanpa pemberitahuan. Untuk harga proyek atau pemesanan jumlah besar, tim kami akan menyiapkan penawaran tersendiri.',
-      en: 'Prices are subject to change without notice. For project pricing or bulk orders, our team will prepare a separate quotation.'
-    },
 
     // Price list download page
-    priceListReadyLabel: { id: 'Siap Diunduh', en: 'Ready to Download' },
-    priceListReadyTitle: { id: 'Daftar harga Anda siap.', en: 'Your price list is ready.' },
-    priceListReadyBody:  {
-      id: 'Daftar harga Lamitak berlaku sejak Juli 2025, dalam Rupiah, dan belum termasuk PPN. Harga dapat berubah sewaktu-waktu.',
-      en: 'The Lamitak price list is in effect from July 2025, in Rupiah, and excludes PPN. Prices are subject to change.'
-    },
-    priceListDownloadBtn: { id: 'Unduh Daftar Harga (PDF)', en: 'Download the Price List (PDF)' },
-    priceListExpiredTitle:{ id: 'Tautan unduhan sudah berakhir.', en: 'This download has expired.' },
-    priceListExpiredBody: {
-      id: 'Tautan unduhan berlaku satu jam sejak permintaan dikirim. Isi kembali formulir dan daftar harga akan langsung tersedia.',
-      en: 'A download stays open for one hour after the form is submitted. Fill the form in again and the price list is available straight away.'
-    },
-    priceListRequestAgain:{ id: 'Isi Formulir Lagi', en: 'Fill the Form In Again' },
-    priceListQuoteNudge:  {
-      id: 'Butuh harga untuk proyek tertentu?',
-      en: 'Need pricing for a specific project?'
-    },
-    priceListQuoteLink:   { id: 'Minta penawaran', en: 'Request a quote' }
 
-  },
-
-  // ── Product search autocomplete ───────────────────────────────
-  autocomplete: {
-    placeholder:  { id: 'Ketik kode atau nama desain…', en: 'Type code or design name…' },
-    noResults:    { id: 'Produk tidak ditemukan untuk', en: 'No products found for' },
-    noResultsHint:{ id: 'Anda tetap bisa ketik kode secara manual.', en: 'You can still type a custom code manually.' },
-    hint:         {
-      id: '{n} hasil · ↑↓ navigasi · Enter untuk pilih · Esc untuk tutup',
-      en: '{n} result{s} · ↑↓ navigate · Enter to select · Esc to close'
-    }
   },
 
   // ── Image zoom ────────────────────────────────────────────────

@@ -76,11 +76,6 @@ export function Footer() {
             {[
               { href: '/about',              label: t('footer', 'aboutLink', lang) },
               { href: '/contact',            label: t('footer', 'contactLink', lang) },
-              { href: '/request-catalogue',  label: t('footer', 'catalogueLink', lang) },
-              { href: '/request-sample',     label: t('footer', 'sampleLink', lang) },
-              { href: '/request-quote',      label: t('footer', 'quoteLink', lang) },
-              { href: '/request-price-list', label: t('footer', 'priceListLink', lang) },
-              { href: '/blog',               label: t('footer', 'blogLink', lang) },
               { href: '/otorisasi',          label: t('footer', 'otorisasiLink', lang) },
               { href: '/privacy',            label: lang === 'id' ? 'Kebijakan Privasi' : 'Privacy Policy' },
             ].map((item) => (

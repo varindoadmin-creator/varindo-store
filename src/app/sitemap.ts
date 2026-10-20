@@ -2,9 +2,7 @@ import type { MetadataRoute } from 'next';
 import { getPublicProducts } from '@/lib/products';
 import { SITE_URL } from '@/lib/seo';
 import { CITY_SLUGS } from '@/lib/cityContent';
-import { blogPosts } from '@/data/blog-posts';
 import { SURFACE_MATCH_ENABLED } from '@/lib/features';
-import { getAllBlogPosts } from '@/lib/viabooksArticles';
 
 // Only the 5 collection groups actually linked from the site nav/footer.
 // 'new-collections' exists as a route (alias of 'new-arrivals') but is never linked —
@@ -23,25 +21,15 @@ const STATIC_PAGES: Array<{
     : []),
   { path: '/about', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/contact', changeFrequency: 'monthly', priority: 0.5 },
-  { path: '/request-sample', changeFrequency: 'monthly', priority: 0.6 },
-  { path: '/request-catalogue', changeFrequency: 'monthly', priority: 0.6 },
-  { path: '/request-quote', changeFrequency: 'monthly', priority: 0.6 },
-  { path: '/request-price-list', changeFrequency: 'monthly', priority: 0.6 },
   { path: '/harga-lamitak', changeFrequency: 'daily', priority: 0.8 },
   { path: '/apa-itu-laminate', changeFrequency: 'monthly', priority: 0.5 },
-  { path: '/blog', changeFrequency: 'weekly', priority: 0.6 },
   { path: '/otorisasi', changeFrequency: 'monthly', priority: 0.4 },
   { path: '/portfolio', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/privacy', changeFrequency: 'yearly', priority: 0.2 }
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // The sitemap still renders if VIABooks is unreachable, just without the
-  // article URLs until the next refresh.
-  const [products, allBlogPosts] = await Promise.all([
-    getPublicProducts(),
-    getAllBlogPosts(blogPosts).catch(() => blogPosts)
-  ]);
+  const products = await getPublicProducts();
   const now = new Date();
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_PAGES.map(({ path, changeFrequency, priority }) => ({
@@ -74,17 +62,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5
   }));
 
-  // Articles published from VIABooks. The guide entries carry a custom `href`
-  // outside /blog/* and already have their own STATIC_PAGES entry above — skip
-  // them here to avoid a duplicate sitemap URL.
-  const blogEntries: MetadataRoute.Sitemap = allBlogPosts
-    .filter((post) => !post.href)
-    .map((post) => ({
-      url: `${SITE_URL}/blog/${post.slug}`,
-      lastModified: new Date(post.date),
-      changeFrequency: 'monthly',
-      priority: 0.5
-    }));
-
-  return [...staticEntries, ...collectionEntries, ...productEntries, ...cityEntries, ...blogEntries];
+  return [...staticEntries, ...collectionEntries, ...productEntries, ...cityEntries];
 }

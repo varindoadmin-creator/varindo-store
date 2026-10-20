@@ -114,9 +114,6 @@ export function HomeClient({ newProducts, bestSellers }: Props) {
                     {t('home', 'surfaceMatchCta', lang)} <span aria-hidden="true">›</span>
                   </Link>
                 )}
-                <Link href="/request-sample" className="link-arrow">
-                  {t('detail', 'sampleCta', lang)} <span aria-hidden="true">›</span>
-                </Link>
               </div>
             </div>
 

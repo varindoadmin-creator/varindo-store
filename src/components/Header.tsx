@@ -312,9 +312,6 @@ export function Header() {
                   {t('nav', 'surfaceMatch', lang)}
                 </Link>
               )}
-              <Link href="/blog" className="transition-colors hover:text-varindo-ink">
-                {t('nav', 'blog', lang)}
-              </Link>
               <Link href="/about" className="transition-colors hover:text-varindo-ink">
                 {t('nav', 'about', lang)}
               </Link>
@@ -358,7 +355,6 @@ export function Header() {
                   { href: '/',         label: t('nav', 'home', lang) },
                   { href: '/products', label: t('nav', 'allProducts', lang) },
                   ...(SURFACE_MATCH_ENABLED ? [{ href: '/surface-match', label: t('nav', 'surfaceMatch', lang) }] : []),
-                  { href: '/blog',     label: t('nav', 'blog', lang) },
                   { href: '/about',    label: t('nav', 'about', lang) },
                   { href: '/contact',  label: t('nav', 'contact', lang) },
                 ].map((item) => (
