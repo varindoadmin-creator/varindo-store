@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
-const csvPath = path.join(process.cwd(), 'public', 'data', 'lamitak-products.csv');
+const csvPath = path.join(process.cwd(), 'data', 'lamitak-products.csv');
 const officialBaseUrl = 'https://www.lamitak.com';
 const appendedHeaders = ['Newedge Code 23mm', 'Newedge Code 44mm', 'Lamitak URL'];
 

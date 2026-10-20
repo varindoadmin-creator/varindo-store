@@ -55,7 +55,8 @@ trigger is set up. See `DEPLOY.md`.
 
 The public catalogue reads the generated module at
 `src/data/lamitak-products-from-csv.ts`. Its source file is
-`public/data/lamitak-products.csv`; regenerate the module with
+`data/lamitak-products.csv`, kept outside `public/` so the full export (base
+prices included) is never served; regenerate the module with
 `npm run import:products` after deliberately updating that CSV.
 
 ## Environment variables

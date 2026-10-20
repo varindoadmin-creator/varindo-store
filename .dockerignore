@@ -25,6 +25,9 @@ yarn-error.log*
 tsconfig.tsbuildinfo
 .claude
 scripts
+# The product CSV only feeds npm run import:products; the site uses the
+# generated module, so the export stays out of the image.
+data
 README.md
 DEPLOY.md
 Dockerfile
