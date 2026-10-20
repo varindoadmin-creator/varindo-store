@@ -526,8 +526,6 @@ export const translations = {
     aboutLink:    { id: 'Tentang Varindo', en: 'About Varindo' },
     contactLink:  { id: 'Kontak', en: 'Contact' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
-    resources:    { id: 'Unduhan', en: 'Resources' },
-    swatchZipLink:{ id: 'File Gambar Lamitak (ZIP, ±86 MB)', en: 'Lamitak Images (ZIP, ~86 MB)' },
     appTagline:   {
       id: 'Unduh Aplikasi Varindo',
       en: 'Download the Varindo App'
