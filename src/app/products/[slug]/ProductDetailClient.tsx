@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import type { Product } from '@/types/product';
 import { ProductImageZoom } from '@/components/ProductImageZoom';
+import { AddToCart } from '@/components/AddToCart';
 import { buildProductEnquiryMessage, buildEnquiryWhatsAppUrl } from '@/lib/whatsapp';
 import { formatIDR } from '@/lib/utils';
 import { buildProductImageAlt } from '@/lib/seo';
@@ -115,12 +116,14 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
             <div className="mb-7 border-y border-varindo-line py-5">
               <span className="mono text-[28px] font-medium text-varindo-ink">{formatIDR(product.price)}</span>
               <p className="mono mt-1 text-[12px] uppercase tracking-[0.06em] text-varindo-mid">
-                {t('detail', 'inclTax', lang)}
+                {t('detail', 'inclTax', lang)} · {t('shop', 'perSheet', lang)}
               </p>
             </div>
 
+            <AddToCart product={product} />
+
             <div className="mb-8 flex flex-col gap-3 sm:flex-row">
-              <a href={enquiryUrl} target="_blank" rel="noreferrer" className="btn-blue">
+              <a href={enquiryUrl} target="_blank" rel="noreferrer" className="btn-ghost">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.12.55 4.19 1.6 6L0 24l6.19-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22c-1.85 0-3.66-.5-5.23-1.43l-.37-.22-3.87 1.02 1.03-3.77-.24-.38A9.93 9.93 0 0 1 2 12C2 6.49 6.49 2 12 2s10 4.49 10 10-4.49 10-10 10z"/>
                 </svg>

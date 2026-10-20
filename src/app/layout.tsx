@@ -5,6 +5,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { JsonLd } from '@/components/JsonLd';
 import { LangProvider } from '@/lib/LangContext';
+import { CartProvider } from '@/lib/CartContext';
 import { AiChatLoader } from '@/components/AiChatLoader';
 import { GoogleTag } from '@/components/GoogleTag';
 import { buildOrganizationJsonLd, buildLocalBusinessJsonLd } from '@/lib/structured-data';
@@ -88,10 +89,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <JsonLd data={buildOrganizationJsonLd()} />
         <JsonLd data={buildLocalBusinessJsonLd()} />
         <LangProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <AiChatLoader />
+          <CartProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <AiChatLoader />
+          </CartProvider>
         </LangProvider>
       </body>
     </html>

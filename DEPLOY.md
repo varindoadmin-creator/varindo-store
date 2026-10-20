@@ -37,6 +37,72 @@ gcloud beta run domain-mappings create --service varindo-store --domain store.va
 # then add the CNAME it prints (store -> ghs.googlehosted.com.) to Cloud DNS zone varindo-co-id
 ```
 
+## Online payment (Midtrans)
+
+Cart checkout creates an order, saves it to `ORDERS_BUCKET`, and sends the
+buyer to Midtrans Snap to pay. Midtrans then calls
+`/api/midtrans/notification`; the store checks the signature, reads the
+status back from Midtrans, and marks the order paid. A paid order emails
+`contact@varindo.co.id`.
+
+One-time setup, not yet done:
+
+```bash
+# Orders bucket — private, same region as the service
+gcloud storage buckets create gs://varindo-store-orders --project via-production-504006 \
+  --location asia-southeast1 --uniform-bucket-level-access --public-access-prevention
+gcloud storage buckets add-iam-policy-binding gs://varindo-store-orders \
+  --member serviceAccount:601025884976-compute@developer.gserviceaccount.com \
+  --role roles/storage.objectAdmin
+
+# Midtrans server key as a secret (start with the sandbox key)
+printf %s 'SB-Mid-server-...' | gcloud secrets create MIDTRANS_SERVER_KEY --data-file=- --project via-production-504006
+
+gcloud run services update varindo-store --region asia-southeast1 --project via-production-504006 \
+  --update-env-vars ORDERS_BUCKET=varindo-store-orders,STORE_URL=https://store.varindo.co.id \
+  --update-secrets MIDTRANS_SERVER_KEY=MIDTRANS_SERVER_KEY:latest
+```
+
+In the Midtrans dashboard, set Settings → Payment → Notification URL to
+`https://store.varindo.co.id/api/midtrans/notification` (each transaction
+also sends it in `X-Override-Notification`, but the dashboard setting covers
+retries), and turn on the payment methods to offer.
+
+Going live: replace the secret with the production server key and add
+`MIDTRANS_IS_PRODUCTION=true` with `--update-env-vars`. Sandbox and production
+keys only work against their own environment.
+
+## Delivery (Lalamove) and address search (Google Maps)
+
+Delivery stays free to the buyer. At checkout the buyer can find their
+address with Google Maps, which pins it on the map and fills in city,
+province and postal code. The paid-order email then carries a staff link
+(`/staff/orders/<id>?key=…`, signed with `STAFF_LINK_SECRET`) to a page with
+the order and, when the address is pinned, a Lalamove booking: pick a
+vehicle, get the price, book. The trip's tracking link and status show on
+that page. Orders without a pin, or outside Lalamove's cities, are delivered
+as before.
+
+One-time setup, not yet done:
+
+```bash
+# Google Maps: enable "Places API (New)" in the project, create a key
+# restricted to that API, then store it
+printf %s 'AIza...' | gcloud secrets create GOOGLE_MAPS_API_KEY --data-file=- --project via-production-504006
+# Lalamove: sandbox key and secret from the Lalamove Partner Portal
+printf %s 'pk_test_...' | gcloud secrets create LALAMOVE_API_KEY --data-file=- --project via-production-504006
+printf %s 'sk_test_...' | gcloud secrets create LALAMOVE_API_SECRET --data-file=- --project via-production-504006
+openssl rand -base64 32 | tr -d '\n' | gcloud secrets create STAFF_LINK_SECRET --data-file=- --project via-production-504006
+
+gcloud run services update varindo-store --region asia-southeast1 --project via-production-504006 \
+  --update-secrets GOOGLE_MAPS_API_KEY=GOOGLE_MAPS_API_KEY:latest,LALAMOVE_API_KEY=LALAMOVE_API_KEY:latest,LALAMOVE_API_SECRET=LALAMOVE_API_SECRET:latest,STAFF_LINK_SECRET=STAFF_LINK_SECRET:latest \
+  --update-env-vars "^|^LALAMOVE_PICKUP_NAME=Varindo|LALAMOVE_PICKUP_PHONE=0812...|LALAMOVE_PICKUP_ADDRESS=<warehouse address>|LALAMOVE_PICKUP_LAT=<lat>|LALAMOVE_PICKUP_LNG=<lng>"
+```
+
+The `^|^` prefix makes `|` the separator, since the address has commas.
+Going live with Lalamove: production key and secret, plus
+`LALAMOVE_IS_PRODUCTION=true`.
+
 Surface Match's upload bucket is left off the store for now, so store uploads
 are not mixed in with the live site's. Request forms still land in the same
 VIABooks organisation and `contact@varindo.co.id` inbox as the live site's.

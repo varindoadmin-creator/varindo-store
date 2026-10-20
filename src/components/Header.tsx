@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { FormEvent, useState, useEffect, useRef } from 'react';
 import { useLang } from '@/lib/LangContext';
+import { useCart } from '@/lib/CartContext';
 import { SURFACE_MATCH_ENABLED } from '@/lib/features';
 import { t, type Lang } from '@/lib/i18n';
 
@@ -203,6 +204,29 @@ function HeaderSearch({ onSearch, size = 'sm' }: { onSearch?: () => void; size?:
   );
 }
 
+/* The cart is a bag glyph with the number of sheets in it. It stays outside
+   the mobile menu, beside the hamburger, so the cart is one tap away on
+   every screen. */
+function CartLink() {
+  const { lang } = useLang();
+  const { count } = useCart();
+  const label = count > 0 ? `${t('shop', 'cart', lang)} (${count})` : t('shop', 'cart', lang);
+  return (
+    <Link href="/cart" aria-label={label}
+      className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-ctl text-varindo-deep transition-colors hover:text-varindo-ink">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M9 10V6.5a3 3 0 0 1 6 0V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+      {count > 0 && (
+        <span className="mono absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-pill bg-varindo-clay px-1 text-[10px] font-medium leading-none text-white">
+          {count > 99 ? '99+' : count}
+        </span>
+      )}
+    </Link>
+  );
+}
+
 export function Header() {
   const { lang } = useLang();
   const [isOpen, setIsOpen] = useState(false);
@@ -305,18 +329,21 @@ export function Header() {
             </div>
 
             {/* Right controls */}
-            <div className="hidden shrink-0 items-center gap-3 sm:flex">
-              <LangSwitcher />
-            </div>
+            <div className="flex shrink-0 items-center gap-1 sm:gap-3">
+              <div className="hidden sm:block">
+                <LangSwitcher />
+              </div>
+              <CartLink />
 
-            {/* Mobile hamburger */}
-            <button type="button" aria-label="Toggle menu" aria-expanded={isOpen}
-              onClick={() => setIsOpen((v) => !v)}
-              className="flex h-10 w-10 shrink-0 flex-col items-center justify-center gap-[5px] lg:hidden">
-              <span className={`block h-[1.5px] w-[18px] bg-varindo-ink transition-all duration-200 ${isOpen ? 'translate-y-[6.5px] rotate-45' : ''}`} />
-              <span className={`block h-[1.5px] w-[18px] bg-varindo-ink transition-all duration-200 ${isOpen ? 'opacity-0' : ''}`} />
-              <span className={`block h-[1.5px] w-[18px] bg-varindo-ink transition-all duration-200 ${isOpen ? '-translate-y-[6.5px] -rotate-45' : ''}`} />
-            </button>
+              {/* Mobile hamburger */}
+              <button type="button" aria-label="Toggle menu" aria-expanded={isOpen}
+                onClick={() => setIsOpen((v) => !v)}
+                className="flex h-10 w-10 shrink-0 flex-col items-center justify-center gap-[5px] lg:hidden">
+                <span className={`block h-[1.5px] w-[18px] bg-varindo-ink transition-all duration-200 ${isOpen ? 'translate-y-[6.5px] rotate-45' : ''}`} />
+                <span className={`block h-[1.5px] w-[18px] bg-varindo-ink transition-all duration-200 ${isOpen ? 'opacity-0' : ''}`} />
+                <span className={`block h-[1.5px] w-[18px] bg-varindo-ink transition-all duration-200 ${isOpen ? '-translate-y-[6.5px] -rotate-45' : ''}`} />
+              </button>
+            </div>
           </div>
         </div>
 

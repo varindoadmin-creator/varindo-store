@@ -296,6 +296,92 @@ export const translations = {
     suitableFor:       { id: 'Cocok untuk', en: 'Suitable for' }
   },
 
+  // ── Cart, checkout and order ──────────────────────────────────
+  shop: {
+    cart:             { id: 'Keranjang', en: 'Cart' },
+    addToCart:        { id: 'Tambah ke Keranjang', en: 'Add to Cart' },
+    added:            { id: 'Ditambahkan ke keranjang', en: 'Added to cart' },
+    viewCart:         { id: 'Lihat Keranjang', en: 'View Cart' },
+    quantity:         { id: 'Jumlah', en: 'Quantity' },
+    decrease:         { id: 'Kurangi', en: 'Decrease' },
+    increase:         { id: 'Tambah', en: 'Increase' },
+    perSheet:         { id: 'per lembar', en: 'per sheet' },
+    cartTitle:        { id: 'Keranjang Belanja', en: 'Shopping Cart' },
+    cartEmpty:        { id: 'Keranjang Anda masih kosong.', en: 'Your cart is empty.' },
+    browseCatalog:    { id: 'Lihat Katalog', en: 'Browse the Catalog' },
+    remove:           { id: 'Hapus', en: 'Remove' },
+    subtotal:         { id: 'Subtotal', en: 'Subtotal' },
+    shipping:         { id: 'Ongkos kirim', en: 'Delivery' },
+    shippingFree:     { id: 'Gratis (Jawa & Bali)', en: 'Free (Java & Bali)' },
+    total:            { id: 'Total', en: 'Total' },
+    taxIncluded:      { id: 'Semua harga sudah termasuk PPN 11%.', en: 'All prices include 11% VAT.' },
+    checkout:         { id: 'Lanjut ke Pembayaran', en: 'Proceed to Checkout' },
+    continueShopping: { id: '← Lanjut Belanja', en: '← Continue Shopping' },
+    checkoutTitle:    { id: 'Checkout', en: 'Checkout' },
+    deliveryDetails:  { id: 'Data Pengiriman', en: 'Delivery Details' },
+    orderSummary:     { id: 'Ringkasan Pesanan', en: 'Order Summary' },
+    emailLabel:       { id: 'Email (opsional)', en: 'Email (optional)' },
+    emailPlaceholder: { id: 'untuk bukti pembayaran', en: 'for your payment receipt' },
+    streetLabel:      { id: 'Alamat', en: 'Street Address' },
+    streetPlaceholder:{ id: 'Jalan, nomor, RT/RW, kelurahan, kecamatan', en: 'Street, number, district' },
+    cityLabel:        { id: 'Kota / Kabupaten', en: 'City / Regency' },
+    provinceLabel:    { id: 'Provinsi', en: 'Province' },
+    provinceChoose:   { id: 'Pilih provinsi', en: 'Choose a province' },
+    provinceOther:    { id: 'Di luar Jawa & Bali', en: 'Outside Java & Bali' },
+    outsideArea: {
+      id: 'Pemesanan online saat ini untuk pengiriman ke Jawa dan Bali. Untuk daerah lain, hubungi kami via WhatsApp agar ongkos kirim bisa dihitung.',
+      en: 'Online ordering currently delivers to Java and Bali. For other areas, contact us on WhatsApp so we can quote the delivery.'
+    },
+    postalLabel:      { id: 'Kode Pos', en: 'Postal Code' },
+    notesLabel:       { id: 'Catatan (opsional)', en: 'Notes (optional)' },
+    notesPlaceholder: { id: 'cth. patokan lokasi, jam penerimaan', en: 'e.g. landmarks, delivery hours' },
+    payNow:           { id: 'Bayar Sekarang', en: 'Pay Now' },
+    paying:           { id: 'Menyiapkan pembayaran…', en: 'Preparing payment…' },
+    payNote: {
+      id: 'Anda akan diarahkan ke halaman pembayaran Midtrans: transfer bank / virtual account, QRIS, e-wallet, atau kartu kredit.',
+      en: 'You will be taken to Midtrans to pay by bank transfer / virtual account, QRIS, e-wallet, or credit card.'
+    },
+    unavailable: {
+      id: 'Pembayaran online belum tersedia. Silakan pesan via WhatsApp.',
+      en: 'Online payment is not available yet. Please order via WhatsApp.'
+    },
+    productUnavailable: {
+      id: 'Salah satu produk di keranjang sudah tidak tersedia. Periksa keranjang Anda.',
+      en: 'A product in your cart is no longer available. Please review your cart.'
+    },
+    orderTitle:       { id: 'Pesanan', en: 'Order' },
+    orderNumber:      { id: 'Nomor pesanan', en: 'Order number' },
+    statusPending:    { id: 'Menunggu Pembayaran', en: 'Awaiting Payment' },
+    statusPaid:       { id: 'Pembayaran Diterima', en: 'Payment Received' },
+    statusFailed:     { id: 'Pembayaran Gagal', en: 'Payment Failed' },
+    statusExpired:    { id: 'Pembayaran Kedaluwarsa', en: 'Payment Expired' },
+    statusRefunded:   { id: 'Dana Dikembalikan', en: 'Refunded' },
+    bodyPending: {
+      id: 'Selesaikan pembayaran dalam 24 jam. Halaman ini akan diperbarui setelah pembayaran kami terima.',
+      en: 'Please complete payment within 24 hours. This page updates once we receive it.'
+    },
+    bodyPaid: {
+      id: 'Terima kasih! Tim kami akan menghubungi Anda via WhatsApp untuk jadwal pengiriman.',
+      en: 'Thank you! Our team will contact you on WhatsApp to arrange delivery.'
+    },
+    bodyFailed: {
+      id: 'Pembayaran tidak berhasil. Anda bisa memesan ulang dari keranjang atau hubungi kami.',
+      en: 'The payment did not go through. You can order again from the cart or contact us.'
+    },
+    continuePayment:  { id: 'Lanjutkan Pembayaran', en: 'Continue Payment' },
+    refreshStatus:    { id: 'Perbarui Status', en: 'Refresh Status' },
+    askOnWhatsApp:    { id: 'Tanya via WhatsApp', en: 'Ask on WhatsApp' },
+    orderNotFound:    { id: 'Pesanan tidak ditemukan.', en: 'Order not found.' },
+    mapSearchLabel:   { id: 'Cari alamat di peta', en: 'Find your address on the map' },
+    mapSearchPlaceholder: { id: 'Ketik nama jalan, gedung, atau perumahan', en: 'Type a street, building, or housing estate' },
+    mapSearchHint: {
+      id: 'Membantu kurir menemukan lokasi Anda. Alamat lengkap tetap diisi di bawah.',
+      en: 'Helps the driver find you. Still fill in the full address below.'
+    },
+    mapPinned:        { id: 'Lokasi di peta', en: 'Map location' },
+    mapChange:        { id: 'Ganti', en: 'Change' }
+  },
+
   // ── Collections page ─────────────────────────────────────────
   collections: {
     breadcrumbCatalog: { id: 'Katalog', en: 'Catalog' },
