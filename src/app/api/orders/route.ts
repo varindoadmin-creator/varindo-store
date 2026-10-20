@@ -19,10 +19,25 @@ type Body = {
   province?: unknown;
   postalCode?: unknown;
   notes?: unknown;
+  location?: { lat?: unknown; lng?: unknown; placeId?: unknown; formattedAddress?: unknown };
 };
 
 function clean(value: unknown, max: number) {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';
+}
+
+// Only a position inside Indonesia's bounding box is kept; anything else is
+// dropped rather than refused, since delivery works without it.
+function cleanLocation(raw: Body['location']) {
+  const lat = Number(raw?.lat);
+  const lng = Number(raw?.lng);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng) || lat < -11.5 || lat > 6.5 || lng < 94 || lng > 141.5) return undefined;
+  return {
+    lat,
+    lng,
+    placeId: clean(raw?.placeId, 300) || undefined,
+    formattedAddress: clean(raw?.formattedAddress, 300) || undefined
+  };
 }
 
 function bad(error: string) {
@@ -54,7 +69,8 @@ export async function POST(req: NextRequest) {
     city: clean(body.city, 100),
     province: clean(body.province, 60),
     postalCode: clean(body.postalCode, 10),
-    notes: clean(body.notes, 500) || undefined
+    notes: clean(body.notes, 500) || undefined,
+    location: cleanLocation(body.location)
   };
   if (!customer.name || !customer.phone || !customer.address || !customer.city || !customer.postalCode) {
     return bad('Missing customer details.');

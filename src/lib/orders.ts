@@ -32,6 +32,19 @@ export type Order = {
     province: string;
     postalCode: string;
     notes?: string;
+    /** Map position from the checkout address search, when the buyer used it. Lalamove needs it. */
+    location?: { lat: number; lng: number; placeId?: string; formattedAddress?: string };
+  };
+  delivery?: {
+    lalamove?: {
+      orderId: string;
+      serviceType: string;
+      shareLink: string;
+      status: string;
+      /** What Varindo pays Lalamove, as Lalamove quoted it. */
+      price: string;
+      bookedAt: string;
+    };
   };
   payment: {
     redirectUrl?: string;

@@ -72,6 +72,37 @@ Going live: replace the secret with the production server key and add
 `MIDTRANS_IS_PRODUCTION=true` with `--update-env-vars`. Sandbox and production
 keys only work against their own environment.
 
+## Delivery (Lalamove) and address search (Google Maps)
+
+Delivery stays free to the buyer. At checkout the buyer can find their
+address with Google Maps, which pins it on the map and fills in city,
+province and postal code. The paid-order email then carries a staff link
+(`/staff/orders/<id>?key=…`, signed with `STAFF_LINK_SECRET`) to a page with
+the order and, when the address is pinned, a Lalamove booking: pick a
+vehicle, get the price, book. The trip's tracking link and status show on
+that page. Orders without a pin, or outside Lalamove's cities, are delivered
+as before.
+
+One-time setup, not yet done:
+
+```bash
+# Google Maps: enable "Places API (New)" in the project, create a key
+# restricted to that API, then store it
+printf %s 'AIza...' | gcloud secrets create GOOGLE_MAPS_API_KEY --data-file=- --project via-production-504006
+# Lalamove: sandbox key and secret from the Lalamove Partner Portal
+printf %s 'pk_test_...' | gcloud secrets create LALAMOVE_API_KEY --data-file=- --project via-production-504006
+printf %s 'sk_test_...' | gcloud secrets create LALAMOVE_API_SECRET --data-file=- --project via-production-504006
+openssl rand -base64 32 | tr -d '\n' | gcloud secrets create STAFF_LINK_SECRET --data-file=- --project via-production-504006
+
+gcloud run services update varindo-store --region asia-southeast1 --project via-production-504006 \
+  --update-secrets GOOGLE_MAPS_API_KEY=GOOGLE_MAPS_API_KEY:latest,LALAMOVE_API_KEY=LALAMOVE_API_KEY:latest,LALAMOVE_API_SECRET=LALAMOVE_API_SECRET:latest,STAFF_LINK_SECRET=STAFF_LINK_SECRET:latest \
+  --update-env-vars "^|^LALAMOVE_PICKUP_NAME=Varindo|LALAMOVE_PICKUP_PHONE=0812...|LALAMOVE_PICKUP_ADDRESS=<warehouse address>|LALAMOVE_PICKUP_LAT=<lat>|LALAMOVE_PICKUP_LNG=<lng>"
+```
+
+The `^|^` prefix makes `|` the separator, since the address has commas.
+Going live with Lalamove: production key and secret, plus
+`LALAMOVE_IS_PRODUCTION=true`.
+
 Surface Match's upload bucket is left off the store for now, so store uploads
 are not mixed in with the live site's. Request forms still land in the same
 VIABooks organisation and `contact@varindo.co.id` inbox as the live site's.

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getTransactionStatus, isValidNotificationSignature } from '@/lib/midtrans';
 import { applyPaymentStatus, getOrder } from '@/lib/orders';
 import { sendOrderPaidNotification } from '@/lib/mailer';
+import { staffOrderUrl } from '@/lib/staffLink';
 
 export const dynamic = 'force-dynamic';
 
@@ -36,7 +37,7 @@ export async function POST(req: NextRequest) {
 
     const { order: updated, becamePaid } = await applyPaymentStatus(order, status);
     if (becamePaid) {
-      await sendOrderPaidNotification(updated).catch((error) =>
+      await sendOrderPaidNotification(updated, staffOrderUrl(updated.id)).catch((error) =>
         console.error('[midtrans] paid-order email failed', order.id, error)
       );
     }

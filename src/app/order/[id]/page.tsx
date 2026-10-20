@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { applyPaymentStatus, getOrder } from '@/lib/orders';
 import { getTransactionStatus, isMidtransConfigured } from '@/lib/midtrans';
 import { sendOrderPaidNotification } from '@/lib/mailer';
+import { staffOrderUrl } from '@/lib/staffLink';
 import { OrderPageClient } from './OrderPageClient';
 
 export const dynamic = 'force-dynamic';
@@ -27,7 +28,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         const result = await applyPaymentStatus(order, status);
         order = result.order;
         if (result.becamePaid) {
-          await sendOrderPaidNotification(order).catch((error) => console.error('[order] paid-order email failed', id, error));
+          await sendOrderPaidNotification(order, staffOrderUrl(order.id)).catch((error) => console.error('[order] paid-order email failed', id, error));
         }
       }
     } catch (error) {

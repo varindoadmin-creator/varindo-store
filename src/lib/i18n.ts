@@ -371,7 +371,15 @@ export const translations = {
     continuePayment:  { id: 'Lanjutkan Pembayaran', en: 'Continue Payment' },
     refreshStatus:    { id: 'Perbarui Status', en: 'Refresh Status' },
     askOnWhatsApp:    { id: 'Tanya via WhatsApp', en: 'Ask on WhatsApp' },
-    orderNotFound:    { id: 'Pesanan tidak ditemukan.', en: 'Order not found.' }
+    orderNotFound:    { id: 'Pesanan tidak ditemukan.', en: 'Order not found.' },
+    mapSearchLabel:   { id: 'Cari alamat di peta', en: 'Find your address on the map' },
+    mapSearchPlaceholder: { id: 'Ketik nama jalan, gedung, atau perumahan', en: 'Type a street, building, or housing estate' },
+    mapSearchHint: {
+      id: 'Membantu kurir menemukan lokasi Anda. Alamat lengkap tetap diisi di bawah.',
+      en: 'Helps the driver find you. Still fill in the full address below.'
+    },
+    mapPinned:        { id: 'Lokasi di peta', en: 'Map location' },
+    mapChange:        { id: 'Ganti', en: 'Change' }
   },
 
   // ── Collections page ─────────────────────────────────────────

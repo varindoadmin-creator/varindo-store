@@ -8,6 +8,8 @@ import { t } from '@/lib/i18n';
 import { formatIDR } from '@/lib/utils';
 import { SHIPPING_PROVINCES } from '@/lib/shipping';
 import { buildEnquiryWhatsAppUrl } from '@/lib/whatsapp';
+import { AddressSearch } from '@/components/AddressSearch';
+import type { PlaceDetails } from '@/lib/googlePlaces';
 
 const OUTSIDE = 'outside';
 
@@ -15,7 +17,21 @@ export function CheckoutPageClient() {
   const { lang } = useLang();
   const { items, ready, subtotal } = useCart();
   const [form, setForm] = useState({ name: '', phone: '', email: '', address: '', city: '', province: '', postalCode: '', notes: '' });
+  const [place, setPlace] = useState<PlaceDetails | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  // A picked place fills in what it knows; the buyer can still correct it.
+  const pick = (p: PlaceDetails | null) => {
+    setPlace(p);
+    if (!p) return;
+    setForm((f) => ({
+      ...f,
+      address: f.address.trim() ? f.address : p.formattedAddress,
+      city: p.city || f.city,
+      province: p.province || f.province,
+      postalCode: p.postalCode || f.postalCode
+    }));
+  };
   const [error, setError] = useState('');
 
   const set = (key: keyof typeof form) => (e: { target: { value: string } }) => setForm((f) => ({ ...f, [key]: e.target.value }));
@@ -45,7 +61,11 @@ export function CheckoutPageClient() {
       const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, items: items.map((i) => ({ slug: i.slug, quantity: i.quantity })) })
+        body: JSON.stringify({
+          ...form,
+          items: items.map((i) => ({ slug: i.slug, quantity: i.quantity })),
+          location: place ? { lat: place.lat, lng: place.lng, placeId: place.placeId, formattedAddress: place.formattedAddress } : undefined
+        })
       });
       const data = await res.json();
       if (data.success && data.redirectUrl) {
@@ -100,6 +120,7 @@ export function CheckoutPageClient() {
                 <input type="email" value={form.email} onChange={set('email')} autoComplete="email" className="field" placeholder={t('shop', 'emailPlaceholder', lang)} />
               </label>
             </div>
+            <AddressSearch picked={place} onPick={pick} />
             <label className="block">
               <span className="label mb-2 block">{t('shop', 'streetLabel', lang)} {req}</span>
               <textarea required rows={3} value={form.address} onChange={set('address')} autoComplete="street-address" className="field h-auto resize-none py-3" placeholder={t('shop', 'streetPlaceholder', lang)} />

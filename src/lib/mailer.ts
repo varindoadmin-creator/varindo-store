@@ -91,11 +91,11 @@ export interface PaidOrderSummary {
   total: number;
   paymentType?: string;
   lines: { code: string; name: string; price: number; quantity: number }[];
-  customer: { name: string; phone: string; email?: string; address: string; city: string; province: string; postalCode: string; notes?: string };
+  customer: { name: string; phone: string; email?: string; address: string; city: string; province: string; postalCode: string; notes?: string; location?: { lat: number; lng: number } };
 }
 
 /** Tells the team an order has been paid and is ready to pack and ship. */
-export async function sendOrderPaidNotification(order: PaidOrderSummary): Promise<void> {
+export async function sendOrderPaidNotification(order: PaidOrderSummary, staffUrl?: string | null): Promise<void> {
   const transporter = getTransporter();
   if (!transporter) return;
 
@@ -121,7 +121,11 @@ export async function sendOrderPaidNotification(order: PaidOrderSummary): Promis
     ${address}
     ${c.notes ? `<br><i>Catatan: ${escapeHtml(c.notes)}</i>` : ''}
     <br>Pembayaran: ${escapeHtml(order.paymentType || '-')}
+    ${c.location ? `<br><a href="https://www.google.com/maps/search/?api=1&amp;query=${c.location.lat},${c.location.lng}" style="color:#99461f">Lokasi di Google Maps</a>` : '<br>Tanpa lokasi peta'}
   </div>
+  ${staffUrl ? `<div style="border:1px solid #e8e4df;border-top:none;padding:14px 20px">
+    <a href="${escapeHtml(staffUrl)}" style="display:inline-block;background:#b0532a;color:#fff;text-decoration:none;padding:10px 18px;border-radius:8px;font-size:14px">${c.location ? 'Buka pesanan · Pesan Lalamove' : 'Buka pesanan'}</a>
+  </div>` : ''}
   <table style="border-collapse:collapse;width:100%;border:1px solid #e8e4df;border-top:none">${rows}
     <tr style="border-top:1px solid #e8e4df"><td colspan="2" style="padding:10px 12px;font-size:13px;font-weight:600">Total (termasuk PPN, gratis ongkir)</td>
     <td style="padding:10px 12px;font-size:13px;font-weight:600;text-align:right;white-space:nowrap">${rp(order.total)}</td></tr>
