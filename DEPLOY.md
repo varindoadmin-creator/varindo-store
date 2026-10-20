@@ -1,5 +1,48 @@
 # Deploying to Cloud Run
 
+## The store vs. the live site
+
+This repo is the Varindo store, `https://store.varindo.co.id`, on its own Cloud
+Run service `varindo-store`. The live site, `https://varindo.co.id`, is service
+`varindo-catalog`, deployed from the varindo-catalog repo. Both live in the same
+project and region and share its secrets; nothing here should ever deploy to
+`varindo-catalog` or touch the `varindo.co.id` domain mapping.
+
+The rest of this file was written for the live site. Read every command with
+`SERVICE=varindo-store` and `store.varindo.co.id`.
+
+One-time store setup, not yet done:
+
+```bash
+# 1. First deploy: creates the service with the same config as the live site
+gcloud run deploy varindo-store \
+  --source . --region asia-southeast1 --project via-production-504006 \
+  --allow-unauthenticated \
+  --memory 1Gi --cpu 1 --min-instances 0 --max-instances 10 \
+  --set-env-vars "SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=contact@varindo.co.id,VIABOOKS_API_URL=https://viabooks-601025884976.asia-southeast2.run.app,VIABOOKS_ORGANIZATION_ID=cmtn75jst0001w12y30bcrr6h" \
+  --set-secrets "ANTHROPIC_API_KEY=ANTHROPIC_API_KEY:latest,SMTP_PASS=SMTP_PASS:latest,VOYAGE_API_KEY=VOYAGE_API_KEY:latest,PRICE_LIST_TOKEN_SECRET=PRICE_LIST_TOKEN_SECRET:latest"
+
+# 2. Deploy on push to main
+gcloud builds repositories create varindo-store --region asia-southeast2 --project via-production-504006 \
+  --connection viabooks-github --remote-uri https://github.com/varindoadmin-creator/varindo-store.git
+gcloud builds triggers create github --name varindo-store-deploy-main \
+  --region asia-southeast2 --project via-production-504006 \
+  --repository projects/via-production-504006/locations/asia-southeast2/connections/viabooks-github/repositories/varindo-store \
+  --branch-pattern '^main$' --build-config cloudbuild.yaml --ignored-files 'android/**' \
+  --service-account projects/via-production-504006/serviceAccounts/601025884976-compute@developer.gserviceaccount.com
+
+# 3. Subdomain
+gcloud beta run domain-mappings create --service varindo-store --domain store.varindo.co.id \
+  --region asia-southeast1 --project via-production-504006
+# then add the CNAME it prints (store -> ghs.googlehosted.com.) to Cloud DNS zone varindo-co-id
+```
+
+Surface Match's upload bucket is left off the store for now, so store uploads
+are not mixed in with the live site's. Request forms still land in the same
+VIABooks organisation and `contact@varindo.co.id` inbox as the live site's.
+
+## The live site (reference)
+
 The site is a Next.js server (App Router, API routes, ISR), so it runs as a
 container rather than as static files. `next.config.mjs` emits a standalone
 build; the `Dockerfile` packages it.
@@ -10,7 +53,7 @@ in Cloud DNS. Hostinger no longer serves the site.
 ```bash
 PROJECT=via-production-504006
 REGION=asia-southeast1          # Singapore — see "Why Singapore" below
-SERVICE=varindo-catalog
+SERVICE=varindo-store          # never varindo-catalog: that is the live site
 ```
 
 ## Why Singapore, not Jakarta

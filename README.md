@@ -1,6 +1,20 @@
-# Varindo Online Catalog
+# Varindo Store
 
-A responsive Node.js / Next.js catalog for Varindo's Lamitak-focused public product browsing experience.
+The Varindo online store, served at `store.varindo.co.id`. It started as a copy
+of [varindo-catalog](https://github.com/varindoadmin-creator/varindo-catalog)
+(the live `varindo.co.id` site, history included) and is where the online store
+— cart, checkout, payments — gets built.
+
+The two sites deploy separately: this repo deploys to Cloud Run service
+`varindo-store`, never to `varindo-catalog`. Until the store launches,
+`robots.ts` keeps it out of search engines.
+
+To bring later catalog fixes in:
+
+```bash
+git remote add catalog https://github.com/varindoadmin-creator/varindo-catalog.git
+git fetch catalog main && git merge catalog/main
+```
 
 ## Design direction
 
@@ -34,7 +48,8 @@ npm run start
 
 ## Deploying
 
-Pushing to `main` deploys to Cloud Run automatically. See `DEPLOY.md`.
+Pushing to `main` deploys to Cloud Run service `varindo-store` once its
+trigger is set up. See `DEPLOY.md`.
 
 ## Product database
 

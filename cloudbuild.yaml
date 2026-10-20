@@ -1,13 +1,11 @@
-# Deploys varindo.co.id to Cloud Run on every push to main (trigger:
-# varindo-catalog-deploy-main, region asia-southeast2 — where the GitHub
-# connection lives; the service itself runs in asia-southeast1). Same image
-# `gcloud run deploy varindo-catalog --source .` built — the root Dockerfile —
-# but built from the pushed commit, so production only ever runs committed code.
+# Deploys the Varindo store (store.varindo.co.id) to Cloud Run service
+# varindo-store on every push to main. It must never deploy to varindo-catalog:
+# that service is the live varindo.co.id site, deployed from the
+# varindo-catalog repo.
 #
 # The deploy step names only the image. It must never pass --set-env-vars or
-# --set-secrets: those replace the service's whole set and would drop the SMTP,
-# VIABooks, Anthropic, or Voyage configuration. Env and secrets stay managed on
-# the service itself with --update-*/--remove-* (see DEPLOY.md).
+# --set-secrets: those replace the service's whole set. Env and secrets stay
+# managed on the service itself with --update-*/--remove-* (see DEPLOY.md).
 steps:
   - id: build
     name: gcr.io/cloud-builders/docker
@@ -15,9 +13,9 @@ steps:
       - build
       - --network=cloudbuild
       - -t
-      - asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/varindo-catalog:$COMMIT_SHA
+      - asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/varindo-store:$COMMIT_SHA
       - -t
-      - asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/varindo-catalog:latest
+      - asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/varindo-store:latest
       - .
 
   - id: push
@@ -25,7 +23,7 @@ steps:
     args:
       - push
       - --all-tags
-      - asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/varindo-catalog
+      - asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/varindo-store
 
   - id: deploy
     name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
@@ -33,14 +31,14 @@ steps:
     args:
       - run
       - deploy
-      - varindo-catalog
-      - --image=asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/varindo-catalog:$COMMIT_SHA
+      - varindo-store
+      - --image=asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/varindo-store:$COMMIT_SHA
       - --region=asia-southeast1
       - --quiet
 
 images:
-  - asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/varindo-catalog:$COMMIT_SHA
-  - asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/varindo-catalog:latest
+  - asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/varindo-store:$COMMIT_SHA
+  - asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/varindo-store:latest
 
 options:
   logging: CLOUD_LOGGING_ONLY
