@@ -1,8 +1,8 @@
-// External resources are limited to product swatches in Cloud Storage, the
-// embedded Lamitak catalogue, and Google Ads and Google Analytics (GA4)
-// measurement. Everything else (chat widget, forms, sitemap, JSON-LD) talks to
-// same-origin API routes. The GA hosts are wildcards, per Google's own CSP
-// guidance: GA4 collects through regional subdomains that change without notice.
+// External resources are limited to product swatches in Cloud Storage and
+// Google Ads and Google Analytics (GA4) measurement. Everything else (chat
+// widget, checkout, sitemap, JSON-LD) talks to same-origin API routes. The GA
+// hosts are wildcards, per Google's own CSP guidance: GA4 collects through
+// regional subdomains that change without notice.
 //
 // 'unsafe-eval' is added to script-src only in development: Next.js's dev-mode React
 // Fast Refresh runtime evaluates code via eval(), and without it every client
@@ -19,7 +19,7 @@ const csp = [
   `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com${isDev ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
-  "frame-src https://online.flippingbook.com",
+  "frame-src 'none'",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -57,13 +57,15 @@ const nextConfig = {
       }
     ]
   },
-  // The store has no articles and no request forms — buying replaces them.
-  // Their URLs, which people may still have from varindo.co.id with the domain
-  // swapped, land on the nearest page that remains rather than a 404.
-  // Temporary, so search engines don't learn them as part of the store.
+  // The store has no articles, request forms or digital portfolio — buying
+  // replaces them. Their URLs, which people may still have from varindo.co.id
+  // with the domain swapped, land on the nearest page that remains rather
+  // than a 404. Temporary, so search engines don't learn them as part of the
+  // store.
   async redirects() {
     return [
       { source: '/blog/:path*', destination: '/', permanent: false },
+      { source: '/portfolio', destination: '/', permanent: false },
       { source: '/request-:form', destination: '/products', permanent: false },
       { source: '/price-list', destination: '/harga-lamitak', permanent: false },
       { source: '/daftar-harga', destination: '/harga-lamitak', permanent: false }

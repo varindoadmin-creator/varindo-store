@@ -146,16 +146,7 @@ export const translations = {
       en: 'Frequently specified Lamitak designs trusted for diverse interior applications.'
     },
 
-    portfolioLabel: { id: 'Portofolio Digital', en: 'Digital Portfolio' },
-    portfolioTitle1:{ id: 'Lamitak Portfolio', en: 'Lamitak Portfolio' },
-    portfolioTitle2:{ id: '2026 / 2027', en: '2026 / 2027' },
-    portfolioBody:  {
-      id: 'Jelajahi portofolio desain Lamitak secara lengkap — tekstur, finishing, dan rangkaian permukaan untuk setiap proyek interior.',
-      en: 'Explore the complete Lamitak design portfolio — textures, finishes, and surface families for every interior project.'
-    },
-    portfolioCta:   { id: 'Lihat Portofolio', en: 'View Portfolio' },
-    portfolioOpenExternal: { id: 'Buka di Tab Baru ↗', en: 'Open in New Tab ↗' },
-    portfolioBack:  { id: '← Kembali ke Beranda', en: '← Back to Home' },
+    heroImageLabel: { id: 'Permukaan HPL Lamitak', en: 'Lamitak HPL surface' },
 
     whyLabel: { id: 'Mengapa Varindo', en: 'Why Varindo' },
     whyTitle1:{ id: 'Built on Trust.', en: 'Built on Trust.' },
