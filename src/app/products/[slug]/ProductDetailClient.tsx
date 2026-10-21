@@ -88,13 +88,12 @@ export function ProductDetailClient({ product, descriptionParagraph, suitableFor
           <div>
             <div className="mb-3 flex items-center gap-4">
               <p className="eyebrow text-varindo-mid">{product.brand || 'Lamitak'}</p>
-              <Link href="/otorisasi"
-                className="mono inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.06em] text-varindo-link transition-colors hover:underline">
+              <span className="mono inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.06em] text-varindo-link">
                 <svg width="11" height="11" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <path d="M4 10.5L8 14.5L16 5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 {t('footer', 'otorisasiLink', lang)}
-              </Link>
+              </span>
             </div>
             {/* Product name — NEVER translated */}
             {/* Product names arrive from the catalogue in full caps. Fraunces

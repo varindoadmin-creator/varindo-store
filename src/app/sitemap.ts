@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getPublicProducts } from '@/lib/products';
 import { SITE_URL } from '@/lib/seo';
-import { CITY_SLUGS } from '@/lib/cityContent';
 import { SURFACE_MATCH_ENABLED } from '@/lib/features';
 
 // Only the 5 collection groups actually linked from the site nav/footer.
@@ -19,11 +18,6 @@ const STATIC_PAGES: Array<{
   ...(SURFACE_MATCH_ENABLED
     ? [{ path: '/surface-match', changeFrequency: 'monthly' as const, priority: 0.6 }]
     : []),
-  { path: '/about', changeFrequency: 'monthly', priority: 0.5 },
-  { path: '/contact', changeFrequency: 'monthly', priority: 0.5 },
-  { path: '/harga-lamitak', changeFrequency: 'daily', priority: 0.8 },
-  { path: '/apa-itu-laminate', changeFrequency: 'monthly', priority: 0.5 },
-  { path: '/otorisasi', changeFrequency: 'monthly', priority: 0.4 },
   { path: '/privacy', changeFrequency: 'yearly', priority: 0.2 }
 ];
 
@@ -54,12 +48,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6
     }));
 
-  const cityEntries: MetadataRoute.Sitemap = CITY_SLUGS.map((slug) => ({
-    url: `${SITE_URL}/lamitak-${slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly',
-    priority: 0.5
-  }));
-
-  return [...staticEntries, ...collectionEntries, ...productEntries, ...cityEntries];
+  return [...staticEntries, ...collectionEntries, ...productEntries];
 }
