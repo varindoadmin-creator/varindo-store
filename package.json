@@ -9,8 +9,7 @@
     "lint": "eslint .",
     "import:products": "node scripts/import-products-from-csv.mjs",
     "sync:lamitak": "node scripts/sync-lamitak-catalog.mjs",
-    "embed:swatches": "node --env-file=.env.local scripts/embed-swatches.mjs",
-    "zip:swatches": "node scripts/build-swatch-zip.mjs"
+    "embed:swatches": "node --env-file=.env.local scripts/embed-swatches.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.125.0",

@@ -55,7 +55,8 @@ trigger is set up. See `DEPLOY.md`.
 
 The public catalogue reads the generated module at
 `src/data/lamitak-products-from-csv.ts`. Its source file is
-`public/data/lamitak-products.csv`; regenerate the module with
+`data/lamitak-products.csv`, kept outside `public/` so the full export (base
+prices included) is never served; regenerate the module with
 `npm run import:products` after deliberately updating that CSV.
 
 ## Environment variables
@@ -66,8 +67,9 @@ Copy `.env.example` to `.env.local` for local testing:
 cp .env.example .env.local
 ```
 
-Configure only the services used by the feature being tested: Supabase and SMTP
-for request forms, Anthropic for chat, and Voyage plus Anthropic for Surface
+Configure only the services used by the feature being tested: Midtrans and
+ORDERS_BUCKET for checkout, SMTP for paid-order emails, Google Maps and
+Lalamove for delivery, Anthropic for chat, and Voyage plus Anthropic for Surface
 Match (search by photo).
 See `.env.example` for the complete list.
 

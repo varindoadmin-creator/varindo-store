@@ -114,9 +114,6 @@ export function HomeClient({ newProducts, bestSellers }: Props) {
                     {t('home', 'surfaceMatchCta', lang)} <span aria-hidden="true">›</span>
                   </Link>
                 )}
-                <Link href="/request-sample" className="link-arrow">
-                  {t('detail', 'sampleCta', lang)} <span aria-hidden="true">›</span>
-                </Link>
               </div>
             </div>
 
@@ -125,7 +122,7 @@ export function HomeClient({ newProducts, bestSellers }: Props) {
               className="animate-fade-up delay-100 h-[clamp(240px,42vw,480px)] rounded-card border border-varindo-line bg-cover bg-center"
               style={{ backgroundImage: "url('/portfolio.webp')" }}
               role="img"
-              aria-label={t('home', 'portfolioLabel', lang)}
+              aria-label={t('home', 'heroImageLabel', lang)}
             />
           </div>
         </div>
@@ -198,31 +195,6 @@ export function HomeClient({ newProducts, bestSellers }: Props) {
           </div>
         </section>
       )}
-
-      {/* ─── PORTFOLIO ────────────────────────────────────────── */}
-      <section className="band band-line">
-        <div className="shell band-pad">
-          <Reveal className="grid items-center gap-8 lg:grid-cols-2">
-            <div className="order-2 lg:order-1 lg:pr-10">
-              <p className="label-marked mb-3">{t('home', 'portfolioLabel', lang)}</p>
-              <h2 className="display text-[30px] text-varindo-ink sm:text-[40px]">
-                {t('home', 'portfolioTitle1', lang)}
-              </h2>
-              <p className="mono mt-2 text-[15px] text-varindo-mid">{t('home', 'portfolioTitle2', lang)}</p>
-              <p className="copy mt-4 max-w-md">{t('home', 'portfolioBody', lang)}</p>
-              <Link href="/portfolio" className="btn-ink mt-7">
-                {t('home', 'portfolioCta', lang)}
-              </Link>
-            </div>
-            <div
-              className="order-1 h-[clamp(240px,34vw,420px)] rounded-card border border-varindo-line bg-cover bg-center lg:order-2"
-              style={{ backgroundImage: "url('/banner.webp')" }}
-              role="img"
-              aria-label={t('home', 'portfolioLabel', lang)}
-            />
-          </Reveal>
-        </div>
-      </section>
 
       {/* ─── WHY VARINDO ──────────────────────────────────────── */}
       <section className="band-alt band-line">

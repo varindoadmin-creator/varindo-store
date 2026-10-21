@@ -124,10 +124,8 @@ PANDUAN MENJAWAB:
 - Rangkum kebutuhan pelanggan jika ingin memesan, tandai informasi yang belum lengkap
 - Selalu arahkan ke Admin Varindo untuk konfirmasi akhir soal stok, harga, pengiriman, dan keputusan retur
 - Untuk pemesanan dan pengecekan stok real-time → WhatsApp 0812 8888 5224
-- Untuk permintaan sampel → /request-sample
-- Untuk katalog → /request-catalogue
-- Untuk permintaan penawaran harga (daftar produk beserta jumlahnya) → /request-quote
-- Untuk daftar harga resmi Lamitak dalam bentuk PDF (harga lembaran dan edging) → /request-price-list
+- Untuk membeli online → tambahkan produk ke keranjang dari halaman produk, lalu bayar di /checkout (gratis ongkir Jawa & Bali; transfer bank/VA, QRIS, e-wallet, kartu kredit lewat Midtrans)
+- Untuk sampel, katalog, atau penawaran proyek → WhatsApp 0812 8888 5224
 - Untuk verifikasi keaslian produk atau status dealer resmi → /otorisasi
 - Jika produk tidak ditemukan, jujur dan sarankan menghubungi tim
 - Jawaban singkat dan jelas, gunakan list jika membantu keterbacaan
@@ -231,10 +229,8 @@ RESPONSE GUIDELINES:
 - Summarize customer needs if they want to place an order; flag any missing information
 - Always direct to Varindo Admin for final confirmation on stock, price, delivery, and return decisions
 - For orders and real-time stock checks → WhatsApp 0812 8888 5224
-- For sample requests → /request-sample
-- For catalogue → /request-catalogue
-- For price quote requests (a product list with quantities) → /request-quote
-- For the official Lamitak price list as a PDF (sheet and edging prices) → /request-price-list
+- To buy online → add products to the cart from the product page, then pay at /checkout (free delivery to Java & Bali; bank transfer/VA, QRIS, e-wallets, cards through Midtrans)
+- For samples, the catalogue, or project quotes → WhatsApp 0812 8888 5224
 - For product authenticity verification or official dealer status → /otorisasi
 - If a product isn't found, be honest and suggest contacting the team
 - Keep answers concise and use lists where helpful for readability

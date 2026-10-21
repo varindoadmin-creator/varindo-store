@@ -1,8 +1,8 @@
-// External resources are limited to product swatches in Cloud Storage, the
-// embedded Lamitak catalogue, and Google Ads and Google Analytics (GA4)
-// measurement. Everything else (chat widget, forms, sitemap, JSON-LD) talks to
-// same-origin API routes. The GA hosts are wildcards, per Google's own CSP
-// guidance: GA4 collects through regional subdomains that change without notice.
+// External resources are limited to product swatches in Cloud Storage and
+// Google Ads and Google Analytics (GA4) measurement. Everything else (chat
+// widget, checkout, sitemap, JSON-LD) talks to same-origin API routes. The GA
+// hosts are wildcards, per Google's own CSP guidance: GA4 collects through
+// regional subdomains that change without notice.
 //
 // 'unsafe-eval' is added to script-src only in development: Next.js's dev-mode React
 // Fast Refresh runtime evaluates code via eval(), and without it every client
@@ -19,7 +19,7 @@ const csp = [
   `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com${isDev ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
-  "frame-src https://online.flippingbook.com",
+  "frame-src 'none'",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -48,14 +48,6 @@ const nextConfig = {
   // varindo-tak/ — which puts server.js somewhere the container's CMD
   // isn't looking.
   outputFileTracingRoot: fileURLToPath(new URL('.', import.meta.url)),
-  // The price list PDF is deliberately not in public/ — it is released by
-  // /api/price-list and only to a browser holding a token the form minted.
-  // Nothing imports it, so tracing would never find it on its own and the
-  // standalone build would ship without it: working locally, 500ing in
-  // production. Naming it here is what puts it in the container.
-  outputFileTracingIncludes: {
-    '/api/price-list': ['./private/price-list/**']
-  },
   images: {
     remotePatterns: [
       {
@@ -65,15 +57,18 @@ const nextConfig = {
       }
     ]
   },
-  // /price-list was the old download URL, retired when the feature was, and
-  // pointed at the catalogue form as the nearest thing left. There is a price
-  // list again, so it points at the real one — along with the English spelling
-  // and the bare Indonesian word, both of which people type.
+  // The store has no articles, request forms or digital portfolio — buying
+  // replaces them. Their URLs, which people may still have from varindo.co.id
+  // with the domain swapped, land on the nearest page that remains rather
+  // than a 404. Temporary, so search engines don't learn them as part of the
+  // store.
   async redirects() {
     return [
-      { source: '/price-list', destination: '/request-price-list', permanent: true },
-      { source: '/request-price-lists', destination: '/request-price-list', permanent: true },
-      { source: '/daftar-harga', destination: '/request-price-list', permanent: true }
+      { source: '/blog/:path*', destination: '/', permanent: false },
+      { source: '/portfolio', destination: '/', permanent: false },
+      { source: '/request-:form', destination: '/products', permanent: false },
+      { source: '/price-list', destination: '/harga-lamitak', permanent: false },
+      { source: '/daftar-harga', destination: '/harga-lamitak', permanent: false }
     ];
   },
   async headers() {

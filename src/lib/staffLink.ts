@@ -3,8 +3,8 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 // The staff page for an order is reached from the paid-order email, so the
 // link carries its own key: an HMAC of the order id. Only someone holding the
 // email (or the secret) can open it, nothing has to be stored, and any Cloud
-// Run instance can check it. As with the price list, there is no fallback
-// secret — an unconfigured deployment opens nothing.
+// Run instance can check it. There is no fallback secret — an unconfigured
+// deployment opens nothing.
 function secret(): string | null {
   const value = process.env.STAFF_LINK_SECRET;
   return value && value.length >= 16 ? value : null;

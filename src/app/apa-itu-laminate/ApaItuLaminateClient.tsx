@@ -312,17 +312,17 @@ export function ApaItuLaminateClient() {
         <section className="rounded-card bg-varindo-canvas px-6 py-8 sm:px-10 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
             <p className="display text-[28px] text-varindo-ink mb-2">
-              {lang === 'id' ? 'Butuh sampel fisik untuk cek langsung?' : 'Need a physical sample to check firsthand?'}
+              {lang === 'id' ? 'Sudah menemukan motif yang cocok?' : 'Found the right design?'}
             </p>
             <p className="text-[14px] text-varindo-mid max-w-lg">
               {lang === 'id'
-                ? 'Ajukan permintaan sampel HPL atau tanyakan spesifikasi produk kepada tim Varindo.'
-                : 'Request a laminate sample or ask the Varindo team about product specifications.'}
+                ? 'Pesan langsung di toko online, atau tanyakan spesifikasi produk kepada tim Varindo.'
+                : 'Order straight from the online store, or ask the Varindo team about product specifications.'}
             </p>
           </div>
           <div className="flex flex-wrap gap-3 shrink-0">
-            <Link href="/request-sample" className="btn-ink justify-center">
-              {t('footer', 'sampleLink', lang)}
+            <Link href="/products" className="btn-ink justify-center">
+              {t('home', 'browseCta', lang)}
             </Link>
             <a href={waUrl} target="_blank" rel="noreferrer" className="btn-ghost justify-center">
               {lang === 'id' ? 'Tanya via WhatsApp' : 'Ask via WhatsApp'}

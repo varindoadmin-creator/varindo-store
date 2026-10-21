@@ -5,10 +5,6 @@ import Image from 'next/image';
 import { useLang } from '@/lib/LangContext';
 import { t } from '@/lib/i18n';
 
-// Every Lamitak swatch in one zip, published by scripts/build-swatch-zip.mjs
-// (npm run zip:swatches) beside the swatches themselves.
-const SWATCH_ZIP_URL = 'https://storage.googleapis.com/varindo-product-images/downloads/lamitak-swatches.zip';
-
 // The "Download the Varindo App" band is left off until the app is published;
 // its badge art (public/play-badge-*.png) and text (i18n footer.appTagline,
 // footer.appLink) are kept for then.
@@ -24,7 +20,7 @@ export function Footer() {
 
   return (
     <footer className="bg-varindo-canvas text-varindo-mid">
-      <div className="shell grid gap-10 pb-10 pt-14 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr]">
+      <div className="shell grid gap-10 pb-10 pt-14 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
 
         {/* Brand */}
         <div>
@@ -76,11 +72,6 @@ export function Footer() {
             {[
               { href: '/about',              label: t('footer', 'aboutLink', lang) },
               { href: '/contact',            label: t('footer', 'contactLink', lang) },
-              { href: '/request-catalogue',  label: t('footer', 'catalogueLink', lang) },
-              { href: '/request-sample',     label: t('footer', 'sampleLink', lang) },
-              { href: '/request-quote',      label: t('footer', 'quoteLink', lang) },
-              { href: '/request-price-list', label: t('footer', 'priceListLink', lang) },
-              { href: '/blog',               label: t('footer', 'blogLink', lang) },
               { href: '/otorisasi',          label: t('footer', 'otorisasiLink', lang) },
               { href: '/privacy',            label: lang === 'id' ? 'Kebijakan Privasi' : 'Privacy Policy' },
             ].map((item) => (
@@ -88,16 +79,6 @@ export function Footer() {
                 <Link href={item.href} className={linkClass}>{item.label}</Link>
               </li>
             ))}
-          </ul>
-        </div>
-
-        {/* Resources */}
-        <div>
-          <p className={headingClass}>{t('footer', 'resources', lang)}</p>
-          <ul className="space-y-2.5">
-            <li>
-              <a href={SWATCH_ZIP_URL} download className={linkClass}>{t('footer', 'swatchZipLink', lang)}</a>
-            </li>
           </ul>
         </div>
 
