@@ -66,6 +66,7 @@ const nextConfig = {
     return [
       { source: '/blog/:path*', destination: '/', permanent: false },
       { source: '/portfolio', destination: '/', permanent: false },
+      { source: '/surface-match', destination: '/products', permanent: false },
       { source: '/request-:form', destination: '/products', permanent: false },
       { source: '/price-list', destination: '/products', permanent: false },
       { source: '/daftar-harga', destination: '/products', permanent: false },
