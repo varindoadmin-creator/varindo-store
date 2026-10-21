@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getPublicProducts } from '@/lib/products';
 import { SITE_URL } from '@/lib/seo';
-import { SURFACE_MATCH_ENABLED } from '@/lib/features';
 
 // Only the 5 collection groups actually linked from the site nav/footer.
 // 'new-collections' exists as a route (alias of 'new-arrivals') but is never linked —
@@ -15,9 +14,6 @@ const STATIC_PAGES: Array<{
 }> = [
   { path: '', changeFrequency: 'daily', priority: 1 },
   { path: '/products', changeFrequency: 'daily', priority: 0.9 },
-  ...(SURFACE_MATCH_ENABLED
-    ? [{ path: '/surface-match', changeFrequency: 'monthly' as const, priority: 0.6 }]
-    : []),
   { path: '/privacy', changeFrequency: 'yearly', priority: 0.2 }
 ];
 

@@ -69,8 +69,7 @@ cp .env.example .env.local
 
 Configure only the services used by the feature being tested: Midtrans and
 ORDERS_BUCKET for checkout, SMTP for paid-order emails, Google Maps and
-Lalamove for delivery, Anthropic for chat, and Voyage plus Anthropic for Surface
-Match (search by photo).
+Lalamove for delivery, and Anthropic for chat.
 See `.env.example` for the complete list.
 
 ## Important before publishing

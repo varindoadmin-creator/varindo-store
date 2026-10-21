@@ -20,7 +20,7 @@ gcloud run deploy varindo-store \
   --allow-unauthenticated \
   --memory 1Gi --cpu 1 --min-instances 0 --max-instances 10 \
   --set-env-vars "SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=contact@varindo.co.id,VIABOOKS_API_URL=https://viabooks-601025884976.asia-southeast2.run.app,VIABOOKS_ORGANIZATION_ID=cmtn75jst0001w12y30bcrr6h" \
-  --set-secrets "ANTHROPIC_API_KEY=ANTHROPIC_API_KEY:latest,SMTP_PASS=SMTP_PASS:latest,VOYAGE_API_KEY=VOYAGE_API_KEY:latest"
+  --set-secrets "ANTHROPIC_API_KEY=ANTHROPIC_API_KEY:latest,SMTP_PASS=SMTP_PASS:latest"
 
 # 2. Deploy on push to main
 gcloud builds repositories create varindo-store --region asia-southeast2 --project via-production-504006 \
@@ -103,14 +103,13 @@ The `^|^` prefix makes `|` the separator, since the address has commas.
 Going live with Lalamove: production key and secret, plus
 `LALAMOVE_IS_PRODUCTION=true`.
 
-Surface Match's upload bucket is left off the store for now, so store uploads
-are not mixed in with the live site's. Request forms still land in the same
-VIABooks organisation and `contact@varindo.co.id` inbox as the live site's.
+Paid-order emails go to the same `contact@varindo.co.id` inbox as the live
+site's notifications.
 
 ## The live site (reference)
 
-The store has no articles, request forms or price-list download, so the
-price-list sections below do not apply to it.
+The store has no articles, request forms, price-list download or Surface
+Match, so the price-list and Surface Match sections below do not apply to it.
 
 The site is a Next.js server (App Router, API routes, ISR), so it runs as a
 container rather than as static files. `next.config.mjs` emits a standalone

@@ -18,7 +18,6 @@ export const translations = {
     allProducts:  { id: 'Semua Produk', en: 'All Products' },
     chatWithUs:   { id: 'Hubungi Kami', en: 'Chat with Us' },
     getApp:       { id: 'Aplikasi Android', en: 'Android App' },
-    surfaceMatch: { id: 'Cari Desain', en: 'Find Design' },
     searchPlaceholder: {
       id: 'Cari kode, desain, finishing...',
       en: 'Search by code, design, finish...'
@@ -31,63 +30,6 @@ export const translations = {
       id: 'Authorized Dealer of Lamitak - Indonesia',
       en: 'Authorized Dealer of Lamitak - Indonesia'
     }
-  },
-
-  // ── Surface Match (search by photo) ───────────────────────────
-  surfaceMatch: {
-    heroLabel:     { id: 'Cari dari Foto', en: 'Search by Photo' },
-    heroTitle:     { id: 'Temukan motif dari sebuah foto.', en: 'Find a design from a photo.' },
-    heroSub: {
-      id: 'Foto contoh HPL, permukaan interior, atau halaman katalog. Kami cocokkan dengan seluruh desain Lamitak dan tampilkan kode produknya.',
-      en: 'Photograph an HPL sample, an interior surface, or a catalogue page. We match it against every Lamitak design and show you the product codes.'
-    },
-    takePhoto:     { id: 'Ambil Foto', en: 'Take a Photo' },
-    chooseGallery: { id: 'Pilih dari Galeri', en: 'Choose from Gallery' },
-    howItWorks:    { id: 'Cara kerjanya', en: 'How it works' },
-    step1Title:    { id: 'Foto atau unggah', en: 'Snap or upload' },
-    step1Desc: {
-      id: 'Sampel, lembaran, pintu kabinet, atau satu halaman katalog berisi beberapa motif sekaligus.',
-      en: 'A sample, a sheet, a cabinet door, or a catalogue page showing several designs at once.'
-    },
-    step2Title:    { id: 'Kode dibaca, motif dicocokkan', en: 'Codes read, designs compared' },
-    step2Desc: {
-      id: 'Kode produk yang terlihat dibaca langsung. Jika tidak ada, foto dibandingkan secara visual dengan seluruh koleksi Lamitak.',
-      en: 'Any visible product code is read directly. Where there is none, the photo is compared visually against the full Lamitak collection.'
-    },
-    step3Title:    { id: 'Lihat hasilnya', en: 'See your matches' },
-    step3Desc: {
-      id: 'Setiap hasil menampilkan kode dan ukuran yang tersedia, siap dipesan atau diminta sampelnya.',
-      en: 'Each match shows its codes and available sizes, ready to order or request as a sample.'
-    },
-    tipsHeading:   { id: 'Agar hasilnya akurat', en: 'For the best results' },
-    tip1:          { id: 'Gunakan cahaya yang merata — cahaya alami paling baik.', en: 'Use even lighting — daylight works best.' },
-    tip2:          { id: 'Isi bingkai foto dengan permukaan materialnya.', en: 'Fill the frame with the surface itself.' },
-    tip3:          { id: 'Jika sampel memiliki kode produk, ikutkan kodenya di foto — itu cara paling akurat.', en: "If the sample has a product code, include it in the photo — it's the most accurate match." },
-    privacyNote:   { id: 'Foto Anda disimpan hingga 30 hari, lalu dihapus otomatis.', en: 'Your photo is kept for up to 30 days, then deleted automatically.' },
-    privacyLink:   { id: 'Kebijakan Privasi', en: 'Privacy Policy' },
-    yourPhoto:     { id: 'Foto Anda', en: 'Your photo' },
-    searching:     { id: 'Mencocokkan foto Anda…', en: 'Matching your photo…' },
-    searchingSub:  { id: 'Biasanya hanya beberapa detik.', en: 'This usually takes a few seconds.' },
-    suggestedDesigns: { id: 'Hasil pencarian', en: 'Search results' },
-    visualNote: {
-      id: 'Motif tanpa kode terbaca diurutkan dari yang paling mirip. Pastikan dengan sampel fisik sebelum memesan.',
-      en: 'Designs without a readable code are ordered by visual similarity. Confirm with a physical sample before ordering.'
-    },
-    newSearch:     { id: 'Cari lagi', en: 'New search' },
-    noMatchesTitle:{ id: 'Belum ada motif yang cukup mirip.', en: 'No close matches found.' },
-    noMatchesSub:  { id: 'Coba foto dari jarak lebih dekat dengan cahaya yang merata.', en: 'Try a closer photo in even light.' },
-    itemLabel:     { id: 'Item {n}', en: 'Item {n}' },
-    codeMatchBadge:{ id: 'Cocok kode', en: 'Code match' },
-    codeDetectedNotFound: {
-      id: 'Kode terbaca: {code} — tidak ada di katalog',
-      en: 'Code read: {code} — not in the catalogue'
-    },
-    noMatchForItem:   { id: 'Tidak ada motif yang cukup mirip untuk item ini.', en: 'No close match for this item.' },
-    errorGeneric:     { id: 'Terjadi kesalahan. Silakan coba lagi.', en: 'Something went wrong. Please try again.' },
-    errorTooLarge:    { id: 'Foto terlalu besar. Maksimal 12 MB.', en: 'That photo is too large. The limit is 12 MB.' },
-    errorUnsupported: { id: 'Format foto tidak didukung. Gunakan JPG atau PNG.', en: "That photo format isn't supported. Please use JPG or PNG." },
-    errorRateLimited: { id: 'Terlalu banyak pencarian. Tunggu beberapa menit, lalu coba lagi.', en: 'Too many searches. Please wait a few minutes and try again.' },
-    errorUnavailable: { id: 'Pencarian foto sedang tidak tersedia. Silakan coba lagi nanti.', en: 'Photo search is unavailable right now. Please try again later.' }
   },
 
   // ── Homepage ──────────────────────────────────────────────────
@@ -103,7 +45,6 @@ export const translations = {
       en: 'We focus on HPL alone, so we respond faster and serve you better — at competitive prices, with free shipping across Java and Bali. Search by code, design name, size or thickness.'
     },
     browseCta:    { id: 'Lihat Produk', en: 'Browse Products' },
-    surfaceMatchCta: { id: 'Cari dari Foto', en: 'Search by Photo' },
     quickSearchLabel:   { id: 'Pencarian Cepat', en: 'Quick Search' },
     quickSearchTitle:   { id: 'Cari Produk', en: 'Search Products' },
     searchPlaceholder:  {
