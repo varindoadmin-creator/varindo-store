@@ -16,8 +16,6 @@ export const translations = {
     home:         { id: 'Beranda',    en: 'Home' },
     collections:  { id: 'Koleksi',   en: 'Collections' },
     allProducts:  { id: 'Semua Produk', en: 'All Products' },
-    about:        { id: 'Tentang',   en: 'About' },
-    contact:      { id: 'Kontak',    en: 'Contact' },
     chatWithUs:   { id: 'Hubungi Kami', en: 'Chat with Us' },
     getApp:       { id: 'Aplikasi Android', en: 'Android App' },
     surfaceMatch: { id: 'Cari Desain', en: 'Find Design' },
@@ -425,83 +423,11 @@ export const translations = {
     }
   },
 
-  // ── About page ───────────────────────────────────────────────
-  about: {
-    badge:        { id: 'Perusahaan', en: 'Company' },
-    title:        { id: 'Tentang Varindo', en: 'About Varindo' },
-    missionLabel: { id: 'Misi', en: 'Mission' },
-    missionTitle1:{ id: 'Built on Trust.', en: 'Built on Trust.' },
-    missionTitle2:{ id: 'Driven by Service.', en: 'Driven by Service.' },
-    mission1:     {
-      id: 'Varindo adalah dealer resmi Lamitak High Pressure Laminates (HPL) di Indonesia. Kami berkomitmen memberikan pengalaman pembelian yang transparan, profesional, dan terpercaya bagi seluruh pelanggan.',
-      en: 'Varindo is an authorized dealer of Lamitak High Pressure Laminates (HPL) in Indonesia. We are committed to delivering a transparent, professional, and dependable purchasing experience for all our customers.'
-    },
-    mission2:     {
-      id: 'Dengan pendekatan yang terstruktur dan sistem yang terorganisir, kami memastikan setiap proses — dari penawaran hingga pengiriman — ditangani dengan jelas, responsif, dan konsisten.',
-      en: 'With a structured approach and well-organized systems, we ensure that every process — from quotation to delivery — is handled clearly, responsively, and consistently.'
-    },
-    mission3:     {
-      id: 'Kami melayani kebutuhan HPL Lamitak di berbagai segmen pasar di Indonesia, dengan fokus kuat pada kepercayaan jangka panjang dan layanan yang bertanggung jawab.',
-      en: 'We serve Lamitak HPL needs across various market segments in Indonesia, with a strong focus on long-term trust and responsible service.'
-    },
-    visionLabel:  { id: 'Visi', en: 'Vision' },
-    visionTitle:  {
-      id: 'Distribusi Lamitak yang andal di seluruh Indonesia.',
-      en: 'Reliable Lamitak distribution across Indonesia.'
-    },
-    vision1:      {
-      id: 'Membangun jaringan distribusi Lamitak yang andal dan terpercaya di seluruh Indonesia, dengan standar profesionalisme dan konsistensi yang tinggi.',
-      en: 'To build a reliable and trusted Lamitak distribution network across Indonesia, with high standards of professionalism and consistency.'
-    },
-    vision2:      {
-      id: 'Memberikan pengalaman pembelian Lamitak HPL yang jelas, transparan, dan terpercaya melalui koordinasi yang disiplin, layanan responsif, dan sistem distribusi yang terus berkembang.',
-      en: 'To provide a clear, transparent, and trustworthy purchasing experience for Lamitak HPL through disciplined coordination, responsive service, and a continuously developing distribution system.'
-    },
-    valuesLabel:  { id: 'Nilai-Nilai Kami', en: 'Our Values' },
-    val1Title:    { id: 'Integritas', en: 'Integrity' },
-    val1Body:     {
-      id: 'Berkomitmen pada kejujuran, transparansi harga, dan komunikasi terbuka di setiap tahap.',
-      en: 'Committed to honesty, pricing transparency, and open communication at every stage.'
-    },
-    val2Title:    { id: 'Keunggulan Operasional', en: 'Operational Excellence' },
-    val2Body:     {
-      id: 'Proses yang disiplin untuk memastikan konsistensi dan akurasi dalam setiap transaksi.',
-      en: 'Disciplined processes that ensure consistency and accuracy in every transaction.'
-    },
-    val3Title:    { id: 'Kemitraan Jangka Panjang', en: 'Long-Term Partnership' },
-    val3Body:     {
-      id: 'Membangun hubungan yang saling menguntungkan dan berkelanjutan dengan setiap klien.',
-      en: 'Building mutually beneficial and lasting relationships with every client.'
-    },
-    val4Title:    { id: 'Perbaikan Berkelanjutan', en: 'Continuous Improvement' },
-    val4Body:     {
-      id: 'Terus meningkatkan sistem dan proses agar semakin efisien dan profesional.',
-      en: 'Continuously improving systems and processes to become more efficient and professional.'
-    }
-  },
-
   // ── Contact page ─────────────────────────────────────────────
   contact: {
-    badge:        { id: 'Hubungi Kami', en: 'Get in Touch' },
-    title:        { id: 'Kontak', en: 'Contact Us' },
-    intro:        {
-      id: 'Jika Anda memiliki pertanyaan mengenai produk dan layanan kami, jangan ragu untuk menghubungi kami. Tim kami siap membantu Anda.',
-      en: 'If you have any questions regarding our products and services, please do not hesitate to contact us. Our team will be more than happy to assist you.'
-    },
-    companyLabel: { id: 'Perusahaan', en: 'Company' },
     headOffice:   { id: 'Kantor Utama', en: 'Head Office' },
-    regOffice:    { id: 'Kantor Terdaftar', en: 'Registered Office' },
-    medanHub:     { id: 'Hub Medan', en: 'Medan Hub' },
     hours:        { id: 'Jam Operasional', en: 'Opening Hours' },
     hoursValue:   { id: 'Senin – Jumat\n09.00 – 17.00 WIB', en: 'Monday – Friday\n09.00 – 17.00 WIB' },
-    email:        { id: 'Email', en: 'Email' },
-    waTitle:      { id: 'Butuh Bantuan?', en: 'Need assistance?' },
-    waBody:       {
-      id: 'Hubungi tim kami untuk pertanyaan produk, harga, pengecekan stok, sampel, informasi katalog, dan panduan pengiriman.',
-      en: 'Chat with our team for product enquiries, pricing, stock checks, samples, catalog information, and delivery guidance.'
-    },
-    browseCatalog:{ id: 'Lihat Katalog', en: 'Browse Catalog' },
-    browseLink:   { id: 'Lihat semua produk Lamitak →', en: 'View all Lamitak products →' }
   },
 
   // ── Footer ───────────────────────────────────────────────────
@@ -514,8 +440,6 @@ export const translations = {
     company:      { id: 'Perusahaan', en: 'Company' },
     contact:      { id: 'Kontak', en: 'Contact' },
     phone:        { id: 'Telepon', en: 'Phone' },
-    aboutLink:    { id: 'Tentang Varindo', en: 'About Varindo' },
-    contactLink:  { id: 'Kontak', en: 'Contact' },
     otorisasiLink:{ id: 'Dealer Resmi', en: 'Authorized Dealer' },
     appTagline:   {
       id: 'Unduh Aplikasi Varindo',

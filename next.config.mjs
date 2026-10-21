@@ -57,18 +57,25 @@ const nextConfig = {
       }
     ]
   },
-  // The store has no articles, request forms or digital portfolio — buying
-  // replaces them. Their URLs, which people may still have from varindo.co.id
-  // with the domain swapped, land on the nearest page that remains rather
-  // than a 404. Temporary, so search engines don't learn them as part of the
-  // store.
+  // The store is the catalogue, cart and checkout; the enquiry site's
+  // articles, forms and information pages stay on varindo.co.id. Their URLs,
+  // which people may still have from varindo.co.id with the domain swapped,
+  // land on the nearest page that remains rather than a 404. Temporary, so
+  // search engines don't learn them as part of the store.
   async redirects() {
     return [
       { source: '/blog/:path*', destination: '/', permanent: false },
       { source: '/portfolio', destination: '/', permanent: false },
       { source: '/request-:form', destination: '/products', permanent: false },
-      { source: '/price-list', destination: '/harga-lamitak', permanent: false },
-      { source: '/daftar-harga', destination: '/harga-lamitak', permanent: false }
+      { source: '/price-list', destination: '/products', permanent: false },
+      { source: '/daftar-harga', destination: '/products', permanent: false },
+      { source: '/harga-lamitak', destination: '/products', permanent: false },
+      { source: '/apa-itu-laminate', destination: '/', permanent: false },
+      { source: '/otorisasi', destination: '/', permanent: false },
+      // Named, not a wildcard: /lamitak-logo-mark.png also starts with /lamitak-.
+      { source: '/lamitak-:city(jakarta|bandung|surabaya|tangerang)', destination: '/', permanent: false },
+      { source: '/about', destination: '/', permanent: false },
+      { source: '/contact', destination: '/', permanent: false }
     ];
   },
   async headers() {

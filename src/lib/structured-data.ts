@@ -77,20 +77,6 @@ export function buildProductJsonLd(product: Product) {
   return json;
 }
 
-export type FaqEntry = { question: string; answer: string };
-
-export function buildFaqPageJsonLd(entries: FaqEntry[]) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: entries.map((entry) => ({
-      '@type': 'Question',
-      name: entry.question,
-      acceptedAnswer: { '@type': 'Answer', text: entry.answer }
-    }))
-  };
-}
-
 export function buildCollectionPageJsonLd(name: string, description: string, url: string) {
   return {
     '@context': 'https://schema.org',

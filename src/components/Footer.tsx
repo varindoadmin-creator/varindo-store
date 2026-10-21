@@ -70,9 +70,6 @@ export function Footer() {
           <p className={headingClass}>{t('footer', 'company', lang)}</p>
           <ul className="space-y-2.5">
             {[
-              { href: '/about',              label: t('footer', 'aboutLink', lang) },
-              { href: '/contact',            label: t('footer', 'contactLink', lang) },
-              { href: '/otorisasi',          label: t('footer', 'otorisasiLink', lang) },
               { href: '/privacy',            label: lang === 'id' ? 'Kebijakan Privasi' : 'Privacy Policy' },
             ].map((item) => (
               <li key={item.href}>
